@@ -1,8 +1,10 @@
 lexer grammar BasicLexer;
 
 //operators
-PLUS: '+' ;
-MINUS: '-' ;
+MUL : '*' ;
+DIV : '/' ;
+ADD : '+' ;
+SUB : '-' ;
 
 //brackets
 OPEN_PARENTHESES : '(' ;
