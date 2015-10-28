@@ -87,11 +87,11 @@ QUOTE : '"' ;
 HASH  : '#' ;
 SEMI  : ';' ;
 
-//ESCAPED_CHAR : ‘0’ | ‘b’ | ‘t’ | ‘n’ | ‘f’ | ‘r’ | ‘"’ | ‘’’ | ‘\’ ;
+ESCAPED_CHAR : ‘0’ | ‘b’ | ‘t’ | ‘n’ | ‘f’ | ‘r’ | ‘"’ | ‘’’ | ‘\’ ;
 
-//CHAR : ~(‘\’ | ‘’’ | ‘"’) | '\' // check this only includes ASCIIs?
+CHAR : ~(‘\’ | ‘’’ | ‘"’) ;
 
-//CHAR_LITER : ''' CHAR '''
+//CHAR_LITER : ''' CHAR ''' ;
 
 
 
