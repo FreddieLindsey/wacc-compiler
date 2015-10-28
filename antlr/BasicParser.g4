@@ -46,12 +46,13 @@ type :   basetype
 	   | arraytype
 	   | pairtype ;
 
-basetype :   INT
-		   | BOOL
-		   | CHAR
-		   | STRING ;
+basetype : INT
+		 | BOOL
+		 | CHAR
+		 | STRING ;
 
-arraytype : type OPEN_BRACKET CLOSE_BRACKET ;
+arraytype : (basetype | pairtype) OPEN_BRACKET CLOSE_BRACKET 
+		  | arraytype OPEN_BRACKET CLOSE_BRACKET;
 
 pairtype : PAIR OPEN_PARENTHESES pairelemtype COMMA pairelemtype CLOSE_PARENTHESES ;
 
@@ -93,7 +94,7 @@ arrayelem : ident (OPEN_BRACKET expr CLOSE_BRACKET)+ ;
 
 intliter : intsign INTEGER ;
 
-// digit, lexer or parser
+// digit, lexer or parser?
 
 intsign : ADD | SUB ;
 
