@@ -9,13 +9,13 @@ program : BEGIN func* stat END ;
 func    : type ident OPEN_PARENTHESES paramlist? CLOSE_PARENTHESES
 		  IS stat END ;
 
-paramlist : param (, param)+ ;
+paramlist : param (COMMA param)+ ;
 
 param : type ident ;
 
 stat :	  SKIP
-		| type ident EQUAL assignrhs
-		| assignlhs EQUAL assignrhs
+		| type ident EQ assignrhs
+		| assignlhs EQ assignrhs
 		| READ assignrhs
 		| FREE expr
 		| RETURN expr
@@ -29,7 +29,7 @@ stat :	  SKIP
 
 assignlhs :   ident
 			| arrayelem
-			| pair-elem ;
+			| pairelem ;
 
 assignrhs :   expr
 			| arrayliter
@@ -55,7 +55,7 @@ arraytype : type OPEN_BRACKET CLOSE_BRACKET ;
 
 pairtype : PAIR OPEN_PARENTHESES pairelemtype COMMA pairelemtype CLOSE_PARENTHESES ;
 
-pairelemtype : basetype
+pairelemtype :   basetype
 			   | arraytype
 			   | PAIR ;
 
@@ -70,7 +70,7 @@ expr : intliter
 	   | expr binaryOper expr
 	   | OPEN_PARENTHESES expr CLOSE_PARENTHESES ;
 
-unaryoper : NEG | SUB | LEN | ORD | CHR ;
+unaryoper : NOT | SUB | LEN | ORD | CHR ;
 
 
 binaryOper :  MUL 
@@ -91,7 +91,7 @@ ident : IDENT ;
 
 arrayelem : ident (OPEN_BRACKET expr CLOSE_BRACKET)+ ;
 
-intliter : intsign DIGIT+ ;
+intliter : intsign INTEGER ;
 
 // digit, lexer or parser
 
@@ -104,9 +104,11 @@ charliter : APOST CHAR APOST ;
 strliter : QUOTE CHAR* QUOTE ;
 
 //character must be in lexer because has escaped char rule!
-character : CHAR | '\' ESCAPED_CHAR ;
+character : CHARAC | ESC ESCAPED_CHAR ;
 
 arrayliter : OPEN_BRACKET (expr (COMMA expr)*)? CLOSE_BRACKET ;
+
+pairliter : NULL ;
 
 
 
@@ -118,4 +120,4 @@ arrayliter : OPEN_BRACKET (expr (COMMA expr)*)? CLOSE_BRACKET ;
 //;
 
 // EOF indicates that the program must consume to the end of the input.
-prog: (expr)*  EOF ;
+//prog: (expr)*  EOF ;

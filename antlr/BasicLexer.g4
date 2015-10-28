@@ -1,5 +1,7 @@
 lexer grammar BasicLexer;
 
+// TODO: EOL, EOF?
+
 //keywords
 BEGIN  : 'begin'   ;
 END    : 'end'     ;
@@ -81,15 +83,17 @@ IDENT : ( '_' | 'a'..'z' | 'A'..'Z' )
     ( '_' | 'a'..'z' | 'A'..'Z' | '0'..'9' )* ;
 
 //punctuation
-COMMA : ',' ;
-APOST : ''' ;
-QUOTE : '"' ;
-HASH  : '#' ;
-SEMI  : ';' ;
+COMMA : ','  ;
+APOST : '\'' ;
+QUOTE : '\"' ;
+HASH  : '#'  ;
+SEMI  : ';'  ;
+ESC   : '\\' ;
 
-ESCAPED_CHAR : ‘0’ | ‘b’ | ‘t’ | ‘n’ | ‘f’ | ‘r’ | ‘"’ | ‘’’ | ‘\’ ;
+ESCAPED_CHAR : '0' | 'b' | 't' | 'n' | 'f' | 'r' | '\'' | '\"' | '\\' ;
 
-CHAR : ~(‘\’ | ‘’’ | ‘"’) ;
+//CHARAC to differentiate from CHAR type on line ~36
+CHARAC : ~('\\' | '\'' | '\"') ;
 
 //CHAR_LITER : ''' CHAR ''' ;
 
