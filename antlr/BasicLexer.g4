@@ -1,5 +1,50 @@
 lexer grammar BasicLexer;
 
+//keywords
+BEGIN  : 'begin'   ;
+END    : 'end'     ;
+
+IS     : 'is'      ;
+SKIP   : 'skip'    ;
+READ   : 'read'    ;
+FREE   : 'free'    ;
+
+RETURN : 'return'  ;
+EXIT   : 'exit'    ;
+
+PRINT  : 'print'   ;
+PRINTLN: 'println' ;
+
+IF     : 'if'      ;
+THEN   : 'then'    ;
+ELSE   : 'else'    ;
+FI     : 'fi'      ;
+
+WHILE  : 'while'   ;
+DO     : 'do'      ;
+DONE   : 'done'    ;
+
+NEWPAIR: 'newpair' ;
+CALL   : 'call'    ;
+
+FST    : 'fst'     ;
+SND    : 'snd'     ;
+
+//types
+INT    : 'int'     ;
+BOOL   : 'bool'    ;
+CHAR   : 'char'    ;
+STRING : 'string'  ;
+
+PAIR   : 'pair'    ;
+
+//unary operators
+NOT : '!';
+// NEG : '-' ; Duplicated symbol, semantic check?
+LEN    : 'len'     ;
+ORD    : 'ord'     ;
+CHR    : 'chr'     ;
+
 //binary operators
 MUL : '*' ;
 DIV : '/' ;
@@ -15,9 +60,11 @@ NEQ : '!=' ;
 AND : '&&' ;
 OR  : '||' ;
 
-//unary operators
-NOT : '!';
-// NEG : '-' ; Duplicated symbol, semantic check?
+TRUE   : 'true'    ;
+FALSE  : 'false'   ;
+
+NULL   : 'null'    ;
+
 
 //brackets
 OPEN_PARENTHESES : '(' ;
@@ -37,5 +84,17 @@ IDENT : ( '_' | 'a'..'z' | 'A'..'Z' )
 COMMA : ',' ;
 APOST : ''' ;
 QUOTE : '"' ;
+HASH  : '#' ;
+SEMI  : ';' ;
+
+//ESCAPED_CHAR : ‘0’ | ‘b’ | ‘t’ | ‘n’ | ‘f’ | ‘r’ | ‘"’ | ‘’’ | ‘\’ ;
+
+//CHAR : ~(‘\’ | ‘’’ | ‘"’) | '\' // check this only includes ASCIIs?
+
+//CHAR_LITER : ''' CHAR '''
+
+
+
+
 
 
