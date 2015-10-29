@@ -13,7 +13,7 @@ paramlist : param (COMMA param)+ ;
 
 param : type ident ;
 
-stat :	  SKIP
+stat    : SKIP
 		| type ident EQ assignrhs
 		| assignlhs EQ assignrhs
 		| READ assignrhs
@@ -27,11 +27,11 @@ stat :	  SKIP
 		| BEGIN stat END
 		| stat SEMI stat ;
 
-assignlhs :   ident
+assignlhs   : ident
 			| arrayelem
 			| pairelem ;
 
-assignrhs :   expr
+assignrhs   : expr
 			| arrayliter
 			| NEWPAIR OPEN_PARENTHESES expr COMMA expr CLOSE_PARENTHESES
 			| pairelem
@@ -39,28 +39,27 @@ assignrhs :   expr
 
 arglist : expr (COMMA expr)* ;
 
-pairelem :   FST expr
+pairelem   : FST expr
 		   | SND expr ;
 
-type :   basetype
+type   : basetype
 	   | arraytype
 	   | pairtype ;
 
-basetype : INT
-		 | BOOL
-		 | CHAR
-		 | STRING ;
+basetype   : INT
+		   | BOOL
+		   | CHAR
+		   | STRING ;
 
-arraytype : (basetype | pairtype) OPEN_BRACKET CLOSE_BRACKET 
-		  | arraytype OPEN_BRACKET CLOSE_BRACKET;
+arraytype : type OPEN_BRACKET CLOSE_BRACKET ;
 
 pairtype : PAIR OPEN_PARENTHESES pairelemtype COMMA pairelemtype CLOSE_PARENTHESES ;
 
-pairelemtype :   basetype
+pairelemtype   : basetype
 			   | arraytype
 			   | PAIR ;
 
-expr : intliter
+expr   : intliter
 	   | boolliter
 	   | charliter
 	   | strliter
@@ -94,7 +93,7 @@ arrayelem : ident (OPEN_BRACKET expr CLOSE_BRACKET)+ ;
 
 intliter : intsign INTEGER ;
 
-// digit, lexer or parser?
+// digit, lexer or parser
 
 intsign : ADD | SUB ;
 
@@ -105,7 +104,7 @@ charliter : APOST CHAR APOST ;
 strliter : QUOTE CHAR* QUOTE ;
 
 //character must be in lexer because has escaped char rule!
-character : APOST (CHARAC | ESC ESCAPED_CHAR) APOST;
+character : (CHARAC | ESC ESCAPED_CHAR);
 
 arrayliter : OPEN_BRACKET (expr (COMMA expr)*)? CLOSE_BRACKET ;
 
