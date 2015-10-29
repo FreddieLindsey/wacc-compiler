@@ -105,7 +105,7 @@ charliter : APOST CHAR APOST ;
 strliter : QUOTE CHAR* QUOTE ;
 
 //character must be in lexer because has escaped char rule!
-character : CHARAC | ESC ESCAPED_CHAR ;
+character : APOST (CHARAC | ESC ESCAPED_CHAR) APOST;
 
 arrayliter : OPEN_BRACKET (expr (COMMA expr)*)? CLOSE_BRACKET ;
 
