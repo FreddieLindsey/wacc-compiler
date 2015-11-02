@@ -4,8 +4,11 @@
 ANTLR_DIR	:= antlr
 SOURCE_DIR	:= src
 OUTPUT_DIR	:= bin
+<<<<<<< f45fca10fbf140931f5f357297f8de7c4ff09beb
 TEST_SRC    := test
 TEST_BIN    := test_bin
+=======
+>>>>>>> Corrections to makefile/gitignore
 
 # Tools
 
@@ -19,7 +22,10 @@ JUNIT_FLAGS := -cp test_bin:lib/hamcrest-1.3.jar:lib/junit-4.jar
 JUNIT := java $(JUNIT_FLAGS) org.junit.runner.JUnitCore
 
 JFLAGS	:= -sourcepath $(SOURCE_DIR) -d $(OUTPUT_DIR) -cp lib/antlr-4.4-complete.jar
+<<<<<<< f45fca10fbf140931f5f357297f8de7c4ff09beb
 JFLAGS_TEST := -sourcepath $(TEST_SRC) -d $(TEST_BIN) -cp lib/antlr-4.4-complete.jar:bin:lib/junit-4.jar
+=======
+>>>>>>> Corrections to makefile/gitignore
 
 # the make rules
 
