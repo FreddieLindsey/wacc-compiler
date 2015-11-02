@@ -110,7 +110,7 @@ CHARAC
 
 fragment
 SingleCharacter
-    :   ~['\\]
+    :   ~['\\"]
     ;
 
 //CHAR_LITER : ''' CHAR ''' ;
