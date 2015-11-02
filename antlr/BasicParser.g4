@@ -51,7 +51,8 @@ basetype   : INT
 		   | CHAR
 		   | STRING ;
 
-arraytype : type OPEN_BRACKET CLOSE_BRACKET ;
+arraytype : (basetype | pairtype) OPEN_BRACKET CLOSE_BRACKET 
+		  | arraytype OPEN_BRACKET CLOSE_BRACKET;
 
 pairtype : PAIR OPEN_PARENTHESES pairelemtype COMMA pairelemtype CLOSE_PARENTHESES ;
 
