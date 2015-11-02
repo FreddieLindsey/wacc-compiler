@@ -4,10 +4,10 @@ options {
   tokenVocab=BasicLexer;
 }
 
-program : (BEGIN func* stat END) ;
+program : BEGIN func* stat END ;
 
 func    : type ident OPEN_PARENTHESES paramlist? CLOSE_PARENTHESES
-		  IS stat RETURN END ;
+		  IS stat END ;
 
 paramlist : param (COMMA param)* ;
 
@@ -24,7 +24,7 @@ stat    : SKIP
 		| PRINTLN expr
 		| IF expr THEN stat ELSE stat FI
 		| WHILE expr DO stat DONE
-		//| BEGIN stat END
+		| BEGIN stat END
 		| stat SEMI stat ;
 
 assignlhs   : ident
@@ -92,10 +92,7 @@ ident : IDENT ;
 
 arrayelem : ident (OPEN_BRACKET expr CLOSE_BRACKET)+ ;
 
-intliter : intsign? INTEGER {
-    Long.parseLong($INTEGER.text) <= 2147483647
-    && Long.parseLong($INTEGER.text) >= -2147483648
-}?;
+intliter : intsign? INTEGER ;
 
 // digit, lexer or parser
 
