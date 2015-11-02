@@ -9,13 +9,13 @@ program : BEGIN func* stat END ;
 func    : type ident OPEN_PARENTHESES paramlist? CLOSE_PARENTHESES
 		  IS stat END ;
 
-paramlist : param (COMMA param)+ ;
+paramlist : param (COMMA param)* ;
 
 param : type ident ;
 
 stat    : SKIP
-		| type ident EQ assignrhs
-		| assignlhs EQ assignrhs
+		| type ident ASSIGN assignrhs
+		| assignlhs ASSIGN assignrhs
 		| READ assignrhs
 		| FREE expr
 		| RETURN expr
@@ -92,7 +92,7 @@ ident : IDENT ;
 
 arrayelem : ident (OPEN_BRACKET expr CLOSE_BRACKET)+ ;
 
-intliter : intsign INTEGER ;
+intliter : intsign? INTEGER ;
 
 // digit, lexer or parser
 
@@ -100,17 +100,16 @@ intsign : ADD | SUB ;
 
 boolliter : TRUE | FALSE ;
 
-charliter : APOST CHAR APOST ;
+charliter : (CHARAC | ESCAPED_CHAR);
 
-strliter : QUOTE CHAR* QUOTE ;
+strliter : STR ;
 
 //character must be in lexer because has escaped char rule!
-character : (CHARAC | ESC ESCAPED_CHAR);
+//character : (CHARAC | ESCAPED_CHAR);
 
 arrayliter : OPEN_BRACKET (expr (COMMA expr)*)? CLOSE_BRACKET ;
 
 pairliter : NULL ;
-
 
 
 //binaryOper : PLUS | MINUS ;
