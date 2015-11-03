@@ -43,6 +43,9 @@ test_compile: rules
 test:
 	$(JUNIT) wacc.MainTest
 
+gui: rules
+	./grun antlr.Basic program -gui < $(pi)
+
 clean:
 	$(RM) rules test test_compile $(OUTPUT_DIR) antlr/*.java antlr/*.tokens antlr/*.class src/antlr/*
 
