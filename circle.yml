@@ -1,8 +1,8 @@
 dependencies:
   pre:
-    - wget -O junit.jar http://bit.ly/My9IXz
+    - wget -O /home/ubuntu/junit.jar http://bit.ly/My9IXz
 
 test:
   override:
-    - export CLASSPATH=".:junit.jar:$CLASSPATH"
+    - make rules
     - make test

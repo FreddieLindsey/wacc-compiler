@@ -30,6 +30,7 @@ rules:
 	$(MKDIR) $(OUTPUT_DIR)
 	$(JAVAC) $(JFLAGS) @$@
 	$(RM) rules
+	cd ..
 
 test: rules
 	$(JUNIT) wacc.MainTest
