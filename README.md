@@ -2,18 +2,31 @@
 ### Testing
 ----------------------------
 
-> test
->   -> wacc
->     -> MainTest.java
+```
+test
+  -> wacc
+    -> MainTest.java
+```
 
 The above explains the structure of the test suite for the project. All tests should be within the `test` directory, and then maintain the same directory structure as the `src` directory, appending `Test` to the name of the class it tests.
 
 e.g. for a class `ASTNode` within a package `wacc.AST`, this would be the file structure:
 
-> test
->   -> wacc
->     -> AST
->       -> ASTNodeTest.java
+```
+test
+  -> wacc
+    -> AST
+      -> ASTNodeTest.java
+```
+
+#### Adding tests
+
+When adding new tests, using the file structure above, they should be added to the `Makefile` for the project, under the build `test`. For the example above, this means we append it to the build as so:
+
+```
+test:
+  $(JUNIT) wacc.MainTest ... wacc.AST.ASTNodeTest
+```
 
 ----------------------------
 ### Provided files/directories  
@@ -39,7 +52,7 @@ The grun script allows you to run the ANTLR TestRig program that can assist you 
 
 #### compile
 
-The compile script should be edited to provide a frontend interface to your WACC compiler. You are free to change the language used in this script, but do not change its name (more details below).
+The compile script should be edited to provide a front-end interface to your WACC compiler. You are free to change the language used in this script, but do not change its name (more details below).
 
 #### Makefile
 
