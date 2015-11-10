@@ -34,13 +34,13 @@ rules:
 	$(RM) rules
 	cd ..
 
-test_compile:
+test_compile: rules
 	$(FIND) $(TEST_SRC) -name '*.java' > $@
 	$(MKDIR) $(TEST_BIN)
 	$(JAVAC) $(JFLAGS_TEST) @$@
 	$(RM) test_compile
 
-test: rules test_compile
+test:
 	$(JUNIT) wacc.MainTest
 
 clean:
