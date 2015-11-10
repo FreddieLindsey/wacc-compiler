@@ -1,0 +1,4 @@
+test:
+  override:
+    - make test_compile
+    - make test
