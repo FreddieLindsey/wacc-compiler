@@ -26,7 +26,7 @@
 *.s
 *.ast
 
-#ignore the WACC tempory test_files copy
+#ignore the WACC temporary test_files copy
 testing/test_files/
 
 #ignore other junk files
@@ -40,6 +40,7 @@ testing/test_files/
 
 #ignore IDEA
 .idea
+out/
 *.iml
 
 #ignore compiled src
