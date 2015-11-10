@@ -1,4 +1,34 @@
 ----------------------------
+### Git Process
+----------------------------
+
+#### Rebase vs. Merge
+
+Rebasing allows fitting multiple histories together, whereas merge takes the end result of the histories and merges the changes it sees. This is not good!
+
+#### Updating from remote
+
+Instead of using `git pull`, please first `git fetch` and then `git rebase <remote-name>/<remote-branch>` whilst checked out in the branch you are updating.
+
+If you have made changes, it may be that you need to run `git push <remote-name> <remote-branch> -f` to force your changes up to the remote. **However** please be careful doing this as it does overwrite changes irreversibly.
+
+#### After a pull request has been merged
+
+To ensure any branches that are being worked on are up to date relative to the master, after a merge has been committed to master, it's really important to go through the following process:
+
+- Checkout the master branch
+- `git fetch`
+- `git rebase origin/master`
+- Checkout the branch to be updated
+- `git rebase master` *or branch that this branch is based off (normally master)*
+
+#### Merging to `master`
+
+Merging to master should only be done through the `GitHub` interface. If you see a merge commit pop up, you've done something wrong.
+
+**NEVER** work on `master`
+
+----------------------------
 ### Testing
 ----------------------------
 
