@@ -1,8 +1,7 @@
 dependencies:
   pre:
-    - wget -O /home/ubuntu/junit.jar http://bit.ly/My9IXz
+    - wget -O /home/ubuntu/junit.jar http://search.maven.org/remotecontent?filepath=junit/junit/4.12/junit-4.12.jar
 
 test:
   override:
-    - make rules
     - make test
