@@ -2,7 +2,7 @@
 ### Testing
 ----------------------------
 
-```
+```bash
 test
   -> wacc
     -> MainTest.java
@@ -12,7 +12,7 @@ The above explains the structure of the test suite for the project. All tests sh
 
 e.g. for a class `ASTNode` within a package `wacc.AST`, this would be the file structure:
 
-```
+```bash
 test
   -> wacc
     -> AST
@@ -26,6 +26,44 @@ When adding new tests, using the file structure above, they should be added to t
 ```
 test:
   $(JUNIT) wacc.MainTest ... wacc.AST.ASTNodeTest
+```
+
+#### Test dependencies
+
+The tests presume the use of standard JUnit 4 libraries. Simply import the libraries you wish to use in your test and the testing should work out of the box.
+
+#### Reference class
+
+```java
+package wacc;
+
+import org.junit.Test;
+
+public class MainTest {
+
+    @Test
+    public void test_test() {
+        assert(Main.test_test() == 0);
+    }
+
+}
+```
+
+tests the following class:
+
+```java
+package wacc;
+
+...
+
+public class Main {
+
+    ...
+
+    public static int test_test() {
+      return 0;
+    }
+}
 ```
 
 ----------------------------
