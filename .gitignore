@@ -40,6 +40,7 @@ testing/test_files/
 
 #ignore IDEA
 .idea
+*.iml
 
 #ignore compiled src
 src/antlr

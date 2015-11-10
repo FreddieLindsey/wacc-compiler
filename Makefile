@@ -15,9 +15,11 @@ RM	:= rm -rf
 MKDIR	:= mkdir -p
 JAVA	:= java
 JAVAC	:= javac
-JUNIT := java org.junit.runner.JUnitCore
+JUNIT_FLAGS := -cp test_bin:lib/hamcrest-1.3.jar:lib/junit-4.jar
+JUNIT := java $(JUNIT_FLAGS) org.junit.runner.JUnitCore
 
 JFLAGS	:= -sourcepath $(SOURCE_DIR) -d $(OUTPUT_DIR) -cp lib/antlr-4.4-complete.jar
+JFLAGS_TEST := -sourcepath $(TEST_SRC) -d $(TEST_BIN) -cp lib/antlr-4.4-complete.jar:bin:lib/junit-4.jar
 
 # the make rules
 
@@ -32,8 +34,16 @@ rules:
 	$(RM) rules
 	cd ..
 
-test: rules
+test_compile:
+	$(FIND) $(TEST_SRC) -name '*.java' > $@
+	$(MKDIR) $(TEST_BIN)
+	$(JAVAC) $(JFLAGS_TEST) @$@
+	$(RM) test_compile
+
+test: rules test_compile
 	$(JUNIT) wacc.MainTest
 
 clean:
-	$(RM) rules $(OUTPUT_DIR)
+	$(RM) rules test test_compile $(OUTPUT_DIR) antlr/*.java antlr/*.tokens antlr/*.class src/antlr/*
+
+.PHONY: all rules test_compile test clean
