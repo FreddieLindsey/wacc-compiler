@@ -21,9 +21,7 @@ e.g. for a class `ASTNode` within a package `wacc.AST`, this would be the file s
 
 #### antlr
 
-The antlr directory contains simple example ANTLR lexer and parser specification
-files BasicLexer.g4 and Basic.g4, along with a script antlrBuild that builds the
-corresponding Java class files using the ANTLR libraries (more details below).
+The antlr directory contains simple example ANTLR lexer and parser specification files BasicLexer.g4 and Basic.g4, along with a script antlrBuild that builds the corresponding Java class files using the ANTLR libraries (more details below).
 
 #### lib
 
@@ -37,14 +35,11 @@ where we expect you to write your compiler code.
 
 #### grun
 
-The grun script allows you to run the ANTLR TestRig program that can assist you
-in debugging you lexer and parser (more details below).
+The grun script allows you to run the ANTLR TestRig program that can assist you in debugging you lexer and parser (more details below).
 
 #### compile
 
-The compile script should be edited to provide a frontend interface to your WACC
-compiler. You are free to change the language used in this script, but do not
-change its name (more details below).
+The compile script should be edited to provide a frontend interface to your WACC compiler. You are free to change the language used in this script, but do not change its name (more details below).
 
 #### Makefile
 
