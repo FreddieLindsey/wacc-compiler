@@ -13,7 +13,15 @@ public class ProgramNode implements ASTNode {
 
     @Override
     public boolean isSemanticallyValid() {
-        return true;
+        boolean valid = true;
+
+        for (FuncNode f : funcs) {
+            valid &= f.isSemanticallyValid();
+        }
+
+        valid &= stat.isSemanticallyValid();
+
+        return valid;
     }
 
     public void add(FuncNode f) {
