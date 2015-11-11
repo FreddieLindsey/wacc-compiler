@@ -10,7 +10,7 @@ public class SymbolTable {
 
   public SymbolTable(SymbolTable st) {
     symbolTable = st;
-    dictionary = new HashMap<String, TypeEnum>();
+    dictionary = new HashMap<>();
   }
 
   public void add(String s, TypeEnum t) {
@@ -37,5 +37,5 @@ public class SymbolTable {
     }
     return null;
   }
-  
+
 }
