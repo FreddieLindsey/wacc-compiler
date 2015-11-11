@@ -5,11 +5,11 @@ import java.util.Map;
 
 public class SymbolTable {
 
-  private SymbolTable symbolTable; // Parent SymbolTable
+  private SymbolTable parentSymbolTable; // Parent SymbolTable
   private Map<String, TypeEnum> dictionary;
 
   public SymbolTable(SymbolTable st) {
-    symbolTable = st;
+    parentSymbolTable = st;
     dictionary = new HashMap<>();
   }
 
@@ -18,22 +18,21 @@ public class SymbolTable {
   }
 
   // Looks up s in the current SymbolTable, returns null if not found
-  // TODO: should this be private?
-  public TypeEnum lookUp(String s) {
+  private TypeEnum lookUpHere(String s) {
     return dictionary.get(s);
   }
 
   // Looks up s in the current and enclosing SymbolTables,
   // returns null if not found
-  public TypeEnum lookUpAll(String s) {
-    SymbolTable currTable = this;
+  public TypeEnum lookUp(String s) {
+    SymbolTable current = this;
     TypeEnum result = null;
-    while (currTable != null) {
-      result = currTable.lookUp(s);
+    while (current != null) {
+      result = current.lookUp(s);
       if (result != null) {
         return result;
       }
-      currTable = currTable.symbolTable;
+      current = current.parentSymbolTable;
     }
     return null;
   }
