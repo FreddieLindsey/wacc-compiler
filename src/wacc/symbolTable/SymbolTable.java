@@ -28,7 +28,7 @@ public class SymbolTable {
     SymbolTable current = this;
     TypeEnum result = null;
     while (current != null) {
-      result = current.lookUp(s);
+      result = current.lookUpHere(s);
       if (result != null) {
         return result;
       }
