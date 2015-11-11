@@ -5,6 +5,12 @@ import java.util.Map;
 
 public class SymbolTable {
 
-  private Map<String, TypeEnum> dictionary = new HashMap<String, TypeEnum>();
+  private SymbolTable symbolTable; // Parent SymbolTable
+  private Map<String, TypeEnum> dictionary;
+
+  public SymbolTable(SymbolTable st) {
+    symbolTable = st;
+    dictionary = new HashMap<String, TypeEnum>();
+  }
 
 }
