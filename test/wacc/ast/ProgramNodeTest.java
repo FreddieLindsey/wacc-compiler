@@ -40,6 +40,7 @@ public class ProgramNodeTest {
     @Test(expected=IllegalArgumentException.class)
     public void cannotOverWriteStatOfProgram() {
         prog.setStat(stat);
+        prog.setStat(stat);
     }
 
 }

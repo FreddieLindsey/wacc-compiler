@@ -29,6 +29,9 @@ public class ProgramNode implements ASTNode {
     }
 
     public void setStat(StatNode stat) {
+        if (this.stat != null) {
+            throw new IllegalArgumentException("You cannot overwrite the final stat of a program");
+        }
         this.stat = stat;
     }
 }
