@@ -35,6 +35,7 @@ rules:
 	cd ..
 
 test_compile: rules
+	$(RM) $(TEST_BIN)/*
 	$(FIND) $(TEST_SRC) -name '*.java' > $@
 	$(MKDIR) $(TEST_BIN)
 	$(JAVAC) $(JFLAGS_TEST) @$@
