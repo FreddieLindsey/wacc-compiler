@@ -1,4 +1,4 @@
-package wacc;
+package wacc.symbolTable;
 
 import java.util.HashMap;
 import java.util.Map;
