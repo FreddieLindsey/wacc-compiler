@@ -1,5 +1,7 @@
 package wacc.ast;
 
+import wacc.symbolTable.TypeEnum;
+
 public class UnOpNode implements ExprNode {
   
   // TODO: UnOpNode's type should be set by checking which operator it holds
@@ -15,21 +17,26 @@ public class UnOpNode implements ExprNode {
   }
 
   @Override
+  public TypeEnum type() {
+    return null;
+  }
+
+  @Override
   public boolean isSemanticallyValid() {
-    boolean checkExpr = expr.isSemanticallyValid();
+    boolean valid = expr.isSemanticallyValid();
 
     // TODO: Type checks
     switch (op) {
-    case NOT: // expr.type == bool
-    case NEG: // expr.type == int
-    case LEN: // expr.type == T[]
-    case ORD: // expr.type == char 
-    case CHR: // expr.type == int
-    default:
-      System.err.println("Invalid Unary Operator");
+      case NOT: return expr.type() == TypeEnum.BOOL;
+      case NEG: return expr.type() == TypeEnum.INT;
+      case LEN: return expr.type() == TypeEnum.ARR;
+      case ORD: return expr.type() == TypeEnum.CHAR;
+      case CHR: return expr.type() == TypeEnum.INT;
+      default:
+        System.err.println("Invalid Unary Operator");
     }
 
-    return false;
+    return valid;
   }
   
 }
