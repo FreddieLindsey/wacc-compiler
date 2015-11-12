@@ -42,7 +42,10 @@ test_compile: rules
 	$(RM) test_compile
 
 test:
-	$(JUNIT) wacc.MainTest wacc.symbolTable.SymbolTableTest wacc.ast.ProgramNodeTest
+	$(JUNIT) wacc.MainTest \
+	wacc.symbolTable.SymbolTableTest \
+	wacc.ast.ProgramNodeTest \
+	wacc.ast.TypeNodeTest
 
 clean:
 	$(RM) rules test_bin test_compile $(OUTPUT_DIR) antlr/*.java antlr/*.tokens antlr/*.class src/antlr/*
