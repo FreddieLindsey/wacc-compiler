@@ -16,8 +16,10 @@ public class NewAssignNode implements StatNode {
 	@Override
 	public boolean isSemanticallyValid() {
     //TODO: check that the Ident isnt already being used in same scope
-    //TODO: check type is valid?
-    return rhs.isSemanticallyValid();
+    return rhs.isSemanticallyValid()
+        && t.isSemanticallyValid()
+        && rhs.isSemanticallyValid()
+        && t.type() == rhs.type();
 	}
 
 }
