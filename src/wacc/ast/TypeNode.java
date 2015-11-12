@@ -1,19 +1,12 @@
 package wacc.ast;
 
-public enum Type {
-  INT,
-  BOOL,
-  STRING,
-  CHAR,
-  ARR,
-  PAIR
-}
+import wacc.symbolTable.TypeEnum;
 
 public class TypeNode implements StatNode {
 
-  private final Type t;
+  private final TypeEnum t;
 
-  public TypeNode(TypeNode.Type type) {
+  public TypeNode(TypeEnum type) {
     this.t = type;
   }
 
