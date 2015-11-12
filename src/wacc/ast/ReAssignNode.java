@@ -15,7 +15,9 @@ public class ReAssignNode implements StatNode {
 	public boolean isSemanticallyValid() {
     //TODO: check that the lhs isnt already being used in same scope
 	// TODO: check types match
-    return lhs.isSemanticallyValid() && rhs.isSemanticallyValid();
+    return lhs.isSemanticallyValid() 
+    	&& rhs.isSemanticallyValid()
+    	&& lhs.type() == rhs.type();
 	}
 
 }
