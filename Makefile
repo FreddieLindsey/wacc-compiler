@@ -45,6 +45,6 @@ test:
 	$(JUNIT) wacc.MainTest wacc.symbolTable.SymbolTableTest
 
 clean:
-	$(RM) rules test test_compile $(OUTPUT_DIR) antlr/*.java antlr/*.tokens antlr/*.class src/antlr/*
+	$(RM) rules test_bin test_compile $(OUTPUT_DIR) antlr/*.java antlr/*.tokens antlr/*.class src/antlr/*
 
 .PHONY: all rules test_compile test clean
