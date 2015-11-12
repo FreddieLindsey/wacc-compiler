@@ -38,8 +38,6 @@ public class BinOpNode implements ExprNode {
 
   @Override
   public boolean isSemanticallyValid() {
-    //TODO: check lhs and rhs collpase down to same type
-    //TODO: check that these matching types can have the operator applied to them
     boolean valid = true;
 
     valid &= lhs.isSemanticallyValid()
