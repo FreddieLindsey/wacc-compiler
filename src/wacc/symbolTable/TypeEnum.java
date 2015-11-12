@@ -2,6 +2,11 @@ package wacc.symbolTable;
 
 public enum TypeEnum {
 
-    INT
+    INT,
+    BOOL,
+    STRING,
+    CHAR,
+    ARR,
+    PAIR
 
 }
