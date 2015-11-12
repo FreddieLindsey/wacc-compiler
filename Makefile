@@ -48,7 +48,8 @@ wacc.ast.ProgramNodeTest \
 wacc.ast.IdentNodeTest \
 wacc.ast.TypeNodeTest \
 wacc.ast.CharNodeTest \
-wacc.ast.BoolNodeTest
+wacc.ast.BoolNodeTest \
+wacc.ast.IntNodeTest
 
 clean:
 	$(RM) rules test_bin test_compile $(OUTPUT_DIR) antlr/*.java antlr/*.tokens antlr/*.class src/antlr/*
