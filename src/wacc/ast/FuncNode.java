@@ -7,12 +7,11 @@ public class FuncNode implements ASTNode {
 	private ParamListNode ps;
 	private StatNode stat;
 
-	public FuncNode(TypeNode t, IdentNode n,
-						ParamListNode ps, StatNode stat) {
+	public FuncNode(TypeNode t, IdentNode n, ParamListNode ps, StatNode stat) {
     this.t = t;
     this.n = n;
     this.ps = ps;
-		this.stat = stat;
+    this.stat = stat;
 	}
 
 	@Override
@@ -22,5 +21,5 @@ public class FuncNode implements ASTNode {
         && ps.isSemanticallyValid()
         && stat.isSemanticallyValid();
   }
-  
+
 }
