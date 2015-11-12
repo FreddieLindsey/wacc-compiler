@@ -4,8 +4,6 @@ import wacc.symbolTable.TypeEnum;
 
 public class UnOpNode implements ExprNode {
   
-  // TODO: UnOpNode's type should be set by checking which operator it holds
-
   private UnaryOperator op;
   private ExprNode expr;
 
@@ -18,14 +16,21 @@ public class UnOpNode implements ExprNode {
 
   @Override
   public TypeEnum type() {
-    return null;
+    switch (op) {
+      case NOT: return TypeEnum.BOOL;
+      case NEG: return TypeEnum.INT;
+      case LEN: return TypeEnum.INT;
+      case ORD: return TypeEnum.INT;
+      case CHR: return TypeEnum.CHAR;
+      default:
+        return null;
+    }
   }
 
   @Override
   public boolean isSemanticallyValid() {
     boolean valid = expr.isSemanticallyValid();
 
-    // TODO: Type checks
     switch (op) {
       case NOT: return expr.type() == TypeEnum.BOOL;
       case NEG: return expr.type() == TypeEnum.INT;
