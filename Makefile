@@ -46,7 +46,8 @@ test:
 wacc.symbolTable.SymbolTableTest \
 wacc.ast.ProgramNodeTest \
 wacc.ast.IdentNodeTest \
-wacc.ast.TypeNodeTest
+wacc.ast.TypeNodeTest \
+wacc.ast.CharNodeTest
 
 clean:
 	$(RM) rules test_bin test_compile $(OUTPUT_DIR) antlr/*.java antlr/*.tokens antlr/*.class src/antlr/*
