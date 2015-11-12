@@ -49,7 +49,8 @@ wacc.ast.IdentNodeTest \
 wacc.ast.TypeNodeTest \
 wacc.ast.CharNodeTest \
 wacc.ast.BoolNodeTest \
-wacc.ast.IntNodeTest
+wacc.ast.IntNodeTest \
+wacc.ast.UnOpNodeTest
 
 clean:
 	$(RM) rules test_bin test_compile $(OUTPUT_DIR) antlr/*.java antlr/*.tokens antlr/*.class src/antlr/*
