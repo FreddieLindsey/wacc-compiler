@@ -47,6 +47,7 @@ wacc.symbolTable.SymbolTableTest \
 wacc.ast.ProgramNodeTest \
 wacc.ast.IdentNodeTest \
 wacc.ast.TypeNodeTest \
+<<<<<<< 9e5a2966e7a4c8916541beb6dc84605abbc726d3
 wacc.ast.CharNodeTest \
 wacc.ast.BoolNodeTest \
 wacc.ast.IntNodeTest \
@@ -56,6 +57,11 @@ wacc.ast.StringNodeTest \
 wacc.ast.NewAssignNodeTest \
 wacc.ast.ReAssignNodeTest \
 wacc.ast.CompStatNodeTest
+=======
+wacc.ast.CompStatNodeTest \
+wacc.ast.CharNodeTest \
+wacc.ast.BoolNodeTest
+>>>>>>> Added test to Makefile
 
 clean:
 	$(RM) rules test_bin test_compile $(OUTPUT_DIR) antlr/*.java antlr/*.tokens antlr/*.class src/antlr/*
