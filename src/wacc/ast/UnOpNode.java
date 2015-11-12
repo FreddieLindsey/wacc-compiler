@@ -1,22 +1,35 @@
 package wacc.ast;
 
 public class UnOpNode implements ExprNode {
+  
+  // TODO: UnOpNode's type should be set by checking which operator it holds
 
-  private BinaryOperator op;
+  private UnaryOperator op;
   private ExprNode expr;
 
-  public UnOpNode(BinaryOperator op, ExprNode expr) {
+  public UnOpNode(UnaryOperator op, ExprNode expr) {
 
     this.op = op;
     this.expr = expr;
 
   }
 
-
   @Override
   public boolean isSemanticallyValid() {
-    //TODO: check that this matching type can have the operator applied to it
-    return expr.isSemanticallyValid();
-  }
+    boolean checkExpr = expr.isSemanticallyValid();
 
+    // TODO: Type checks
+    switch (op) {
+    case NOT: // expr.type == bool
+    case NEG: // expr.type == int
+    case LEN: // expr.type == T[]
+    case ORD: // expr.type == char 
+    case CHR: // expr.type == int
+    default:
+      System.err.println("Invalid Unary Operator");
+    }
+
+    return false;
+  }
+  
 }
