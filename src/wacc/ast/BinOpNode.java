@@ -32,8 +32,8 @@ public class BinOpNode implements ExprNode {
       case NEQ:
       case AND:
       case OR : return TypeEnum.BOOL;
-      default : break;
     }
+    return null;
   }
 
   @Override
@@ -45,7 +45,7 @@ public class BinOpNode implements ExprNode {
     valid &= lhs.isSemanticallyValid()
           && rhs.isSemanticallyValid();
 
-    valid &= lhs.type() = rhs.type();
+    valid &= lhs.type() == rhs.type();
 
     switch(op) {
       case MUL:
