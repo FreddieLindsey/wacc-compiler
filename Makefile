@@ -55,7 +55,7 @@ wacc.ast.ParamNodeTest \
 wacc.ast.StringNodeTest \
 wacc.ast.NewAssignNodeTest \
 wacc.ast.ReAssignNodeTest \
-wacc.ast.CompStatNodeTest
+wacc.ast.CompStatNodeTest \
 wacc.ast.BoolNodeTest \
 wacc.ast.IntNodeTest
 
