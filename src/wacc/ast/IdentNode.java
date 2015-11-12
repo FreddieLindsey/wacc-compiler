@@ -7,6 +7,10 @@ public class IdentNode implements ASTNode {
   public IdentNode(String ident) {
     this.ident = ident;
   }
+  
+  public String getIdent() {
+    return ident;
+  }
 
   @Override
   public boolean isSemanticallyValid() {
