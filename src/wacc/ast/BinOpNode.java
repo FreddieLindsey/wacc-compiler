@@ -1,5 +1,7 @@
 package wacc.ast;
 
+import wacc.symbolTable.TypeEnum;
+
 public class BinOpNode implements ExprNode {
 	
   private ExprNode lhs;
@@ -12,6 +14,26 @@ public class BinOpNode implements ExprNode {
     this.op  = op;
     this.rhs = rhs;
 
+  }
+
+  @Override
+  public TypeEnum type() {
+    switch(op) {
+      case MUL:
+      case DIV:
+      case MOD:
+      case ADD:
+      case SUB: return TypeEnum.INT;
+      case GT :
+      case GTE:
+      case LT :
+      case LTE:
+      case EQ :
+      case NEQ:
+      case AND:
+      case OR : return TypeEnum.BOOL;
+      default : break;
+    }
   }
 
   @Override
@@ -40,9 +62,10 @@ public class BinOpNode implements ExprNode {
       case NEQ: valid &= (lhs.type() != TypeEnum.STRING; break;
       case AND:
       case OR : valid &= (lhs.type() == TypeEnum.BOOL;
+      default : return false;
     }
 
-    return semValid;
+    return valid;
   }
 
 }
