@@ -10,7 +10,7 @@ public class IfStatNode implements StatNode {
     this.expr = expr;
     this.stat1 = stat1;
     this.stat2 = stat2;
-	}
+  }
 
   @Override
   public boolean isSemanticallyValid() {
