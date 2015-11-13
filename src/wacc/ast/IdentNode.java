@@ -1,6 +1,8 @@
 package wacc.ast;
 
-public class IdentNode implements ASTNode {
+import wacc.symbolTable.TypeEnum;
+
+public class IdentNode implements ExprNode, AssignLHSNode {
 
   private String ident;
 
@@ -10,6 +12,12 @@ public class IdentNode implements ASTNode {
   
   public String getIdent() {
     return ident;
+  }
+
+  @Override
+  public TypeEnum type() {
+    // Needs to fetch from symbol table
+    return null;
   }
 
   @Override
