@@ -1,5 +1,7 @@
 package wacc.ast;
 
+import wacc.symbolTable.TypeEnum;
+
 public class IfStatNode implements StatNode {
 
   private ExprNode expr;
