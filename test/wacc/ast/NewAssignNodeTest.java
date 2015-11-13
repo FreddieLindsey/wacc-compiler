@@ -5,7 +5,7 @@ import org.junit.Test;
 public class NewAssignNodeTest {
 
   @Test
-  public void removethisFunction() {
+  public void newAssignNodeInit() {
     assert(true);
   }
 
