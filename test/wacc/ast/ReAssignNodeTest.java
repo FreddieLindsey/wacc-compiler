@@ -4,7 +4,7 @@ import org.junit.Test;
 
 import wacc.symbolTable.TypeEnum;
 
-public class NewAssignNodeTest {
+public class ReAssignNodeTest {
 
   private NewAssignNode n;
 
