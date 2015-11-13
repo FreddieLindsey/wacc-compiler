@@ -55,8 +55,6 @@ wacc.ast.ParamNodeTest \
 wacc.ast.StringNodeTest \
 wacc.ast.NewAssignNodeTest
 
->>>>>>> 75d7b5f6745a24b3a1c64857794ffc020f6bf383
-
 clean:
 	$(RM) rules test_bin test_compile $(OUTPUT_DIR) antlr/*.java antlr/*.tokens antlr/*.class src/antlr/*
 
