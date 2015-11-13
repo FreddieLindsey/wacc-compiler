@@ -1,0 +1,4 @@
+#!/bin/bash
+
+cd test
+find * -type f -follow -print | sed 's/\//\./g' | sed 's/.java//g' | grep -v "find_tests" | awk -F ' ' '{ print $1 }'
