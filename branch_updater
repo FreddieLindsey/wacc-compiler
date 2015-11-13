@@ -1,0 +1,6 @@
+#!/bin/bash
+
+BRANCH=$(git branch | grep \* | awk -F ' ' '{ print $2 }')
+REMOTE=$(git remote -v | grep github.com | awk -F ' ' '{ print $1 }' | head -n 1)
+
+echo -e "This branch:\t$BRANCH\nRemote branch:\t$REMOTE/$BRANCH"
