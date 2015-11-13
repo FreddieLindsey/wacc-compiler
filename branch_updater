@@ -3,4 +3,11 @@
 BRANCH=$(git branch | grep \* | awk -F ' ' '{ print $2 }')
 REMOTE=$(git remote -v | grep github.com | awk -F ' ' '{ print $1 }' | head -n 1)
 
-echo -e "This branch:\t$BRANCH\nRemote branch:\t$REMOTE/$BRANCH"
+echo "Fetching remote..."
+git fetch $REMOTE 1>/dev/null
+
+echo "Rebasing this branch ($BRANCH)..."
+git rebase 1>/dev/null
+
+echo "Rebasing using master from remote (checks for other people's changes)..."
+git rebase $REMOTE/master 1>/dev/null
