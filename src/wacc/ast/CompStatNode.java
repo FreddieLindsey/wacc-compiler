@@ -13,6 +13,14 @@ public class CompStatNode implements StatNode {
 		this.stat2 = stat2;
 	}
 
+	public StatNode getFstStat() {
+    return stat1;
+	}
+
+	public StatNode getSndStat() {
+    return stat2;
+	}
+
 	@Override
 	public boolean isSemanticallyValid() {
 		return stat1.isSemanticallyValid() && stat2.isSemanticallyValid();
