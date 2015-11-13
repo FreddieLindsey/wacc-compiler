@@ -18,8 +18,8 @@ public class ParamNode implements ASTNode {
     return ident;
   }
 
-	@Override
-	public boolean isSemanticallyValid() {
+  @Override
+  public boolean isSemanticallyValid() {
     if (!type.isSemanticallyValid()) {
       return false;
     }
