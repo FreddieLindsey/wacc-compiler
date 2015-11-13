@@ -52,7 +52,7 @@ wacc.ast.BoolNodeTest \
 wacc.ast.IntNodeTest \
 wacc.ast.UnOpNodeTest \
 wacc.ast.ParamNodeTest \
-wacc.ast.StringNodeTest
+wacc.ast.StringNodeTest \
 wacc.ast.NewAssignNodeTest
 
 clean:
