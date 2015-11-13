@@ -30,7 +30,7 @@ public class ParamNode implements ASTNode {
 
     // TODO: check ident isn't already in scope
 
-    return false;
+    return true;
   }
 
 
