@@ -12,8 +12,19 @@ public class NewAssignNode implements StatNode {
         this.t = t;
         this.i = i;
         this.rhs = rhs;
-  }
+    }
 
+    public TypeEnum getType() {
+        return t;
+    }
+
+    public IdentNode getIdent() {
+        return i;
+    }
+
+    public AssignRHSNode getRHS() {
+        return rhs;
+    }
 
     @Override
     public boolean isSemanticallyValid() {
