@@ -13,14 +13,14 @@ public class BasicStatNode implements StatNode {
   @Override
   public boolean isSemanticallyValid() {
     switch (st) {
-	    case SKIP:
-	  	case READ:
-	  	case FREE:
-	  	case RETURN:
-	  	case EXIT:
-	  	case PRINT:
-	  	case PRINTLN: return expr.isSemanticallyValid();
-	  	default: return false;
+      case SKIP:
+      case READ:
+      case FREE:
+      case RETURN:
+      case EXIT:
+      case PRINT:
+      case PRINTLN: return expr.isSemanticallyValid();
+      default: return false;
     }
   }
 
