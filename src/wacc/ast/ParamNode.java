@@ -2,13 +2,13 @@ package wacc.ast;
 
 public class ParamNode implements ASTNode {
 
-	private TypeNode type;
-	private IdentNode ident;
+  private TypeNode type;
+  private IdentNode ident;
 
-	public ParamNode(TypeNode type, IdentNode ident) {
- 		this.type = type;
+  public ParamNode(TypeNode type, IdentNode ident) {
+    this.type = type;
     this.ident = ident;
-	}
+  }
 
   public TypeNode getType() {
     return type;
