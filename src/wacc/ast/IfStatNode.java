@@ -17,7 +17,8 @@ public class IfStatNode implements StatNode {
     // check expr type is bool & semantically valid
     return expr.isSemanticallyValid()
         && stat1.isSemanticallyValid()
-        && stat2.isSemanticallyValid();
+        && stat2.isSemanticallyValid()
+        && expr.type() == TypeEnum.BOOL;
   }
 
 }
