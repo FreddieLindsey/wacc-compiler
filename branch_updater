@@ -32,7 +32,7 @@ if (( $STATUS != 0 )); then
 fi
 
 echo "Pushing your updated code..."
-git push $REMOTE/$BRANCH 1>/dev/null
+git push $REMOTE $BRANCH 1>/dev/null
 STATUS=$?
 
 if (( $STATUS != 0 )); then
