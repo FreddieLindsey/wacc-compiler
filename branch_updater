@@ -1,0 +1,47 @@
+#!/bin/bash
+
+BRANCH=$(git branch | grep \* | awk -F ' ' '{ print $2 }')
+REMOTE=$(git remote -v | grep github.com | awk -F ' ' '{ print $1 }' | head -n 1)
+
+echo "Fetching remote..."
+git fetch $REMOTE 1>/dev/null
+STATUS=$?
+
+if (( $STATUS != 0 )); then
+  echo "There were errors when fetching from the remote. If you have internet, and this doesn't work, consult the god (Freddie)."
+  exit $STATUS
+fi
+
+echo "Rebasing this branch ($BRANCH)..."
+git rebase $REMOTE/$BRANCH 1>/dev/null
+STATUS=$?
+
+if (( $STATUS != 0 )); then
+  echo -e "There were errors when rebasing this branch from the remote. Do you have unstaged changes?\n\nConsult the god (Freddie) if there is nothing below this line.\n----------------------------------"
+  git status
+  exit $STATUS
+fi
+
+echo "Rebasing using master from remote (checks for other people's changes)..."
+git rebase $REMOTE/master 1>/dev/null
+STATUS=$?
+
+if (( $STATUS != 0 )); then
+  echo "There were errors when rebasing from master. Consult the god (Freddie)."
+  exit $STATUS
+fi
+
+echo "Pushing your updated code..."
+git push $REMOTE $BRANCH 1>/dev/null
+STATUS=$?
+
+if (( $STATUS != 0 )); then
+  echo "There were errors when pushing to master. This is likely because the remote won't allow fast forwarding. Would you like to try force pushing (overwriting the remote)?"
+  read -n 1 PUSHFORCE
+  if (( $PUSHFORCE == 'Y' || $PUSHFORCE == 'y' )); then
+    git push --force $REMOTE $BRANCH 1>/dev/null
+    STATUS=$?
+  fi
+fi
+
+exit $STATUS
