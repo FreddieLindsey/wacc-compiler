@@ -22,7 +22,7 @@ public class CharNodeTest {
 
     @Test
     public void charNodeValidityF() {
-        c = new CharNode('\f');
+        c = new CharNode('\'');
         assert(!c.isSemanticallyValid());
     }
 
