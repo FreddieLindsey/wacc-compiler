@@ -37,7 +37,7 @@ STATUS=$?
 
 if (( $STATUS != 0 )); then
   echo "There were errors when pushing to master. This is likely because the remote won't allow fast forwarding. Would you like to try force pushing (overwriting the remote)?"
-  read 1 PUSHFORCE
+  read -n 1 PUSHFORCE
   if (( $PUSHFORCE == 'Y' || $PUSHFORCE == 'y' )); then
     git push --force $REMOTE/$BRANCH 1>/dev/null
     STATUS=$?
