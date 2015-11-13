@@ -1,12 +1,14 @@
 package wacc.ast;
 
+import wacc.symbolTable.TypeEnum;
+
 public class NewAssignNode implements StatNode {
 
-	private TypeNode t;
+	private TypeEnum t;
 	private IdentNode i;
-  private AssignRHSNode rhs;
+    private AssignRHSNode rhs;
 
-	public NewAssignNode(TypeNode t, IdentNode i, AssignRHSNode rhs) {
+	public NewAssignNode(TypeEnum t, IdentNode i, AssignRHSNode rhs) {
     this.t = t;
     this.i = i;
     this.rhs = rhs;
@@ -17,9 +19,8 @@ public class NewAssignNode implements StatNode {
 	public boolean isSemanticallyValid() {
     //TODO: check that the Ident isnt already being used in same scope
     return rhs.isSemanticallyValid()
-        && t.isSemanticallyValid()
         && rhs.isSemanticallyValid()
-        && t.type() == rhs.type();
+        && t == rhs.type();
 	}
 
 }
