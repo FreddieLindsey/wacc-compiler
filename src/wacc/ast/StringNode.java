@@ -22,4 +22,8 @@ public class StringNode extends LiteralNode<String> {
     return true;
   }
 
+  @Override
+  public TypeEnum type() {
+    return type;
+  }
 }

@@ -21,4 +21,8 @@ public class CharNode extends LiteralNode<Character> {
     return true;
   }
 
+  @Override
+  public TypeEnum type() {
+    return type;
+  }
 }

@@ -15,4 +15,8 @@ public class BoolNode extends LiteralNode<Boolean> {
     return value != null;
   }
 
+  @Override
+  public TypeEnum type() {
+    return type;
+  }
 }
