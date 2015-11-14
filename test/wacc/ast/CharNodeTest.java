@@ -2,6 +2,7 @@ package wacc.ast;
 
 import wacc.symbolTable.TypeEnum;
 import org.junit.Test;
+import static org.junit.Assert.*;
 
 import static org.junit.Assert.*;
 
@@ -11,26 +12,26 @@ public class CharNodeTest {
 
   @Test
   public void charNodeInit() {
-    c = new CharNode('x');
-    assert(c.getValue() == 'x');
+      c = new CharNode('x');
+      assertTrue(c.getValue() == 'x');
   }
 
   @Test
   public void charNodeValidityT() {
-    c = new CharNode('r');
-    assert(c.isSemanticallyValid());
+      c = new CharNode('r');
+      assertTrue(c.isSemanticallyValid());
   }
 
   @Test
   public void charNodeValidityF() {
-    c = new CharNode('\'');
-    assert(!c.isSemanticallyValid());
+      c = new CharNode('\'');
+      assertTrue(!c.isSemanticallyValid());
   }
 
   @Test
   public void charNodeType() {
     c = new CharNode('r');
-    assert(c.type() == TypeEnum.CHAR);
+    assertTrue(c.type() == TypeEnum.CHAR);
   }
 
 }

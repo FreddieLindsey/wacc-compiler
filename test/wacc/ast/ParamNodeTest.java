@@ -1,6 +1,7 @@
 package wacc.ast;
 
 import org.junit.Test;
+import static org.junit.Assert.*;
 
 import wacc.symbolTable.TypeEnum;
 
@@ -13,14 +14,14 @@ public class ParamNodeTest {
   @Test
   public void paramNodeInit() {
     param = new ParamNode(type, id);
-    assert(param.getType().equals(type));
-    assert(param.getIdent().equals(id));
+    assertTrue(param.getType().equals(type));
+    assertTrue(param.getIdent().equals(id));
   }
 
   @Test
   public void paramNodeIsSemanticallyValid() {
     param = new ParamNode(type, id);
-    assert(param.isSemanticallyValid() ==
+    assertTrue(param.isSemanticallyValid() ==
             (type.isSemanticallyValid() && id.isSemanticallyValid()));
   }
 

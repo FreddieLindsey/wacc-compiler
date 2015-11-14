@@ -1,6 +1,7 @@
 package wacc.ast;
 
 import org.junit.Test;
+import static org.junit.Assert.*;
 
 import wacc.symbolTable.TypeEnum;
 
@@ -15,15 +16,15 @@ public class ReAssignNodeTest {
   @Test
   public void newAssignNodeInit() {
     n = new NewAssignNode(t, i, rhs);
-    assert(n.getType() == t);
-    assert(n.getIdent().equals(i));
-    assert(n.getRHS().equals(rhs));
+    assertTrue(n.getType() == t);
+    assertTrue(n.getIdent().equals(i));
+    assertTrue(n.getRHS().equals(rhs));
   }
 
   @Test
   public void newAssignNodeValid() {
     n = new NewAssignNode(t, i, rhs);
-    assert(n.isSemanticallyValid() ==
+    assertTrue(n.isSemanticallyValid() ==
           (
             i.isSemanticallyValid()
             && rhs.isSemanticallyValid()

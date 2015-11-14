@@ -1,6 +1,7 @@
 package wacc.ast;
 
 import org.junit.Test;
+import static org.junit.Assert.*;
 
 public class ProgramNodeTest {
 
@@ -29,7 +30,7 @@ public class ProgramNodeTest {
         StatNode stat = prog.getStat();
         valid &= stat != null && stat.isSemanticallyValid();
 
-        assert(prog.isSemanticallyValid() == valid);
+        assertTrue(prog.isSemanticallyValid() == valid);
     }
 
     @Test
