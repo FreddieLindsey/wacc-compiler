@@ -4,8 +4,6 @@ import wacc.symbolTable.TypeEnum;
 
 public class ArrayElemNode implements ASTNode, AssignLHSNode {
 
-  //for array access eg. a[0]
-
   private IdentNode ident;
   private ExprNode expr;
   
@@ -15,8 +13,7 @@ public class ArrayElemNode implements ASTNode, AssignLHSNode {
   }
 
   public TypeEnum type() {
-    //should return primitive type using symbol table to figure out what kind of array it is
-    return TypeEnum.ARR;
+    return ident.type();
   }
 
   public IdentNode getId() {
@@ -27,12 +24,15 @@ public class ArrayElemNode implements ASTNode, AssignLHSNode {
     return this.expr;
   }
 
+  public ExprNode getElement() {
+    return ident.retrieve().getElement(this.expr);
+  }
+
   @Override
   public boolean isSemanticallyValid() {
-    //TODO: handle out of bounds access problems, should this be in the symbol table?
     return ident.isSemanticallyValid() 
         && expr.isSemanticallyValid()
-        && expr.type() == TypeEnum.INT;
+        && expr.type() == ident.type();
   }
 
 }
