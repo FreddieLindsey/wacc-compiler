@@ -22,7 +22,7 @@ public class IntNodeTest {
 
   @Test
   public void intNodeNotValid() {
-    i = new IntNode(Integer.MAX_VALUE * 2);
+    i = new IntNode(Integer.MAX_VALUE * 2L);
     assertTrue(!i.isSemanticallyValid());
   }
 

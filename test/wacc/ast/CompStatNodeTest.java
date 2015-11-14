@@ -4,13 +4,24 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 import wacc.ast.StatTypeEnum;
+import wacc.symbolTable.TypeEnum;
 
 public class CompStatNodeTest {
 
-  StatNode s1 = new BasicStatNode(StatTypeEnum.SKIP, null);
-  StatNode s2 = new BasicStatNode(StatTypeEnum.SKIP, null);
-  StatNode s3 = new BasicStatNode(StatTypeEnum.RETURN, null); //invalid
-  CompStatNode c;
+  private StatNode s1 = new BasicStatNode(StatTypeEnum.SKIP, null);
+  private StatNode s2 = new BasicStatNode(StatTypeEnum.SKIP, null);
+  private StatNode s3 = new BasicStatNode(StatTypeEnum.RETURN, new ExprNode() {
+    @Override
+    public TypeEnum type() {
+      return null;
+    }
+
+    @Override
+    public boolean isSemanticallyValid() {
+      return false;
+    }
+  }); //invalid
+  private CompStatNode c;
 
 
   @Test

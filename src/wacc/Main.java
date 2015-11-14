@@ -24,7 +24,7 @@ public class Main {
         System.out.println(tree.toStringTree(parser));
     }
 
-    public static int test_test() {
-      return 0;
+    public static boolean test_test() {
+      return true;
     }
 }

@@ -11,7 +11,7 @@ public class StringNodeTest {
   @Test
   public void stringNodeInit() {
     s = new StringNode("test");
-    assertTrue(s.getValue() == "test");
+    assertTrue(s.getValue().equals("test"));
   }
 
   @Test
@@ -22,8 +22,8 @@ public class StringNodeTest {
 
   @Test
   public void stringNodeValidityF() {
-    s = new StringNode("tes\t");
-    assertTrue(!s.isSemanticallyValid());
+    s = new StringNode("tes\\t");
+    assertFalse(s.isSemanticallyValid());
   }
 
   @Test
