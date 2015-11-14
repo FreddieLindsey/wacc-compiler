@@ -1,5 +1,7 @@
 package wacc.ast;
 
+import wacc.symbolTable.TypeEnum;
+
 public class PairLiteralNode extends LiteralNode {
   
   public PairLiteralNode() {
@@ -11,4 +13,8 @@ public class PairLiteralNode extends LiteralNode {
     return true;
   }
 
+  @Override
+  public TypeEnum type() {
+    return TypeEnum.PAIR;
+  }
 }
