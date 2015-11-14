@@ -41,23 +41,8 @@ test_compile: rules
 	$(JAVAC) $(JFLAGS_TEST) @$@
 	$(RM) test_compile
 
-test:
-	$(JUNIT) wacc.MainTest \
-wacc.symbolTable.SymbolTableTest \
-wacc.ast.ProgramNodeTest \
-wacc.ast.IdentNodeTest \
-wacc.ast.TypeNodeTest \
-wacc.ast.CharNodeTest \
-wacc.ast.BoolNodeTest \
-wacc.ast.IntNodeTest \
-wacc.ast.UnOpNodeTest \
-wacc.ast.ParamNodeTest \
-wacc.ast.StringNodeTest \
-wacc.ast.NewAssignNodeTest \
-wacc.ast.ReAssignNodeTest \
-wacc.ast.CompStatNodeTest \
-wacc.ast.BoolNodeTest \
-wacc.ast.IntNodeTest
+%:
+	$(JUNIT) $@
 
 clean:
 	$(RM) rules test_bin test_compile $(OUTPUT_DIR) antlr/*.java antlr/*.tokens antlr/*.class src/antlr/*
