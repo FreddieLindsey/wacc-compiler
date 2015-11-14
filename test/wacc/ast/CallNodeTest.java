@@ -14,11 +14,9 @@ public class CallNodeTest {
   private ArgListNode argsV = new ArgListNode(new ExprNode[]{e1, e2});
   private ArgListNode argsINV = new ArgListNode(new ExprNode[]{e1, e2, e3}); //invalid
 
-
   @Test
   public void callInit() {
     c = new CallNode(ident, argsV);
-
     assertTrue(c.getIdent().equals(ident));
     assertTrue(c.getArgs().equals(argsV));
   }
@@ -26,7 +24,6 @@ public class CallNodeTest {
   @Test
   public void callValidityT() {
     c = new CallNode(ident, argsV);
-
     assertTrue(ident.isSemanticallyValid());
     assertTrue(argsV.isSemanticallyValid());
     assertTrue(c.isSemanticallyValid());
@@ -35,7 +32,6 @@ public class CallNodeTest {
   @Test
   public void callValidityF() {
     c = new CallNode(ident, argsINV);
-
     assertTrue(ident.isSemanticallyValid());
     assertTrue(!argsINV.isSemanticallyValid());
     assertTrue(!c.isSemanticallyValid());
