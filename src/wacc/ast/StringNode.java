@@ -1,9 +1,16 @@
 package wacc.ast;
 
+import wacc.symbolTable.TypeEnum;
+
 public class StringNode extends LiteralNode<String> {
   
   public StringNode(String value) {
     this.value = value;
+  }
+
+  @Override
+  public TypeEnum type() {
+    return TypeEnum.STRING;
   }
 
   @Override

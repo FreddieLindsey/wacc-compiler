@@ -1,6 +1,6 @@
 package wacc.ast;
 
-public abstract class LiteralNode<T> implements ASTNode {
+public abstract class LiteralNode<T> implements ASTNode, ExprNode {
   
   protected T value;
   
