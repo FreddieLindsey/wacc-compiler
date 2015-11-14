@@ -1,5 +1,7 @@
 package wacc.ast;
 
+import wacc.symbolTable.TypeEnum;
+
 public class ArrayLiteralNode extends LiteralNode<ExprNode[]> {
   
   public ArrayLiteralNode(ExprNode[] value) {
@@ -9,8 +11,7 @@ public class ArrayLiteralNode extends LiteralNode<ExprNode[]> {
   @Override
   public boolean isSemanticallyValid() {
 
-    for (int i = 0; i < value.length; ++i) {
-      ExprNode n = value[i];
+    for (ExprNode n : value) {
       if (!n.isSemanticallyValid()) {
         return false;
       }
@@ -18,4 +19,8 @@ public class ArrayLiteralNode extends LiteralNode<ExprNode[]> {
     return true; 
   }
 
+  @Override
+  public TypeEnum type() {
+    return TypeEnum.ARR;
+  }
 }
