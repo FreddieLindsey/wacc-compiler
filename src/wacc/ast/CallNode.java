@@ -7,7 +7,6 @@ public class CallNode implements AssignRHSNode {
   private IdentNode ident;
   private ArgListNode args;
 
-
   public CallNode(IdentNode ident, ArgListNode args) {
     this.ident = ident;
     this.args = args;
@@ -23,14 +22,14 @@ public class CallNode implements AssignRHSNode {
 
   @Override
   public TypeEnum type() {
-    //symbol table!!!!
+    // TODO: Symbol Table
     return null;
   }
 
   @Override
   public boolean isSemanticallyValid() {
     return ident.isSemanticallyValid()
-        && args.isSemanticallyValid();
+      && args.isSemanticallyValid();
   }
 
 }

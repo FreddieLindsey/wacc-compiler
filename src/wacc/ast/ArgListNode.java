@@ -1,7 +1,5 @@
 package wacc.ast;
 
-import wacc.symbolTable.TypeEnum;
-
 public class ArgListNode implements ASTNode {
 
   private ExprNode[] exprs;
@@ -17,7 +15,7 @@ public class ArgListNode implements ASTNode {
   @Override
   public boolean isSemanticallyValid() {
 
-    for (int i = 0; i < exprs.length ; i++) {
+    for (int i = 0; i < exprs.length; i++) {
       if (!exprs[i].isSemanticallyValid()) {
         return false;
       }
