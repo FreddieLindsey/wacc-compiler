@@ -23,7 +23,7 @@ JFLAGS_TEST := -sourcepath $(TEST_SRC) -d $(TEST_BIN) -cp lib/antlr-4.4-complete
 
 # the make rules
 
-all: test_compile test
+all: rules test_compile test
 
 # runs the antlr build script then attempts to compile all .java files within src
 rules:
@@ -34,7 +34,7 @@ rules:
 	$(RM) rules
 	cd ..
 
-test_compile: rules
+test_compile:
 	$(RM) $(TEST_BIN)/*
 	$(FIND) $(TEST_SRC) -name '*.java' > $@
 	$(MKDIR) $(TEST_BIN)
