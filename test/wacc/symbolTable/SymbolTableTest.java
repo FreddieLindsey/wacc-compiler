@@ -17,12 +17,12 @@ public class SymbolTableTest {
     @Test
     public void canLookUpSymbolInTable() throws Exception {
         st.add("x", TypeEnum.INT);
-        assert(st.lookUp("x") == TypeEnum.INT);
+        assertTrue(st.lookUp("x") == TypeEnum.INT);
     }
 
     @Test
     public void canLookUpInNestedTable() throws Exception {
         st.add("y", TypeEnum.INT);
-        assert(stNested.lookUp("y") == TypeEnum.INT);
+        assertTrue(stNested.lookUp("y") == TypeEnum.INT);
     }
 }

@@ -2,6 +2,7 @@ package wacc.ast;
 
 import wacc.symbolTable.TypeEnum;
 import org.junit.Test;
+import static org.junit.Assert.*;
 
 public class StringNodeTest {
 
@@ -10,25 +11,24 @@ public class StringNodeTest {
   @Test
   public void stringNodeInit() {
     s = new StringNode("test");
-    assert(s.getValue() == "test");
+    assertTrue(s.getValue().equals("test"));
   }
 
   @Test
   public void stringNodeValidityT() {
     s = new StringNode("test");
-    assert(s.isSemanticallyValid());
+    assertTrue(s.isSemanticallyValid());
   }
 
   @Test
   public void stringNodeValidityF() {
-    s = new StringNode("tes\t");
-    assert(!s.isSemanticallyValid());
+    s = new StringNode("tes\\t");
+    assertFalse(s.isSemanticallyValid());
   }
 
   @Test
   public void stringNodeType() {
     s = new StringNode("test");
-    assert(s.type() == TypeEnum.STRING);
+    assertTrue(s.type() == TypeEnum.STRING);
   }
-
 }

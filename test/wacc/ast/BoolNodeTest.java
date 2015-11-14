@@ -2,6 +2,7 @@ package wacc.ast;
 
 import wacc.symbolTable.TypeEnum;
 import org.junit.Test;
+import static org.junit.Assert.*;
 
 public class BoolNodeTest {
 
@@ -10,7 +11,7 @@ public class BoolNodeTest {
   @Test
   public void boolNodeInit() {
       b = new BoolNode(true);
-      assert(b.getValue());
+      assertTrue(b.getValue());
   }
 
   @Test

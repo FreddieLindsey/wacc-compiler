@@ -1,6 +1,7 @@
 package wacc.ast;
 
 import org.junit.Test;
+import static org.junit.Assert.*;
 
 public class BasicStatNodeTest {
 
@@ -12,14 +13,14 @@ public class BasicStatNodeTest {
     @Test
     public void basicStatNodeInit() {
         b = new BasicStatNode(typeTest, exprTest);
-        assert(b.getExpr().equals(exprTest));
-        assert(b.getType().equals(typeTest));
+        assertTrue(b.getExpr().equals(exprTest));
+        assertTrue(b.getType().equals(typeTest));
     }
 
     @Test
     public void basicStatNodeValidity() {
         b = new BasicStatNode(typeTest, exprTest);
-        assert(b.isSemanticallyValid() ==
+        assertTrue(b.isSemanticallyValid() ==
                 exprTest.isSemanticallyValid());
     }
 

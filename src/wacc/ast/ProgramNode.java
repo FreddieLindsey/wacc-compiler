@@ -19,7 +19,7 @@ public class ProgramNode implements ASTNode {
             valid &= f.isSemanticallyValid();
         }
 
-        valid &= stat.isSemanticallyValid();
+        valid &= stat != null && stat.isSemanticallyValid();
 
         return valid;
     }
