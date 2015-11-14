@@ -43,6 +43,7 @@ test_compile: rules
 
 %:
 	$(JUNIT) $@
+=======
 
 clean:
 	$(RM) rules test_bin test_compile $(OUTPUT_DIR) antlr/*.java antlr/*.tokens antlr/*.class src/antlr/*
