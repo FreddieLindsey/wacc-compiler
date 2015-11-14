@@ -7,16 +7,15 @@ export TESTS=$(find * -type f -follow -print | sed 's/\//\./g' | sed 's/.java//g
 
 cd "$DIR"
 
-make test_compile
+make test_compile 1>/dev/null
 
 STATUS=$?
 if (( $STATUS != 0 )); then
   make clean 1>/dev/null
-  echo -e "\nThere was an error in compilation. Tests will not run.\n---------------------------------\n"
+  echo -e "\nThere was an error in compilation. Tests will not run.Run `make test_compile` to see errors\n---------------------------------\n"
   exit $STATUS
 fi
 
-echo
 for i in $TESTS; do
   TEST_DATA=$(make $i)
 
@@ -24,7 +23,7 @@ for i in $TESTS; do
   if (( $STATUS != 0 )); then
     LINE_COUNT=$(echo "$TEST_DATA" | wc -l)
     LINE_COUNT=$((LINE_COUNT - 4))
-    echo -e "\nThere was an error in testing $i.\n---------------------------------\n$(echo "$TEST_DATA" | tail -n $LINE_COUNT)\n"
+    echo -e "\nThere was an error in testing $i.\n---------------------------------\n$(echo "$TEST_DATA" | tail -n $LINE_COUNT)\n---------------------------------"
   else
     echo -e "Test:\t$i passed"
   fi
