@@ -1,7 +1,10 @@
 package wacc.ast;
 
+import wacc.symbolTable.TypeEnum;
+
 public class CharNode extends LiteralNode<Character> {
 
+  private static final TypeEnum type = TypeEnum.CHAR;
   protected static char[] invalid = { '\\', '\'', '\"' };
 
   public CharNode(char value) {
