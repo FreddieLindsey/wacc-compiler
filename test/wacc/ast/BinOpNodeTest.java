@@ -1,12 +1,30 @@
 package wacc.ast;
 
 import org.junit.Test;
+import wacc.symbolTable.TypeEnum;
 
 public class BinOpNodeTest {
 
+  private ExprNode e1;
+  private BinaryOperator bo;
+  private ExprNode e2;
+
+  private BinOpNode b;
+
   @Test
-  public void removethisFunction() {
-    assert(true);
+  public void canGetFirstExpr() {
+    e1 = new ExprNode() {
+      @Override
+      public TypeEnum type() {
+        return null;
+      }
+
+      @Override
+      public boolean isSemanticallyValid() {
+        return false;
+      }
+    };
+    b = new BinOpNode(e1, bo, e2);
   }
 
 }
