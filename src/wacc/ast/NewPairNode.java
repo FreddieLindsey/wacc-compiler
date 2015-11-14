@@ -33,8 +33,4 @@ public class NewPairNode implements AssignRHSNode {
         && snd.isSemanticallyValid();
   }
 
-
-
-
-
 }
