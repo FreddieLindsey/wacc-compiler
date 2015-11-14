@@ -3,4 +3,5 @@
 cd test
 export TESTS=$(find * -type f -follow -print | sed 's/\//\./g' | sed 's/.java//g' | grep -v "find_tests" | awk -F ' ' '{ print $1 }')
 
-make test_compile $TESTS
+make test_compile
+make $TESTS
