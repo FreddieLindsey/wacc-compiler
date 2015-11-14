@@ -9,11 +9,9 @@ public class BinOpNode implements ExprNode {
   private ExprNode rhs;
 
   public BinOpNode(ExprNode lhs, BinaryOperator op, ExprNode rhs) {
-
     this.lhs = lhs;
     this.op  = op;
     this.rhs = rhs;
-
   }
 
   @Override
@@ -38,32 +36,34 @@ public class BinOpNode implements ExprNode {
 
   @Override
   public boolean isSemanticallyValid() {
-    boolean valid = true;
-
-    valid &= lhs.isSemanticallyValid()
-          && rhs.isSemanticallyValid();
-
-    valid &= lhs.type() == rhs.type();
+    boolean valid = lhs.isSemanticallyValid()
+          && rhs.isSemanticallyValid()
+          && lhs.type() == rhs.type();
 
     switch(op) {
       case MUL:
       case DIV:
       case MOD:
       case ADD:
-      case SUB: valid &= lhs.type() == TypeEnum.INT; break;
+      case SUB: valid &= lhs.type() == TypeEnum.INT; return valid;
       case GT :
       case GTE:
       case LT :
-      case LTE: valid &= (lhs.type() == TypeEnum.INT
-                        ||lhs.type() == TypeEnum.CHAR); break; 
+      case LTE: valid &= lhs.type() == TypeEnum.INT
+                      || lhs.type() == TypeEnum.CHAR; return valid;
       case EQ :
-      case NEQ: valid &= lhs.type() != TypeEnum.STRING; break;
+      case NEQ: valid &= lhs.type() != TypeEnum.STRING; return valid;
       case AND:
-      case OR : valid &= lhs.type() == TypeEnum.BOOL; break;
+      case OR : valid &= lhs.type() == TypeEnum.BOOL; return valid;
       default : return false;
     }
-
-    return valid;
   }
 
+  public ExprNode getLHS() {
+    return lhs;
+  }
+
+  public ExprNode getRHS() {
+    return rhs;
+  }
 }
