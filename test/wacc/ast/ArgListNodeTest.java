@@ -9,7 +9,7 @@ public class ArgListNodeTest {
   private ArgListNode a;
   private ExprNode e1 = new IntNode(5);
   private ExprNode e2 = new IntNode(10);
-  private ExprNode e3 = new IntNode(Integer.MAX_VALUE + 1000);
+  private ExprNode e3 = new IntNode(Integer.MAX_VALUE + 1000L);
 
   @Test
   public void pairElemInit() {

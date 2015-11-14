@@ -34,7 +34,7 @@ public class CallNodeTest {
 
   @Test
   public void callValidityF() {
-    c = new CallNode(ident, argsV);
+    c = new CallNode(ident, argsINV);
 
     assertTrue(ident.isSemanticallyValid());
     assertTrue(!argsINV.isSemanticallyValid());
