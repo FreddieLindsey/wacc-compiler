@@ -38,7 +38,7 @@ public class BinOpNodeTest {
 
   @Test
   public void canGetSecondExpr() {
-    e1 = new ExprNode() {
+    e2 = new ExprNode() {
       @Override
       public TypeEnum type() {
         return null;
