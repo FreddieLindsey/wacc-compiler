@@ -1,5 +1,7 @@
 package wacc.ast;
 
+import wacc.symbolTable.TypeEnum;
+
 public class WhileStatNode implements StatNode {
 
   private ExprNode expr;
@@ -10,9 +12,16 @@ public class WhileStatNode implements StatNode {
     this.stat = stat;
   }
 
+  public ExprNode getExpr() {
+    return this.expr;
+  }
+
+  public StatNode getStat() {
+    return this.stat;
+  }
+
   @Override
   public boolean isSemanticallyValid() {
-    //check expr type is bool & semantically valid
     return stat.isSemanticallyValid()
         && expr.isSemanticallyValid()
         && expr.type() == TypeEnum.BOOL;
