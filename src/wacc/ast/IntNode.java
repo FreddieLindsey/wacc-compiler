@@ -11,11 +11,6 @@ public class IntNode extends LiteralNode<Long> {
   }
 
   @Override
-  public TypeEnum type() {
-    return TypeEnum.INT;
-  }
-
-  @Override
   public boolean isSemanticallyValid() {
     return value >= Integer.MIN_VALUE && value <= Integer.MAX_VALUE;
   }
