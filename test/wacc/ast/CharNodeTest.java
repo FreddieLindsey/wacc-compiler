@@ -13,7 +13,7 @@ public class CharNodeTest {
   @Test
   public void charNodeInit() {
       c = new CharNode('x');
-      assertTrue(c.getValue() == 'x');
+      assertTrue(c.getValue().equals('x'));
   }
 
   @Test
