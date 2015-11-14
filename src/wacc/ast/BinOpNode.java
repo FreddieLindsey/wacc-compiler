@@ -59,7 +59,7 @@ public class BinOpNode implements ExprNode {
       case EQ :
       case NEQ: valid &= lhs.type() != TypeEnum.STRING; break;
       case AND:
-      case OR : valid &= lhs.type() == TypeEnum.BOOL;
+      case OR : valid &= lhs.type() == TypeEnum.BOOL; break;
       default : return false;
     }
 
