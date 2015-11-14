@@ -15,4 +15,8 @@ public class IntNode extends LiteralNode<Long> {
     return value >= Integer.MIN_VALUE && value <= Integer.MAX_VALUE;
   }
 
+  @Override
+  public TypeEnum type() {
+    return type;
+  }
 }
