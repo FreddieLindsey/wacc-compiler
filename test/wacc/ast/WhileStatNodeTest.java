@@ -38,13 +38,16 @@ public class WhileStatNodeTest {
   public void whileStatNodeValidF() {
     w = new WhileStatNode(e1, s2);
     assertTrue(e1.isSemanticallyValid());
-    assertTrue(!s1.isSemanticallyValid());
-    assertTrue(!w.isSemanticallyValid());
+    assertFalse(s2.isSemanticallyValid());
+    assertFalse(w.isSemanticallyValid());
   }
 
   @Test
   public void whileStatNodeValidF2() {
-    //need to check when expr is not a bool
+    w = new WhileStatNode(e2, s1);
+    assertTrue(e2.isSemanticallyValid());
+    assertTrue(s1.isSemanticallyValid());
+    assertFalse(w.isSemanticallyValid());
   }
 
 }
