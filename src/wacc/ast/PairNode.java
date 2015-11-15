@@ -1,6 +1,6 @@
 package wacc.ast;
 
-public class PairNode<F extends ASTNode, S extends ASTNode> implements ASTNode {
+public class PairNode<F extends TypeNode, S extends TypeNode> implements TypeNode {
 
   private F fst;
   private S snd;		
@@ -8,6 +8,14 @@ public class PairNode<F extends ASTNode, S extends ASTNode> implements ASTNode {
   public PairNode(F fst, S snd) {
     this.fst = fst;
     this.snd = snd;
+  }
+
+  public getFst() {
+    return this.fst;
+  }
+
+  public getFst() {
+    return this.snd;
   }
 
   @Override
