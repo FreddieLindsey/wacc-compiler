@@ -4,9 +4,9 @@ import java.util.Set;
 
 public class ParamListNode implements ASTNode {
 
-  private Set<ParamNode> ps;
+  private ParamNode[] ps;
 
-  public ParamListNode(Set<ParamNode> ps) {
+  public ParamListNode(ParamNode[] ps) {
      this.ps = ps;
   }
 
@@ -20,7 +20,7 @@ public class ParamListNode implements ASTNode {
     return true;
   }
 
-  public Set<ParamNode> getParams() {
+  public ParamNode[] getParams() {
     return ps;
   }
 }
