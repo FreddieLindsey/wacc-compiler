@@ -2,14 +2,12 @@ package wacc;
 
 import antlr.BasicLexer;
 import antlr.BasicParser;
-import javafx.util.Pair;
 import org.antlr.v4.runtime.ANTLRInputStream;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.ParseTree;
 import wacc.ast.ASTTree;
 
 import java.io.*;
-import java.nio.file.FileVisitResult;
 
 public class Main {
 
