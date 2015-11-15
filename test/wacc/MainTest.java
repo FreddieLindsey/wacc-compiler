@@ -17,18 +17,33 @@ import static org.junit.Assert.*;
 
 public class MainTest {
 
+  private final PrintStream curr = System.out;
+  private final PrintStream err = System.err;
+  private final ByteArrayOutputStream baos = new ByteArrayOutputStream();
+  private final PrintStream replace = new PrintStream(baos);
+  private boolean errors_syn = false;
+  private boolean errors_sem = false;
+
   @Test
   public void validTests() throws IOException {
     SimpleFileVisitor<Path> fv = new SimpleFileVisitor<Path>() {
       @Override
       public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) {
         if (file.toString().endsWith(".wacc")) {
+          captureOut();
           try {
             BasicParser parser = Main.parseInput(new FileInputStream(String.valueOf(file)));
             ParseTree pt = parser.program();
+            if (!baos.toString().equals("")) {
+              errors_syn = true;
+              System.err.println("--------------------------------------\n"
+                + "Valid file\t" + file.toFile().getName()
+                + "\nat location\t" + file.toString());
+            }
             ASTTree ast = Main.analyseFile(pt);
-            assertTrue(true);
+            assertTrue(true); // TODO: Design and implement
           } catch (IOException e) {
+            resetOut();
             System.out.println("Encountered an error parsing/analysing file: "
               + file.toString() + e);
           }
@@ -41,31 +56,23 @@ public class MainTest {
 
   @Test
   public void invalidSyntaxTests() throws IOException {
-    final boolean[] errors = {false};
     SimpleFileVisitor<Path> fv = new SimpleFileVisitor<Path>() {
       @Override
       public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) {
         if (file.toString().endsWith(".wacc")) {
-          PrintStream curr = System.out;
-          PrintStream err = System.err;
-          ByteArrayOutputStream baos = new ByteArrayOutputStream();
-          PrintStream replace = new PrintStream(baos);
-          System.setErr(replace);
-          System.setOut(replace);
+          captureOut();
           try {
             BasicParser parser = Main.parseInput(new FileInputStream(String.valueOf(file)));
             ParseTree pt = parser.program();
-            System.setErr(err);
-            System.setOut(curr);
+            resetOut();
             if (baos.toString().equals("")) {
-              errors[0] = true;
+              errors_syn = true;
               System.err.println("--------------------------------------\n"
                 + "Invalid file\t" + file.toFile().getName()
                 + "\nat location\t" + file.toString());
             }
           } catch (IOException e) {
-            System.setErr(err);
-            System.setOut(curr);
+            resetOut();
             System.out.println("Encountered an error parsing/analysing file: "
               + file.toString() + e);
           }
@@ -74,7 +81,7 @@ public class MainTest {
       }
     };
     walkFileTree(FileSystems.getDefault().getPath("wacc_examples", "invalid", "syntaxErr"), fv);
-    if (errors[0]) {
+    if (errors_syn) {
       System.err.println("--------------------------------------\n"
         + "The above files should have had errors but didn't. Check the grammar!\n\n");
     }
@@ -89,6 +96,12 @@ public class MainTest {
           try {
             BasicParser parser = Main.parseInput(new FileInputStream(String.valueOf(file)));
             ParseTree pt = parser.program();
+            if (!baos.toString().equals("")) {
+              errors_syn = true;
+              System.err.println("--------------------------------------\n"
+                + "Invalid file\t" + file.toFile().getName()
+                + "\nat location\t" + file.toString());
+            }
             ASTTree ast = Main.analyseFile(pt);
             assertTrue(true); // TODO: Design and implement AST to report semantic errors
           } catch (IOException e) {
@@ -100,6 +113,17 @@ public class MainTest {
       }
     };
     walkFileTree(FileSystems.getDefault().getPath("wacc_examples", "invalid", "semanticErr"), fv);
+  }
+
+  private void captureOut() {
+    baos.reset();
+    System.setErr(replace);
+    System.setOut(replace);
+  }
+
+  private void resetOut() {
+    System.setErr(err);
+    System.setOut(curr);
   }
 
 }
