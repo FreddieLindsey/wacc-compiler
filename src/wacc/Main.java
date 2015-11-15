@@ -2,6 +2,7 @@ package wacc;
 
 import antlr.BasicLexer;
 import antlr.BasicParser;
+import javafx.util.Pair;
 import org.antlr.v4.runtime.ANTLRInputStream;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.ParseTree;
@@ -13,33 +14,21 @@ import java.nio.file.FileVisitResult;
 public class Main {
 
   public static void main(String[] args) throws IOException {
-    ANTLRInputStream in = new ANTLRInputStream(System.in);
+    BasicParser parser = parseInput(System.in);
 
-    BasicLexer lexer = new BasicLexer(in);
-
-    CommonTokenStream tokens = new CommonTokenStream(lexer);
-
-    BasicParser parser = new BasicParser(tokens);
-
-    ParseTree tree = parser.program();
-
-    System.out.println(tree.toStringTree(parser));
+    System.out.println((parser.program()).toStringTree(parser));
   }
 
   public static boolean test_test() {
     return true;
   }
 
-  public static ParseTree parseInput(InputStream i) throws IOException {
-    ANTLRInputStream in = new ANTLRInputStream(i);
-
-    BasicLexer lexer = new BasicLexer(in);
-
-    CommonTokenStream tokens = new CommonTokenStream(lexer);
-
-    BasicParser parser = new BasicParser(tokens);
-
-    return parser.program();
+  public static BasicParser parseInput(InputStream i) throws IOException {
+    return
+      new BasicParser(
+        new CommonTokenStream(
+          new BasicLexer(
+            new ANTLRInputStream(i))));
   }
 
   public static ASTTree analyseFile(ParseTree parseTree) throws IOException {
