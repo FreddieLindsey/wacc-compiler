@@ -6,11 +6,6 @@ import static org.junit.Assert.*;
 
 public class IfStatNodeTest {
 
-  @Test
-  public void removethisFunction() {
-    assert(true);
-  }
-
   private IfStatNode i;
 
   private ExprNode e1 = new BoolNode(true);
@@ -24,6 +19,24 @@ public class IfStatNodeTest {
     assertTrue(i.getExpr().equals(e1));
     assertTrue(i.getTrueBranch().equals(s1));
     assertTrue(i.getFalseBranch().equals(s1));
+  }
+  
+  @Test
+  public void canGetExpr() {
+    i = new IfStatNode(e1, s1, s2);
+    assertTrue(i.getExpr().equals(e1));
+  }
+  
+    @Test
+  public void ifStatNodeInit() {
+    i = new IfStatNode(e1, s1, s2);
+    assertTrue(i.getTrueBranch().equals(s1));
+  }
+  
+    @Test
+  public void ifStatNodeInit() {
+    i = new IfStatNode(e1, s1, s2);
+    assertTrue(i.getFalseBranch().equals(s2));
   }
 
   @Test
