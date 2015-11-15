@@ -12,14 +12,6 @@ public class IfStatNodeTest {
   private ExprNode e2 = new StringNode("Hello World!"); //not valid in this context
   private StatNode s1 = new BasicStatNode(StatTypeEnum.SKIP, null);
   private StatNode s2 = new BasicStatNode(StatTypeEnum.RETURN, null); //invalid
-
-  @Test
-  public void ifStatNodeInit() {
-    i = new IfStatNode(e1, s1, s1);
-    assertTrue(i.getExpr().equals(e1));
-    assertTrue(i.getTrueBranch().equals(s1));
-    assertTrue(i.getFalseBranch().equals(s1));
-  }
   
   @Test
   public void canGetExpr() {
@@ -28,13 +20,13 @@ public class IfStatNodeTest {
   }
   
     @Test
-  public void ifStatNodeInit() {
+  public void canGetTrueBranch() {
     i = new IfStatNode(e1, s1, s2);
     assertTrue(i.getTrueBranch().equals(s1));
   }
   
     @Test
-  public void ifStatNodeInit() {
+  public void canGetFalseBranch() {
     i = new IfStatNode(e1, s1, s2);
     assertTrue(i.getFalseBranch().equals(s2));
   }
