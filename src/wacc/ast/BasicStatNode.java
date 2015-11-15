@@ -27,7 +27,8 @@ public class BasicStatNode implements StatNode {
       case RETURN:
       case EXIT:
       case PRINT:
-      case PRINTLN: return expr.isSemanticallyValid();
+      case PRINTLN: 
+      return expr == null ? false : expr.isSemanticallyValid();
       default: return false;
     }
   }
