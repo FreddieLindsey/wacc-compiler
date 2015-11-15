@@ -22,6 +22,10 @@ if (( $STATUS != 0 )); then
   exit $STATUS
 fi
 
+echo "Pulling submodules..."
+git submodule init 1>/dev/null
+git submodule update 1>/dev/null
+
 echo "Rebasing using master from remote (checks for other people's changes)..."
 git rebase $REMOTE/master 1>/dev/null
 STATUS=$?
