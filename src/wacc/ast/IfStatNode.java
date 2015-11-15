@@ -14,9 +14,20 @@ public class IfStatNode implements StatNode {
     this.stat2 = stat2;
   }
 
+  public ExprNode getExpr() {
+    return this.expr;
+  }
+
+  public StatNode getTrueBranch() {
+    return this.stat1;
+  }
+
+  public StatNode getFalseBranch() {
+    return this.stat2;
+  }
+
   @Override
   public boolean isSemanticallyValid() {
-    // check expr type is bool & semantically valid
     return expr.isSemanticallyValid()
         && stat1.isSemanticallyValid()
         && stat2.isSemanticallyValid()
