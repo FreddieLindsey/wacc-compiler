@@ -34,6 +34,7 @@ public class MainTest {
           try {
             BasicParser parser = Main.parseInput(new FileInputStream(String.valueOf(file)));
             ParseTree pt = parser.program();
+            resetOut();
             if (!baos.toString().equals("")) {
               errors_syn = true;
               System.err.println("--------------------------------------\n"
@@ -52,6 +53,10 @@ public class MainTest {
       }
     };
     walkFileTree(FileSystems.getDefault().getPath("wacc_examples", "valid"), fv);
+    if (errors_syn || errors_sem) {
+      System.err.println("--------------------------------------\n"
+        + "The above files shouldn't have had errors but didn't. Check the grammar!\n\n");
+    }
   }
 
   @Test
@@ -93,9 +98,11 @@ public class MainTest {
       @Override
       public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) {
         if (file.toString().endsWith(".wacc")) {
+          captureOut();
           try {
             BasicParser parser = Main.parseInput(new FileInputStream(String.valueOf(file)));
             ParseTree pt = parser.program();
+            resetOut();
             if (!baos.toString().equals("")) {
               errors_syn = true;
               System.err.println("--------------------------------------\n"
@@ -105,6 +112,7 @@ public class MainTest {
             ASTTree ast = Main.analyseFile(pt);
             assertTrue(true); // TODO: Design and implement AST to report semantic errors
           } catch (IOException e) {
+            resetOut();
             System.out.println("Encountered an error parsing/analysing file: "
               + file.toString() + e);
           }
@@ -113,6 +121,10 @@ public class MainTest {
       }
     };
     walkFileTree(FileSystems.getDefault().getPath("wacc_examples", "invalid", "semanticErr"), fv);
+    if (errors_sem) {
+      System.err.println("--------------------------------------\n"
+        + "The above files should have had errors but didn't. Check the grammar!\n\n");
+    }
   }
 
   private void captureOut() {
