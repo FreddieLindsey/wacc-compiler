@@ -1,22 +1,26 @@
 package wacc.ast;
 
+import java.util.Set;
+
 public class ParamListNode implements ASTNode {
 
-  private ParamNode[] ps;
+  private Set<ParamNode> ps;
 
-  public ParamListNode(ParamNode[] ps) {
+  public ParamListNode(Set<ParamNode> ps) {
      this.ps = ps;
   }
 
   @Override
   public boolean isSemanticallyValid() {
-
-    for (int i = 0; i < ps.length ; i++) {
-      if (!ps[i].isSemanticallyValid()) {
-          return false;
+    for (ParamNode p : ps) {
+      if (!p.isSemanticallyValid()) {
+        return false;
       }
     }
-
     return true;
+  }
+
+  public Set<ParamNode> getParams() {
+    return ps;
   }
 }
