@@ -41,7 +41,6 @@ public class IfStatNodeTest {
 
   @Test
   public void ifStatNodeValidF() {
-    //e2 is not bool -> invalid
     i = new IfStatNode(e2, s1, s1);
     assertTrue(e2.isSemanticallyValid());
     assertTrue(s1.isSemanticallyValid());
