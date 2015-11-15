@@ -13,7 +13,7 @@ if (( $STATUS != 0 )); then
 fi
 
 echo "Rebasing this branch ($BRANCH)..."
-git rebase $REMOTE/$BRANCH 1>/dev/null
+git pull --rebase $REMOTE $BRANCH --recurse-submodules 1>/dev/null
 STATUS=$?
 
 if (( $STATUS != 0 )); then
@@ -21,10 +21,6 @@ if (( $STATUS != 0 )); then
   git status
   exit $STATUS
 fi
-
-echo "Pulling submodules..."
-git submodule init 1>/dev/null
-git submodule update 1>/dev/null
 
 echo "Rebasing using master from remote (checks for other people's changes)..."
 git rebase $REMOTE/master 1>/dev/null
