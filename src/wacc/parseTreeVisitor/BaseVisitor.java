@@ -220,23 +220,32 @@ public class BaseVisitor<ASTNode> extends BasicParserBaseVisitor<ASTNode> {
   @Override
   public ASTNode visitStat(@NotNull BasicParser.StatContext ctx) {
     if (ctx.READ() != null) {
-      return (ASTNode) new ReadNode(null, (AssignNode) visitAssignlhs(ctx.assignlhs()));
+      return (ASTNode) new BasicStatNode(null, StatTypeEnum.READ, (AssignNode) visitAssignlhs(ctx.assignlhs()));
     } else if (ctx.FREE() != null) {
-      return (ASTNode) new FreeNode(null, (ExprNode) visitExpr(ctx.expr()));
+      return (ASTNode) new BasicStatNode(null, StatTypeEnum.FREE, (AssignNode) visitAssignlhs(ctx.assignlhs()));
+    } else if (ctx.ASSIGN() != null && ctx.type() != null) {
+      return (ASTNode) new NewAssignNode(
+        null,
+        ((TypeNode) visitType(ctx.type())).getType(),
+        (IdentNode) visitIdent(ctx.ident()),
+        (AssignNode) visitAssignrhs(ctx.assignrhs()));
     } else if (ctx.ASSIGN() != null) {
-      return (ASTNode) new FreeNode(null, (ExprNode) visitExpr(ctx.expr()));
+      return (ASTNode) new ReAssignNode(
+        null,
+        (AssignNode) visitAssignlhs(ctx.assignlhs()),
+        (AssignNode) visitAssignrhs(ctx.assignrhs()));
     } else if (ctx.BEGIN() != null) {
-      return (ASTNode) new BeginNode(null, (ExprNode) visitExpr(ctx.expr()));
+      return (ASTNode) new BeginStatNode(null, (StatNode) visitStat(ctx.stat(0)));
     } else if (ctx.RETURN() != null) {
-      return (ASTNode) new ReturnNode(null, (ExprNode) visitExpr(ctx.expr()));
+      return (ASTNode) new BasicStatNode(null, StatTypeEnum.RETURN, (AssignNode) visitAssignlhs(ctx.assignlhs()));
     } else if (ctx.SKIP() != null) {
-      return (ASTNode) new SkipNode(null);
+      return (ASTNode) new BasicStatNode(null, StatTypeEnum.SKIP, null);
     } else if (ctx.EXIT() != null) {
-      return (ASTNode) new ExitNode(null, (ExprNode) visitExpr(ctx.expr()));
+      return (ASTNode) new BasicStatNode(null, StatTypeEnum.EXIT, (AssignNode) visitAssignlhs(ctx.assignlhs()));
     } else if (ctx.PRINT() != null) {
-      return (ASTNode) new PrintNode(null, (ExprNode) visitExpr(ctx.expr()));
+      return (ASTNode) new BasicStatNode(null, StatTypeEnum.PRINT, (AssignNode) visitAssignlhs(ctx.assignlhs()));
     } else if (ctx.PRINTLN() != null) {
-      return (ASTNode) new PrintLnNode(null, (ExprNode) visitExpr(ctx.expr()));
+      return (ASTNode) new BasicStatNode(null, StatTypeEnum.PRINTLN, (AssignNode) visitAssignlhs(ctx.assignlhs()));
     } else if (ctx.IF() != null) {
       return (ASTNode) new IfStatNode(
         null,
