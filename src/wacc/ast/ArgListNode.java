@@ -1,10 +1,11 @@
 package wacc.ast;
 
-public class ArgListNode implements ASTNode {
+public class ArgListNode extends ASTNode {
 
   private ExprNode[] exprs;
 
-  public ArgListNode(ExprNode[] exprs) {
+  public ArgListNode(ASTNode parent, ExprNode[] exprs) {
+    super(parent);
     this.exprs = exprs;
   }
 

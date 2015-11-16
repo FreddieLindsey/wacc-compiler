@@ -1,14 +1,13 @@
 package wacc.ast;
 
-import wacc.symbolTable.TypeEnum;
-
-public abstract class LiteralNode<T> implements ExprNode {
+public abstract class LiteralNode<T> extends ExprNode {
 
   protected T value;
 
-  public abstract TypeEnum type();
+  public LiteralNode(ASTNode parent) {
+    super(parent);
+  }
 
-  // Returns the value held by the literal node
   public T getValue() {
     return value;
   }

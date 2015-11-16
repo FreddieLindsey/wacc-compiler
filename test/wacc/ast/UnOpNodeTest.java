@@ -5,12 +5,12 @@ import wacc.symbolTable.TypeEnum;
 
 public class UnOpNodeTest {
 
+  private ASTNode parent;
   private UnOpNode u;
 
   @Test
   public void canCreateUnOpNode() {
-    u = new UnOpNode(UnaryOperator.NOT, new ExprNode() {
-      
+    u = new UnOpNode(parent, UnaryOperator.NOT, new ExprNode(u) {
       @Override
       public TypeEnum type() {
         return null;

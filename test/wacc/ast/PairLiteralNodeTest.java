@@ -7,7 +7,8 @@ import static org.junit.Assert.*;
 
 public class PairLiteralNodeTest {
 
-  private static final PairLiteralNode p = new PairLiteralNode();
+  private ASTNode parent;
+  private final PairLiteralNode p = new PairLiteralNode(parent);
 
   @Test
   public void assertPairLiteralIsNull() {

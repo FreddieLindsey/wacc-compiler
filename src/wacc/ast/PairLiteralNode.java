@@ -4,17 +4,14 @@ import wacc.symbolTable.TypeEnum;
 
 public class PairLiteralNode extends LiteralNode {
   
-  public PairLiteralNode() {
+  public PairLiteralNode(ASTNode parent) {
+    super(parent);
     this.value = null;
+    this.type = TypeEnum.PAIR;
   }
 
   @Override
   public boolean isSemanticallyValid() {
     return true;
-  }
-
-  @Override
-  public TypeEnum type() {
-    return TypeEnum.PAIR;
   }
 }

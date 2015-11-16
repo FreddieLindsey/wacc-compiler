@@ -4,11 +4,12 @@ import wacc.symbolTable.TypeEnum;
 
 public class CharNode extends LiteralNode<Character> {
 
-  private static final TypeEnum type = TypeEnum.CHAR;
   protected static char[] invalid = { '\\', '\'', '\"' };
 
-  public CharNode(char value) {
+  public CharNode(ASTNode parent, char value) {
+    super(parent);
     this.value = value;
+    this.type = TypeEnum.CHAR;
   }
 
   @Override
@@ -19,10 +20,5 @@ public class CharNode extends LiteralNode<Character> {
       }
     }
     return true;
-  }
-
-  @Override
-  public TypeEnum type() {
-    return type;
   }
 }

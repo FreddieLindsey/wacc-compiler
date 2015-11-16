@@ -1,11 +1,12 @@
 package wacc.ast;
 
-public class BasicStatNode implements StatNode {
+public class BasicStatNode extends StatNode {
 
   private ExprNode expr;
   private StatTypeEnum st;
 
-  public BasicStatNode(StatTypeEnum st, ExprNode expr) {
+  public BasicStatNode(ASTNode parent, StatTypeEnum st, ExprNode expr) {
+    super(parent);
     this.st = st;
     this.expr = expr;
   }

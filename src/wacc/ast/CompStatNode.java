@@ -1,13 +1,14 @@
 package wacc.ast;
 
-public class CompStatNode implements StatNode {
+public class CompStatNode extends StatNode {
 
   // for stat composition
 
   private StatNode stat1;
   private StatNode stat2;
 
-  public CompStatNode(StatNode stat1, StatNode stat2) {
+  public CompStatNode(ASTNode parent, StatNode stat1, StatNode stat2) {
+    super(parent);
     this.stat1 = stat1;
     this.stat2 = stat2;
   }

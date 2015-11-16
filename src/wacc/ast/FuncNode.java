@@ -1,13 +1,14 @@
 package wacc.ast;
 
-public class FuncNode implements ASTNode {
+public class FuncNode extends ASTNode {
 
   private TypeNode t;
   private IdentNode n;
   private ParamListNode ps;
   private StatNode stat;
 
-  public FuncNode(TypeNode t, IdentNode n, ParamListNode ps, StatNode stat) {
+  public FuncNode(ASTNode parent, TypeNode t, IdentNode n, ParamListNode ps, StatNode stat) {
+    super(parent);
     this.t = t;
     this.n = n;
     this.ps = ps;

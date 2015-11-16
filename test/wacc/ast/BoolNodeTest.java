@@ -6,23 +6,24 @@ import static org.junit.Assert.*;
 
 public class BoolNodeTest {
 
+  private ASTNode parent;
   private BoolNode b;
 
   @Test
   public void boolNodeInit() {
-      b = new BoolNode(true);
+      b = new BoolNode(parent, true);
       assertTrue(b.getValue());
   }
 
   @Test
   public void boolNodeValidity() {
-      b = new BoolNode(false);
+      b = new BoolNode(parent, false);
       assert (b.isSemanticallyValid());
   }
 
   @Test
   public void boolNodeType() {
-      b = new BoolNode(false);
+      b = new BoolNode(parent, false);
       assert (b.type() == TypeEnum.BOOL);
   }
 

@@ -2,12 +2,13 @@ package wacc.ast;
 
 import wacc.symbolTable.TypeEnum;
 
-public class WhileStatNode implements StatNode {
+public class WhileStatNode extends StatNode {
 
   private ExprNode expr;
   private StatNode stat;
 
-  public WhileStatNode(ExprNode expr, StatNode stat) {
+  public WhileStatNode(ASTNode parent, ExprNode expr, StatNode stat) {
+    super(parent);
     this.expr = expr;
     this.stat = stat;
   }

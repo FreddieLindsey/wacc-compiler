@@ -1,5 +1,8 @@
 package wacc.ast;
 
-public interface StatNode extends ASTNode {
-  
+public abstract class StatNode extends ASTNode {
+
+  public StatNode(ASTNode parent) {
+    super(parent);
+  }
 }

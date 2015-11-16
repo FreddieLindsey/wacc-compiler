@@ -4,10 +4,10 @@ import wacc.symbolTable.TypeEnum;
 
 public class ArrayLiteralNode extends LiteralNode<ExprNode[]> {
   
-  private static final TypeEnum type = TypeEnum.ARR;
-  
-  public ArrayLiteralNode(ExprNode[] value) {
+  public ArrayLiteralNode(ASTNode parent, ExprNode[] value) {
+    super(parent);
     this.value = value;
+    this.type = TypeEnum.ARR;
   }
   
   @Override
@@ -18,10 +18,5 @@ public class ArrayLiteralNode extends LiteralNode<ExprNode[]> {
       }
     }
     return true; 
-  }
-
-  @Override
-  public TypeEnum type() {
-    return type;
   }
 }

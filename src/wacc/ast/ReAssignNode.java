@@ -1,29 +1,32 @@
 package wacc.ast;
 
-public class ReAssignNode implements StatNode {
+public class ReAssignNode extends StatNode {
 
-    private AssignLHSNode lhs;
-    private AssignRHSNode rhs;
+  private AssignNode lhs;
+  private AssignNode rhs;
 
-    public ReAssignNode(AssignLHSNode lhs, AssignRHSNode rhs) {
-        this.lhs = lhs;
-        this.rhs = rhs;
-    }
+  public ReAssignNode(ASTNode parent, AssignNode lhs, AssignNode rhs) {
+    super(parent);
+    this.lhs = lhs;
+    this.rhs = rhs;
+  }
 
-    public AssignLHSNode getLHS() {
-        return lhs;
-    }
+  public AssignNode getLHS() {
+    return lhs;
+  }
 
-    public AssignRHSNode getRHS() {
-        return rhs;
-    }
+  public AssignNode getRHS() {
+    return rhs;
+  }
 
-    @Override
-    public boolean isSemanticallyValid() {
+  @Override
+  public boolean isSemanticallyValid() {
     //TODO: check that the lhs isnt already being used in same scope
-    return lhs.isSemanticallyValid() 
-        && rhs.isSemanticallyValid()
-        && lhs.type() == rhs.type();
-    }
+    return lhs.validLeft()
+      && rhs.validRight()
+      && lhs.isSemanticallyValid()
+      && rhs.isSemanticallyValid()
+      && lhs.type() == rhs.type();
+  }
 
 }

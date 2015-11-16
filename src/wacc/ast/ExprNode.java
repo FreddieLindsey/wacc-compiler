@@ -2,8 +2,16 @@ package wacc.ast;
 
 import wacc.symbolTable.TypeEnum;
 
-public interface ExprNode extends ASTNode, AssignRHSNode {
+public abstract class ExprNode extends ASTNode {
 
-  public TypeEnum type();
+  protected TypeEnum type;
+
+  public ExprNode(ASTNode parent) {
+    super(parent);
+  }
+
+  public TypeEnum type() {
+    return type;
+  }
 
 }

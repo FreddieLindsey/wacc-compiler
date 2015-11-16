@@ -2,11 +2,12 @@ package wacc.ast;
 
 import wacc.symbolTable.TypeEnum;
 
-public class TypeNode implements StatNode {
+public class TypeNode extends StatNode {
 
   private final TypeEnum t;
 
-  public TypeNode(TypeEnum type) {
+  public TypeNode(ASTNode parent, TypeEnum type) {
+    super(parent);
     this.t = type;
   }
 
