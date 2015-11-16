@@ -3,6 +3,7 @@ package wacc;
 import antlr.BasicParser;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.junit.Test;
+import wacc.ast.ProgramNode;
 
 import java.io.ByteArrayOutputStream;
 import java.io.FileInputStream;
@@ -40,7 +41,7 @@ public class MainTest {
                 + "Valid file\t" + file.toFile().getName()
                 + "\nat location\t" + file.toString());
             }
-            ASTTree ast = Main.analyseFile(pt);
+            ProgramNode ast = Main.analyseFile(pt);
             assertTrue(true); // TODO: Design and implement
           } catch (IOException e) {
             resetOut();
@@ -108,7 +109,7 @@ public class MainTest {
                 + "Invalid file\t" + file.toFile().getName()
                 + "\nat location\t" + file.toString());
             }
-            ASTTree ast = Main.analyseFile(pt);
+            ProgramNode ast = Main.analyseFile(pt);
             assertTrue(true); // TODO: Design and implement AST to report semantic errors
           } catch (IOException e) {
             resetOut();
