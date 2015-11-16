@@ -37,11 +37,11 @@ public class FuncNodeTest {
 
     FuncNode f = new FuncNode(t, n, p, stat1);
 
-    //assertTrue(t.isSemanticallyValid());
-    // assertTrue(n.isSemanticallyValid());
-    // assertTrue(p.isSemanticallyValid());
-    // assertTrue(stat1.isSemanticallyValid());
-    // assertTrue(f.isSemanticallyValid());
+    assertTrue(t.isSemanticallyValid());
+    assertTrue(n.isSemanticallyValid());
+    assertTrue(p.isSemanticallyValid());
+    assertTrue(stat1.isSemanticallyValid());
+    assertTrue(f.isSemanticallyValid());
   }
 
 }
