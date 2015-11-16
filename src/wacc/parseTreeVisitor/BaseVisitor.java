@@ -34,6 +34,13 @@ public class BaseVisitor<ASTNode> extends BasicParserBaseVisitor<ASTNode> {
 
   @Override
   public ASTNode visitAssignlhs(@NotNull BasicParser.AssignlhsContext ctx) {
+    if (ctx.pairelem() != null) {
+      return visitPairelem(ctx.pairelem());
+    } else if (ctx.arrayelem() != null) {
+      return visitArrayelem(ctx.arrayelem());
+    } else if (ctx.ident() != null) {
+      return visitIdent(ctx.ident());
+    }
     return null;
   }
 
