@@ -11,10 +11,14 @@ import java.io.*;
 
 public class Main {
 
+  private static final PrintStream default_ = System.out;
+  private static final PrintStream default_err = System.err;
+  private static final ByteArrayOutputStream baos = new ByteArrayOutputStream();
+  private static final PrintStream capture_ = new PrintStream(baos);
+
   public static void main(String[] args) throws IOException {
     InputStream i;
 
-    System.out.println((args.length > 0));
     if (args.length > 0) {
       i = new FileInputStream(args[0]);
     } else {
@@ -23,7 +27,28 @@ public class Main {
 
     BasicParser parser = parseInput(i);
 
-    System.out.println((parser.program()).toStringTree(parser));
+    engageMessageLock();
+    ParseTree parseTree = parser.program();
+    String output = baos.toString();
+    releaseMessageLock();
+
+    if (!output.equals("")) {
+      System.out.print("There were syntax errors in the supplied stream of input"
+        + "\n------------------------------\n"
+        + output);
+      System.exit(100);
+    }
+  }
+
+  private static void engageMessageLock() {
+    System.setErr(capture_);
+    System.setOut(capture_);
+  }
+
+  private static void releaseMessageLock() {
+    baos.reset();
+    System.setErr(default_err);
+    System.setOut(default_);
   }
 
   public static BasicParser parseInput(InputStream i) throws IOException {
@@ -33,6 +58,8 @@ public class Main {
           new BasicLexer(
             new ANTLRInputStream(i))));
   }
+
+
 
   public static ASTTree analyseFile(ParseTree parseTree) throws IOException {
     return new ASTTree(parseTree);
