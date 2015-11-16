@@ -173,24 +173,4 @@ public class BaseVisitor<ASTNode> extends BasicParserBaseVisitor<ASTNode> {
   public ASTNode visitIntliter(@NotNull BasicParser.IntliterContext ctx) {
     return (ASTNode) new IntNode(null, Long.valueOf(ctx.getText()));
   }
-
-  @Override
-  public ASTNode visit(@NotNull ParseTree parseTree) {
-    return super.visit(parseTree);
-  }
-
-  @Override
-  public ASTNode visitChildren(@NotNull RuleNode ruleNode) {
-    return null;
-  }
-
-  @Override
-  public ASTNode visitTerminal(@NotNull TerminalNode terminalNode) {
-    return null;
-  }
-
-  @Override
-  public ASTNode visitErrorNode(@NotNull ErrorNode errorNode) {
-    return null;
-  }
 }
