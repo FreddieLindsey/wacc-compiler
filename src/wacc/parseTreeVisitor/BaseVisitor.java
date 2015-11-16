@@ -218,6 +218,11 @@ public class BaseVisitor<ASTNode> extends BasicParserBaseVisitor<ASTNode> {
 
   @Override
   public ASTNode visitStat(@NotNull BasicParser.StatContext ctx) {
+    if (ctx.READ() != null) {
+      return (ASTNode) new ReadNode(null, (AssignNode) visitAssignlhs(ctx.assignlhs()));
+    } else (ctx.FREE() != null) {
+      return (ASTNode) new FreeNode(null, (ExprNode) visitExpr(ctx.expr()));
+    }
     return null;
   }
 
@@ -229,7 +234,17 @@ public class BaseVisitor<ASTNode> extends BasicParserBaseVisitor<ASTNode> {
 
   @Override
   public ASTNode visitPairtype(@NotNull BasicParser.PairtypeContext ctx) {
-    return null;
+    PairNode p1 = (PairNode) visitPairelemtype(ctx.pairelemtype(0));
+    PairNode p2 = (PairNode) visitPairelemtype(ctx.pairelemtype(1));
+    PairNode p;
+    if (p1.getFst() != null) {
+      p = new PairNode<ExprNode, ExprNode>(null, p1.getFst(), p2.getSnd());
+    } else {
+      p = new PairNode<ExprNode, ExprNode>(null, p2.getFst(), p1.getSnd());
+    }
+    p1.setParent(p);
+    p2.setParent(p);
+    return (ASTNode) p;
   }
 
   @Override
@@ -268,8 +283,17 @@ public class BaseVisitor<ASTNode> extends BasicParserBaseVisitor<ASTNode> {
 
   @Override
   public ASTNode visitPairelem(@NotNull BasicParser.PairelemContext ctx) {
-
-    return null;
+    if (ctx.FST() != null) {
+      return (ASTNode) new PairNode<ExprNode, ExprNode>(
+        null,
+        (ExprNode) visitExpr(ctx.expr()),
+        null);
+    } else {
+      return (ASTNode) new PairNode<ExprNode, ExprNode>(
+        null,
+        null,
+        (ExprNode) visitExpr(ctx.expr()));
+    }
   }
 
   @Override
