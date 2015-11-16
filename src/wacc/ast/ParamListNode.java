@@ -21,6 +21,7 @@ public class ParamListNode implements ASTNode {
       }
       scope.add(p.getIdent().getIdent(), p.getType());
     }
+    scope = new SymbolTable(null);
     return true;
   }
 
