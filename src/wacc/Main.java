@@ -12,7 +12,16 @@ import java.io.*;
 public class Main {
 
   public static void main(String[] args) throws IOException {
-    BasicParser parser = parseInput(System.in);
+    InputStream i;
+
+    System.out.println((args.length > 0));
+    if (args.length > 0) {
+      i = new FileInputStream(args[0]);
+    } else {
+      i = System.in;
+    }
+
+    BasicParser parser = parseInput(i);
 
     System.out.println((parser.program()).toStringTree(parser));
   }
