@@ -4,19 +4,13 @@ import wacc.symbolTable.TypeEnum;
 
 public class BoolNode extends LiteralNode<Boolean> {
 
-  private static final TypeEnum type = TypeEnum.BOOL;
-
   public BoolNode(boolean value) {
     this.value = value;
+    this.type = TypeEnum.BOOL;
   }
 
   @Override
   public boolean isSemanticallyValid() {
     return value != null;
-  }
-
-  @Override
-  public TypeEnum type() {
-    return type;
   }
 }

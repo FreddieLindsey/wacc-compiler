@@ -1,6 +1,6 @@
 package wacc.ast;
 
-public class BasicStatNode implements StatNode {
+public class BasicStatNode extends StatNode {
 
   private ExprNode expr;
   private StatTypeEnum st;

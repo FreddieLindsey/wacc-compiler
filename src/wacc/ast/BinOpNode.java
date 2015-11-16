@@ -2,7 +2,7 @@ package wacc.ast;
 
 import wacc.symbolTable.TypeEnum;
 
-public class BinOpNode implements ExprNode {
+public class BinOpNode extends ExprNode {
 	
   private ExprNode lhs;
   private BinaryOperator op;

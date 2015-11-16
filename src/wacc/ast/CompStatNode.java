@@ -1,6 +1,6 @@
 package wacc.ast;
 
-public class CompStatNode implements StatNode {
+public class CompStatNode extends StatNode {
 
   // for stat composition
 

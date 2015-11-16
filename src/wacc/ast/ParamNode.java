@@ -3,7 +3,7 @@ package wacc.ast;
 import wacc.symbolTable.SymbolTable;
 import wacc.symbolTable.TypeEnum;
 
-public class ParamNode implements ASTNode {
+public class ParamNode extends ASTNode {
 
   private TypeEnum type;
   private IdentNode ident;

@@ -11,7 +11,7 @@ public class ReAssignNodeTest {
 
   private TypeEnum t = TypeEnum.STRING;
   private IdentNode i = new IdentNode("test");
-  private AssignRHSNode rhs = new IdentNode("test2");
+  private AssignNode rhs = new IdentNode("test2");
 
   @Test
   public void newAssignNodeInit() {

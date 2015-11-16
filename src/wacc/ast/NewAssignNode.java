@@ -2,13 +2,13 @@ package wacc.ast;
 
 import wacc.symbolTable.TypeEnum;
 
-public class NewAssignNode implements StatNode {
+public class NewAssignNode extends StatNode {
 
     private TypeEnum t;
     private IdentNode i;
-    private AssignRHSNode rhs;
+    private AssignNode rhs;
 
-    public NewAssignNode(TypeEnum t, IdentNode i, AssignRHSNode rhs) {
+    public NewAssignNode(TypeEnum t, IdentNode i, AssignNode rhs) {
         this.t = t;
         this.i = i;
         this.rhs = rhs;
@@ -22,7 +22,7 @@ public class NewAssignNode implements StatNode {
         return i;
     }
 
-    public AssignRHSNode getRHS() {
+    public AssignNode getRHS() {
         return rhs;
     }
 
@@ -30,6 +30,7 @@ public class NewAssignNode implements StatNode {
     public boolean isSemanticallyValid() {
         // TODO: check that the Ident isnt already being used in same scope
         return i.isSemanticallyValid()
+            && rhs.validRight()
             && rhs.isSemanticallyValid()
             && t == rhs.type();
     }

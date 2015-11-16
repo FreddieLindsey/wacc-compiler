@@ -2,7 +2,7 @@ package wacc.ast;
 
 import wacc.symbolTable.TypeEnum;
 
-public class IdentNode implements ExprNode, AssignLHSNode {
+public class IdentNode extends AssignNode {
 
   private String ident;
 
@@ -16,7 +16,7 @@ public class IdentNode implements ExprNode, AssignLHSNode {
 
   @Override
   public TypeEnum type() {
-    // Needs to fetch from symbol table
+    // TODO: Needs to fetch from symbol table
     return null;
   }
 
@@ -44,4 +44,13 @@ public class IdentNode implements ExprNode, AssignLHSNode {
     return (c >= '0' && c <= '9') || isFirstValid(c);
   }
 
+  @Override
+  public boolean validLeft() {
+    return true;
+  }
+
+  @Override
+  public boolean validRight() {
+    return true;
+  }
 }

@@ -2,7 +2,7 @@ package wacc.ast;
 
 import wacc.symbolTable.TypeEnum;
 
-public class CallNode implements AssignRHSNode {
+public class CallNode extends ExprNode {
 
   private IdentNode ident;
   private ArgListNode args;

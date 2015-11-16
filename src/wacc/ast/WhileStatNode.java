@@ -2,7 +2,7 @@ package wacc.ast;
 
 import wacc.symbolTable.TypeEnum;
 
-public class WhileStatNode implements StatNode {
+public class WhileStatNode extends StatNode {
 
   private ExprNode expr;
   private StatNode stat;

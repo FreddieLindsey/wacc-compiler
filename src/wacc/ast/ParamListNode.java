@@ -2,7 +2,7 @@ package wacc.ast;
 
 import wacc.symbolTable.SymbolTable;
 
-public class ParamListNode implements ASTNode {
+public class ParamListNode extends ASTNode {
 
   private ParamNode[] ps;
   private SymbolTable scope;

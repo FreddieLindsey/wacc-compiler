@@ -6,15 +6,11 @@ public class PairLiteralNode extends LiteralNode {
   
   public PairLiteralNode() {
     this.value = null;
+    this.type = TypeEnum.PAIR;
   }
 
   @Override
   public boolean isSemanticallyValid() {
     return true;
-  }
-
-  @Override
-  public TypeEnum type() {
-    return TypeEnum.PAIR;
   }
 }
