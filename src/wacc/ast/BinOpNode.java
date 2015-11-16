@@ -80,4 +80,12 @@ public class BinOpNode extends ExprNode {
   public ExprNode getRHS() {
     return rhs;
   }
+
+  public void setLHS(ExprNode LHS) {
+    this.lhs = LHS;
+  }
+
+  public void setRHS(ExprNode RHS) {
+    this.rhs = RHS;
+  }
 }

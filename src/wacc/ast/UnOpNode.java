@@ -49,5 +49,8 @@ public class UnOpNode extends ExprNode {
 
     return valid;
   }
-  
+
+  public void setExpr(ExprNode expr) {
+    this.expr = expr;
+  }
 }
