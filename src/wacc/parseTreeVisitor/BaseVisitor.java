@@ -8,6 +8,7 @@ import org.antlr.v4.runtime.tree.ErrorNode;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.RuleNode;
 import org.antlr.v4.runtime.tree.TerminalNode;
+import sun.org.mozilla.javascript.Function;
 import wacc.ast.*;
 
 import java.util.ArrayList;
@@ -120,7 +121,19 @@ public class BaseVisitor<ASTNode> extends BasicParserBaseVisitor<ASTNode> {
 
   @Override
   public ASTNode visitFunc(@NotNull BasicParser.FuncContext ctx) {
-    return null;
+    FuncNode f = new FuncNode(
+      null,
+      (TypeNode) visitType(ctx.type()),
+      (IdentNode) visitIdent(ctx.ident()),
+      (ParamListNode) visitParamlist(ctx.paramlist()),
+      (StatNode) visitStat(ctx.stat()));
+    f.getType().setParent(f);
+    f.getIdent().setParent(f);
+    f.getStat().setParent(f);
+    for (ParamNode p : f.getParams().getParams()) {
+      p.setParent(f);
+    }
+    return (ASTNode) f;
   }
 
   @Override
