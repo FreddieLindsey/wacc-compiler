@@ -1,13 +1,10 @@
 package wacc.ast.pair;
 
-<<<<<<< 13bee15090abd00d60efafe016aec785e7f780af:src/wacc/ast/PairNode.java
 import wacc.ast.type.*;
-=======
 import wacc.ast.ASTNode;
 import wacc.ast.ExprNode;
 import wacc.ast.type.TypeNode;
 import wacc.ast.type.TypeEnum;
->>>>>>> Slight refactor:src/wacc/ast/pair/PairNode.java
 
 public class PairNode<F extends ExprNode, S extends ExprNode> extends TypeNode {
 

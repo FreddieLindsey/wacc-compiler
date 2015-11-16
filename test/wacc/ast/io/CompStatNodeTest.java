@@ -1,13 +1,15 @@
-package wacc.ast;
+package wacc.ast.io;
 
 import org.junit.Test;
 import static org.junit.Assert.*;
 
-<<<<<<< 13bee15090abd00d60efafe016aec785e7f780af
-=======
+import wacc.ast.ASTNode;
+import wacc.ast.ExprNode;
+import wacc.ast.StatNode;
+import wacc.ast.StatTypeEnum;
 import wacc.ast.io.BasicStatNode;
 import wacc.ast.io.CompStatNode;
->>>>>>> Slight refactor
+import wacc.ast.type.TypeNode;
 
 public class CompStatNodeTest {
 

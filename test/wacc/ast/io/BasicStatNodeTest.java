@@ -1,6 +1,10 @@
-package wacc.ast;
+package wacc.ast.io;
 
 import org.junit.Test;
+import wacc.ast.ASTNode;
+import wacc.ast.ExprNode;
+import wacc.ast.IdentNode;
+import wacc.ast.StatTypeEnum;
 import wacc.ast.io.BasicStatNode;
 
 import static org.junit.Assert.*;

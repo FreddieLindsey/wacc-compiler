@@ -1,11 +1,11 @@
-package wacc.ast;
+package wacc.ast.operator;
 
 import org.junit.Test;
-<<<<<<< 13bee15090abd00d60efafe016aec785e7f780af
-=======
+import wacc.ast.ASTNode;
+import wacc.ast.ExprNode;
 import wacc.ast.operator.UnOpNode;
 import wacc.ast.operator.UnaryOperator;
->>>>>>> Slight refactor
+import wacc.ast.type.TypeNode;
 
 public class UnOpNodeTest {
 

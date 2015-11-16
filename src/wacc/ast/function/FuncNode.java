@@ -3,6 +3,7 @@ package wacc.ast.function;
 import wacc.ast.ASTNode;
 import wacc.ast.IdentNode;
 import wacc.ast.StatNode;
+import wacc.ast.type.TypeNode;
 
 public class FuncNode extends ASTNode {
 

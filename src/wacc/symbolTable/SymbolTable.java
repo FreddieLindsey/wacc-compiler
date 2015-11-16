@@ -1,10 +1,6 @@
 package wacc.symbolTable;
 
-<<<<<<< 13bee15090abd00d60efafe016aec785e7f780af
 import wacc.ast.type.TypeNode;
-=======
-import wacc.ast.type.TypeEnum;
->>>>>>> Slight refactor
 
 import java.util.HashMap;
 import java.util.Map;

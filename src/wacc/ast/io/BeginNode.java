@@ -8,8 +8,8 @@ public class BeginNode extends StatNode {
 
   private final ExprNode e;
 
-  public BeginNode(ASTNode parent, ExprNode e) {
-    super(parent);
+  public BeginNode(ExprNode e) {
+    super();
     this.e = e;
     e.setParent(this);
   }

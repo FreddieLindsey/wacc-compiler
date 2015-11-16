@@ -1,6 +1,9 @@
-package wacc.ast;
+package wacc.ast.function;
 
 import org.junit.Test;
+import wacc.ast.ASTNode;
+import wacc.ast.ExprNode;
+import wacc.ast.IdentNode;
 import wacc.ast.function.ArgListNode;
 import wacc.ast.function.CallNode;
 import wacc.ast.type.IntNode;

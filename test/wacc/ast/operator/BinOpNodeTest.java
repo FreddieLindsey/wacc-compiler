@@ -1,16 +1,11 @@
-package wacc.ast;
+package wacc.ast.operator;
 
 import org.junit.Test;
+import wacc.ast.ExprNode;
+import wacc.ast.type.TypeEnum;
+import wacc.ast.type.TypeNode;
 
 import static org.junit.Assert.*;
-
-<<<<<<< 13bee15090abd00d60efafe016aec785e7f780af
-import wacc.symbolTable.TypeEnum;
-=======
-import wacc.ast.operator.BinOpNode;
-import wacc.ast.operator.BinaryOperator;
-import wacc.ast.type.TypeEnum;
->>>>>>> Slight refactor
 
 public class BinOpNodeTest {
 

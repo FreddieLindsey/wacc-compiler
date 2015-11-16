@@ -1,6 +1,8 @@
-package wacc.ast;
+package wacc.ast.type;
 
 import org.junit.Test;
+import wacc.ast.ASTNode;
+import wacc.ast.ExprNode;
 import wacc.ast.type.ArrayLiteralNode;
 import wacc.ast.type.IntNode;
 import wacc.ast.type.StringNode;

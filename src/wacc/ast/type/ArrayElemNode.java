@@ -11,8 +11,8 @@ public class ArrayElemNode extends ExprNode {
   private final ArrayList<ExprNode> es;
   private final IdentNode i;
 
-  public ArrayElemNode(ASTNode parent, IdentNode i) {
-    super(parent);
+  public ArrayElemNode(IdentNode i) {
+    super();
     this.i = i;
     this.es = new ArrayList<ExprNode>();
     i.setParent(this);
