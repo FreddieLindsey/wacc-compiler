@@ -33,9 +33,14 @@ public class Main {
     releaseMessageLock();
 
     if (!output.equals("")) {
+      String[] errors = output.split("\n");
       System.out.print("There were syntax errors in the supplied stream of input"
-        + "\n------------------------------\n"
-        + output);
+        + "\n------------------------------\n");
+      int error_count = 1;
+      for (String error : errors) {
+        System.out.println("Error " + error_count + ":\t" + error);
+        error_count++;
+      }
       System.exit(100);
     }
   }
