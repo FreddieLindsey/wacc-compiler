@@ -49,7 +49,7 @@ public class BaseVisitor<ASTNode> extends BasicParserBaseVisitor<ASTNode> {
 
   @Override
   public ASTNode visitBoolliter(@NotNull BasicParser.BoolliterContext ctx) {
-    return null;
+    return (ASTNode) new BoolNode(null, ctx.TRUE() != null);
   }
 
   @Override
