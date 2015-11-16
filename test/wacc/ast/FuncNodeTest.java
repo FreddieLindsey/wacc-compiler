@@ -16,16 +16,38 @@ public class FuncNodeTest {
 
 
   @Test
-  public void funcNodeInit() {
+  public void canGetType() {
     ps[0] = p1;
     ps[1] = p2;
     ParamListNode p = new ParamListNode(ps);
-
     FuncNode f = new FuncNode(t, n, p, stat1);
-
     assertTrue(f.getType().equals(t));
+  }
+
+  @Test
+  public void canGetIdent() {
+    ps[0] = p1;
+    ps[1] = p2;
+    ParamListNode p = new ParamListNode(ps);
+    FuncNode f = new FuncNode(t, n, p, stat1);
     assertTrue(f.getIdent().equals(n));
+  }
+
+  @Test
+  public void canGetParamList() {
+    ps[0] = p1;
+    ps[1] = p2;
+    ParamListNode p = new ParamListNode(ps);
+    FuncNode f = new FuncNode(t, n, p, stat1);
     assertTrue(f.getParams().equals(p));
+  }
+
+  @Test
+  public void canGetStat() {
+    ps[0] = p1;
+    ps[1] = p2;
+    ParamListNode p = new ParamListNode(ps);
+    FuncNode f = new FuncNode(t, n, p, stat1);
     assertTrue(f.getStat().equals(stat1));
   }
 
