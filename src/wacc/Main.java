@@ -5,26 +5,27 @@ import antlr.BasicParser;
 import org.antlr.v4.runtime.ANTLRInputStream;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.ParseTree;
+import wacc.ast.ASTTree;
 
-import java.io.IOException;
+import java.io.*;
 
 public class Main {
 
-    public static void main(String[] args) throws IOException {
-        ANTLRInputStream in = new ANTLRInputStream(System.in);
+  public static void main(String[] args) throws IOException {
+    BasicParser parser = parseInput(System.in);
 
-        BasicLexer lexer = new BasicLexer(in);
+    System.out.println((parser.program()).toStringTree(parser));
+  }
 
-        CommonTokenStream tokens = new CommonTokenStream(lexer);
+  public static BasicParser parseInput(InputStream i) throws IOException {
+    return
+      new BasicParser(
+        new CommonTokenStream(
+          new BasicLexer(
+            new ANTLRInputStream(i))));
+  }
 
-        BasicParser parser = new BasicParser(tokens);
-
-        ParseTree tree = parser.program();
-
-        System.out.println(tree.toStringTree(parser));
-    }
-
-    public static boolean test_test() {
-      return true;
-    }
+  public static ASTTree analyseFile(ParseTree parseTree) throws IOException {
+    return new ASTTree(parseTree);
+  }
 }
