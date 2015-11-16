@@ -143,7 +143,9 @@ public class BaseVisitor<ASTNode> extends BasicParserBaseVisitor<ASTNode> {
 
   @Override
   public ASTNode visitIntsign(@NotNull BasicParser.IntsignContext ctx) {
-    return null;
+    return (ASTNode) ((ctx.SUB() != null) ?
+      new IntNode(null, -1) :
+      new IntNode(null,  1));
   }
 
   @Override
