@@ -4,7 +4,17 @@ import antlr.BasicParser;
 import antlr.BasicParserBaseVisitor;
 import org.antlr.v4.runtime.misc.NotNull;
 import wacc.ast.*;
+import wacc.ast.function.*;
 import wacc.ast.io.*;
+import wacc.ast.operator.BinOpNode;
+import wacc.ast.operator.BinaryOperator;
+import wacc.ast.operator.UnOpNode;
+import wacc.ast.operator.UnaryOperator;
+import wacc.ast.pair.NewPairNode;
+import wacc.ast.pair.PairLiteralNode;
+import wacc.ast.pair.PairNode;
+import wacc.ast.type.*;
+import wacc.ast.IdentNode;
 
 import java.util.ArrayList;
 

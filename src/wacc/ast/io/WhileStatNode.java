@@ -1,9 +1,8 @@
 package wacc.ast.io;
 
-import wacc.ast.type.TypeNode;
 import wacc.ast.ExprNode;
 import wacc.ast.StatNode;
-import wacc.symbolTable.TypeEnum;
+import wacc.ast.type.TypeEnum;
 
 public class WhileStatNode extends StatNode {
 

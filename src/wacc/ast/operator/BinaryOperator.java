@@ -1,4 +1,4 @@
-package wacc.ast;
+package wacc.ast.operator;
 
 public enum BinaryOperator {
   

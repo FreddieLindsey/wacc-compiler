@@ -1,5 +1,6 @@
-package wacc.ast;
+package wacc.ast.function;
 
+import wacc.ast.ASTNode;
 import wacc.symbolTable.SymbolTable;
 
 import java.util.ArrayList;

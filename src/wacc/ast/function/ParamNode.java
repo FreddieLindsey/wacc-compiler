@@ -1,7 +1,13 @@
-package wacc.ast;
+package wacc.ast.function;
 
+import wacc.ast.ASTNode;
+import wacc.ast.IdentNode;
 import wacc.symbolTable.SymbolTable;
+<<<<<<< 13bee15090abd00d60efafe016aec785e7f780af:src/wacc/ast/ParamNode.java
 import wacc.ast.type.*;
+=======
+import wacc.ast.type.TypeEnum;
+>>>>>>> Slight refactor:src/wacc/ast/function/ParamNode.java
 
 public class ParamNode extends ASTNode {
 

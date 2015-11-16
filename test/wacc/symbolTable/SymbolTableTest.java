@@ -1,7 +1,10 @@
 package wacc.symbolTable;
 
 import org.junit.Test;
-import wacc.ast.type.TypeNode;
+<<<<<<< 13bee15090abd00d60efafe016aec785e7f780af
+=======
+import wacc.ast.type.TypeEnum;
+>>>>>>> Slight refactor
 
 import static org.junit.Assert.*;
 

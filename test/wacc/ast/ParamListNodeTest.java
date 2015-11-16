@@ -1,10 +1,13 @@
 package wacc.ast;
 
 import org.junit.Test;
-import wacc.ast.type.TypeNode;
+<<<<<<< 13bee15090abd00d60efafe016aec785e7f780af
 import wacc.symbolTable.TypeEnum;
-
-import java.util.Arrays;
+=======
+import wacc.ast.function.ParamListNode;
+import wacc.ast.function.ParamNode;
+import wacc.ast.type.TypeEnum;
+>>>>>>> Slight refactor
 
 import static org.junit.Assert.*;
 

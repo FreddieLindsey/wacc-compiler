@@ -1,4 +1,7 @@
-package wacc.ast;
+package wacc.ast.io;
+
+import wacc.ast.ASTNode;
+import wacc.ast.StatNode;
 
 public class CompStatNode extends StatNode {
 

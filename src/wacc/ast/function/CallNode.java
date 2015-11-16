@@ -1,6 +1,13 @@
-package wacc.ast;
+package wacc.ast.function;
 
+<<<<<<< 13bee15090abd00d60efafe016aec785e7f780af:src/wacc/ast/CallNode.java
 import wacc.ast.type.TypeNode;
+=======
+import wacc.ast.ASTNode;
+import wacc.ast.ExprNode;
+import wacc.ast.IdentNode;
+import wacc.ast.type.TypeEnum;
+>>>>>>> Slight refactor:src/wacc/ast/function/CallNode.java
 
 public class CallNode extends ExprNode {
 

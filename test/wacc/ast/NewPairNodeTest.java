@@ -1,6 +1,8 @@
 package wacc.ast;
 
 import org.junit.Test;
+import wacc.ast.pair.NewPairNode;
+import wacc.ast.type.IntNode;
 
 import static org.junit.Assert.*;
 

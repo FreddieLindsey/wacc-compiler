@@ -1,6 +1,8 @@
-package wacc.ast;
+package wacc.ast.function;
 
-import wacc.ast.type.TypeNode;
+import wacc.ast.ASTNode;
+import wacc.ast.IdentNode;
+import wacc.ast.StatNode;
 
 public class FuncNode extends ASTNode {
 

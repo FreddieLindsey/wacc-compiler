@@ -1,7 +1,14 @@
-package wacc.ast;
+package wacc.ast.operator;
 
+<<<<<<< 13bee15090abd00d60efafe016aec785e7f780af:src/wacc/ast/BinOpNode.java
 import wacc.ast.type.TypeNode;
 import wacc.symbolTable.TypeEnum;
+=======
+import wacc.ast.ASTNode;
+import wacc.ast.ExprNode;
+import wacc.ast.operator.BinaryOperator;
+import wacc.ast.type.TypeEnum;
+>>>>>>> Slight refactor:src/wacc/ast/operator/BinOpNode.java
 
 public class BinOpNode extends ExprNode {
 

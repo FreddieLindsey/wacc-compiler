@@ -1,6 +1,9 @@
 package wacc.ast;
 
 import org.junit.Test;
+import wacc.ast.type.ArrayLiteralNode;
+import wacc.ast.type.IntNode;
+import wacc.ast.type.StringNode;
 
 import java.util.Arrays;
 

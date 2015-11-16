@@ -1,4 +1,6 @@
-package wacc.ast;
+package wacc.ast.type;
+
+import wacc.ast.ExprNode;
 
 public abstract class LiteralNode<T> extends ExprNode {
 

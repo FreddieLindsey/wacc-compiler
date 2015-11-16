@@ -1,7 +1,6 @@
-package wacc.ast;
+package wacc.ast.type;
 
-import wacc.ast.type.TypeNode;
-import wacc.symbolTable.TypeEnum;
+import wacc.ast.ExprNode;
 
 import java.util.ArrayList;
 

@@ -1,4 +1,4 @@
-package wacc.symbolTable;
+package wacc.ast.type;
 
 public enum TypeEnum {
 

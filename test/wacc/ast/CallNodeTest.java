@@ -1,6 +1,9 @@
 package wacc.ast;
 
 import org.junit.Test;
+import wacc.ast.function.ArgListNode;
+import wacc.ast.function.CallNode;
+import wacc.ast.type.IntNode;
 
 import static org.junit.Assert.*;
 

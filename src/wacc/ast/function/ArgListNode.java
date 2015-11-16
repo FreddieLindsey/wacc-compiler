@@ -1,4 +1,7 @@
-package wacc.ast;
+package wacc.ast.function;
+
+import wacc.ast.ASTNode;
+import wacc.ast.ExprNode;
 
 import java.util.ArrayList;
 

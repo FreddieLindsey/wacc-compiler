@@ -1,7 +1,10 @@
 package wacc.ast;
 
 import org.junit.Test;
+import wacc.ast.io.BasicStatNode;
 import wacc.ast.io.WhileStatNode;
+import wacc.ast.type.BoolNode;
+import wacc.ast.type.StringNode;
 
 import static org.junit.Assert.*;
 

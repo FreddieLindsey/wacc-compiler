@@ -1,8 +1,10 @@
 package wacc.ast.type;
 
 import org.junit.Test;
-import wacc.ast.type.TypeNode;
+<<<<<<< 13bee15090abd00d60efafe016aec785e7f780af:test/wacc/ast/type/TypeNodeTest.java
 import wacc.symbolTable.TypeEnum;
+=======
+>>>>>>> Slight refactor:test/wacc/ast/TypeNodeTest.java
 
 public class TypeNodeTest {
 

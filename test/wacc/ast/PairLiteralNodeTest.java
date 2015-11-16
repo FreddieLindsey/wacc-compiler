@@ -1,8 +1,11 @@
 package wacc.ast;
 
 import org.junit.Test;
-import wacc.ast.type.TypeNode;
+<<<<<<< 13bee15090abd00d60efafe016aec785e7f780af
 import wacc.symbolTable.TypeEnum;
+=======
+import wacc.ast.pair.PairLiteralNode;
+>>>>>>> Slight refactor
 
 import static org.junit.Assert.*;
 

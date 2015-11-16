@@ -1,7 +1,4 @@
-package wacc.ast;
-
-import wacc.ast.type.TypeNode;
-import wacc.symbolTable.TypeEnum;
+package wacc.ast.type;
 
 public class CharNode extends LiteralNode<Character> {
 
