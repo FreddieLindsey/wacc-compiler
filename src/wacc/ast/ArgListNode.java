@@ -32,4 +32,7 @@ public class ArgListNode extends ASTNode {
     return true;
   }
 
+  public void setExprs(ExprNode[] exprs) {
+    this.exprs = exprs;
+  }
 }

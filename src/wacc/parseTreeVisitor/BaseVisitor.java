@@ -1,17 +1,31 @@
 package wacc.parseTreeVisitor;
 
 import antlr.BasicParser;
+import antlr.BasicParserBaseVisitor;
 import antlr.BasicParserVisitor;
 import org.antlr.v4.runtime.misc.NotNull;
 import org.antlr.v4.runtime.tree.ErrorNode;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.RuleNode;
 import org.antlr.v4.runtime.tree.TerminalNode;
+import wacc.ast.ArgListNode;
+import wacc.ast.CharNode;
+import wacc.ast.ExprNode;
 
-public class BaseVisitor<ASTNode> implements BasicParserVisitor<ASTNode> {
+import java.util.ArrayList;
+
+public class BaseVisitor<ASTNode> extends BasicParserBaseVisitor<ASTNode> {
   @Override
   public ASTNode visitArglist(@NotNull BasicParser.ArglistContext ctx) {
-    return null;
+    ArrayList<ExprNode> exprs = new ArrayList<>();
+    ArgListNode a = new ArgListNode(null, new ExprNode[]{});
+    for (BasicParser.ExprContext e : ctx.expr()) {
+      ExprNode expr = (ExprNode) visitExpr(e);
+      expr.setParent(a);
+      exprs.add(expr);
+    }
+    a.setExprs((ExprNode[]) exprs.toArray());
+    return (ASTNode) a;
   }
 
   @Override
