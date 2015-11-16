@@ -103,6 +103,7 @@ public class BaseVisitor<ASTNode> extends BasicParserBaseVisitor<ASTNode> {
     for (BasicParser.ExprContext e : ctx.expr()) {
       aen.addExpr((ExprNode) visitExpr(e));
     }
+    return (ASTNode) aen;
   }
 
   @Override
