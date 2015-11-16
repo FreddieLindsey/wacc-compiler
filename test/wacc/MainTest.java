@@ -3,7 +3,6 @@ package wacc;
 import antlr.BasicParser;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.junit.Test;
-import wacc.ast.ASTTree;
 
 import java.io.ByteArrayOutputStream;
 import java.io.FileInputStream;

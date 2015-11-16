@@ -8,11 +8,10 @@ import org.antlr.v4.runtime.tree.ErrorNode;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.RuleNode;
 import org.antlr.v4.runtime.tree.TerminalNode;
-import wacc.ast.ArgListNode;
-import wacc.ast.CharNode;
-import wacc.ast.ExprNode;
+import wacc.ast.*;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class BaseVisitor<ASTNode> extends BasicParserBaseVisitor<ASTNode> {
   @Override
@@ -125,12 +124,29 @@ public class BaseVisitor<ASTNode> extends BasicParserBaseVisitor<ASTNode> {
 
   @Override
   public ASTNode visitBasetype(@NotNull BasicParser.BasetypeContext ctx) {
+    if (ctx.BOOL() != null) {
+      return visitBoolliter((BasicParser.BoolliterContext) ctx.BOOL());
+    } else if (ctx.CHAR() != null) {
+      return visitCharliter((BasicParser.CharliterContext) ctx.CHAR());
+    } else if (ctx.INT() != null) {
+      return visitIntliter((BasicParser.IntliterContext) ctx.INT());
+    } else if (ctx.STRING() != null) {
+      return visitStrliter((BasicParser.StrliterContext) ctx.STRING());
+    }
     return null;
   }
 
   @Override
   public ASTNode visitProgram(@NotNull BasicParser.ProgramContext ctx) {
-    return null;
+    ArrayList<FuncNode> funcs = new ArrayList<>();
+    ProgramNode prog = new ProgramNode(null);
+    for (BasicParser.FuncContext func : ctx.func()) {
+      FuncNode f = (FuncNode) visitFunc(func);
+      f.setParent(prog);
+      prog.add(f);
+    }
+    prog.setStat((StatNode) visitStat(ctx.stat()));
+    return (ASTNode) prog;
   }
 
   @Override
