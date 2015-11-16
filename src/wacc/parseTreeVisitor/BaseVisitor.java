@@ -97,7 +97,12 @@ public class BaseVisitor<ASTNode> extends BasicParserBaseVisitor<ASTNode> {
 
   @Override
   public ASTNode visitArrayelem(@NotNull BasicParser.ArrayelemContext ctx) {
-    return null;
+    ArrayElemNode aen = new ArrayElemNode(
+      null,
+      (IdentNode) visitIdent(ctx.ident()));
+    for (BasicParser.ExprContext e : ctx.expr()) {
+      aen.addExpr((ExprNode) visitExpr(e));
+    }
   }
 
   @Override
@@ -278,8 +283,12 @@ public class BaseVisitor<ASTNode> extends BasicParserBaseVisitor<ASTNode> {
 
   @Override
   public ASTNode visitArrayliter(@NotNull BasicParser.ArrayliterContext ctx) {
-
-    return null;
+    ArrayLiteralNode aln = new ArrayLiteralNode(null);
+    for (BasicParser.ExprContext e : ctx.expr()) {
+      ExprNode e_ = (ExprNode) visitExpr(e);
+      aln.addExpr(e_);
+    }
+    return (ASTNode) aln;
   }
 
   @Override

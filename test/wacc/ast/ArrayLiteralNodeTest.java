@@ -5,8 +5,6 @@ import wacc.ast.type.ArrayLiteralNode;
 import wacc.ast.type.IntNode;
 import wacc.ast.type.StringNode;
 
-import java.util.Arrays;
-
 import static org.junit.Assert.*;
 
 public class ArrayLiteralNodeTest {
