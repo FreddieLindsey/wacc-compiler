@@ -96,7 +96,13 @@ public class BaseVisitor<ASTNode> extends BasicParserBaseVisitor<ASTNode> {
 
   @Override
   public ASTNode visitParamlist(@NotNull BasicParser.ParamlistContext ctx) {
-    return null;
+    ParamListNode pl = new ParamListNode(null, new ArrayList<ParamNode>());
+    for (BasicParser.ParamContext p : ctx.param()) {
+      ParamNode p_ = (ParamNode) visitParam(p);
+      p_.setParent(pl);
+      pl.addParam(p_);
+    }
+    return (ASTNode) pl;
   }
 
   @Override
@@ -230,7 +236,6 @@ public class BaseVisitor<ASTNode> extends BasicParserBaseVisitor<ASTNode> {
 
   @Override
   public ASTNode visitProgram(@NotNull BasicParser.ProgramContext ctx) {
-    ArrayList<FuncNode> funcs = new ArrayList<>();
     ProgramNode prog = new ProgramNode(null);
     for (BasicParser.FuncContext func : ctx.func()) {
       FuncNode f = (FuncNode) visitFunc(func);
