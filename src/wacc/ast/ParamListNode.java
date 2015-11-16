@@ -8,6 +8,7 @@ public class ParamListNode extends ASTNode {
   private SymbolTable scope;
 
   public ParamListNode(ParamNode[] ps) {
+    super(null);
     this.ps = ps;
     this.scope = new SymbolTable(null);
   }

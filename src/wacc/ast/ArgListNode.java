@@ -5,6 +5,7 @@ public class ArgListNode extends ASTNode {
   private ExprNode[] exprs;
 
   public ArgListNode(ExprNode[] exprs) {
+    super(null);
     this.exprs = exprs;
   }
 

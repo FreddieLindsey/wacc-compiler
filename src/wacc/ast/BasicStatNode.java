@@ -6,6 +6,7 @@ public class BasicStatNode extends StatNode {
   private StatTypeEnum st;
 
   public BasicStatNode(StatTypeEnum st, ExprNode expr) {
+    super(null);
     this.st = st;
     this.expr = expr;
   }

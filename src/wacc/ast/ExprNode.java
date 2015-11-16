@@ -6,6 +6,10 @@ public abstract class ExprNode extends ASTNode {
 
   protected TypeEnum type;
 
+  public ExprNode(ASTNode parent) {
+    super(parent);
+  }
+
   public TypeEnum type() {
     return type;
   }

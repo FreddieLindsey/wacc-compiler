@@ -9,6 +9,7 @@ public class BinOpNode extends ExprNode {
   private ExprNode rhs;
 
   public BinOpNode(ExprNode lhs, BinaryOperator op, ExprNode rhs) {
+    super(null);
     this.lhs = lhs;
     this.op  = op;
     this.rhs = rhs;

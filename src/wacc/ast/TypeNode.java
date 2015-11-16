@@ -7,6 +7,7 @@ public class TypeNode extends StatNode {
   private final TypeEnum t;
 
   public TypeNode(TypeEnum type) {
+    super(null);
     this.t = type;
   }
 

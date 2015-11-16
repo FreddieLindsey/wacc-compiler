@@ -5,6 +5,7 @@ import wacc.symbolTable.TypeEnum;
 public class ArrayLiteralNode extends LiteralNode<ExprNode[]> {
   
   public ArrayLiteralNode(ExprNode[] value) {
+    super(null);
     this.value = value;
     this.type = TypeEnum.ARR;
   }

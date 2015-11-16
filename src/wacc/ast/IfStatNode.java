@@ -9,6 +9,7 @@ public class IfStatNode extends StatNode {
   private StatNode stat2;
 
   public IfStatNode(ExprNode expr, StatNode stat1, StatNode stat2) {
+    super(null);
     this.expr = expr;
     this.stat1 = stat1;
     this.stat2 = stat2;

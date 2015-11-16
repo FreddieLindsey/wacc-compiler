@@ -8,6 +8,7 @@ public class WhileStatNode extends StatNode {
   private StatNode stat;
 
   public WhileStatNode(ExprNode expr, StatNode stat) {
+    super(null);
     this.expr = expr;
     this.stat = stat;
   }

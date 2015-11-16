@@ -10,6 +10,7 @@ public class ProgramNode extends ASTNode {
   private StatNode stat;
 
   public ProgramNode() {
+    super(null);
     this.funcs = new ArrayList<>();
     this.symbolTable = new SymbolTable(null);
   }

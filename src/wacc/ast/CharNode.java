@@ -7,6 +7,7 @@ public class CharNode extends LiteralNode<Character> {
   protected static char[] invalid = { '\\', '\'', '\"' };
 
   public CharNode(char value) {
+    super(null);
     this.value = value;
     this.type = TypeEnum.CHAR;
   }

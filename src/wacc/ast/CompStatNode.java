@@ -8,6 +8,7 @@ public class CompStatNode extends StatNode {
   private StatNode stat2;
 
   public CompStatNode(StatNode stat1, StatNode stat2) {
+    super(null);
     this.stat1 = stat1;
     this.stat2 = stat2;
   }

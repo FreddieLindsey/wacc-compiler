@@ -10,6 +10,7 @@ public class ParamNode extends ASTNode {
   private SymbolTable scope;
 
   public ParamNode(TypeEnum type, IdentNode ident) {
+    super(null);
     this.type = type;
     this.ident = ident;
   }

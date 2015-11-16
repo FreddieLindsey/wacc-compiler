@@ -8,7 +8,7 @@ public class UnOpNode extends ExprNode {
   private ExprNode expr;
 
   public UnOpNode(UnaryOperator op, ExprNode expr) {
-
+    super(null);
     this.op = op;
     this.expr = expr;
 
