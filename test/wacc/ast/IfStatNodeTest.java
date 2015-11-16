@@ -1,6 +1,7 @@
 package wacc.ast;
 
 import org.junit.Test;
+import wacc.ast.io.IfStatNode;
 
 import static org.junit.Assert.*;
 

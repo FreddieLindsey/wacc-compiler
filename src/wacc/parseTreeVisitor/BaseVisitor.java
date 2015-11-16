@@ -226,17 +226,23 @@ public class BaseVisitor<ASTNode> extends BasicParserBaseVisitor<ASTNode> {
     } else if (ctx.ASSIGN() != null) {
       return (ASTNode) new FreeNode(null, (ExprNode) visitExpr(ctx.expr()));
     } else if (ctx.BEGIN() != null) {
-      return (ASTNode) new FreeNode(null, (ExprNode) visitExpr(ctx.expr()));
-    } else if (ctx.END() != null) {
-      return (ASTNode) new FreeNode(null, (ExprNode) visitExpr(ctx.expr()));
-    } else if (ctx.DO() != null) {
-      return (ASTNode) new FreeNode(null, (ExprNode) visitExpr(ctx.expr()));
-    } else if (ctx.DONE() != null) {
-      return (ASTNode) new FreeNode(null, (ExprNode) visitExpr(ctx.expr()));
+      return (ASTNode) new BeginNode(null, (ExprNode) visitExpr(ctx.expr()));
     } else if (ctx.RETURN() != null) {
-      return (ASTNode) new FreeNode(null, (ExprNode) visitExpr(ctx.expr()));
+      return (ASTNode) new ReturnNode(null, (ExprNode) visitExpr(ctx.expr()));
     } else if (ctx.SKIP() != null) {
       return (ASTNode) new SkipNode(null);
+    } else if (ctx.EXIT() != null) {
+      return (ASTNode) new ExitNode(null, (ExprNode) visitExpr(ctx.expr()));
+    } else if (ctx.PRINT() != null) {
+      return (ASTNode) new PrintNode(null, (ExprNode) visitExpr(ctx.expr()));
+    } else if (ctx.PRINTLN() != null) {
+      return (ASTNode) new PrintLnNode(null, (ExprNode) visitExpr(ctx.expr()));
+    } else if (ctx.IF() != null) {
+      return (ASTNode) new IfStatNode(
+        null,
+        (ExprNode) visitExpr(ctx.expr()),
+        (StatNode) visitStat(ctx.stat(0)),
+        (StatNode) visitStat(ctx.stat(1)));
     }
     return null;
   }

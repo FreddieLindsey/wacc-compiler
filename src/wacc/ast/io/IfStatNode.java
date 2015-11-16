@@ -1,6 +1,8 @@
-package wacc.ast;
+package wacc.ast.io;
 
 import wacc.ast.type.TypeNode;
+import wacc.ast.ExprNode;
+import wacc.ast.StatNode;
 import wacc.symbolTable.TypeEnum;
 
 public class IfStatNode extends StatNode {
