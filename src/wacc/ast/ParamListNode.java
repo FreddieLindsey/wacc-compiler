@@ -1,7 +1,5 @@
 package wacc.ast;
 
-import java.util.Set;
-
 public class ParamListNode implements ASTNode {
 
   private ParamNode[] ps;
