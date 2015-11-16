@@ -171,7 +171,7 @@ public class BaseVisitor<ASTNode> extends BasicParserBaseVisitor<ASTNode> {
 
   @Override
   public ASTNode visitIntliter(@NotNull BasicParser.IntliterContext ctx) {
-    return null;
+    return (ASTNode) new IntNode(null, Long.valueOf(ctx.getText()));
   }
 
   @Override
