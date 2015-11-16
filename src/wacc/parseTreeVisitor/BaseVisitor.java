@@ -29,7 +29,7 @@ public class BaseVisitor<ASTNode> extends BasicParserBaseVisitor<ASTNode> {
 
   @Override
   public ASTNode visitCharliter(@NotNull BasicParser.CharliterContext ctx) {
-    return null;
+    return (ASTNode) new CharNode(null, ctx.CHARAC().getText().charAt(0));
   }
 
   @Override
