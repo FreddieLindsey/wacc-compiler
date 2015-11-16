@@ -1,4 +1,8 @@
-package wacc.ast;
+package wacc.ast.io;
+
+import wacc.ast.ASTNode;
+import wacc.ast.AssignNode;
+import wacc.ast.StatNode;
 
 public class ReadNode extends StatNode {
 

@@ -1,4 +1,8 @@
-package wacc.ast;
+package wacc.ast.io;
+
+import wacc.ast.ASTNode;
+import wacc.ast.ExprNode;
+import wacc.ast.StatNode;
 
 public class FreeNode extends StatNode {
 

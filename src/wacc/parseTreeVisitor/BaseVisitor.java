@@ -4,6 +4,7 @@ import antlr.BasicParser;
 import antlr.BasicParserBaseVisitor;
 import org.antlr.v4.runtime.misc.NotNull;
 import wacc.ast.*;
+import wacc.ast.io.*;
 
 import java.util.ArrayList;
 
@@ -220,8 +221,22 @@ public class BaseVisitor<ASTNode> extends BasicParserBaseVisitor<ASTNode> {
   public ASTNode visitStat(@NotNull BasicParser.StatContext ctx) {
     if (ctx.READ() != null) {
       return (ASTNode) new ReadNode(null, (AssignNode) visitAssignlhs(ctx.assignlhs()));
-    } else (ctx.FREE() != null) {
+    } else if (ctx.FREE() != null) {
       return (ASTNode) new FreeNode(null, (ExprNode) visitExpr(ctx.expr()));
+    } else if (ctx.ASSIGN() != null) {
+      return (ASTNode) new FreeNode(null, (ExprNode) visitExpr(ctx.expr()));
+    } else if (ctx.BEGIN() != null) {
+      return (ASTNode) new FreeNode(null, (ExprNode) visitExpr(ctx.expr()));
+    } else if (ctx.END() != null) {
+      return (ASTNode) new FreeNode(null, (ExprNode) visitExpr(ctx.expr()));
+    } else if (ctx.DO() != null) {
+      return (ASTNode) new FreeNode(null, (ExprNode) visitExpr(ctx.expr()));
+    } else if (ctx.DONE() != null) {
+      return (ASTNode) new FreeNode(null, (ExprNode) visitExpr(ctx.expr()));
+    } else if (ctx.RETURN() != null) {
+      return (ASTNode) new FreeNode(null, (ExprNode) visitExpr(ctx.expr()));
+    } else if (ctx.SKIP() != null) {
+      return (ASTNode) new SkipNode(null);
     }
     return null;
   }
