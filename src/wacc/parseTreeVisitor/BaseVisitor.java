@@ -60,6 +60,12 @@ public class BaseVisitor<ASTNode> extends BasicParserBaseVisitor<ASTNode> {
       b.setLHS((ExprNode) visitExpr(ctx.expr(0)));
       b.setRHS((ExprNode) visitExpr(ctx.expr(1)));
       return (ASTNode) b;
+    } else if (ctx.unaryoper() != null) {
+      UnOpNode u = (UnOpNode) visitUnaryoper(ctx.unaryoper());
+      ExprNode e = (ExprNode) visitExpr(ctx.expr(0));
+      e.setParent(u);
+      u.setExpr(e);
+      return (ASTNode) u;
     } else if (ctx.intliter() != null) {
       return visitIntliter(ctx.intliter());
     } else if (ctx.boolliter() != null) {
@@ -74,14 +80,8 @@ public class BaseVisitor<ASTNode> extends BasicParserBaseVisitor<ASTNode> {
       return visitIdent(ctx.ident());
     } else if (ctx.arrayelem() != null) {
       return visitArrayelem(ctx.arrayelem());
-    } else if (ctx.unaryoper() != null) {
-      UnOpNode u = (UnOpNode) visitUnaryoper(ctx.unaryoper());
-      ExprNode e = (ExprNode) visitExpr(ctx.expr(0));
-      e.setParent(u);
-      u.setExpr(e);
-      return (ASTNode) u;
     }
-    return null;
+    return visitExpr(ctx.expr(0));
   }
 
   @Override
