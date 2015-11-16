@@ -38,6 +38,8 @@ public class Main {
       printErrors(output);
       System.exit(100);
     }
+
+    ASTTree tree = analyseFile(parseTree);
   }
 
   public static BasicParser parseInput(InputStream i) throws IOException {
