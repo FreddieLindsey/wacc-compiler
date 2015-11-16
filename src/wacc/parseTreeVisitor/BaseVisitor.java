@@ -87,7 +87,7 @@ public class BaseVisitor<ASTNode> extends BasicParserBaseVisitor<ASTNode> {
 
   @Override
   public ASTNode visitIdent(@NotNull BasicParser.IdentContext ctx) {
-    return null;
+    return (ASTNode) new IdentNode(null, ctx.getText());
   }
 
   @Override
@@ -150,6 +150,33 @@ public class BaseVisitor<ASTNode> extends BasicParserBaseVisitor<ASTNode> {
 
   @Override
   public ASTNode visitBinaryOper(@NotNull BasicParser.BinaryOperContext ctx) {
+    if (ctx.MUL() != null) {
+      return (ASTNode) new BinOpNode(null, null, BinaryOperator.MUL, null);
+    } else if (ctx.DIV() != null) {
+      return (ASTNode) new BinOpNode(null, null, BinaryOperator.DIV, null);
+    } else if (ctx.MOD() != null) {
+      return (ASTNode) new BinOpNode(null, null, BinaryOperator.MOD, null);
+    } else if (ctx.ADD() != null) {
+      return (ASTNode) new BinOpNode(null, null, BinaryOperator.ADD, null);
+    } else if (ctx.SUB() != null) {
+      return (ASTNode) new BinOpNode(null, null, BinaryOperator.SUB, null);
+    } else if (ctx.G() != null) {
+      return (ASTNode) new BinOpNode(null, null, BinaryOperator.GT, null);
+    } else if (ctx.GE() != null) {
+      return (ASTNode) new BinOpNode(null, null, BinaryOperator.GTE, null);
+    } else if (ctx.L() != null) {
+      return (ASTNode) new BinOpNode(null, null, BinaryOperator.LT, null);
+    } else if (ctx.LE() != null) {
+      return (ASTNode) new BinOpNode(null, null, BinaryOperator.LTE, null);
+    } else if (ctx.EQ() != null) {
+      return (ASTNode) new BinOpNode(null, null, BinaryOperator.EQ, null);
+    } else if (ctx.NEQ() != null) {
+      return (ASTNode) new BinOpNode(null, null, BinaryOperator.NEQ, null);
+    } else if (ctx.AND() != null) {
+      return (ASTNode) new BinOpNode(null, null, BinaryOperator.AND, null);
+    } else if (ctx.OR() != null) {
+      return (ASTNode) new BinOpNode(null, null, BinaryOperator.OR, null);
+    }
     return null;
   }
 
