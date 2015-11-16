@@ -13,7 +13,7 @@ public class TypeNode implements StatNode {
   @Override
   public boolean isSemanticallyValid() {
     // TODO
-    return false;
+    return true;
   }
 
 }
