@@ -40,6 +40,18 @@ public class Main {
     }
   }
 
+  public static BasicParser parseInput(InputStream i) throws IOException {
+    return
+      new BasicParser(
+        new CommonTokenStream(
+          new BasicLexer(
+            new ANTLRInputStream(i))));
+  }
+
+  public static ASTTree analyseFile(ParseTree parseTree) throws IOException {
+    return new ASTTree(parseTree);
+  }
+
   private static void engageMessageLock() {
     System.setErr(capture_);
     System.setOut(capture_);
@@ -58,19 +70,5 @@ public class Main {
       System.out.println("Error " + error_count + ":\t" + error);
       error_count++;
     }
-  }
-
-  public static BasicParser parseInput(InputStream i) throws IOException {
-    return
-      new BasicParser(
-        new CommonTokenStream(
-          new BasicLexer(
-            new ANTLRInputStream(i))));
-  }
-
-
-
-  public static ASTTree analyseFile(ParseTree parseTree) throws IOException {
-    return new ASTTree(parseTree);
   }
 }
