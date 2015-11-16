@@ -17,10 +17,6 @@ public class Main {
     System.out.println((parser.program()).toStringTree(parser));
   }
 
-  public static boolean test_test() {
-    return true;
-  }
-
   public static BasicParser parseInput(InputStream i) throws IOException {
     return
       new BasicParser(
