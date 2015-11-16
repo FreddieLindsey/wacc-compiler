@@ -176,7 +176,7 @@ public class BaseVisitor<ASTNode> extends BasicParserBaseVisitor<ASTNode> {
 
   @Override
   public ASTNode visit(@NotNull ParseTree parseTree) {
-    return null;
+    return super.visit(parseTree);
   }
 
   @Override
