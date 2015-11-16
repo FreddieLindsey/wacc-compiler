@@ -7,6 +7,7 @@ public class ReadNode extends StatNode {
   public ReadNode(ASTNode parent, AssignNode a) {
     super(parent);
     this.a = a;
+    a.setParent(this);
   }
 
   @Override
