@@ -252,6 +252,16 @@ public class BaseVisitor<ASTNode> extends BasicParserBaseVisitor<ASTNode> {
         (ExprNode) visitExpr(ctx.expr()),
         (StatNode) visitStat(ctx.stat(0)),
         (StatNode) visitStat(ctx.stat(1)));
+    } else if (ctx.WHILE() != null) {
+      return (ASTNode) new WhileStatNode(
+        null,
+        (ExprNode) visitExpr(ctx.expr()),
+        (StatNode) visitStat(ctx.stat(0)));
+    } else if (ctx.SEMI() != null) {
+      return (ASTNode) new CompStatNode(
+        null,
+        (StatNode) visitStat(ctx.stat(0)),
+        (StatNode) visitStat(ctx.stat(1)));
     }
     return null;
   }
