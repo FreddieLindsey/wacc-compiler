@@ -2,12 +2,13 @@ package wacc.ast;
 
 import wacc.symbolTable.TypeEnum;
 
-public class ArrayElemNode implements ASTNode, AssignLHSNode {
+public class ArrayElemNode extends AssignNode {
 
   private IdentNode ident;
   private ExprNode expr;
   
-  public ArrayElemNode(IdentNode ident, ExprNode expr) {
+  public ArrayElemNode(ASTNode parent, IdentNode ident, ExprNode expr) {
+    super(parent);
     this.ident = ident;
     this.expr  = expr;
   }
@@ -24,10 +25,6 @@ public class ArrayElemNode implements ASTNode, AssignLHSNode {
     return this.expr;
   }
 
-  public ExprNode getElement() {
-    return ident.retrieve().getElement(this.expr);
-  }
-
   @Override
   public boolean isSemanticallyValid() {
     return ident.isSemanticallyValid() 
@@ -35,4 +32,13 @@ public class ArrayElemNode implements ASTNode, AssignLHSNode {
         && expr.type() == ident.type();
   }
 
+  @Override
+  public boolean validLeft() {
+    return false;
+  }
+
+  @Override
+  public boolean validRight() {
+    return true;
+  }
 }
