@@ -33,14 +33,9 @@ public class Main {
     releaseMessageLock();
 
     if (!output.equals("")) {
-      String[] errors = output.split("\n");
       System.out.print("There were syntax errors in the supplied stream of input"
         + "\n------------------------------\n");
-      int error_count = 1;
-      for (String error : errors) {
-        System.out.println("Error " + error_count + ":\t" + error);
-        error_count++;
-      }
+      printErrors(output);
       System.exit(100);
     }
   }
@@ -54,6 +49,15 @@ public class Main {
     baos.reset();
     System.setErr(default_err);
     System.setOut(default_);
+  }
+
+  private static void printErrors(String out) {
+    String[] errors = output.split("\n");
+    int error_count = 1;
+    for (String error : errors) {
+      System.out.println("Error " + error_count + ":\t" + error);
+      error_count++;
+    }
   }
 
   public static BasicParser parseInput(InputStream i) throws IOException {
