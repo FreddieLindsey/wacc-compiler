@@ -5,7 +5,9 @@ import antlr.BasicParser;
 import org.antlr.v4.runtime.ANTLRInputStream;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.ParseTree;
-import wacc.ast.ASTTree;
+import wacc.ast.ASTNode;
+import wacc.ast.ProgramNode;
+import wacc.parseTreeVisitor.BaseVisitor;
 
 import java.io.*;
 
@@ -39,7 +41,7 @@ public class Main {
       System.exit(100);
     }
 
-    ASTTree tree = analyseFile(parseTree);
+    ProgramNode prog = analyseFile(parseTree);
   }
 
   public static BasicParser parseInput(InputStream i) throws IOException {
@@ -50,8 +52,11 @@ public class Main {
             new ANTLRInputStream(i))));
   }
 
-  public static ASTTree analyseFile(ParseTree parseTree) throws IOException {
-    return new ASTTree(parseTree);
+  public static ProgramNode analyseFile(ParseTree parseTree) throws IOException {
+    BaseVisitor<ASTNode> visitor = new BaseVisitor<>();
+    ProgramNode prog = (ProgramNode) visitor.visit(parseTree);
+    prog.isSemanticallyValid();
+    return prog;
   }
 
   private static void engageMessageLock() {
