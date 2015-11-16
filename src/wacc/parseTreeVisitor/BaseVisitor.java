@@ -99,7 +99,7 @@ public class BaseVisitor<ASTNode> extends BasicParserBaseVisitor<ASTNode> {
 
   @Override
   public ASTNode visitStrliter(@NotNull BasicParser.StrliterContext ctx) {
-    return null;
+    return (ASTNode) new StringNode(null, ctx.getText());
   }
 
   @Override
