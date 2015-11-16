@@ -39,7 +39,12 @@ public class BaseVisitor<ASTNode> extends BasicParserBaseVisitor<ASTNode> {
 
   @Override
   public ASTNode visitParam(@NotNull BasicParser.ParamContext ctx) {
-    return null;
+    ParamNode p = new ParamNode(
+      null,
+      ((TypeNode) visitType(ctx.type())).getType(),
+      (IdentNode) visitIdent(ctx.ident()));
+    p.getIdent().setParent(p);
+    return (ASTNode) p;
   }
 
   @Override
