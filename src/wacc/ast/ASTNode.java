@@ -22,6 +22,13 @@ public abstract class ASTNode {
   public void checkSymbolTable(String ident) {
     if (this.symbolTable.lookUp(ident) != null) {
       throw new RuntimeException("Function " + ident + " has already "
+        + "been declared in the program scope");
+    }
+  }
+
+  public void checkSymbolHere(String ident) {
+    if (this.symbolTable.lookUpHere(ident) != null) {
+      throw new RuntimeException("Function " + ident + " has already "
         + "been declared in the current scope");
     }
   }
@@ -29,7 +36,7 @@ public abstract class ASTNode {
   public void requireSymbol(String ident) {
     if (this.symbolTable.lookUp(ident) == null) {
       throw new RuntimeException("Identifier " + ident + " does not exist in " +
-        "the current scope");
+        "the program scope");
     }
   }
 

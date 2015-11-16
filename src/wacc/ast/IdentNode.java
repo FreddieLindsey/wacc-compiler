@@ -10,8 +10,8 @@ public class IdentNode extends AssignNode {
     super();
     this.ident = ident;
 
-    // ERROR if already exists in symbol table
-    checkSymbolTable(ident);
+    // ERROR if already exists in the CURRENT symbol table (variable shadowing)
+    checkSymbolTableHere(ident);
   }
   
   public String getIdent() {
