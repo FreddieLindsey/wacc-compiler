@@ -6,8 +6,8 @@ public class StringNode extends LiteralNode<String> {
 
   private static final TypeEnum type = TypeEnum.STRING;
 
-  public StringNode(String value) {
-    super(null);
+  public StringNode(ASTNode parent, String value) {
+    super(parent);
     this.value = value;
   }
 

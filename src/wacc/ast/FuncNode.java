@@ -7,8 +7,8 @@ public class FuncNode extends ASTNode {
   private ParamListNode ps;
   private StatNode stat;
 
-  public FuncNode(TypeNode t, IdentNode n, ParamListNode ps, StatNode stat) {
-    super(null);
+  public FuncNode(ASTNode parent, TypeNode t, IdentNode n, ParamListNode ps, StatNode stat) {
+    super(parent);
     this.t = t;
     this.n = n;
     this.ps = ps;

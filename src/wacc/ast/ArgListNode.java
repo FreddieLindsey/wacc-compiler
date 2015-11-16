@@ -4,8 +4,8 @@ public class ArgListNode extends ASTNode {
 
   private ExprNode[] exprs;
 
-  public ArgListNode(ExprNode[] exprs) {
-    super(null);
+  public ArgListNode(ASTNode parent, ExprNode[] exprs) {
+    super(parent);
     this.exprs = exprs;
   }
 

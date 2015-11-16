@@ -5,8 +5,8 @@ public class ReAssignNode extends StatNode {
   private AssignNode lhs;
   private AssignNode rhs;
 
-  public ReAssignNode(AssignNode lhs, AssignNode rhs) {
-    super(null);
+  public ReAssignNode(ASTNode parent, AssignNode lhs, AssignNode rhs) {
+    super(parent);
     this.lhs = lhs;
     this.rhs = rhs;
   }

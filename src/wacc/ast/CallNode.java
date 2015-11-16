@@ -7,8 +7,8 @@ public class CallNode extends ExprNode {
   private IdentNode ident;
   private ArgListNode args;
 
-  public CallNode(IdentNode ident, ArgListNode args) {
-    super(null);
+  public CallNode(ASTNode parent, IdentNode ident, ArgListNode args) {
+    super(parent);
     this.ident = ident;
     this.args = args;
   }

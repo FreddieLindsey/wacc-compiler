@@ -9,8 +9,8 @@ public class ProgramNode extends ASTNode {
   private ArrayList<FuncNode> funcs;
   private StatNode stat;
 
-  public ProgramNode() {
-    super(null);
+  public ProgramNode(ASTNode parent) {
+    super(parent);
     this.funcs = new ArrayList<>();
     this.symbolTable = new SymbolTable(null);
   }
