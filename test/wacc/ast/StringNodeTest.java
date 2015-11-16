@@ -6,29 +6,30 @@ import static org.junit.Assert.*;
 
 public class StringNodeTest {
 
+  private ASTNode parent;
   private StringNode s;
 
   @Test
   public void stringNodeInit() {
-    s = new StringNode("test");
+    s = new StringNode(parent, "test");
     assertTrue(s.getValue().equals("test"));
   }
 
   @Test
   public void stringNodeValidityT() {
-    s = new StringNode("test");
+    s = new StringNode(parent, "test");
     assertTrue(s.isSemanticallyValid());
   }
 
   @Test
   public void stringNodeValidityF() {
-    s = new StringNode("tes\\t");
+    s = new StringNode(parent, "tes\\t");
     assertFalse(s.isSemanticallyValid());
   }
 
   @Test
   public void stringNodeType() {
-    s = new StringNode("test");
+    s = new StringNode(parent, "test");
     assertTrue(s.type() == TypeEnum.STRING);
   }
 }

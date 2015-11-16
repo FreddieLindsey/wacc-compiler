@@ -8,29 +8,30 @@ import static org.junit.Assert.*;
 
 public class CharNodeTest {
 
+  private ASTNode parent;
   private CharNode c;
 
   @Test
   public void charNodeInit() {
-      c = new CharNode('x');
+      c = new CharNode(parent, 'x');
       assertTrue(c.getValue().equals('x'));
   }
 
   @Test
   public void charNodeValidityT() {
-      c = new CharNode('r');
+      c = new CharNode(parent, 'r');
       assertTrue(c.isSemanticallyValid());
   }
 
   @Test
   public void charNodeValidityF() {
-      c = new CharNode('\'');
+      c = new CharNode(parent, '\'');
       assertTrue(!c.isSemanticallyValid());
   }
 
   @Test
   public void charNodeType() {
-    c = new CharNode('r');
+    c = new CharNode(parent, 'r');
     assertTrue(c.type() == TypeEnum.CHAR);
   }
 

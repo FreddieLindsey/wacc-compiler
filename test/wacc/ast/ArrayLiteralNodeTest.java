@@ -8,7 +8,7 @@ import static org.junit.Assert.*;
 
 public class ArrayLiteralNodeTest {
 
-  private ASTNode parent = null;
+  private ASTNode parent;
   private ArrayLiteralNode a;
   private ExprNode[] es = new ExprNode[2];
   private ExprNode e1 = new IntNode(a, 1);

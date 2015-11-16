@@ -6,7 +6,7 @@ import static org.junit.Assert.*;
 
 public class ArgListNodeTest {
 
-  private ASTNode parent = null;
+  private ASTNode parent;
   private ArgListNode a;
   private ExprNode e1 = new IntNode(a, 5);
   private ExprNode e2 = new IntNode(a, 10);

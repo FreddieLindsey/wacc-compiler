@@ -7,15 +7,16 @@ import wacc.symbolTable.TypeEnum;
 
 public class ReAssignNodeTest {
 
+  private ASTNode parent;
   private NewAssignNode n;
 
   private TypeEnum t = TypeEnum.STRING;
-  private IdentNode i = new IdentNode("test");
-  private AssignNode rhs = new IdentNode("test2");
+  private IdentNode i = new IdentNode(n, "test");
+  private AssignNode rhs = new IdentNode(n, "test2");
 
   @Test
   public void newAssignNodeInit() {
-    n = new NewAssignNode(t, i, rhs);
+    n = new NewAssignNode(parent, t, i, rhs);
     assertTrue(n.getType() == t);
     assertTrue(n.getIdent().equals(i));
     assertTrue(n.getRHS().equals(rhs));
@@ -23,7 +24,7 @@ public class ReAssignNodeTest {
 
   @Test
   public void newAssignNodeValid() {
-    n = new NewAssignNode(t, i, rhs);
+    n = new NewAssignNode(parent, t, i, rhs);
     assertTrue(n.isSemanticallyValid() ==
           (
             i.isSemanticallyValid()

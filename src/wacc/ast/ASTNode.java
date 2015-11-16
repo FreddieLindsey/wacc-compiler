@@ -11,6 +11,9 @@ public abstract class ASTNode {
     this.parent = parent;
     this.symbolTable = new SymbolTable((parent != null) ? parent.getSymbolTable() : null);
   }
+  public void setParent(ASTNode parent) {
+    this.parent = parent;
+  }
   public abstract boolean isSemanticallyValid();
   public SymbolTable getSymbolTable() {
     return symbolTable;

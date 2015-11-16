@@ -2,58 +2,61 @@ package wacc.ast;
 
 import wacc.symbolTable.TypeEnum;
 import org.junit.Test;
+
 import static org.junit.Assert.*;
 
 public class ProgramNodeTest {
 
-    private final ProgramNode prog = new ProgramNode();
-    private final StatNode stat = new StatNode() {
-        @Override
-        public boolean isSemanticallyValid() {
-            return false;
-        }
-    };
+  private ASTNode parent;
+  private final ProgramNode prog = new ProgramNode(parent);
 
-    private ParamNode p1 = new ParamNode(TypeEnum.INT, new IdentNode("a"));
-    private ParamNode p2 = new ParamNode(TypeEnum.INT, new IdentNode("b"));
+  private FuncNode f;
+  private ParamListNode p;
+  private ParamNode[] ps = new ParamNode[2];
+  private ParamNode p1 = new ParamNode(p, TypeEnum.INT, new IdentNode(null, "a"));
+  private ParamNode p2 = new ParamNode(p, TypeEnum.INT, new IdentNode(null, "b"));
 
-    private TypeNode t = new TypeNode(TypeEnum.INT);
-    private IdentNode n = new IdentNode("x");
-    private ParamNode[] ps = new ParamNode[2];
-    private StatNode stat1 = new BasicStatNode(StatTypeEnum.SKIP, null);
+  private TypeNode t = new TypeNode(f, TypeEnum.INT);
+  private IdentNode n = new IdentNode(f, "x");
+  private StatNode stat1 = new BasicStatNode(f, StatTypeEnum.SKIP, null);
 
-    @Test
-    public void canAddFunctionToProgram() {
-        ps[0] = p1;
-        ps[1] = p2;
-        ParamListNode p = new ParamListNode(ps);
-        FuncNode f = new FuncNode(t, n, p, stat1);
-        prog.add(f);
+  @Test
+  public void canAddFunctionToProgram() {
+    ps[0] = p1;
+    ps[1] = p2;
+    p = new ParamListNode(f, ps);
+    f = new FuncNode(prog, t, n, p, stat1);
+    prog.add(f);
+  }
+
+  @Test
+  public void canCheckIfProgramIsSemanticallyValid() {
+    boolean valid = true;
+
+    for (FuncNode f : prog.getFuncs()) {
+      valid &= f.isSemanticallyValid();
     }
 
-    @Test
-    public void canCheckIfProgramIsSemanticallyValid() {
-        boolean valid = true;
+    StatNode stat = prog.getStat();
+    valid &= stat != null && stat.isSemanticallyValid();
 
-        for (FuncNode f : prog.getFuncs()) {
-            valid &= f.isSemanticallyValid();
-        }
+    assertTrue(prog.isSemanticallyValid() == valid);
+  }
 
-        StatNode stat = prog.getStat();
-        valid &= stat != null && stat.isSemanticallyValid();
+  @Test
+  public void canAddStatToProgram() {
+    prog.setStat(stat1);
+  }
 
-        assertTrue(prog.isSemanticallyValid() == valid);
-    }
+  @Test(expected = IllegalArgumentException.class)
+  public void cannotOverWriteStatOfProgram() {
+    prog.setStat(stat1);
+    prog.setStat(stat1);
+  }
 
-    @Test
-    public void canAddStatToProgram() {
-        prog.setStat(stat);
-    }
-
-    @Test(expected=IllegalArgumentException.class)
-    public void cannotOverWriteStatOfProgram() {
-        prog.setStat(stat);
-        prog.setStat(stat);
-    }
+  private void setParents() {
+    p1.getIdent().setParent(p1);
+    p2.getIdent().setParent(p2);
+  }
 
 }
