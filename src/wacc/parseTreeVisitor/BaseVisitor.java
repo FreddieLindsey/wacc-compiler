@@ -117,6 +117,17 @@ public class BaseVisitor<ASTNode> extends BasicParserBaseVisitor<ASTNode> {
 
   @Override
   public ASTNode visitUnaryoper(@NotNull BasicParser.UnaryoperContext ctx) {
+    if (ctx.SUB() != null) {
+      return (ASTNode) new UnOpNode(null, UnaryOperator.NEG, null);
+    } else if (ctx.CHR() != null) {
+      return (ASTNode) new UnOpNode(null, UnaryOperator.CHR, null);
+    } else if (ctx.LEN() != null) {
+      return (ASTNode) new UnOpNode(null, UnaryOperator.LEN, null);
+    } else if (ctx.NOT() != null) {
+      return (ASTNode) new UnOpNode(null, UnaryOperator.NOT, null);
+    } else if (ctx.ORD() != null) {
+      return (ASTNode) new UnOpNode(null, UnaryOperator.ORD, null);
+    }
     return null;
   }
 
@@ -212,6 +223,7 @@ public class BaseVisitor<ASTNode> extends BasicParserBaseVisitor<ASTNode> {
 
   @Override
   public ASTNode visitArrayliter(@NotNull BasicParser.ArrayliterContext ctx) {
+
     return null;
   }
 
@@ -248,11 +260,15 @@ public class BaseVisitor<ASTNode> extends BasicParserBaseVisitor<ASTNode> {
 
   @Override
   public ASTNode visitPairliter(@NotNull BasicParser.PairliterContext ctx) {
+    if (ctx.NULL() != null) {
+      return (ASTNode) new PairLiteralNode(null);
+    }
     return null;
   }
 
   @Override
   public ASTNode visitPairelem(@NotNull BasicParser.PairelemContext ctx) {
+
     return null;
   }
 
