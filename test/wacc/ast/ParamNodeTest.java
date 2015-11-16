@@ -8,21 +8,32 @@ import wacc.symbolTable.TypeEnum;
 public class ParamNodeTest {
 
   private ParamNode param;
-  private TypeNode type = new TypeNode(TypeEnum.INT);
-  private IdentNode id = new IdentNode("ident");
+  private TypeEnum type = TypeEnum.INT;
+  private IdentNode id1 = new IdentNode("ident");
+  private IdentNode id2 =  new IdentNode("@lkjsdkg");
 
   @Test
-  public void paramNodeInit() {
-    param = new ParamNode(type, id);
+  public void canGetType() {
+    param = new ParamNode(type, id1);
     assertTrue(param.getType().equals(type));
-    assertTrue(param.getIdent().equals(id));
   }
 
   @Test
-  public void paramNodeIsSemanticallyValid() {
-    param = new ParamNode(type, id);
-    assertTrue(param.isSemanticallyValid() ==
-            (type.isSemanticallyValid() && id.isSemanticallyValid()));
+  public void canGetIdent() {
+    param = new ParamNode(type, id1);
+    assertTrue(param.getIdent().equals(id1));
+  }
+
+  @Test
+  public void paramNodeIsValid() {
+    param = new ParamNode(type, id1);
+    assertTrue(param.isSemanticallyValid());
+  }
+
+  @Test
+  public void paramNodeIsInvalid() {
+    param = new ParamNode(type, id2);
+    assertFalse(param.isSemanticallyValid());
   }
 
 }

@@ -1,16 +1,20 @@
 package wacc.ast;
 
+import wacc.symbolTable.SymbolTable;
+import wacc.symbolTable.TypeEnum;
+
 public class ParamNode implements ASTNode {
 
-  private TypeNode type;
+  private TypeEnum type;
   private IdentNode ident;
+  private SymbolTable scope;
 
-  public ParamNode(TypeNode type, IdentNode ident) {
+  public ParamNode(TypeEnum type, IdentNode ident) {
     this.type = type;
     this.ident = ident;
   }
 
-  public TypeNode getType() {
+  public TypeEnum getType() {
     return type;
   }
 
@@ -18,19 +22,16 @@ public class ParamNode implements ASTNode {
     return ident;
   }
 
+  public void setScope(SymbolTable st) {
+    this.scope = st;
+  }
+
   @Override
   public boolean isSemanticallyValid() {
-    if (!type.isSemanticallyValid()) {
-      return false;
-    }
-
-    if (!ident.isSemanticallyValid()) {
-      return false;
-    }
-
-    // TODO: check ident isn't already in scope
-
-    return true;
+    return (
+          ident.isSemanticallyValid()
+      &&  (scope == null
+      ||  scope.lookUp(ident.getIdent()) == null));
   }
 
 
