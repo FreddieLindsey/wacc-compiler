@@ -64,7 +64,7 @@ public class Main {
   }
 
   private static void printErrors(String out) {
-    String[] errors = output.split("\n");
+    String[] errors = out.split("\n");
     int error_count = 1;
     for (String error : errors) {
       System.out.println("Error " + error_count + ":\t" + error);
