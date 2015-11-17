@@ -30,9 +30,14 @@ public class BaseVisitor<ASTNode> extends BasicParserBaseVisitor<ASTNode> {
 
   @Override
   public ASTNode visitCharliter(@NotNull BasicParser.CharliterContext ctx) {
-    return (ASTNode) ((ctx.CHARAC().getText().length() == 1) ?
-      new CharNode(ctx.CHARAC().getText().charAt(0)) :
-      new CharNode(ctx.CHARAC().getText().charAt(1)));
+    if (ctx.CHARAC() != null) {
+      if (ctx.CHARAC().toString().length() != 1) {
+        return (ASTNode) new CharNode(ctx.CHARAC().getText().charAt(1));
+      }
+      return (ASTNode) new CharNode(ctx.CHARAC().getText().charAt(0));
+    } else {
+      return (ASTNode) new CharNode('a'); // TODO: Return actual escaped character
+    }
   }
 
   @Override
@@ -193,7 +198,7 @@ public class BaseVisitor<ASTNode> extends BasicParserBaseVisitor<ASTNode> {
   public ASTNode visitIntsign(@NotNull BasicParser.IntsignContext ctx) {
     return (ASTNode) ((ctx.SUB() != null) ?
       new IntNode(-1) :
-      new IntNode( 1));
+      new IntNode(1));
   }
 
   @Override
@@ -232,7 +237,7 @@ public class BaseVisitor<ASTNode> extends BasicParserBaseVisitor<ASTNode> {
   public ASTNode visitStat(@NotNull BasicParser.StatContext ctx) {
     if (ctx.READ() != null) {
       BasicStatNode b = new BasicStatNode(StatTypeEnum.READ);
-      b.addExpr((ExprNode) visitExpr(ctx.expr()));
+      if (ctx.expr() != null) b.addExpr((ExprNode) visitExpr(ctx.expr()));
       return (ASTNode) b;
     } else if (ctx.FREE() != null) {
       BasicStatNode b = new BasicStatNode(StatTypeEnum.FREE);
@@ -334,7 +339,7 @@ public class BaseVisitor<ASTNode> extends BasicParserBaseVisitor<ASTNode> {
   @Override
   public ASTNode visitPairelem(@NotNull BasicParser.PairelemContext ctx) {
     return (ASTNode)
-        (ExprNode) visitExpr(ctx.expr());
+      (ExprNode) visitExpr(ctx.expr());
   }
 
   @Override
