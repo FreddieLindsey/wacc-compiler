@@ -3,8 +3,8 @@ package wacc.ast;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
+import wacc.ast.type.TypeEnum;
 import wacc.ast.type.TypeNode;
-import wacc.symbolTable.TypeEnum;
 
 public class ReAssignNodeTest {
 

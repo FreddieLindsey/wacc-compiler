@@ -1,9 +1,6 @@
 package wacc.ast.type;
 
 import wacc.ast.StatNode;
-import wacc.symbolTable.TypeEnum;
-
-import static wacc.symbolTable.TypeEnum.*;
 
 public class TypeNode extends StatNode {
 
@@ -22,13 +19,13 @@ public class TypeNode extends StatNode {
     super();
     this.lhs = lhs;
     this.rhs = rhs;
-    this.t = PAIR;
+    this.t = TypeEnum.PAIR;
   }
 
   public TypeNode(TypeNode arrType) {
     super();
     this.type = arrType;
-    this.t = ARR;
+    this.t = TypeEnum.ARR;
   }
 
   public TypeNode getLHS() {
@@ -61,10 +58,10 @@ public class TypeNode extends StatNode {
 
       if (!valid) return false;
 
-      if (getType() == new TypeNode(PAIR)) {
+      if (getType() == new TypeNode(TypeEnum.PAIR)) {
         valid &= tn.getLHS().equals(lhs)
           && tn.getRHS().equals(rhs);
-      } else if (getType() == new TypeNode(ARR)) {
+      } else if (getType() == new TypeNode(TypeEnum.ARR)) {
         valid &= tn.getArrType().equals(type);
       }
 

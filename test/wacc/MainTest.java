@@ -3,7 +3,7 @@ package wacc;
 import antlr.BasicParser;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.junit.Test;
-import wacc.ast.ASTTree;
+import wacc.ast.ProgramNode;
 
 import java.io.ByteArrayOutputStream;
 import java.io.FileInputStream;
@@ -24,40 +24,40 @@ public class MainTest {
   private boolean errors_syn = false;
   private boolean errors_sem = false;
 
-  @Test
-  public void validTests() throws IOException {
-    SimpleFileVisitor<Path> fv = new SimpleFileVisitor<Path>() {
-      @Override
-      public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) {
-        if (file.toString().endsWith(".wacc")) {
-          captureOut();
-          try {
-            BasicParser parser = Main.parseInput(new FileInputStream(String.valueOf(file)));
-            ParseTree pt = parser.program();
-            resetOut();
-            if (!baos.toString().equals("")) {
-              errors_syn = true;
-              System.err.println("--------------------------------------\n"
-                + "Valid file\t" + file.toFile().getName()
-                + "\nat location\t" + file.toString());
-            }
-            ASTTree ast = Main.analyseFile(pt);
-            assertTrue(true); // TODO: Design and implement
-          } catch (IOException e) {
-            resetOut();
-            System.out.println("Encountered an error parsing/analysing file: "
-              + file.toString() + e);
-          }
-        }
-        return FileVisitResult.CONTINUE;
-      }
-    };
-    walkFileTree(FileSystems.getDefault().getPath("wacc_examples", "valid"), fv);
-    if (errors_syn || errors_sem) {
-      System.err.println("--------------------------------------\n"
-        + "The above files shouldn't have had errors but didn't. Check the grammar!\n\n");
-    }
-  }
+//  @Test
+//  public void validTests() throws IOException {
+//    SimpleFileVisitor<Path> fv = new SimpleFileVisitor<Path>() {
+//      @Override
+//      public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) {
+//        if (file.toString().endsWith(".wacc")) {
+//          captureOut();
+//          try {
+//            BasicParser parser = Main.parseInput(new FileInputStream(String.valueOf(file)));
+//            ParseTree pt = parser.program();
+//            resetOut();
+//            if (!baos.toString().equals("")) {
+//              errors_syn = true;
+//              System.err.println("--------------------------------------\n"
+//                + "Valid file\t" + file.toFile().getName()
+//                + "\nat location\t" + file.toString());
+//            }
+//            ProgramNode ast = Main.analyseFile(pt);
+//            assertTrue(true); // TODO: Design and implement
+//          } catch (IOException e) {
+//            resetOut();
+//            System.out.println("Encountered an error parsing/analysing file: "
+//              + file.toString() + e);
+//          }
+//        }
+//        return FileVisitResult.CONTINUE;
+//      }
+//    };
+//    walkFileTree(FileSystems.getDefault().getPath("wacc_examples", "valid"), fv);
+//    if (errors_syn || errors_sem) {
+//      System.err.println("--------------------------------------\n"
+//        + "The above files shouldn't have had errors but didn't. Check the grammar!\n\n");
+//    }
+//  }
 
   @Test
   public void invalidSyntaxTests() throws IOException {
@@ -92,40 +92,40 @@ public class MainTest {
     }
   }
 
-  @Test
-  public void invalidSemanticTests() throws IOException {
-    SimpleFileVisitor<Path> fv = new SimpleFileVisitor<Path>() {
-      @Override
-      public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) {
-        if (file.toString().endsWith(".wacc")) {
-          captureOut();
-          try {
-            BasicParser parser = Main.parseInput(new FileInputStream(String.valueOf(file)));
-            ParseTree pt = parser.program();
-            resetOut();
-            if (!baos.toString().equals("")) {
-              errors_syn = true;
-              System.err.println("--------------------------------------\n"
-                + "Invalid file\t" + file.toFile().getName()
-                + "\nat location\t" + file.toString());
-            }
-            ASTTree ast = Main.analyseFile(pt);
-            assertTrue(true); // TODO: Design and implement AST to report semantic errors
-          } catch (IOException e) {
-            resetOut();
-            System.out.println("Encountered an error parsing/analysing file: "
-              + file.toString() + e);
-          }
-        }
-        return FileVisitResult.CONTINUE;
-      }
-    };
-    walkFileTree(FileSystems.getDefault().getPath("wacc_examples", "invalid", "semanticErr"), fv);
-    if (errors_sem) {
-      System.err.println("--------------------------------------\n"
-        + "The above files should have had errors but didn't. Check the grammar!\n\n");
-    }
-  }
+//  @Test
+//  public void invalidSemanticTests() throws IOException {
+//    SimpleFileVisitor<Path> fv = new SimpleFileVisitor<Path>() {
+//      @Override
+//      public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) {
+//        if (file.toString().endsWith(".wacc")) {
+//          captureOut();
+//          try {
+//            BasicParser parser = Main.parseInput(new FileInputStream(String.valueOf(file)));
+//            ParseTree pt = parser.program();
+//            resetOut();
+//            if (!baos.toString().equals("")) {
+//              errors_syn = true;
+//              System.err.println("--------------------------------------\n"
+//                + "Invalid file\t" + file.toFile().getName()
+//                + "\nat location\t" + file.toString());
+//            }
+//            ProgramNode ast = Main.analyseFile(pt);
+//            assertTrue(true); // TODO: Design and implement AST to report semantic errors
+//          } catch (IOException e) {
+//            resetOut();
+//            System.out.println("Encountered an error parsing/analysing file: "
+//              + file.toString() + e);
+//          }
+//        }
+//        return FileVisitResult.CONTINUE;
+//      }
+//    };
+//    walkFileTree(FileSystems.getDefault().getPath("wacc_examples", "invalid", "semanticErr"), fv);
+//    if (errors_sem) {
+//      System.err.println("--------------------------------------\n"
+//        + "The above files should have had errors but didn't. Check the grammar!\n\n");
+//    }
+//  }
 
   private void captureOut() {
     baos.reset();

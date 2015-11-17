@@ -1,6 +1,7 @@
 package wacc.symbolTable;
 
 import org.junit.Test;
+import wacc.ast.type.TypeEnum;
 import wacc.ast.type.TypeNode;
 
 import static org.junit.Assert.*;

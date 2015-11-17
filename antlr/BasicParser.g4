@@ -16,7 +16,7 @@ param : type ident ;
 stat    : SKIP
 		| type ident ASSIGN assignrhs
 		| assignlhs ASSIGN assignrhs
-		| READ assignrhs
+		| READ assignlhs
 		| FREE expr
 		| RETURN expr
 		| EXIT expr
