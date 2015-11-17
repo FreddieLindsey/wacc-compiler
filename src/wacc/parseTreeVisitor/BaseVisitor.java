@@ -16,19 +16,13 @@ import wacc.ast.pair.PairNode;
 import wacc.ast.type.*;
 import wacc.ast.IdentNode;
 
-import java.util.ArrayList;
-
 public class BaseVisitor<ASTNode> extends BasicParserBaseVisitor<ASTNode> {
   @Override
   public ASTNode visitArglist(@NotNull BasicParser.ArglistContext ctx) {
-    ArrayList<ExprNode> exprs = new ArrayList<>();
     ArgListNode a = new ArgListNode();
     for (BasicParser.ExprContext e : ctx.expr()) {
-      ExprNode expr = (ExprNode) visitExpr(e);
-      expr.setParent(a);
-      exprs.add(expr);
+      a.addExpr((ExprNode) visitExpr(e));
     }
-//    a.setExprs((ExprNode[]) exprs.toArray());
     return (ASTNode) a;
   }
 
@@ -51,11 +45,9 @@ public class BaseVisitor<ASTNode> extends BasicParserBaseVisitor<ASTNode> {
 
   @Override
   public ASTNode visitParam(@NotNull BasicParser.ParamContext ctx) {
-    ParamNode p = new ParamNode(
+    return (ASTNode) new ParamNode(
       ((TypeNode) visitType(ctx.type())).getType(),
       (IdentNode) visitIdent(ctx.ident()));
-    p.getIdent().setParent(p);
-    return (ASTNode) p;
   }
 
   @Override
@@ -72,9 +64,7 @@ public class BaseVisitor<ASTNode> extends BasicParserBaseVisitor<ASTNode> {
       return (ASTNode) b;
     } else if (ctx.unaryoper() != null) {
       UnOpNode u = (UnOpNode) visitUnaryoper(ctx.unaryoper());
-      ExprNode e = (ExprNode) visitExpr(ctx.expr(0));
-      e.setParent(u);
-      u.setExpr(e);
+      u.setExpr((ExprNode) visitExpr(ctx.expr(0)));
       return (ASTNode) u;
     } else if (ctx.intliter() != null) {
       return visitIntliter(ctx.intliter());
@@ -113,9 +103,7 @@ public class BaseVisitor<ASTNode> extends BasicParserBaseVisitor<ASTNode> {
   public ASTNode visitParamlist(@NotNull BasicParser.ParamlistContext ctx) {
     ParamListNode pl = new ParamListNode();
     for (BasicParser.ParamContext p : ctx.param()) {
-      ParamNode p_ = (ParamNode) visitParam(p);
-      p_.setParent(pl);
-      pl.addParam(p_);
+      pl.addParam((ParamNode) visitParam(p));
     }
     return (ASTNode) pl;
   }
@@ -173,11 +161,9 @@ public class BaseVisitor<ASTNode> extends BasicParserBaseVisitor<ASTNode> {
       (TypeNode) visitType(ctx.type()),
       (IdentNode) visitIdent(ctx.ident()),
       (StatNode) visitStat(ctx.stat()));
-    f.getType().setParent(f);
-    f.getIdent().setParent(f);
-    f.getStat().setParent(f);
-    for (ParamNode p : f.getParams().getParams()) {
-      p.setParent(f);
+    ParamListNode pl = (ParamListNode) visitParamlist(ctx.paramlist());
+    for (ParamNode p : pl.getParams()) {
+      f.addParam(p);
     }
     return (ASTNode) f;
   }
@@ -274,8 +260,7 @@ public class BaseVisitor<ASTNode> extends BasicParserBaseVisitor<ASTNode> {
   public ASTNode visitArrayliter(@NotNull BasicParser.ArrayliterContext ctx) {
     ArrayLiteralNode aln = new ArrayLiteralNode();
     for (BasicParser.ExprContext e : ctx.expr()) {
-      ExprNode e_ = (ExprNode) visitExpr(e);
-      aln.addExpr(e_);
+      aln.addExpr((ExprNode) visitExpr(e));
     }
     return (ASTNode) aln;
   }
@@ -290,8 +275,6 @@ public class BaseVisitor<ASTNode> extends BasicParserBaseVisitor<ASTNode> {
     } else {
       p = new PairNode<ExprNode, ExprNode>(p2.getFst(), p1.getSnd());
     }
-    p1.setParent(p);
-    p2.setParent(p);
     return (ASTNode) p;
   }
 
