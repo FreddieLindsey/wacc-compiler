@@ -4,13 +4,11 @@ import wacc.ast.ExprNode;
 import wacc.ast.StatNode;
 import wacc.ast.type.TypeEnum;
 import wacc.ast.type.TypeNode;
-import wacc.symbolTable.SymbolTable;
 
 public class WhileStatNode extends StatNode {
 
   private ExprNode expr;
   private StatNode stat;
-  private SymbolTable scope;
 
   public WhileStatNode(ExprNode expr, StatNode stat) {
     super();
@@ -26,10 +24,6 @@ public class WhileStatNode extends StatNode {
 
   public StatNode getStat() {
     return this.stat;
-  }
-  
-  public void setScope(SymbolTable st) {
-    this.scope = st;
   }
 
   @Override
