@@ -10,8 +10,6 @@ public class ProgramNodeTest {
   private final ProgramNode prog = new ProgramNode();
 
   private FuncNode f;
-  private ParamListNode p;
-  private ParamNode[] ps = new ParamNode[2];
   private ParamNode p1 = new ParamNode(TypeEnum.INT, new IdentNode("a"));
   private ParamNode p2 = new ParamNode(TypeEnum.INT, new IdentNode("b"));
 
@@ -21,10 +19,7 @@ public class ProgramNodeTest {
 
   @Test
   public void canAddFunctionToProgram() {
-    ps[0] = p1;
-    ps[1] = p2;
-    p = new ParamListNode(ps);
-    f = new FuncNode(t, n, p, stat1);
+    f = new FuncNode(t, n, stat1);
     prog.addFunc(f);
   }
 

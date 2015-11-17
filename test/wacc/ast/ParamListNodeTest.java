@@ -10,7 +10,6 @@ import static org.junit.Assert.*;
 public class ParamListNodeTest {
 
   private ParamListNode p;
-  private ParamNode[] ps = new ParamNode[2];
 
   private TypeEnum t1 = TypeEnum.BOOL;
   private ParamNode p1 = new ParamNode(t1, new IdentNode("a"));
@@ -19,25 +18,20 @@ public class ParamListNodeTest {
 
   @Test
   public void canGetParams() {
-    ps[0] = p1;
-    ps[1] = p2;
-    p = new ParamListNode(ps);
-    assertTrue(Arrays.equals(p.getParams(), ps));
+    p = new ParamListNode();
+    p.addParam(p1);
+    assertTrue(p.getParams().get(0).equals(p1));
   }
 
   @Test
   public void validWithValidParams() {
-    ps[0] = p1;
-    ps[1] = p2;
-    p = new ParamListNode(ps);
+    p = new ParamListNode();
     assertTrue(p.isSemanticallyValid());
   }
 
   @Test
   public void invalidWithInvalidParams() {
-    ps[0] = p1;
-    ps[1] = p3;
-    p = new ParamListNode(ps);
+    p = new ParamListNode();
     assertFalse(p.isSemanticallyValid());
   }
 }
