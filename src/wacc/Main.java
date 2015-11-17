@@ -55,12 +55,7 @@ public class Main {
 
   public static ProgramNode analyseFile(ParseTree parseTree) throws IOException {
     BaseVisitor<ASTNode> visitor = new BaseVisitor<>();
-   try {
-      return (ProgramNode) visitor.visit(parseTree);
-   } catch (ClassCastException e) {
-     System.out.println("There is a syntax error");
-   }
-   return null;
+    return (ProgramNode) visitor.visit(parseTree);
   }
 
   private static void engageMessageLock() {
