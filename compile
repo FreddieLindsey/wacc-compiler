@@ -6,6 +6,6 @@ ARGV.each do|a|
     if ($?.exitstatus != 0)
       exit $?.exitstatus
     else
-      print "Successfully compiled..."
+      print "Successfully compiled...\n"
     end
 end
