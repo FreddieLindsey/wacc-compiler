@@ -1,5 +1,6 @@
 package wacc.ast;
 
+import wacc.ast.type.TypeNode;
 import wacc.symbolTable.TypeEnum;
 import org.junit.Test;
 
@@ -10,8 +11,8 @@ public class ProgramNodeTest {
   private final ProgramNode prog = new ProgramNode();
 
   private FuncNode f;
-  private ParamNode p1 = new ParamNode(TypeEnum.INT, new IdentNode("a"));
-  private ParamNode p2 = new ParamNode(TypeEnum.INT, new IdentNode("b"));
+  private ParamNode p1 = new ParamNode(new TypeNode(TypeEnum.INT), new IdentNode("a"));
+  private ParamNode p2 = new ParamNode(new TypeNode(TypeEnum.INT), new IdentNode("b"));
 
   private TypeNode t = new TypeNode(TypeEnum.INT);
   private IdentNode n = new IdentNode("x");
