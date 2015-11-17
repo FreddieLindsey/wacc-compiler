@@ -18,6 +18,8 @@ public class NewAssignNode extends StatNode {
 
     // ERROR if already exists in the CURRENT symbol table (variable shadowing)
     checkSymbolHere(i.getIdent());
+
+    symbolTable.add(i.getIdent(), t);
   }
 
   public TypeNode getType() {
