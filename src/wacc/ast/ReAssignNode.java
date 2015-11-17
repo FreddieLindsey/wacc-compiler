@@ -28,7 +28,7 @@ public class ReAssignNode extends StatNode {
       && rhs.validRight()
       && lhs.isSemanticallyValid()
       && rhs.isSemanticallyValid()
-      && lhs.equals(rhs);
+      && lhs.type().equals(rhs.type());
   }
 
 }

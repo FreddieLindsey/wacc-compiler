@@ -1,14 +1,16 @@
 package wacc.ast;
 
-import wacc.symbolTable.TypeEnum;
+import wacc.ast.type.*;
 
 public class PairNode<F extends ExprNode, S extends ExprNode> extends TypeNode {
 
   private F fst;
-  private S snd;		
+  private S snd;	
+
+  private TypeNode type;	
   
   public PairNode(F fst, S snd) {
-    super(TypeEnum.PAIR);
+    super(fst.type(), snd.type());
     this.fst = fst;
     this.snd = snd;
     fst.setParent(this);
@@ -21,6 +23,10 @@ public class PairNode<F extends ExprNode, S extends ExprNode> extends TypeNode {
 
   public S getSnd() {
     return this.snd;
+  }
+
+  public TypeNode getType() {
+    return this.type;
   }
 
   @Override

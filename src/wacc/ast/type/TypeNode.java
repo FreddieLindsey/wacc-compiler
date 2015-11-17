@@ -1,34 +1,32 @@
 package wacc.ast.type;
 
-import wacc.ast.ASTNode;
 import wacc.ast.StatNode;
+import wacc.symbolTable.TypeEnum;
 
 public class TypeNode extends StatNode {
 
   private final TypeEnum t;
-  private TypeEnum type;
-
   private TypeNode lhs;
   private TypeNode rhs;
-
-  private TypeNode arrType;
+  private TypeNode type;
 
   public TypeNode(TypeEnum type) {
     super();
     this.t = type;
   }
 
-  public TypeNode(ASTNode parent, TypeNode lhs, TypeNode rhs) {
-    super(parent);
+
+  public TypeNode(TypeNode lhs, TypeNode rhs) {
+    super();
     this.lhs = lhs;
     this.rhs = rhs;
-    this.type = TypeEnum.PAIR;
+    this.t = TypeEnum.PAIR;
   }
 
-  public TypeNode(ASTNode parent, TypeNode arrType) {
-    super(parent);
-    this.arrType = arrType;
-    this.type = TypeEnum.ARR;
+  public TypeNode(TypeNode arrType) {
+    super();
+    this.type = arrType;
+    this.t = TypeEnum.ARR;
   }
 
   public TypeNode getLHS() {
@@ -40,7 +38,7 @@ public class TypeNode extends StatNode {
   }
 
   public TypeNode getArrType() {
-    return this.arrType;
+    return this.type;
   }
 
   @Override
@@ -49,19 +47,19 @@ public class TypeNode extends StatNode {
     return true;
   }
 
-  public TypeEnum getType() {
-    return type;
+  public TypeNode getType() {
+    return this;
   }
 
   @Override
   public boolean equals(TypeNode tn) {
-    boolean valid = tn.type() == type;
+    boolean valid = tn.type() == t;
 
     if (type == TypeEnum.PAIR) {
       valid &= tn.getLHS().equals(lhs)
             && tn.getRHS().equals(rhs);
     } else if (type == TypeEnum.ARR) {
-      valid &= tn.getArrType().equals(arrType);
+      valid &= tn.getArrType().equals(type);
     }
 
     return valid;

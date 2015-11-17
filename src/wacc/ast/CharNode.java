@@ -9,7 +9,7 @@ public class CharNode extends LiteralNode<Character> {
   public CharNode(char value) {
     super();
     this.value = value;
-    this.type = TypeEnum.CHAR;
+    this.type = new TypeNode(null, TypeEnum.CHAR);
   }
 
   @Override

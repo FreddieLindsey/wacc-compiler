@@ -1,5 +1,6 @@
 package wacc.ast;
 
+import wacc.ast.type.TypeNode;
 import wacc.symbolTable.TypeEnum;
 
 import java.util.ArrayList;
@@ -15,7 +16,7 @@ public class ArrayElemNode extends AssignNode {
     ident.setParent(this);
   }
 
-  public TypeEnum type() {
+  public TypeNode type() {
     return ident.type();
   }
 

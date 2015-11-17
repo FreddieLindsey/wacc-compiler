@@ -7,7 +7,7 @@ public class PairLiteralNode extends LiteralNode {
   public PairLiteralNode() {
     super();
     this.value = null;
-    this.type = TypeEnum.PAIR;
+    this.type = new TypeNode(null, TypeEnum.PAIR);
   }
 
   @Override

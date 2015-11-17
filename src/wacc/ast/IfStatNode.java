@@ -35,7 +35,8 @@ public class IfStatNode extends StatNode {
     return expr.isSemanticallyValid()
         && stat1.isSemanticallyValid()
         && stat2.isSemanticallyValid()
-        && expr.type() == TypeEnum.BOOL;
+        && expr.type().equals(
+            new TypeNode(null, TypeEnum.BOOL));
   }
 
 }

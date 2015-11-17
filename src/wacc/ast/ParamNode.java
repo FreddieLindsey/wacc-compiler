@@ -1,22 +1,22 @@
 package wacc.ast;
 
 import wacc.symbolTable.SymbolTable;
-import wacc.symbolTable.TypeEnum;
+import wacc.ast.type.*;
 
 public class ParamNode extends ASTNode {
 
-  private TypeEnum type;
+  private TypeNode type;
   private IdentNode ident;
   private SymbolTable scope;
 
-  public ParamNode(TypeEnum type, IdentNode ident) {
+  public ParamNode(TypeNode type, IdentNode ident) {
     super();
     this.type = type;
     this.ident = ident;
     ident.setParent(this);
   }
 
-  public TypeEnum getType() {
+  public TypeNode getType() {
     return type;
   }
 

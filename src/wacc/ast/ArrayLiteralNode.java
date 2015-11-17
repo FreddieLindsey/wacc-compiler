@@ -8,10 +8,10 @@ public class ArrayLiteralNode extends LiteralNode<ExprNode> {
 
   private final ArrayList<ExprNode> exprs;
 
-  public ArrayLiteralNode() {
-    super();
+  public ArrayLiteralNode(ASTNode parent, ExprNode[] value) {
+    super(parent);
     exprs = new ArrayList<>();
-    this.type = TypeEnum.ARR;
+    this.type = new TypeNode(ExprNode[0].type()));
   }
 
   public void addExpr(ExprNode e) {
@@ -36,6 +36,6 @@ public class ArrayLiteralNode extends LiteralNode<ExprNode> {
         return false;
       }
     }
-    return true; 
+    return true;
   }
 }

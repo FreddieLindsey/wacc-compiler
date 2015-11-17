@@ -1,5 +1,6 @@
 package wacc.ast;
 
+import wacc.ast.type.TypeNode;
 import wacc.symbolTable.TypeEnum;
 
 public class BinOpNode extends ExprNode {
@@ -24,13 +25,13 @@ public class BinOpNode extends ExprNode {
   }
 
   @Override
-  public TypeEnum type() {
+  public TypeNode type() {
     switch(op) {
       case MUL:
       case DIV:
       case MOD:
       case ADD:
-      case SUB: return TypeEnum.INT;
+      case SUB: return new TypeNode(TypeEnum.INT);
       case GT :
       case GTE:
       case LT :
@@ -38,7 +39,7 @@ public class BinOpNode extends ExprNode {
       case EQ :
       case NEQ:
       case AND:
-      case OR : return TypeEnum.BOOL;
+      case OR : return new TypeNode(TypeEnum.BOOL);
     }
     return null;
   }
@@ -58,6 +59,7 @@ public class BinOpNode extends ExprNode {
       case DIV:
       case MOD:
       case ADD:
+<<<<<<< cfa0781dfa7ca46858df3e01b3d47331629f7a3c
       case SUB: return lhs.type() == TypeEnum.INT;
       case GT :
       case GTE:
@@ -68,6 +70,23 @@ public class BinOpNode extends ExprNode {
       case NEQ: return lhs.type() != TypeEnum.STRING;
       case AND:
       case OR : return lhs.type() == TypeEnum.BOOL;
+=======
+      case SUB: valid &= lhs.type().equals(
+                          new TypeNode(null, TypeEnum.INT)); return valid;
+      case GT :
+      case GTE:
+      case LT :
+      case LTE: valid &= lhs.type().equals(
+                          new TypeNode(null, TypeEnum.INT))
+                      || lhs.type().equals(
+                          new TypeNode(null, TypeEnum.CHAR)); return valid;
+      case EQ :
+      case NEQ: valid &= !lhs.type().equals(
+                          new TypeNode(null, TypeEnum.STRING)); return valid;
+      case AND:
+      case OR : valid &= lhs.type().equals(
+                          new TypeNode(null, TypeEnum.BOOL)); return valid;
+>>>>>>> Aded enhanced type checking
       default : return false;
     }
   }

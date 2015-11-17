@@ -27,7 +27,8 @@ public class WhileStatNode extends StatNode {
   public boolean isSemanticallyValid() {
     return stat.isSemanticallyValid()
         && expr.isSemanticallyValid()
-        && expr.type() == TypeEnum.BOOL;
+        && expr.type().equals(
+          new TypeNode(null, TypeEnum.BOOL));
   }
 
 }

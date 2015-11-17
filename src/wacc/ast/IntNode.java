@@ -7,7 +7,7 @@ public class IntNode extends LiteralNode<Long> {
   public IntNode(long value) {
     super();
     this.value = value;
-    this.type = TypeEnum.INT;
+    this.type = new TypeNode(null, TypeEnum.INT);
   }
 
   @Override
