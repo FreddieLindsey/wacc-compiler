@@ -34,4 +34,9 @@ public class WhileStatNode extends StatNode {
           new TypeNode(TypeEnum.BOOL));
   }
 
+  @Override
+  public boolean hasReturn() {
+    return stat.hasReturn();
+  }
+
 }

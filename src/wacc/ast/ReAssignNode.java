@@ -30,4 +30,9 @@ public class ReAssignNode extends StatNode {
       && lhs.type().equals(rhs.type());
   }
 
+  @Override
+  public boolean hasReturn() {
+    return false;
+  }
+
 }

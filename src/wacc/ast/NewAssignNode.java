@@ -38,4 +38,9 @@ public class NewAssignNode extends StatNode {
       && t.equals(rhs.type());
   }
 
+  @Override
+  public boolean hasReturn() {
+    return false;
+  }
+
 }

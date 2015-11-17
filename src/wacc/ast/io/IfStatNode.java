@@ -41,4 +41,9 @@ public class IfStatNode extends StatNode {
         && expr.type().getType().equals(TypeEnum.BOOL);
   }
 
+  @Override
+  public boolean hasReturn() {
+    return stat1.hasReturn() && stat2.hasReturn();
+  }
+
 }

@@ -31,4 +31,9 @@ public class CompStatNode extends StatNode {
     return stat1.isSemanticallyValid() && stat2.isSemanticallyValid();
   }
 
+  @Override
+  public boolean hasReturn() {
+    return stat1.hasReturn() || stat2.hasReturn();
+  }
+
 }
