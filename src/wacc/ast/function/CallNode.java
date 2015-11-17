@@ -2,11 +2,12 @@ package wacc.ast.function;
 
 import wacc.ast.type.TypeNode;
 import wacc.ast.ASTNode;
+import wacc.ast.AssignNode;
 import wacc.ast.ExprNode;
 import wacc.ast.IdentNode;
 import wacc.ast.type.TypeEnum;
 
-public class CallNode extends ExprNode {
+public class CallNode extends AssignNode {
 
   private IdentNode ident;
   private ArgListNode args;
@@ -41,6 +42,16 @@ public class CallNode extends ExprNode {
   public boolean isSemanticallyValid() {
     return ident.isSemanticallyValid()
       && args.isSemanticallyValid();
+  }
+
+  @Override
+  public boolean validLeft() {
+    return false;
+  }
+
+  @Override
+  public boolean validRight() {
+    return true;
   }
 
 }

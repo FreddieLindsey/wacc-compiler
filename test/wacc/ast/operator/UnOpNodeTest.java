@@ -13,17 +13,7 @@ public class UnOpNodeTest {
 
   @Test
   public void canCreateUnOpNode() {
-    u = new UnOpNode(UnaryOperator.NOT, new ExprNode() {
-      @Override
-      public TypeNode type() {
-        return null;
-      }
-
-      @Override
-      public boolean isSemanticallyValid() {
-        return true;
-      }
-    });
+    u = new UnOpNode(UnaryOperator.NOT);
   }
 
 }

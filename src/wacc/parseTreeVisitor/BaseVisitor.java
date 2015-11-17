@@ -142,15 +142,15 @@ public class BaseVisitor<ASTNode> extends BasicParserBaseVisitor<ASTNode> {
   @Override
   public ASTNode visitUnaryoper(@NotNull BasicParser.UnaryoperContext ctx) {
     if (ctx.SUB() != null) {
-      return (ASTNode) new UnOpNode(UnaryOperator.NEG, null);
+      return (ASTNode) new UnOpNode(UnaryOperator.NEG);
     } else if (ctx.CHR() != null) {
-      return (ASTNode) new UnOpNode(UnaryOperator.CHR, null);
+      return (ASTNode) new UnOpNode(UnaryOperator.CHR);
     } else if (ctx.LEN() != null) {
-      return (ASTNode) new UnOpNode(UnaryOperator.LEN, null);
+      return (ASTNode) new UnOpNode(UnaryOperator.LEN);
     } else if (ctx.NOT() != null) {
-      return (ASTNode) new UnOpNode(UnaryOperator.NOT, null);
+      return (ASTNode) new UnOpNode(UnaryOperator.NOT);
     } else if (ctx.ORD() != null) {
-      return (ASTNode) new UnOpNode(UnaryOperator.ORD, null);
+      return (ASTNode) new UnOpNode(UnaryOperator.ORD);
     }
     return null;
   }
@@ -237,7 +237,7 @@ public class BaseVisitor<ASTNode> extends BasicParserBaseVisitor<ASTNode> {
   public ASTNode visitStat(@NotNull BasicParser.StatContext ctx) {
     if (ctx.READ() != null) {
       BasicStatNode b = new BasicStatNode(StatTypeEnum.READ);
-      if (ctx.expr() != null) b.addExpr((ExprNode) visitExpr(ctx.expr()));
+      b.addExpr((ExprNode) visitAssignlhs(ctx.assignlhs()));
       return (ASTNode) b;
     } else if (ctx.FREE() != null) {
       BasicStatNode b = new BasicStatNode(StatTypeEnum.FREE);

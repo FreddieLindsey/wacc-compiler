@@ -1,19 +1,18 @@
 package wacc.ast.operator;
 
 import wacc.ast.type.TypeNode;
+import wacc.ast.AssignNode;
 import wacc.ast.ExprNode;
 import wacc.ast.type.TypeEnum;
 
-public class UnOpNode extends ExprNode {
+public class UnOpNode extends AssignNode {
   
   private UnaryOperator op;
   private ExprNode expr;
 
-  public UnOpNode(UnaryOperator op, ExprNode expr) {
+  public UnOpNode(UnaryOperator op) {
     super();
     this.op = op;
-    this.expr = expr;
-    expr.setParent(this);
   }
 
   @Override
@@ -53,5 +52,16 @@ public class UnOpNode extends ExprNode {
 
   public void setExpr(ExprNode expr) {
     this.expr = expr;
+    expr.setParent(this);
+  }
+
+  @Override
+  public boolean validLeft() {
+    return false;
+  }
+
+  @Override
+  public boolean validRight() {
+    return true;
   }
 }

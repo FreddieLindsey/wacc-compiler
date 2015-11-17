@@ -2,9 +2,10 @@ package wacc.ast.operator;
 
 import wacc.ast.type.TypeNode;
 import wacc.ast.ExprNode;
+import wacc.ast.AssignNode;
 import wacc.ast.type.TypeEnum;
 
-public class BinOpNode extends ExprNode {
+public class BinOpNode extends AssignNode {
 
   private ExprNode lhs;
   private BinaryOperator op;
@@ -88,5 +89,15 @@ public class BinOpNode extends ExprNode {
 
   public void setRHS(ExprNode RHS) {
     this.rhs = RHS;
+  }
+
+  @Override
+  public boolean validLeft() {
+    return false;
+  }
+
+  @Override
+  public boolean validRight() {
+    return true;
   }
 }
