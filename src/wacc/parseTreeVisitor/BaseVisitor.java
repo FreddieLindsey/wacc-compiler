@@ -229,7 +229,7 @@ public class BaseVisitor<ASTNode> extends BasicParserBaseVisitor<ASTNode> {
   public ASTNode visitStat(@NotNull BasicParser.StatContext ctx) {
     if (ctx.READ() != null) {
       BasicStatNode b = new BasicStatNode(StatTypeEnum.READ);
-      b.addExpr((ExprNode) visitAssignlhs(ctx.assignlhs()));
+      if (ctx.expr() != null) b.addExpr((ExprNode) visitAssignlhs(ctx.assignlhs()));
       return (ASTNode) b;
     } else if (ctx.FREE() != null) {
       BasicStatNode b = new BasicStatNode(StatTypeEnum.FREE);
