@@ -33,11 +33,11 @@ public class PairNode<F extends ExprNode, S extends ExprNode> extends AssignNode
 
   @Override
   public boolean validLeft() {
-    return false;
+    return !(this instanceof NewPairNode);
   }
 
   @Override
   public boolean validRight() {
-    return false;
+    return (this instanceof NewPairNode);
   }
 }
