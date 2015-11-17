@@ -15,7 +15,6 @@ public class NewAssignNode extends StatNode {
     this.rhs = rhs;
     i.setParent(this);
     rhs.setParent(this);
-    // Scope checking will be handled by the initialisation of the IdentNode
 
     // ERROR if already exists in the CURRENT symbol table (variable shadowing)
     checkSymbolHere(i.getIdent());
@@ -35,7 +34,6 @@ public class NewAssignNode extends StatNode {
 
   @Override
   public boolean isSemanticallyValid() {
-    // TODO: check that the Ident isnt already being used in same scope
     return i.isSemanticallyValid()
       && rhs.validRight()
       && rhs.isSemanticallyValid()
