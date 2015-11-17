@@ -295,8 +295,8 @@ public class BaseVisitor<ASTNode> extends BasicParserBaseVisitor<ASTNode> {
 
   @Override
   public ASTNode visitPairtype(@NotNull BasicParser.PairtypeContext ctx) {
-    TypeNode p1 = new TypeNode((TypeNode) visitPairelemtype(ctx.pairelemtype(0)));
-    TypeNode p2 = new TypeNode((TypeNode) visitPairelemtype(ctx.pairelemtype(1)));
+    TypeNode p1 = (TypeNode) visitPairelemtype(ctx.pairelemtype(0));
+    TypeNode p2 = (TypeNode) visitPairelemtype(ctx.pairelemtype(1));
     return (ASTNode) new TypeNode(p1, p2);
   }
 
