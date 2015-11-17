@@ -54,8 +54,13 @@ public class Main {
 
   public static ProgramNode analyseFile(ParseTree parseTree) throws IOException {
     BaseVisitor<ASTNode> visitor = new BaseVisitor<>();
-    ProgramNode prog = (ProgramNode) visitor.visit(parseTree);
-    prog.isSemanticallyValid();
+    ProgramNode prog = new ProgramNode();
+    try {
+      prog = (ProgramNode) visitor.visit(parseTree);
+    } catch (ClassCastException e) {
+      System.out.println("There is a syntax error");
+      System.exit(100);
+    }
     return prog;
   }
 
