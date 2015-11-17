@@ -3,6 +3,8 @@ package wacc.ast.function;
 import org.junit.Test;
 import wacc.ast.type.TypeEnum;
 import wacc.ast.IdentNode;
+import wacc.ast.type.TypeNode;
+
 import static org.junit.Assert.*;
 
 public class ParamListNodeTest {
