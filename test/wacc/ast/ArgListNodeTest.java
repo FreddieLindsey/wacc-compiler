@@ -13,14 +13,18 @@ public class ArgListNodeTest {
 
   @Test
   public void pairElemInit() {
-    a = new ArgListNode(new ExprNode[]{e1, e2});
-    assertTrue(a.getExprs()[0].equals(e1));
-    assertTrue(a.getExprs()[1].equals(e2));
+    a = new ArgListNode();
+    a.addExpr(e1);
+    a.addExpr(e2);
+    assertTrue(a.getExprs().get(0).equals(e1));
+    assertTrue(a.getExprs().get(1).equals(e2));
   }
 
   @Test
   public void pairElemValidityT() {
-    a = new ArgListNode(new ExprNode[]{e1, e2});
+    a = new ArgListNode();
+    a.addExpr(e1);
+    a.addExpr(e2);
     assertTrue(e1.isSemanticallyValid());
     assertTrue(e2.isSemanticallyValid());
     assertTrue(a.isSemanticallyValid());
@@ -28,7 +32,9 @@ public class ArgListNodeTest {
 
   @Test
   public void pairElemValidityF() {
-    a = new ArgListNode(new ExprNode[]{e1, e3});
+    a = new ArgListNode();
+    a.addExpr(e1);
+    a.addExpr(e3);
     assertTrue(e1.isSemanticallyValid());
     assertTrue(!e3.isSemanticallyValid());
     assertTrue(!a.isSemanticallyValid());
