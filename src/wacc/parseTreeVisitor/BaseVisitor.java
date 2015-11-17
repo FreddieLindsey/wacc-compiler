@@ -296,9 +296,7 @@ public class BaseVisitor<ASTNode> extends BasicParserBaseVisitor<ASTNode> {
   public ASTNode visitProgram(@NotNull BasicParser.ProgramContext ctx) {
     ProgramNode prog = new ProgramNode();
     for (BasicParser.FuncContext func : ctx.func()) {
-      FuncNode f = (FuncNode) visitFunc(func);
-      f.setParent(prog);
-      prog.addFunc(f);
+      prog.addFunc((FuncNode) visitFunc(func));
     }
     prog.addStat((StatNode) visitStat(ctx.stat()));
     return (ASTNode) prog;
