@@ -4,6 +4,7 @@ import wacc.ast.ASTNode;
 import wacc.ast.IdentNode;
 import wacc.ast.StatNode;
 import wacc.ast.type.TypeNode;
+import wacc.symbolTable.SymbolTable;
 
 public class FuncNode extends ASTNode {
 
@@ -11,6 +12,7 @@ public class FuncNode extends ASTNode {
   private IdentNode n;
   private ParamListNode ps;
   private StatNode stat;
+  private SymbolTable scope;
 
   public FuncNode(TypeNode t, IdentNode n, StatNode stat) {
     super();
@@ -46,6 +48,10 @@ public class FuncNode extends ASTNode {
 
   public StatNode getStat() {
     return this.stat;
+  }
+  
+  public void setScope(SymbolTable st) {
+    this.scope = st;
   }
 
   @Override
