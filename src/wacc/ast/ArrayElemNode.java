@@ -9,8 +9,8 @@ public class ArrayElemNode extends AssignNode {
   private IdentNode ident;
   private ArrayList<ExprNode> exprs = new ArrayList<>();
 
-  public ArrayElemNode(ASTNode parent, IdentNode ident) {
-    super(parent);
+  public ArrayElemNode(IdentNode ident) {
+    super();
     this.ident = ident;
     ident.setParent(this);
   }
