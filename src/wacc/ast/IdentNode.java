@@ -17,8 +17,7 @@ public class IdentNode extends AssignNode {
 
   @Override
   public TypeNode type() {
-    // TODO: Needs to fetch from symbol table
-    return null;
+    return this.symbolTable.lookUp(ident);
   }
 
   @Override

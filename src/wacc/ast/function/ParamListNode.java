@@ -1,31 +1,35 @@
 package wacc.ast.function;
 
 import wacc.ast.ASTNode;
-import wacc.symbolTable.SymbolTable;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 public class ParamListNode extends ASTNode {
 
   private ArrayList<ParamNode> ps;
-  private SymbolTable scope;
 
   public ParamListNode() {
     super();
     this.ps = new ArrayList<>();
-    this.scope = new SymbolTable();
   }
 
   @Override
   public boolean isSemanticallyValid() {
+    // Check for multiple declarations of same ident
+    Set<String> idents = new HashSet<>();
     for (ParamNode p : ps) {
-      p.setScope(scope);
       if (!p.isSemanticallyValid()) {
         return false;
       }
-      scope.add(p.getIdent().getIdent(), p.getType());
+      String ident = p.getIdent().getIdent();
+      if (idents.contains(ident)) {
+        return false;
+      } else {
+        idents.add(ident);
+      }
     }
-    scope = new SymbolTable();
     return true;
   }
 

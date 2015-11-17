@@ -22,6 +22,9 @@ public class CallNode extends AssignNode {
 
   public void addArg(ExprNode e) {
     args.addExpr(e);
+
+    // ERROR if function trying to be called doesn't exist in symbol table
+    requireSymbol(ident.getIdent());
   }
 
   public IdentNode getIdent() {
@@ -34,8 +37,9 @@ public class CallNode extends AssignNode {
 
   @Override
   public TypeNode type() {
-    // TODO: Symbol Table
-    return null;
+    // We only care about the return type of the function being called,
+    // which is included in the IdentNode assigned to the object
+    return ident.type();
   }
 
   @Override
