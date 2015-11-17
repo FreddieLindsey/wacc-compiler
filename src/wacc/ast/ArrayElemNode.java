@@ -7,7 +7,7 @@ import java.util.ArrayList;
 public class ArrayElemNode extends AssignNode {
 
   private IdentNode ident;
-  private ArrayList<ExprNode> exprs;
+  private ArrayList<ExprNode> exprs = new ArrayList<>();
 
   public ArrayElemNode(ASTNode parent, IdentNode ident) {
     super(parent);
