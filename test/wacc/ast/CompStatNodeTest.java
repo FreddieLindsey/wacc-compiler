@@ -9,9 +9,9 @@ import wacc.symbolTable.TypeEnum;
 public class CompStatNodeTest {
 
   private CompStatNode c;
-  private StatNode s1 = new BasicStatNode(StatTypeEnum.SKIP, null);
-  private StatNode s2 = new BasicStatNode(StatTypeEnum.SKIP, null);
-  private StatNode s3 = new BasicStatNode(StatTypeEnum.RETURN, new ExprNode() {
+  private StatNode s1 = new BasicStatNode(StatTypeEnum.SKIP);
+  private StatNode s2 = new BasicStatNode(StatTypeEnum.RETURN); //invalid
+  private ExprNode e1 = new ExprNode() {
     @Override
     public TypeEnum type() {
       return null;
@@ -21,7 +21,7 @@ public class CompStatNodeTest {
     public boolean isSemanticallyValid() {
       return false;
     }
-  }); //invalid
+  };
 
 
   @Test

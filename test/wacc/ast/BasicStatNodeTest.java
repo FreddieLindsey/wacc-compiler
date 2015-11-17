@@ -12,14 +12,16 @@ public class BasicStatNodeTest {
 
   @Test
   public void basicStatNodeInit() {
-    b = new BasicStatNode(typeTest, exprTest);
+    b = new BasicStatNode(typeTest);
+    b.addExpr(exprTest);
     assertTrue(b.getExpr().equals(exprTest));
     assertTrue(b.getType().equals(typeTest));
   }
 
   @Test
   public void basicStatNodeValidity() {
-    b = new BasicStatNode(typeTest, exprTest);
+    b = new BasicStatNode(typeTest);
+    b.addExpr(exprTest);
     assertTrue(b.isSemanticallyValid() ==
       exprTest.isSemanticallyValid());
   }

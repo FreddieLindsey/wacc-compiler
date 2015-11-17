@@ -5,7 +5,7 @@ public class BasicStatNode extends StatNode {
   private ExprNode expr;
   private StatTypeEnum st;
 
-  public BasicStatNode(StatTypeEnum st, ExprNode expr) {
+  public BasicStatNode(StatTypeEnum st) {
     super();
     this.st = st;
   }
@@ -33,7 +33,7 @@ public class BasicStatNode extends StatNode {
       case RETURN:
       case EXIT:
       case PRINT:
-      case PRINTLN: 
+      case PRINTLN:
         return expr != null && expr.isSemanticallyValid();
     }
     return false;
