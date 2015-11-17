@@ -30,7 +30,9 @@ public class BaseVisitor<ASTNode> extends BasicParserBaseVisitor<ASTNode> {
 
   @Override
   public ASTNode visitCharliter(@NotNull BasicParser.CharliterContext ctx) {
-    return (ASTNode) new CharNode(ctx.CHARAC().getText().charAt(0));
+    return (ASTNode) ((ctx.CHARAC().getText().length() == 1) ?
+      new CharNode(ctx.CHARAC().getText().charAt(0)) :
+      new CharNode(ctx.CHARAC().getText().charAt(1)));
   }
 
   @Override
@@ -229,9 +231,13 @@ public class BaseVisitor<ASTNode> extends BasicParserBaseVisitor<ASTNode> {
   @Override
   public ASTNode visitStat(@NotNull BasicParser.StatContext ctx) {
     if (ctx.READ() != null) {
-      return (ASTNode) new BasicStatNode(StatTypeEnum.READ);
+      BasicStatNode b = new BasicStatNode(StatTypeEnum.READ);
+      b.addExpr((ExprNode) visitExpr(ctx.expr()));
+      return (ASTNode) b;
     } else if (ctx.FREE() != null) {
-      return (ASTNode) new BasicStatNode(StatTypeEnum.FREE);
+      BasicStatNode b = new BasicStatNode(StatTypeEnum.FREE);
+      b.addExpr((ExprNode) visitExpr(ctx.expr()));
+      return (ASTNode) b;
     } else if (ctx.ASSIGN() != null && ctx.type() != null) {
       return (ASTNode) new NewAssignNode(
         ((TypeNode) visitType(ctx.type())).getType(),
@@ -242,17 +248,27 @@ public class BaseVisitor<ASTNode> extends BasicParserBaseVisitor<ASTNode> {
         (AssignNode) visitAssignlhs(ctx.assignlhs()),
         (AssignNode) visitAssignrhs(ctx.assignrhs()));
     } else if (ctx.BEGIN() != null) {
-      return (ASTNode) new BeginStatNode();
+      BeginStatNode b = new BeginStatNode();
+      b.addStat((StatNode) visitStat(ctx.stat(0)));
+      return (ASTNode) b;
     } else if (ctx.RETURN() != null) {
-      return (ASTNode) new BasicStatNode(StatTypeEnum.RETURN);
+      BasicStatNode b = new BasicStatNode(StatTypeEnum.RETURN);
+      b.addExpr((ExprNode) visitExpr(ctx.expr()));
+      return (ASTNode) b;
     } else if (ctx.SKIP() != null) {
-      return (ASTNode) new BasicStatNode(StatTypeEnum.SKIP);
+      BasicStatNode b = new BasicStatNode(StatTypeEnum.SKIP);
     } else if (ctx.EXIT() != null) {
-      return (ASTNode) new BasicStatNode(StatTypeEnum.EXIT);
+      BasicStatNode b = new BasicStatNode(StatTypeEnum.EXIT);
+      b.addExpr((ExprNode) visitExpr(ctx.expr()));
+      return (ASTNode) b;
     } else if (ctx.PRINT() != null) {
-      return (ASTNode) new BasicStatNode(StatTypeEnum.PRINT);
+      BasicStatNode b = new BasicStatNode(StatTypeEnum.PRINT);
+      b.addExpr((ExprNode) visitExpr(ctx.expr()));
+      return (ASTNode) b;
     } else if (ctx.PRINTLN() != null) {
-      return (ASTNode) new BasicStatNode(StatTypeEnum.PRINTLN);
+      BasicStatNode b = new BasicStatNode(StatTypeEnum.PRINTLN);
+      b.addExpr((ExprNode) visitExpr(ctx.expr()));
+      return (ASTNode) b;
     } else if (ctx.IF() != null) {
       return (ASTNode) new IfStatNode(
         (ExprNode) visitExpr(ctx.expr()),
