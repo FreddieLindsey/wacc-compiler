@@ -116,7 +116,13 @@ public class BaseVisitor<ASTNode> extends BasicParserBaseVisitor<ASTNode> {
 
   @Override
   public ASTNode visitArraytype(@NotNull BasicParser.ArraytypeContext ctx) {
-    return null;
+    if (ctx.basetype() != null) {
+      return visitBasetype(ctx.basetype());
+    } else if (ctx.arraytype() != null) {
+      return visitArraytype(ctx.arraytype());
+    } else {
+      return visitPairtype(ctx.pairtype());
+    }
   }
 
   @Override
