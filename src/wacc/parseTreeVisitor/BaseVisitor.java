@@ -16,6 +16,8 @@ import wacc.ast.pair.PairNode;
 import wacc.ast.type.*;
 import wacc.ast.IdentNode;
 
+import wacc.ast.ASTNode;
+
 public class BaseVisitor<ASTNode> extends BasicParserBaseVisitor<ASTNode> {
   @Override
   public ASTNode visitArglist(@NotNull BasicParser.ArglistContext ctx) {
@@ -293,13 +295,13 @@ public class BaseVisitor<ASTNode> extends BasicParserBaseVisitor<ASTNode> {
   @Override
   public ASTNode visitBasetype(@NotNull BasicParser.BasetypeContext ctx) {
     if (ctx.BOOL() != null) {
-      return visitBoolliter((BasicParser.BoolliterContext) ctx.BOOL());
+      return (ASTNode) new TypeNode(TypeEnum.BOOL);
     } else if (ctx.CHAR() != null) {
-      return visitCharliter((BasicParser.CharliterContext) ctx.CHAR());
+      return (ASTNode) new TypeNode(TypeEnum.CHAR);
     } else if (ctx.INT() != null) {
-      return visitIntliter((BasicParser.IntliterContext) ctx.INT());
+      return (ASTNode) new TypeNode(TypeEnum.INT);
     } else if (ctx.STRING() != null) {
-      return visitStrliter((BasicParser.StrliterContext) ctx.STRING());
+      return (ASTNode) new TypeNode(TypeEnum.STRING);
     }
     return null;
   }
