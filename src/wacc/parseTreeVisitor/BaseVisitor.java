@@ -22,19 +22,19 @@ public class BaseVisitor<ASTNode> extends BasicParserBaseVisitor<ASTNode> {
   @Override
   public ASTNode visitArglist(@NotNull BasicParser.ArglistContext ctx) {
     ArrayList<ExprNode> exprs = new ArrayList<>();
-    ArgListNode a = new ArgListNode(null, new ExprNode[]{});
+    ArgListNode a = new ArgListNode();
     for (BasicParser.ExprContext e : ctx.expr()) {
       ExprNode expr = (ExprNode) visitExpr(e);
       expr.setParent(a);
       exprs.add(expr);
     }
-    a.setExprs((ExprNode[]) exprs.toArray());
+//    a.setExprs((ExprNode[]) exprs.toArray());
     return (ASTNode) a;
   }
 
   @Override
   public ASTNode visitCharliter(@NotNull BasicParser.CharliterContext ctx) {
-    return (ASTNode) new CharNode(null, ctx.CHARAC().getText().charAt(0));
+    return (ASTNode) new CharNode(ctx.CHARAC().getText().charAt(0));
   }
 
   @Override
@@ -52,7 +52,6 @@ public class BaseVisitor<ASTNode> extends BasicParserBaseVisitor<ASTNode> {
   @Override
   public ASTNode visitParam(@NotNull BasicParser.ParamContext ctx) {
     ParamNode p = new ParamNode(
-      null,
       ((TypeNode) visitType(ctx.type())).getType(),
       (IdentNode) visitIdent(ctx.ident()));
     p.getIdent().setParent(p);
@@ -61,7 +60,7 @@ public class BaseVisitor<ASTNode> extends BasicParserBaseVisitor<ASTNode> {
 
   @Override
   public ASTNode visitBoolliter(@NotNull BasicParser.BoolliterContext ctx) {
-    return (ASTNode) new BoolNode(null, ctx.TRUE() != null);
+    return (ASTNode) new BoolNode(ctx.TRUE() != null);
   }
 
   @Override
@@ -98,7 +97,6 @@ public class BaseVisitor<ASTNode> extends BasicParserBaseVisitor<ASTNode> {
   @Override
   public ASTNode visitArrayelem(@NotNull BasicParser.ArrayelemContext ctx) {
     ArrayElemNode aen = new ArrayElemNode(
-      null,
       (IdentNode) visitIdent(ctx.ident()));
     for (BasicParser.ExprContext e : ctx.expr()) {
       aen.addExpr((ExprNode) visitExpr(e));
@@ -113,7 +111,7 @@ public class BaseVisitor<ASTNode> extends BasicParserBaseVisitor<ASTNode> {
 
   @Override
   public ASTNode visitParamlist(@NotNull BasicParser.ParamlistContext ctx) {
-    ParamListNode pl = new ParamListNode(null, new ArrayList<ParamNode>());
+    ParamListNode pl = new ParamListNode();
     for (BasicParser.ParamContext p : ctx.param()) {
       ParamNode p_ = (ParamNode) visitParam(p);
       p_.setParent(pl);
@@ -129,21 +127,21 @@ public class BaseVisitor<ASTNode> extends BasicParserBaseVisitor<ASTNode> {
 
   @Override
   public ASTNode visitIdent(@NotNull BasicParser.IdentContext ctx) {
-    return (ASTNode) new IdentNode(null, ctx.getText());
+    return (ASTNode) new IdentNode(ctx.getText());
   }
 
   @Override
   public ASTNode visitUnaryoper(@NotNull BasicParser.UnaryoperContext ctx) {
     if (ctx.SUB() != null) {
-      return (ASTNode) new UnOpNode(null, UnaryOperator.NEG, null);
+      return (ASTNode) new UnOpNode(UnaryOperator.NEG, null);
     } else if (ctx.CHR() != null) {
-      return (ASTNode) new UnOpNode(null, UnaryOperator.CHR, null);
+      return (ASTNode) new UnOpNode(UnaryOperator.CHR, null);
     } else if (ctx.LEN() != null) {
-      return (ASTNode) new UnOpNode(null, UnaryOperator.LEN, null);
+      return (ASTNode) new UnOpNode(UnaryOperator.LEN, null);
     } else if (ctx.NOT() != null) {
-      return (ASTNode) new UnOpNode(null, UnaryOperator.NOT, null);
+      return (ASTNode) new UnOpNode(UnaryOperator.NOT, null);
     } else if (ctx.ORD() != null) {
-      return (ASTNode) new UnOpNode(null, UnaryOperator.ORD, null);
+      return (ASTNode) new UnOpNode(UnaryOperator.ORD, null);
     }
     return null;
   }
@@ -152,13 +150,10 @@ public class BaseVisitor<ASTNode> extends BasicParserBaseVisitor<ASTNode> {
   public ASTNode visitAssignrhs(@NotNull BasicParser.AssignrhsContext ctx) {
     if (ctx.CALL() != null) {
       return (ASTNode) new CallNode(
-        null,
-        (IdentNode) visitIdent(ctx.ident()),
-        (ArgListNode) visitArglist(ctx.arglist()));
+        (IdentNode) visitIdent(ctx.ident()));
     } else if (ctx.NEWPAIR() != null) {
       if (ctx.expr().size() != 2) return null;
       return (ASTNode) new NewPairNode<ExprNode, ExprNode>(
-        null,
         (ExprNode) visitExpr(ctx.expr(0)),
         (ExprNode) visitExpr(ctx.expr(1)));
     } else if (ctx.arrayliter() != null) {
@@ -175,10 +170,8 @@ public class BaseVisitor<ASTNode> extends BasicParserBaseVisitor<ASTNode> {
   @Override
   public ASTNode visitFunc(@NotNull BasicParser.FuncContext ctx) {
     FuncNode f = new FuncNode(
-      null,
       (TypeNode) visitType(ctx.type()),
       (IdentNode) visitIdent(ctx.ident()),
-      (ParamListNode) visitParamlist(ctx.paramlist()),
       (StatNode) visitStat(ctx.stat()));
     f.getType().setParent(f);
     f.getIdent().setParent(f);
@@ -191,44 +184,44 @@ public class BaseVisitor<ASTNode> extends BasicParserBaseVisitor<ASTNode> {
 
   @Override
   public ASTNode visitStrliter(@NotNull BasicParser.StrliterContext ctx) {
-    return (ASTNode) new StringNode(null, ctx.getText());
+    return (ASTNode) new StringNode(ctx.getText());
   }
 
   @Override
   public ASTNode visitIntsign(@NotNull BasicParser.IntsignContext ctx) {
     return (ASTNode) ((ctx.SUB() != null) ?
-      new IntNode(null, -1) :
-      new IntNode(null,  1));
+      new IntNode(-1) :
+      new IntNode( 1));
   }
 
   @Override
   public ASTNode visitBinaryOper(@NotNull BasicParser.BinaryOperContext ctx) {
     if (ctx.MUL() != null) {
-      return (ASTNode) new BinOpNode(null, null, BinaryOperator.MUL, null);
+      return (ASTNode) new BinOpNode(BinaryOperator.MUL);
     } else if (ctx.DIV() != null) {
-      return (ASTNode) new BinOpNode(null, null, BinaryOperator.DIV, null);
+      return (ASTNode) new BinOpNode(BinaryOperator.DIV);
     } else if (ctx.MOD() != null) {
-      return (ASTNode) new BinOpNode(null, null, BinaryOperator.MOD, null);
+      return (ASTNode) new BinOpNode(BinaryOperator.MOD);
     } else if (ctx.ADD() != null) {
-      return (ASTNode) new BinOpNode(null, null, BinaryOperator.ADD, null);
+      return (ASTNode) new BinOpNode(BinaryOperator.ADD);
     } else if (ctx.SUB() != null) {
-      return (ASTNode) new BinOpNode(null, null, BinaryOperator.SUB, null);
+      return (ASTNode) new BinOpNode(BinaryOperator.SUB);
     } else if (ctx.G() != null) {
-      return (ASTNode) new BinOpNode(null, null, BinaryOperator.GT, null);
+      return (ASTNode) new BinOpNode(BinaryOperator.GT);
     } else if (ctx.GE() != null) {
-      return (ASTNode) new BinOpNode(null, null, BinaryOperator.GTE, null);
+      return (ASTNode) new BinOpNode(BinaryOperator.GTE);
     } else if (ctx.L() != null) {
-      return (ASTNode) new BinOpNode(null, null, BinaryOperator.LT, null);
+      return (ASTNode) new BinOpNode(BinaryOperator.LT);
     } else if (ctx.LE() != null) {
-      return (ASTNode) new BinOpNode(null, null, BinaryOperator.LTE, null);
+      return (ASTNode) new BinOpNode(BinaryOperator.LTE);
     } else if (ctx.EQ() != null) {
-      return (ASTNode) new BinOpNode(null, null, BinaryOperator.EQ, null);
+      return (ASTNode) new BinOpNode(BinaryOperator.EQ);
     } else if (ctx.NEQ() != null) {
-      return (ASTNode) new BinOpNode(null, null, BinaryOperator.NEQ, null);
+      return (ASTNode) new BinOpNode(BinaryOperator.NEQ);
     } else if (ctx.AND() != null) {
-      return (ASTNode) new BinOpNode(null, null, BinaryOperator.AND, null);
+      return (ASTNode) new BinOpNode(BinaryOperator.AND);
     } else if (ctx.OR() != null) {
-      return (ASTNode) new BinOpNode(null, null, BinaryOperator.OR, null);
+      return (ASTNode) new BinOpNode(BinaryOperator.OR);
     }
     return null;
   }
@@ -236,46 +229,41 @@ public class BaseVisitor<ASTNode> extends BasicParserBaseVisitor<ASTNode> {
   @Override
   public ASTNode visitStat(@NotNull BasicParser.StatContext ctx) {
     if (ctx.READ() != null) {
-      return (ASTNode) new BasicStatNode(null, StatTypeEnum.READ, (AssignNode) visitAssignlhs(ctx.assignlhs()));
+      return (ASTNode) new BasicStatNode(StatTypeEnum.READ);
     } else if (ctx.FREE() != null) {
-      return (ASTNode) new BasicStatNode(null, StatTypeEnum.FREE, (AssignNode) visitAssignlhs(ctx.assignlhs()));
+      return (ASTNode) new BasicStatNode(StatTypeEnum.FREE);
     } else if (ctx.ASSIGN() != null && ctx.type() != null) {
       return (ASTNode) new NewAssignNode(
-        null,
         ((TypeNode) visitType(ctx.type())).getType(),
         (IdentNode) visitIdent(ctx.ident()),
         (AssignNode) visitAssignrhs(ctx.assignrhs()));
     } else if (ctx.ASSIGN() != null) {
       return (ASTNode) new ReAssignNode(
-        null,
         (AssignNode) visitAssignlhs(ctx.assignlhs()),
         (AssignNode) visitAssignrhs(ctx.assignrhs()));
     } else if (ctx.BEGIN() != null) {
-      return (ASTNode) new BeginStatNode(null, (StatNode) visitStat(ctx.stat(0)));
+      return (ASTNode) new BeginStatNode();
     } else if (ctx.RETURN() != null) {
-      return (ASTNode) new BasicStatNode(null, StatTypeEnum.RETURN, (AssignNode) visitAssignlhs(ctx.assignlhs()));
+      return (ASTNode) new BasicStatNode(StatTypeEnum.RETURN);
     } else if (ctx.SKIP() != null) {
-      return (ASTNode) new BasicStatNode(null, StatTypeEnum.SKIP, null);
+      return (ASTNode) new BasicStatNode(StatTypeEnum.SKIP);
     } else if (ctx.EXIT() != null) {
-      return (ASTNode) new BasicStatNode(null, StatTypeEnum.EXIT, (AssignNode) visitAssignlhs(ctx.assignlhs()));
+      return (ASTNode) new BasicStatNode(StatTypeEnum.EXIT);
     } else if (ctx.PRINT() != null) {
-      return (ASTNode) new BasicStatNode(null, StatTypeEnum.PRINT, (AssignNode) visitAssignlhs(ctx.assignlhs()));
+      return (ASTNode) new BasicStatNode(StatTypeEnum.PRINT);
     } else if (ctx.PRINTLN() != null) {
-      return (ASTNode) new BasicStatNode(null, StatTypeEnum.PRINTLN, (AssignNode) visitAssignlhs(ctx.assignlhs()));
+      return (ASTNode) new BasicStatNode(StatTypeEnum.PRINTLN);
     } else if (ctx.IF() != null) {
       return (ASTNode) new IfStatNode(
-        null,
         (ExprNode) visitExpr(ctx.expr()),
         (StatNode) visitStat(ctx.stat(0)),
         (StatNode) visitStat(ctx.stat(1)));
     } else if (ctx.WHILE() != null) {
       return (ASTNode) new WhileStatNode(
-        null,
         (ExprNode) visitExpr(ctx.expr()),
         (StatNode) visitStat(ctx.stat(0)));
     } else if (ctx.SEMI() != null) {
       return (ASTNode) new CompStatNode(
-        null,
         (StatNode) visitStat(ctx.stat(0)),
         (StatNode) visitStat(ctx.stat(1)));
     }
@@ -284,7 +272,7 @@ public class BaseVisitor<ASTNode> extends BasicParserBaseVisitor<ASTNode> {
 
   @Override
   public ASTNode visitArrayliter(@NotNull BasicParser.ArrayliterContext ctx) {
-    ArrayLiteralNode aln = new ArrayLiteralNode(null);
+    ArrayLiteralNode aln = new ArrayLiteralNode();
     for (BasicParser.ExprContext e : ctx.expr()) {
       ExprNode e_ = (ExprNode) visitExpr(e);
       aln.addExpr(e_);
@@ -298,9 +286,9 @@ public class BaseVisitor<ASTNode> extends BasicParserBaseVisitor<ASTNode> {
     PairNode p2 = (PairNode) visitPairelemtype(ctx.pairelemtype(1));
     PairNode p;
     if (p1.getFst() != null) {
-      p = new PairNode<ExprNode, ExprNode>(null, p1.getFst(), p2.getSnd());
+      p = new PairNode<ExprNode, ExprNode>(p1.getFst(), p2.getSnd());
     } else {
-      p = new PairNode<ExprNode, ExprNode>(null, p2.getFst(), p1.getSnd());
+      p = new PairNode<ExprNode, ExprNode>(p2.getFst(), p1.getSnd());
     }
     p1.setParent(p);
     p2.setParent(p);
@@ -323,20 +311,20 @@ public class BaseVisitor<ASTNode> extends BasicParserBaseVisitor<ASTNode> {
 
   @Override
   public ASTNode visitProgram(@NotNull BasicParser.ProgramContext ctx) {
-    ProgramNode prog = new ProgramNode(null);
+    ProgramNode prog = new ProgramNode();
     for (BasicParser.FuncContext func : ctx.func()) {
       FuncNode f = (FuncNode) visitFunc(func);
       f.setParent(prog);
-      prog.add(f);
+      prog.addFunc(f);
     }
-    prog.setStat((StatNode) visitStat(ctx.stat()));
+    prog.addStat((StatNode) visitStat(ctx.stat()));
     return (ASTNode) prog;
   }
 
   @Override
   public ASTNode visitPairliter(@NotNull BasicParser.PairliterContext ctx) {
     if (ctx.NULL() != null) {
-      return (ASTNode) new PairLiteralNode(null);
+      return (ASTNode) new PairLiteralNode();
     }
     return null;
   }
@@ -345,12 +333,10 @@ public class BaseVisitor<ASTNode> extends BasicParserBaseVisitor<ASTNode> {
   public ASTNode visitPairelem(@NotNull BasicParser.PairelemContext ctx) {
     if (ctx.FST() != null) {
       return (ASTNode) new PairNode<ExprNode, ExprNode>(
-        null,
         (ExprNode) visitExpr(ctx.expr()),
         null);
     } else {
       return (ASTNode) new PairNode<ExprNode, ExprNode>(
-        null,
         null,
         (ExprNode) visitExpr(ctx.expr()));
     }
@@ -363,6 +349,6 @@ public class BaseVisitor<ASTNode> extends BasicParserBaseVisitor<ASTNode> {
 
   @Override
   public ASTNode visitIntliter(@NotNull BasicParser.IntliterContext ctx) {
-    return (ASTNode) new IntNode(null, Long.valueOf(ctx.getText()));
+    return (ASTNode) new IntNode(Long.valueOf(ctx.getText()));
   }
 }
