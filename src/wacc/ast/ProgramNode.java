@@ -9,10 +9,10 @@ public class ProgramNode extends ASTNode {
   private ArrayList<FuncNode> funcs;
   private StatNode stat;
 
-  public ProgramNode(ASTNode parent) {
-    super(parent);
+  public ProgramNode() {
+    super();
     this.funcs = new ArrayList<>();
-    this.symbolTable = new SymbolTable(null);
+    this.symbolTable = new SymbolTable();
   }
 
   @Override
@@ -28,22 +28,24 @@ public class ProgramNode extends ASTNode {
     return valid;
   }
 
-  public void add(FuncNode f) {
+  public void addFunc(FuncNode f) {
     funcs.add(f);
+    f.setParent(this);
   }
 
   public ArrayList<FuncNode> getFuncs() {
     return funcs;
   }
 
-  public StatNode getStat() {
-    return stat;
-  }
-
-  public void setStat(StatNode stat) {
+  public void addStat(StatNode stat) {
     if (this.stat != null) {
       throw new IllegalArgumentException("You cannot overwrite the final stat of a program");
     }
     this.stat = stat;
+    stat.setParent(this);
+  }
+
+  public StatNode getStat() {
+    return stat;
   }
 }

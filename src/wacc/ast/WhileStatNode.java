@@ -7,10 +7,12 @@ public class WhileStatNode extends StatNode {
   private ExprNode expr;
   private StatNode stat;
 
-  public WhileStatNode(ASTNode parent, ExprNode expr, StatNode stat) {
-    super(parent);
+  public WhileStatNode(ExprNode expr, StatNode stat) {
+    super();
     this.expr = expr;
     this.stat = stat;
+    expr.setParent(this);
+    stat.setParent(this);
   }
 
   public ExprNode getExpr() {

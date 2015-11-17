@@ -2,15 +2,17 @@ package wacc.ast;
 
 import wacc.symbolTable.SymbolTable;
 
+import java.util.ArrayList;
+
 public class ParamListNode extends ASTNode {
 
-  private ParamNode[] ps;
+  private ArrayList<ParamNode> ps;
   private SymbolTable scope;
 
-  public ParamListNode(ASTNode parent, ParamNode[] ps) {
-    super(parent);
-    this.ps = ps;
-    this.scope = new SymbolTable(null);
+  public ParamListNode() {
+    super();
+    this.ps = new ArrayList<>();
+    this.scope = new SymbolTable();
   }
 
   @Override
@@ -22,11 +24,16 @@ public class ParamListNode extends ASTNode {
       }
       scope.add(p.getIdent().getIdent(), p.getType());
     }
-    scope = new SymbolTable(null);
+    scope = new SymbolTable();
     return true;
   }
 
-  public ParamNode[] getParams() {
+  public ArrayList<ParamNode> getParams() {
     return ps;
+  }
+
+  public void addParam(ParamNode p) {
+    ps.add(p);
+    p.setParent(this);
   }
 }

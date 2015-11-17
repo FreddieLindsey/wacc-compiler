@@ -8,43 +8,35 @@ public class CallNodeTest {
 
   private ASTNode parent;
   private CallNode c;
-  private IdentNode ident = new IdentNode(c, "x");
-  private ExprNode e1 = new IntNode(null, 5);
-  private ExprNode e2 = new IntNode(null, 10);
-  private ExprNode e3 = new IntNode(null, Integer.MAX_VALUE + 1000L); //invalid
-  private ArgListNode argsV = new ArgListNode(c, new ExprNode[]{e1, e2});
-  private ArgListNode argsINV = new ArgListNode(c, new ExprNode[]{e1, e2, e3}); //invalid
+  private IdentNode ident = new IdentNode("x");
+  private ExprNode e1 = new IntNode(5);
+  private ExprNode e2 = new IntNode(10);
+  private ExprNode e3 = new IntNode(Integer.MAX_VALUE + 1000L); //invalid
 
   @Test
   public void callInit() {
-    c = new CallNode(parent, ident, argsV);
-    setParentForArray(argsV);
+    c = new CallNode(ident);
     assertTrue(c.getIdent().equals(ident));
-    assertTrue(c.getArgs().equals(argsV));
   }
 
   @Test
   public void callValidityT() {
-    c = new CallNode(parent, ident, argsV);
-    setParentForArray(argsV);
+    c = new CallNode(ident);
+    c.addArg(e1);
+    c.addArg(e2);
     assertTrue(ident.isSemanticallyValid());
-    assertTrue(argsV.isSemanticallyValid());
+    assertTrue(c.getArgs().isSemanticallyValid());
     assertTrue(c.isSemanticallyValid());
   }
 
   @Test
   public void callValidityF() {
-    c = new CallNode(parent, ident, argsINV);
-    setParentForArray(argsINV);
+    c = new CallNode(ident);
+    c.addArg(e2);
+    c.addArg(e3);
     assertTrue(ident.isSemanticallyValid());
-    assertTrue(!argsINV.isSemanticallyValid());
-    assertTrue(!c.isSemanticallyValid());
-  }
-
-  private void setParentForArray(ASTNode p) {
-    e1.setParent(p);
-    e2.setParent(p);
-    e3.setParent(p);
+    assertFalse(c.getArgs().isSemanticallyValid());
+    assertFalse(c.isSemanticallyValid());
   }
 
 }

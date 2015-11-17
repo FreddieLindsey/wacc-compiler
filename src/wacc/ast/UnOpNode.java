@@ -7,11 +7,11 @@ public class UnOpNode extends ExprNode {
   private UnaryOperator op;
   private ExprNode expr;
 
-  public UnOpNode(ASTNode parent, UnaryOperator op, ExprNode expr) {
-    super(parent);
+  public UnOpNode(UnaryOperator op, ExprNode expr) {
+    super();
     this.op = op;
     this.expr = expr;
-
+    expr.setParent(this);
   }
 
   @Override

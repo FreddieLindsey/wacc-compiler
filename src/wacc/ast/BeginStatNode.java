@@ -4,10 +4,14 @@ public class BeginStatNode extends StatNode {
 
 	private StatNode stat;
 
-	public BeginStatNode(ASTNode parent, StatNode stat) {
-    super(parent);
-		this.stat = stat;
+	public BeginStatNode() {
+    super();
 	}
+
+  public void addStat(StatNode s) {
+    this.stat = s;
+    s.setParent(this);
+  }
 
 	@Override
 	public boolean isSemanticallyValid() {

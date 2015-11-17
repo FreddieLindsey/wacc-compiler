@@ -8,11 +8,10 @@ import wacc.symbolTable.TypeEnum;
 
 public class CompStatNodeTest {
 
-  private ASTNode parent;
   private CompStatNode c;
-  private StatNode s1 = new BasicStatNode(c, StatTypeEnum.SKIP, null);
-  private StatNode s2 = new BasicStatNode(c, StatTypeEnum.SKIP, null);
-  private StatNode s3 = new BasicStatNode(c, StatTypeEnum.RETURN, new ExprNode(null) {
+  private BasicStatNode s1 = new BasicStatNode(StatTypeEnum.SKIP);
+  private BasicStatNode s2 = new BasicStatNode(StatTypeEnum.RETURN); //invalid
+  private ExprNode e1 = new ExprNode() {
     @Override
     public TypeEnum type() {
       return null;
@@ -22,33 +21,27 @@ public class CompStatNodeTest {
     public boolean isSemanticallyValid() {
       return false;
     }
-  }); //invalid
+  };
 
 
   @Test
   public void compStatNodeInit() {
-    setParents();
-    c = new CompStatNode(parent, s1, s2);
+    c = new CompStatNode(s1, s2);
     assertTrue(c.getFstStat().equals(s1));
     assertTrue(c.getSndStat().equals(s2));
   }
 
   @Test
   public void compStatNodeValidity() {
-    setParents();
-    c = new CompStatNode(parent, s1, s2);
+    c = new CompStatNode(s1, s1);
     assertTrue(c.isSemanticallyValid());
   }
 
   @Test
   public void compStatNodeNotValid() {
-    setParents();
-    c = new CompStatNode(parent, s1, s3);
+    s2.addExpr(e1);
+    c = new CompStatNode(s1, s2);
     assertTrue(!c.isSemanticallyValid());
-  }
-
-  private void setParents() {
-    ((BasicStatNode) s3).getExpr().setParent(s3);
   }
 
 }

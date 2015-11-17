@@ -4,8 +4,8 @@ import wacc.symbolTable.TypeEnum;
 
 public class IntNode extends LiteralNode<Long> {
 
-  public IntNode(ASTNode parent, long value) {
-    super(parent);
+  public IntNode(long value) {
+    super();
     this.value = value;
     this.type = TypeEnum.INT;
   }

@@ -8,11 +8,14 @@ public class IfStatNode extends StatNode {
   private StatNode stat1;
   private StatNode stat2;
 
-  public IfStatNode(ASTNode parent, ExprNode expr, StatNode stat1, StatNode stat2) {
-    super(parent);
+  public IfStatNode(ExprNode expr, StatNode stat1, StatNode stat2) {
+    super();
     this.expr = expr;
     this.stat1 = stat1;
     this.stat2 = stat2;
+    expr.setParent(this);
+    stat1.setParent(this);
+    stat2.setParent(this);
   }
 
   public ExprNode getExpr() {

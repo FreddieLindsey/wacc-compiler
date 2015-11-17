@@ -5,10 +5,14 @@ public class BasicStatNode extends StatNode {
   private ExprNode expr;
   private StatTypeEnum st;
 
-  public BasicStatNode(ASTNode parent, StatTypeEnum st, ExprNode expr) {
-    super(parent);
+  public BasicStatNode(StatTypeEnum st) {
+    super();
     this.st = st;
-    this.expr = expr;
+  }
+
+  public void addExpr(ExprNode e) {
+    this.expr = e;
+    e.setParent(this);
   }
 
   public StatTypeEnum getType() {
@@ -29,7 +33,7 @@ public class BasicStatNode extends StatNode {
       case RETURN:
       case EXIT:
       case PRINT:
-      case PRINTLN: 
+      case PRINTLN:
         return expr != null && expr.isSemanticallyValid();
     }
     return false;

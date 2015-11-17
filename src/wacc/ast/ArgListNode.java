@@ -1,23 +1,30 @@
 package wacc.ast;
 
+import java.util.ArrayList;
+
 public class ArgListNode extends ASTNode {
 
-  private ExprNode[] exprs;
+  private ArrayList<ExprNode> exprs;
 
-  public ArgListNode(ASTNode parent, ExprNode[] exprs) {
-    super(parent);
-    this.exprs = exprs;
+  public ArgListNode() {
+    super();
+    exprs = new ArrayList<>();
   }
 
-  public ExprNode[] getExprs() {
+  public ArrayList<ExprNode> getExprs() {
     return this.exprs;
+  }
+
+  public void addExpr(ExprNode e) {
+    exprs.add(e);
+    e.setParent(this);
   }
 
   @Override
   public boolean isSemanticallyValid() {
 
-    for (int i = 0; i < exprs.length; i++) {
-      if (!exprs[i].isSemanticallyValid()) {
+    for (ExprNode e : exprs) {
+      if (!e.isSemanticallyValid()) {
         return false;
       }
     }

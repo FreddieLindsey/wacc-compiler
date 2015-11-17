@@ -9,43 +9,31 @@ import static org.junit.Assert.*;
 
 public class ParamListNodeTest {
 
-  private ASTNode parent;
   private ParamListNode p;
-  private ParamNode[] ps = new ParamNode[2];
 
   private TypeEnum t1 = TypeEnum.BOOL;
-  private ParamNode p1 = new ParamNode(p, t1, new IdentNode(null, "a"));
-  private ParamNode p2 = new ParamNode(p, t1, new IdentNode(null, "b"));
-  private ParamNode p3 = new ParamNode(p, t1, new IdentNode(null, "@lkjsdkg"));
+  private ParamNode p1 = new ParamNode(t1, new IdentNode("a"));
+  private ParamNode p2 = new ParamNode(t1, new IdentNode("b"));
+  private ParamNode p3 = new ParamNode(t1, new IdentNode("@lkjsdkg"));
 
   @Test
   public void canGetParams() {
-    ps[0] = p1;
-    ps[1] = p2;
-    p = new ParamListNode(parent, ps);
-    assertTrue(Arrays.equals(p.getParams(), ps));
+    p = new ParamListNode();
+    p.addParam(p1);
+    assertTrue(p.getParams().get(0).equals(p1));
   }
 
   @Test
   public void validWithValidParams() {
-    ps[0] = p1;
-    ps[1] = p2;
-    p = new ParamListNode(parent, ps);
+    p = new ParamListNode();
+    p.addParam(p1);
     assertTrue(p.isSemanticallyValid());
   }
 
   @Test
   public void invalidWithInvalidParams() {
-    ps[0] = p1;
-    ps[1] = p3;
-    p = new ParamListNode(parent, ps);
+    p = new ParamListNode();
+    p.addParam(p3);
     assertFalse(p.isSemanticallyValid());
   }
-
-  private void setParents() {
-    p1.getIdent().setParent(p1);
-    p2.getIdent().setParent(p2);
-    p3.getIdent().setParent(p3);
-  }
-
 }

@@ -7,26 +7,20 @@ import static org.junit.Assert.*;
 
 public class ProgramNodeTest {
 
-  private ASTNode parent;
-  private final ProgramNode prog = new ProgramNode(parent);
+  private final ProgramNode prog = new ProgramNode();
 
   private FuncNode f;
-  private ParamListNode p;
-  private ParamNode[] ps = new ParamNode[2];
-  private ParamNode p1 = new ParamNode(p, TypeEnum.INT, new IdentNode(null, "a"));
-  private ParamNode p2 = new ParamNode(p, TypeEnum.INT, new IdentNode(null, "b"));
+  private ParamNode p1 = new ParamNode(TypeEnum.INT, new IdentNode("a"));
+  private ParamNode p2 = new ParamNode(TypeEnum.INT, new IdentNode("b"));
 
-  private TypeNode t = new TypeNode(f, TypeEnum.INT);
-  private IdentNode n = new IdentNode(f, "x");
-  private StatNode stat1 = new BasicStatNode(f, StatTypeEnum.SKIP, null);
+  private TypeNode t = new TypeNode(TypeEnum.INT);
+  private IdentNode n = new IdentNode("x");
+  private StatNode stat1 = new BasicStatNode(StatTypeEnum.SKIP);
 
   @Test
   public void canAddFunctionToProgram() {
-    ps[0] = p1;
-    ps[1] = p2;
-    p = new ParamListNode(f, ps);
-    f = new FuncNode(prog, t, n, p, stat1);
-    prog.add(f);
+    f = new FuncNode(t, n, stat1);
+    prog.addFunc(f);
   }
 
   @Test
@@ -45,18 +39,13 @@ public class ProgramNodeTest {
 
   @Test
   public void canAddStatToProgram() {
-    prog.setStat(stat1);
+    prog.addStat(stat1);
   }
 
   @Test(expected = IllegalArgumentException.class)
   public void cannotOverWriteStatOfProgram() {
-    prog.setStat(stat1);
-    prog.setStat(stat1);
-  }
-
-  private void setParents() {
-    p1.getIdent().setParent(p1);
-    p2.getIdent().setParent(p2);
+    prog.addStat(stat1);
+    prog.addStat(stat1);
   }
 
 }

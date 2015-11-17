@@ -8,11 +8,19 @@ public class BinOpNode extends ExprNode {
   private BinaryOperator op;
   private ExprNode rhs;
 
-  public BinOpNode(ASTNode parent, ExprNode lhs, BinaryOperator op, ExprNode rhs) {
-    super(parent);
-    this.lhs = lhs;
+  public BinOpNode(BinaryOperator op) {
+    super();
     this.op  = op;
-    this.rhs = rhs;
+  }
+
+  public void addLHS(ExprNode e) {
+    this.lhs = e;
+    e.setParent(this);
+  }
+
+  public void addRHS(ExprNode e) {
+    this.rhs = e;
+    e.setParent(this);
   }
 
   @Override
@@ -37,25 +45,29 @@ public class BinOpNode extends ExprNode {
 
   @Override
   public boolean isSemanticallyValid() {
-    boolean valid = lhs.isSemanticallyValid()
-          && rhs.isSemanticallyValid()
-          && lhs.type() == rhs.type();
+    boolean valid =
+           lhs != null && rhs != null
+        && lhs.isSemanticallyValid()
+        && rhs.isSemanticallyValid()
+        && lhs.type() == rhs.type();
+
+    if (!valid) return false;
 
     switch(op) {
       case MUL:
       case DIV:
       case MOD:
       case ADD:
-      case SUB: valid &= lhs.type() == TypeEnum.INT; return valid;
+      case SUB: return lhs.type() == TypeEnum.INT;
       case GT :
       case GTE:
       case LT :
-      case LTE: valid &= lhs.type() == TypeEnum.INT
-                      || lhs.type() == TypeEnum.CHAR; return valid;
+      case LTE: return lhs.type() == TypeEnum.INT
+                      || lhs.type() == TypeEnum.CHAR;
       case EQ :
-      case NEQ: valid &= lhs.type() != TypeEnum.STRING; return valid;
+      case NEQ: return lhs.type() != TypeEnum.STRING;
       case AND:
-      case OR : valid &= lhs.type() == TypeEnum.BOOL; return valid;
+      case OR : return lhs.type() == TypeEnum.BOOL;
       default : return false;
     }
   }

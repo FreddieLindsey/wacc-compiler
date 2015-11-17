@@ -4,8 +4,8 @@ import wacc.symbolTable.TypeEnum;
 
 public class PairLiteralNode extends LiteralNode {
   
-  public PairLiteralNode(ASTNode parent) {
-    super(parent);
+  public PairLiteralNode() {
+    super();
     this.value = null;
     this.type = TypeEnum.PAIR;
   }

@@ -7,10 +7,12 @@ public class CompStatNode extends StatNode {
   private StatNode stat1;
   private StatNode stat2;
 
-  public CompStatNode(ASTNode parent, StatNode stat1, StatNode stat2) {
-    super(parent);
+  public CompStatNode(StatNode stat1, StatNode stat2) {
+    super();
     this.stat1 = stat1;
     this.stat2 = stat2;
+    stat1.setParent(this);
+    stat2.setParent(this);
   }
 
   public StatNode getFstStat() {

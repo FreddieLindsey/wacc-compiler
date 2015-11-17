@@ -6,8 +6,8 @@ public class CharNode extends LiteralNode<Character> {
 
   protected static char[] invalid = { '\\', '\'', '\"' };
 
-  public CharNode(ASTNode parent, char value) {
-    super(parent);
+  public CharNode(char value) {
+    super();
     this.value = value;
     this.type = TypeEnum.CHAR;
   }
