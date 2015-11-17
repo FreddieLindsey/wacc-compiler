@@ -15,7 +15,7 @@ public class ProgramNodeTest {
 
   private TypeNode t = new TypeNode(TypeEnum.INT);
   private IdentNode n = new IdentNode("x");
-  private StatNode stat1 = new BasicStatNode(StatTypeEnum.SKIP, null);
+  private StatNode stat1 = new BasicStatNode(StatTypeEnum.SKIP);
 
   @Test
   public void canAddFunctionToProgram() {

@@ -10,8 +10,8 @@ public class IfStatNodeTest {
 
   private ExprNode e1 = new BoolNode(true);
   private ExprNode e2 = new StringNode("Hello World!"); //not valid in this context
-  private StatNode s1 = new BasicStatNode(StatTypeEnum.SKIP, null);
-  private StatNode s2 = new BasicStatNode(StatTypeEnum.RETURN, null); //invalid
+  private StatNode s1 = new BasicStatNode(StatTypeEnum.SKIP);
+  private StatNode s2 = new BasicStatNode(StatTypeEnum.RETURN); //invalid
 
   @Test
   public void canGetExpr() {

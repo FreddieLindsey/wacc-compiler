@@ -26,12 +26,14 @@ public class ParamListNodeTest {
   @Test
   public void validWithValidParams() {
     p = new ParamListNode();
+    p.addParam(p1);
     assertTrue(p.isSemanticallyValid());
   }
 
   @Test
   public void invalidWithInvalidParams() {
     p = new ParamListNode();
+    p.addParam(p3);
     assertFalse(p.isSemanticallyValid());
   }
 }
