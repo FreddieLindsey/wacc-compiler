@@ -1,9 +1,11 @@
 #!/usr/bin/ruby
 # Ruby front-end for your compiler.
 ARGV.each do|a|
-    print "#{a}\n"
+    print "\nCompiling #{a}\n\n"
     system("java -cp bin:lib/antlr-4.4-complete.jar wacc.Main < #{a}")
     if ($?.exitstatus != 0)
-        exit $?.exitstatus
+      exit $?.exitstatus
+    else
+      print "Successfully compiled...\n"
     end
 end

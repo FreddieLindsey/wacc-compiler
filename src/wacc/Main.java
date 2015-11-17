@@ -43,6 +43,9 @@ public class Main {
 
     ProgramNode prog = analyseFile(parseTree);
     if (prog == null) System.exit(100);
+    if (!prog.isSemanticallyValid()) System.exit(200);
+
+    // Compile
   }
 
   public static BasicParser parseInput(InputStream i) throws IOException {
