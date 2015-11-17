@@ -1,17 +1,11 @@
 package wacc.ast;
 
-<<<<<<< 13bee15090abd00d60efafe016aec785e7f780af
-import wacc.ast.type.TypeNode;
-import wacc.symbolTable.TypeEnum;
-=======
+import org.junit.Test;
 import wacc.ast.function.FuncNode;
-import wacc.ast.function.ParamListNode;
 import wacc.ast.function.ParamNode;
 import wacc.ast.io.BasicStatNode;
-import wacc.ast.type.TypeNode;
 import wacc.ast.type.TypeEnum;
->>>>>>> Slight refactor
-import org.junit.Test;
+import wacc.ast.type.TypeNode;
 
 import java.util.ArrayList;
 
