@@ -30,6 +30,7 @@ public class ProgramNode extends ASTNode {
 
   public void addFunc(FuncNode f) {
     funcs.add(f);
+    f.setParent(this);
   }
 
   public ArrayList<FuncNode> getFuncs() {
