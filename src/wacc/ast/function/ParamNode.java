@@ -16,7 +16,6 @@ public class ParamNode extends ASTNode {
     this.type = type;
     this.ident = ident;
     ident.setParent(this);
-    // ERROR checking will be done by ident's creation
   }
 
   public TypeNode getType() {
@@ -33,10 +32,7 @@ public class ParamNode extends ASTNode {
 
   @Override
   public boolean isSemanticallyValid() {
-    return (
-          ident.isSemanticallyValid()
-      &&  (scope == null
-      ||  scope.lookUp(ident.getIdent()) == null));
+    return ident.isSemanticallyValid();
   }
 
 
