@@ -317,13 +317,8 @@ public class BaseVisitor<ASTNode> extends BasicParserBaseVisitor<ASTNode> {
 
   @Override
   public ASTNode visitPairelem(@NotNull BasicParser.PairelemContext ctx) {
-    return (ASTNode) ((ctx.FST() != null) ?
-      new PairNode<ExprNode, ExprNode>(
-        (ExprNode) visitExpr(ctx.expr()),
-        null):
-      new PairNode<ExprNode, ExprNode>(
-        null,
-        (ExprNode) visitExpr(ctx.expr())));
+    return (ASTNode)
+        (ExprNode) visitExpr(ctx.expr());
   }
 
   @Override
