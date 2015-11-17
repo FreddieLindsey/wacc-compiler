@@ -7,6 +7,9 @@ public class IntNode extends LiteralNode<Long> {
     this.value = value;
     this.type = new TypeNode(TypeEnum.INT);
     type.setParent(this);
+    if (!isSemanticallyValid()) {
+      System.out.println("Not a valid 32 bit integer");
+    }
   }
 
   @Override
