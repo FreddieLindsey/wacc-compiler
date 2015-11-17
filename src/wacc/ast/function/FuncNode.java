@@ -20,8 +20,11 @@ public class FuncNode extends ASTNode {
     this.stat = stat;
     t.setParent(this);
     n.setParent(this);
-    this.ps.setParent(this);
+    ps.setParent(this);
     stat.setParent(this);
+    for (ParamNode p : ps.getParams()) {
+      symbolTable.add(p.getIdent().getIdent(), p.getType());
+    }
   }
 
   public void addParam(ParamNode p) {
