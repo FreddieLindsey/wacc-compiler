@@ -16,6 +16,9 @@ public class NewAssignNode extends StatNode {
     i.setParent(this);
     rhs.setParent(this);
     // Scope checking will be handled by the initialisation of the IdentNode
+
+    // ERROR if already exists in the CURRENT symbol table (variable shadowing)
+    checkSymbolHere(i.getIdent());
   }
 
   public TypeNode getType() {
