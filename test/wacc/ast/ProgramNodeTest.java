@@ -25,7 +25,7 @@ public class ProgramNodeTest {
     ps[1] = p2;
     p = new ParamListNode(ps);
     f = new FuncNode(t, n, p, stat1);
-    prog.add(f);
+    prog.addFunc(f);
   }
 
   @Test
@@ -44,13 +44,13 @@ public class ProgramNodeTest {
 
   @Test
   public void canAddStatToProgram() {
-    prog.setStat(stat1);
+    prog.addStat(stat1);
   }
 
   @Test(expected = IllegalArgumentException.class)
   public void cannotOverWriteStatOfProgram() {
-    prog.setStat(stat1);
-    prog.setStat(stat1);
+    prog.addStat(stat1);
+    prog.addStat(stat1);
   }
 
 }

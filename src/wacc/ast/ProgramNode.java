@@ -28,7 +28,7 @@ public class ProgramNode extends ASTNode {
     return valid;
   }
 
-  public void add(FuncNode f) {
+  public void addFunc(FuncNode f) {
     funcs.add(f);
   }
 
@@ -36,14 +36,14 @@ public class ProgramNode extends ASTNode {
     return funcs;
   }
 
-  public StatNode getStat() {
-    return stat;
-  }
-
-  public void setStat(StatNode stat) {
+  public void addStat(StatNode stat) {
     if (this.stat != null) {
       throw new IllegalArgumentException("You cannot overwrite the final stat of a program");
     }
     this.stat = stat;
+  }
+
+  public StatNode getStat() {
+    return stat;
   }
 }

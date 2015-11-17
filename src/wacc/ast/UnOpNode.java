@@ -11,7 +11,7 @@ public class UnOpNode extends ExprNode {
     super();
     this.op = op;
     this.expr = expr;
-
+    expr.setParent(this);
   }
 
   @Override

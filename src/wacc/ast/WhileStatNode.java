@@ -11,6 +11,8 @@ public class WhileStatNode extends StatNode {
     super();
     this.expr = expr;
     this.stat = stat;
+    expr.setParent(this);
+    stat.setParent(this);
   }
 
   public ExprNode getExpr() {

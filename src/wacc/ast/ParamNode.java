@@ -13,6 +13,7 @@ public class ParamNode extends ASTNode {
     super();
     this.type = type;
     this.ident = ident;
+    ident.setParent(this);
   }
 
   public TypeEnum getType() {

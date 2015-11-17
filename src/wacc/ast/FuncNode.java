@@ -13,6 +13,10 @@ public class FuncNode extends ASTNode {
     this.n = n;
     this.ps = ps;
     this.stat = stat;
+    t.setParent(this);
+    n.setParent(this);
+    ps.setParent(this);
+    stat.setParent(this);
   }
 
   public TypeNode getType() {

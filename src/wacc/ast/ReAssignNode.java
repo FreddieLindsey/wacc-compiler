@@ -9,6 +9,8 @@ public class ReAssignNode extends StatNode {
     super();
     this.lhs = lhs;
     this.rhs = rhs;
+    lhs.setParent(this);
+    rhs.setParent(this);
   }
 
   public AssignNode getLHS() {

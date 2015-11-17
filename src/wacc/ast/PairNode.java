@@ -11,6 +11,8 @@ public class PairNode<F extends ExprNode, S extends ExprNode> extends TypeNode {
     super(TypeEnum.PAIR);
     this.fst = fst;
     this.snd = snd;
+    fst.setParent(this);
+    snd.setParent(this);
   }
 
   public F getFst() {

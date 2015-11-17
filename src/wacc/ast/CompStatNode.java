@@ -11,6 +11,8 @@ public class CompStatNode extends StatNode {
     super();
     this.stat1 = stat1;
     this.stat2 = stat2;
+    stat1.setParent(this);
+    stat2.setParent(this);
   }
 
   public StatNode getFstStat() {

@@ -11,6 +11,8 @@ public class CallNode extends ExprNode {
     super();
     this.ident = ident;
     this.args = args;
+    ident.setParent(this);
+    args.setParent(this);
   }
 
   public IdentNode getIdent() {

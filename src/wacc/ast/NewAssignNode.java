@@ -13,6 +13,8 @@ public class NewAssignNode extends StatNode {
     this.t = t;
     this.i = i;
     this.rhs = rhs;
+    i.setParent(this);
+    rhs.setParent(this);
   }
 
   public TypeEnum getType() {

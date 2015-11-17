@@ -13,6 +13,9 @@ public class IfStatNode extends StatNode {
     this.expr = expr;
     this.stat1 = stat1;
     this.stat2 = stat2;
+    expr.setParent(this);
+    stat1.setParent(this);
+    stat2.setParent(this);
   }
 
   public ExprNode getExpr() {
