@@ -1,7 +1,9 @@
 package wacc.ast;
 
 import org.junit.Test;
+
 import static org.junit.Assert.*;
+
 import wacc.symbolTable.TypeEnum;
 
 public class BinOpNodeTest {
@@ -24,14 +26,18 @@ public class BinOpNodeTest {
         return false;
       }
     };
-    b = new BinOpNode(e1, bo, e2);
+    b = new BinOpNode(bo);
+    b.addLHS(e1);
+    b.addRHS(e2);
     assertTrue(b.getLHS().equals(e1));
   }
 
   @Test
   public void canGetBinaryOperator() {
     bo = BinaryOperator.EQ;
-    b = new BinOpNode(e1, bo, e2);
+    b = new BinOpNode(bo);
+    b.addLHS(e1);
+    b.addRHS(e2);
     assertTrue(b.type().equals(TypeEnum.BOOL));
   }
 
@@ -48,7 +54,9 @@ public class BinOpNodeTest {
         return false;
       }
     };
-    b = new BinOpNode(e1, bo, e2);
+    b = new BinOpNode(bo);
+    b.addLHS(e1);
+    b.addRHS(e2);
     assertTrue(b.getRHS().equals(e2));
   }
 

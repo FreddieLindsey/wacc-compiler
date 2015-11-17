@@ -22,112 +22,69 @@ public class FuncNodeTest {
 
   @Test
   public void canGetType() {
-    setParents();
-    ps[0] = p1;
-    ps[1] = p2;
-    ParamListNode p = new ParamListNode(ps);
-    f = new FuncNode(t, n, p, stat1);
+    f = new FuncNode(t, n, stat1);
     assertTrue(f.getType().equals(t));
   }
 
   @Test
   public void canGetIdent() {
-    setParents();
-    ps[0] = p1;
-    ps[1] = p2;
-    ParamListNode p = new ParamListNode(ps);
-    f = new FuncNode(t, n, p, stat1);
+    f = new FuncNode(t, n, stat1);
     assertTrue(f.getIdent().equals(n));
   }
 
   @Test
   public void canGetParamList() {
-    setParents();
-    ps[0] = p1;
-    ps[1] = p2;
-    ParamListNode p = new ParamListNode(ps);
-    f = new FuncNode(t, n, p, stat1);
-    assertTrue(f.getParams().equals(p));
+//    f = new FuncNode(t, n, stat1);
+//    assertTrue(f.getParams().equals(p));
   }
 
   @Test
   public void canGetStat() {
-    setParents();
-    ps[0] = p1;
-    ps[1] = p2;
-    ParamListNode p = new ParamListNode(ps);
-    f = new FuncNode(t, n, p, stat1);
+    f = new FuncNode(t, n, stat1);
     assertTrue(f.getStat().equals(stat1));
   }
 
   @Test
   public void funcNodeValidT() {
-    setParents();
-    ps[0] = p1;
-    ps[1] = p2;
-    ParamListNode p = new ParamListNode(ps);
-
-    f = new FuncNode(t, n, p, stat1);
-
+    f = new FuncNode(t, n, stat1);
     assertTrue(t.isSemanticallyValid());
     assertTrue(n.isSemanticallyValid());
-    assertTrue(p.isSemanticallyValid());
+    assertTrue(f.getParams().isSemanticallyValid());
     assertTrue(stat1.isSemanticallyValid());
     assertTrue(f.isSemanticallyValid());
   }
 
   @Test
   public void funcNodeValidF1() {
-    setParents();
-    ps[0] = p1;
-    ps[1] = p2;
-    ParamListNode p = new ParamListNode(ps);
-
-    f = new FuncNode(t, n, p, stat2);
+    f = new FuncNode(t, n, stat2);
 
     assertTrue(t.isSemanticallyValid());
     assertTrue(n.isSemanticallyValid());
-    assertTrue(p.isSemanticallyValid());
+    assertTrue(f.getParams().isSemanticallyValid());
     assertFalse(stat2.isSemanticallyValid());
     assertFalse(f.isSemanticallyValid());
   }
 
   @Test
   public void funcNodeValidF2() {
-    setParents();
-    ps[0] = p1;
-    ps[1] = p3;
-    ParamListNode p = new ParamListNode(ps);
-
-    f = new FuncNode(t, n, p, stat1);
+    f = new FuncNode(t, n, stat1);
 
     assertTrue(t.isSemanticallyValid());
     assertTrue(n.isSemanticallyValid());
-    assertFalse(p.isSemanticallyValid());
+    assertFalse(f.getParams().isSemanticallyValid());
     assertTrue(stat1.isSemanticallyValid());
     assertFalse(f.isSemanticallyValid());
   }
 
   @Test
   public void funcNodeValidF3() {
-    setParents();
-    ps[0] = p1;
-    ps[1] = p2;
-    ParamListNode p = new ParamListNode(ps);
-
-    f = new FuncNode(t, n1, p, stat1);
+    f = new FuncNode(t, n1, stat1);
 
     assertTrue(t.isSemanticallyValid());
     assertFalse(n1.isSemanticallyValid());
-    assertTrue(p.isSemanticallyValid());
+    assertTrue(f.getParams().isSemanticallyValid());
     assertTrue(stat1.isSemanticallyValid());
     assertFalse(f.isSemanticallyValid());
-  }
-
-  private void setParents() {
-    p1.getIdent().setParent(p1);
-    p2.getIdent().setParent(p2);
-    p3.getIdent().setParent(p3);
   }
 
 }

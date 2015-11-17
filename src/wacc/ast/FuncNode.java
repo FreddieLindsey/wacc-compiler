@@ -7,16 +7,21 @@ public class FuncNode extends ASTNode {
   private ParamListNode ps;
   private StatNode stat;
 
-  public FuncNode(TypeNode t, IdentNode n, ParamListNode ps, StatNode stat) {
+  public FuncNode(TypeNode t, IdentNode n, StatNode stat) {
     super();
     this.t = t;
     this.n = n;
-    this.ps = ps;
+    this.ps = new ParamListNode();
     this.stat = stat;
     t.setParent(this);
     n.setParent(this);
-    ps.setParent(this);
+    this.ps.setParent(this);
     stat.setParent(this);
+  }
+
+  public void addParam(ParamNode p) {
+    ps.addParam(p);
+    p.setParent(p);
   }
 
   public TypeNode getType() {

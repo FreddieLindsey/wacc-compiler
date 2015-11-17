@@ -6,7 +6,6 @@ import static org.junit.Assert.*;
 
 public class BasicStatNodeTest {
 
-  private ASTNode parent;
   private BasicStatNode b;
   private StatTypeEnum typeTest = StatTypeEnum.FREE;
   private ExprNode exprTest = new IdentNode("test");

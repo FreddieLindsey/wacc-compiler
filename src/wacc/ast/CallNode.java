@@ -7,12 +7,16 @@ public class CallNode extends ExprNode {
   private IdentNode ident;
   private ArgListNode args;
 
-  public CallNode(IdentNode ident, ArgListNode args) {
+  public CallNode(IdentNode ident) {
     super();
     this.ident = ident;
-    this.args = args;
+    this.args = new ArgListNode();
     ident.setParent(this);
-    args.setParent(this);
+    this.args.setParent(this);
+  }
+
+  public void addArg(ExprNode e) {
+    args.addExpr(e);
   }
 
   public IdentNode getIdent() {
