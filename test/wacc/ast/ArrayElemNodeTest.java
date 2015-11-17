@@ -17,10 +17,15 @@ public class ArrayElemNodeTest {
   private ExprNode e4 = new IntNode(a, 15);
 
   @Test
-  public void arrayElemNodeInit() {
+  public void canGetIdent() {
+    a = new ArrayElemNode(parent, i1);
+    assertTrue(a.getId().equals(i1));
+  }
+
+  @Test
+  public void canGetExpr() {
     a = new ArrayElemNode(parent, i1);
     a.addExpr(e2);
-    assertTrue(a.getId().equals(i1));
     assertTrue(a.getExprs().get(0).equals(e2));
   }
 
@@ -65,7 +70,6 @@ public class ArrayElemNodeTest {
     a.addExpr(e3);
     a.addExpr(e4);
     ArrayList<ExprNode> exprs = a.getExprs();
-    System.out.println(exprs);
     assertTrue(exprs.get(0).equals(e2));
     assertTrue(exprs.get(1).equals(e3));
     assertTrue(exprs.get(2).equals(e4));
