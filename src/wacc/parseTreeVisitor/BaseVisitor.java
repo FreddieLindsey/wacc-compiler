@@ -174,9 +174,11 @@ public class BaseVisitor<ASTNode> extends BasicParserBaseVisitor<ASTNode> {
       (TypeNode) visitType(ctx.type()),
       (IdentNode) visitIdent(ctx.ident()),
       (StatNode) visitStat(ctx.stat()));
-    ParamListNode pl = (ParamListNode) visitParamlist(ctx.paramlist());
-    for (ParamNode p : pl.getParams()) {
-      f.addParam(p);
+    if (ctx.paramlist() != null) {
+      ParamListNode pl = (ParamListNode) visitParamlist(ctx.paramlist());
+      for (ParamNode p : pl.getParams()) {
+        f.addParam(p);
+      }
     }
     return (ASTNode) f;
   }
