@@ -2,18 +2,37 @@ package wacc.ast;
 
 import wacc.symbolTable.TypeEnum;
 
-public class ArrayLiteralNode extends LiteralNode<ExprNode[]> {
-  
-  public ArrayLiteralNode(ExprNode[] value) {
+import java.util.ArrayList;
+
+public class ArrayLiteralNode extends LiteralNode<ExprNode> {
+
+  private final ArrayList<ExprNode> exprs;
+
+  public ArrayLiteralNode() {
     super();
-    this.value = value;
+    exprs = new ArrayList<>();
     this.type = TypeEnum.ARR;
   }
-  
+
+  public void addExpr(ExprNode e) {
+    exprs.add(e);
+    e.setParent(this);
+  }
+
+  public ArrayList<ExprNode> getExprs() {
+    return this.exprs;
+  }
+
   @Override
   public boolean isSemanticallyValid() {
-    for (ExprNode n : value) {
-      if (!n.isSemanticallyValid()) {
+    if (exprs.size() <= 0) {
+      return true;
+    }
+
+    TypeEnum t = exprs.get(0).type();
+
+    for (ExprNode e : exprs) {
+      if (!e.isSemanticallyValid() || !e.type().equals(t)) {
         return false;
       }
     }

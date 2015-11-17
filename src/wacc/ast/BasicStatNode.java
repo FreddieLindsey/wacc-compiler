@@ -8,7 +8,11 @@ public class BasicStatNode extends StatNode {
   public BasicStatNode(StatTypeEnum st, ExprNode expr) {
     super();
     this.st = st;
-    this.expr = expr;
+  }
+
+  public void addExpr(ExprNode e) {
+    this.expr = e;
+    e.setParent(this);
   }
 
   public StatTypeEnum getType() {
