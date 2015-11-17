@@ -21,7 +21,7 @@ public class FuncNode extends ASTNode {
 
   public void addParam(ParamNode p) {
     ps.addParam(p);
-    p.setParent(p);
+    p.setParent(ps);
   }
 
   public TypeNode getType() {
