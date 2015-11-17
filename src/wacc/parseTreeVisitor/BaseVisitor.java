@@ -14,8 +14,10 @@ public class BaseVisitor<ASTNode> extends BasicParserBaseVisitor<ASTNode> {
   @Override
   public ASTNode visitArglist(@NotNull BasicParser.ArglistContext ctx) {
     ArgListNode a = new ArgListNode();
-    for (BasicParser.ExprContext e : ctx.expr()) {
-      a.addExpr((ExprNode) visitExpr(e));
+    if (ctx.expr() != null) {
+      for (BasicParser.ExprContext e : ctx.expr()) {
+        a.addExpr((ExprNode) visitExpr(e));
+      }
     }
     return (ASTNode) a;
   }
