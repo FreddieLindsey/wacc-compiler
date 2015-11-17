@@ -42,6 +42,7 @@ public class Main {
     }
 
     ProgramNode prog = analyseFile(parseTree);
+    if (prog == null) System.exit(100);
   }
 
   public static BasicParser parseInput(InputStream i) throws IOException {
@@ -54,14 +55,12 @@ public class Main {
 
   public static ProgramNode analyseFile(ParseTree parseTree) throws IOException {
     BaseVisitor<ASTNode> visitor = new BaseVisitor<>();
-    ProgramNode prog = new ProgramNode();
     try {
-      prog = (ProgramNode) visitor.visit(parseTree);
+      return (ProgramNode) visitor.visit(parseTree);
     } catch (ClassCastException e) {
       System.out.println("There is a syntax error");
-      System.exit(100);
     }
-    return prog;
+    return null;
   }
 
   private static void engageMessageLock() {
