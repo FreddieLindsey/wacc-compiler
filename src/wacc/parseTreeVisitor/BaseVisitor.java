@@ -258,6 +258,7 @@ public class BaseVisitor<ASTNode> extends BasicParserBaseVisitor<ASTNode> {
       return (ASTNode) b;
     } else if (ctx.SKIP() != null) {
       BasicStatNode b = new BasicStatNode(StatTypeEnum.SKIP);
+      return (ASTNode) b;
     } else if (ctx.EXIT() != null) {
       BasicStatNode b = new BasicStatNode(StatTypeEnum.EXIT);
       b.addExpr((ExprNode) visitExpr(ctx.expr()));
