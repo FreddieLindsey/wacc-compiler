@@ -1,5 +1,6 @@
 package wacc.ast;
 
+import wacc.ast.type.TypeNode;
 import wacc.symbolTable.TypeEnum;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -29,6 +30,6 @@ public class IntNodeTest {
   @Test
   public void intNodeType() {
     i = new IntNode(Integer.MAX_VALUE);
-    assertTrue(i.type() == TypeEnum.INT);
+    assertTrue(i.type().equals(new TypeNode(TypeEnum.INT)));
   }
 }

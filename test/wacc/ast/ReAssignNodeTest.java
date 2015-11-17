@@ -3,13 +3,14 @@ package wacc.ast;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
+import wacc.ast.type.TypeNode;
 import wacc.symbolTable.TypeEnum;
 
 public class ReAssignNodeTest {
 
   private NewAssignNode n;
 
-  private TypeEnum t = TypeEnum.STRING;
+  private TypeNode t = new TypeNode(TypeEnum.STRING);
   private IdentNode i = new IdentNode("test");
   private AssignNode rhs = new IdentNode("test2");
 

@@ -1,6 +1,7 @@
 package wacc.ast;
 
 import org.junit.Test;
+import wacc.ast.type.TypeNode;
 import wacc.symbolTable.TypeEnum;
 
 import java.util.Arrays;
@@ -11,7 +12,7 @@ public class ParamListNodeTest {
 
   private ParamListNode p;
 
-  private TypeEnum t1 = TypeEnum.BOOL;
+  private TypeNode t1 = new TypeNode(TypeEnum.BOOL);
   private ParamNode p1 = new ParamNode(t1, new IdentNode("a"));
   private ParamNode p2 = new ParamNode(t1, new IdentNode("b"));
   private ParamNode p3 = new ParamNode(t1, new IdentNode("@lkjsdkg"));

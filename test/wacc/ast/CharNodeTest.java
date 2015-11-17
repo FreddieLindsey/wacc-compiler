@@ -1,5 +1,6 @@
 package wacc.ast;
 
+import wacc.ast.type.TypeNode;
 import wacc.symbolTable.TypeEnum;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -31,7 +32,7 @@ public class CharNodeTest {
   @Test
   public void charNodeType() {
     c = new CharNode('r');
-    assertTrue(c.type() == TypeEnum.CHAR);
+    assertTrue(c.type().equals(new TypeNode(TypeEnum.CHAR)));
   }
 
 }

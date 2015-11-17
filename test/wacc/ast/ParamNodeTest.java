@@ -3,12 +3,13 @@ package wacc.ast;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
+import wacc.ast.type.TypeNode;
 import wacc.symbolTable.TypeEnum;
 
 public class ParamNodeTest {
 
   private ParamNode param;
-  private TypeEnum type = TypeEnum.INT;
+  private TypeNode type = new TypeNode(TypeEnum.INT);
   private IdentNode id1 = new IdentNode("ident");
   private IdentNode id2 =  new IdentNode("@lkjsdkg");
 

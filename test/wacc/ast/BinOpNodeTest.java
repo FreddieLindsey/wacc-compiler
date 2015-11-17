@@ -4,13 +4,14 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
+import wacc.ast.type.TypeNode;
 import wacc.symbolTable.TypeEnum;
 
 public class BinOpNodeTest {
 
   private ExprNode e1 = new ExprNode() {
     @Override
-    public TypeEnum type() {
+    public TypeNode type() {
       return null;
     }
 
@@ -22,7 +23,7 @@ public class BinOpNodeTest {
   private BinaryOperator bo = BinaryOperator.EQ;
   private ExprNode e2 = new ExprNode() {
     @Override
-    public TypeEnum type() {
+    public TypeNode type() {
       return null;
     }
 
@@ -46,7 +47,7 @@ public class BinOpNodeTest {
     b = new BinOpNode(bo);
     b.addLHS(e1);
     b.addRHS(e2);
-    assertTrue(b.type().equals(TypeEnum.BOOL));
+    assertTrue(b.type().equals(new TypeNode(TypeEnum.BOOL)));
   }
 
   @Test

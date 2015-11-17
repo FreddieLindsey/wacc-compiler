@@ -1,5 +1,7 @@
 package wacc.ast;
 
+import wacc.ast.type.TypeNode;
+
 public class FuncNode extends ASTNode {
 
   private TypeNode t;

@@ -1,12 +1,12 @@
 package wacc.ast;
 
+import wacc.ast.type.TypeNode;
 import wacc.symbolTable.TypeEnum;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class BoolNodeTest {
 
-  private ASTNode parent;
   private BoolNode b;
 
   @Test
@@ -24,7 +24,7 @@ public class BoolNodeTest {
   @Test
   public void boolNodeType() {
       b = new BoolNode(false);
-      assert (b.type() == TypeEnum.BOOL);
+      assert (b.type() == new TypeNode(TypeEnum.BOOL));
   }
 
 }

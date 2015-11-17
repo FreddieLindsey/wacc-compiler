@@ -1,9 +1,10 @@
 package wacc.ast;
 
+import wacc.ast.type.TypeNode;
 import wacc.symbolTable.TypeEnum;
 
 public class BinOpNode extends ExprNode {
-	
+
   private ExprNode lhs;
   private BinaryOperator op;
   private ExprNode rhs;
@@ -24,13 +25,13 @@ public class BinOpNode extends ExprNode {
   }
 
   @Override
-  public TypeEnum type() {
+  public TypeNode type() {
     switch(op) {
       case MUL:
       case DIV:
       case MOD:
       case ADD:
-      case SUB: return TypeEnum.INT;
+      case SUB: return new TypeNode(TypeEnum.INT);
       case GT :
       case GTE:
       case LT :
@@ -38,7 +39,7 @@ public class BinOpNode extends ExprNode {
       case EQ :
       case NEQ:
       case AND:
-      case OR : return TypeEnum.BOOL;
+      case OR : return new TypeNode(TypeEnum.BOOL);
     }
     return null;
   }
@@ -58,16 +59,16 @@ public class BinOpNode extends ExprNode {
       case DIV:
       case MOD:
       case ADD:
-      case SUB: return lhs.type() == TypeEnum.INT;
+      case SUB: return lhs.type().equals(new TypeNode(TypeEnum.INT));
       case GT :
       case GTE:
       case LT :
-      case LTE: return lhs.type() == TypeEnum.INT
-                      || lhs.type() == TypeEnum.CHAR;
+      case LTE: return lhs.type().equals(new TypeNode(TypeEnum.INT))
+                    || lhs.type().equals(new TypeNode(TypeEnum.CHAR));
       case EQ :
-      case NEQ: return lhs.type() != TypeEnum.STRING;
+      case NEQ: return !lhs.type().equals(new TypeNode(TypeEnum.STRING));
       case AND:
-      case OR : return lhs.type() == TypeEnum.BOOL;
+      case OR : return lhs.type().equals(new TypeNode(TypeEnum.BOOL));
       default : return false;
     }
   }

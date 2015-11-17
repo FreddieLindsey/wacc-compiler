@@ -1,5 +1,6 @@
 package wacc.ast;
 
+import wacc.ast.type.TypeNode;
 import wacc.symbolTable.TypeEnum;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -29,6 +30,6 @@ public class StringNodeTest {
   @Test
   public void stringNodeType() {
     s = new StringNode("test");
-    assertTrue(s.type() == TypeEnum.STRING);
+    assertTrue(s.type().equals(new TypeNode(TypeEnum.STRING)));
   }
 }

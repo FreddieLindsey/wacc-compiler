@@ -1,6 +1,6 @@
 package wacc.ast;
 
-import wacc.symbolTable.TypeEnum;
+import wacc.ast.type.TypeNode;
 
 public class CallNode extends ExprNode {
 
@@ -28,7 +28,7 @@ public class CallNode extends ExprNode {
   }
 
   @Override
-  public TypeEnum type() {
+  public TypeNode type() {
     // TODO: Symbol Table
     return null;
   }

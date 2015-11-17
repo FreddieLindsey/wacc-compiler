@@ -18,6 +18,7 @@ public class ArrayElemNodeTest {
   @Test
   public void canGetIdent() {
     a = new ArrayElemNode(i1);
+    a.addExpr(e2);
     assertTrue(a.getId().equals(i1));
   }
 
@@ -42,7 +43,7 @@ public class ArrayElemNodeTest {
     a = new ArrayElemNode(i1);
     a.addExpr(e1);
     assertTrue(i1.isSemanticallyValid());
-    assertTrue(!a.isSemanticallyValid());
+    assertFalse(a.isSemanticallyValid());
   }
 
   @Test

@@ -1,6 +1,6 @@
 package wacc.ast;
 
-import wacc.symbolTable.TypeEnum;
+import wacc.ast.type.TypeNode;
 
 public class IdentNode extends AssignNode {
 
@@ -16,7 +16,7 @@ public class IdentNode extends AssignNode {
   }
 
   @Override
-  public TypeEnum type() {
+  public TypeNode type() {
     // TODO: Needs to fetch from symbol table
     return null;
   }

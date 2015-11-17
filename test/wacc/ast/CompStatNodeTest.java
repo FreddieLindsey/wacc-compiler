@@ -3,8 +3,7 @@ package wacc.ast;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
-import wacc.ast.StatTypeEnum;
-import wacc.symbolTable.TypeEnum;
+import wacc.ast.type.TypeNode;
 
 public class CompStatNodeTest {
 
@@ -13,7 +12,7 @@ public class CompStatNodeTest {
   private BasicStatNode s2 = new BasicStatNode(StatTypeEnum.RETURN); //invalid
   private ExprNode e1 = new ExprNode() {
     @Override
-    public TypeEnum type() {
+    public TypeNode type() {
       return null;
     }
 

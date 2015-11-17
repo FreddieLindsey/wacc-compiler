@@ -1,5 +1,6 @@
 package wacc.ast;
 
+import wacc.ast.type.TypeNode;
 import wacc.symbolTable.TypeEnum;
 
 public class IntNode extends LiteralNode<Long> {
@@ -7,7 +8,8 @@ public class IntNode extends LiteralNode<Long> {
   public IntNode(long value) {
     super();
     this.value = value;
-    this.type = TypeEnum.INT;
+    this.type = new TypeNode(TypeEnum.INT);
+    type.setParent(this);
   }
 
   @Override

@@ -1,12 +1,13 @@
 package wacc.ast;
 
+import wacc.ast.type.TypeNode;
 import wacc.symbolTable.TypeEnum;
 
 public abstract class ExprNode extends ASTNode {
 
-  protected TypeEnum type;
+  protected TypeNode type;
 
-  public TypeEnum type() {
+  public TypeNode type() {
     return type;
   }
 

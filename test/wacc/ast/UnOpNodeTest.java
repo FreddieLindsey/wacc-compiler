@@ -1,7 +1,7 @@
 package wacc.ast;
 
 import org.junit.Test;
-import wacc.symbolTable.TypeEnum;
+import wacc.ast.type.TypeNode;
 
 public class UnOpNodeTest {
 
@@ -11,7 +11,7 @@ public class UnOpNodeTest {
   public void canCreateUnOpNode() {
     u = new UnOpNode(UnaryOperator.NOT, new ExprNode() {
       @Override
-      public TypeEnum type() {
+      public TypeNode type() {
         return null;
       }
 

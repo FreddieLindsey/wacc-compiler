@@ -1,5 +1,6 @@
 package wacc.ast;
 
+import wacc.ast.type.TypeNode;
 import wacc.symbolTable.TypeEnum;
 
 import java.util.ArrayList;
@@ -15,7 +16,7 @@ public class ArrayElemNode extends AssignNode {
     ident.setParent(this);
   }
 
-  public TypeEnum type() {
+  public TypeNode type() {
     return ident.type();
   }
 
@@ -35,11 +36,10 @@ public class ArrayElemNode extends AssignNode {
   @Override
   public boolean isSemanticallyValid() {
     for (ExprNode e : exprs) {
-      if (!e.isSemanticallyValid() || e.type() != TypeEnum.INT) {
+      if (!e.isSemanticallyValid() || !e.type().equals(new TypeNode(TypeEnum.INT))) {
         return false;
       }
     }
-
     return ident.isSemanticallyValid();
   }
 

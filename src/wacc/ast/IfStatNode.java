@@ -1,5 +1,6 @@
 package wacc.ast;
 
+import wacc.ast.type.TypeNode;
 import wacc.symbolTable.TypeEnum;
 
 public class IfStatNode extends StatNode {
@@ -35,7 +36,8 @@ public class IfStatNode extends StatNode {
     return expr.isSemanticallyValid()
         && stat1.isSemanticallyValid()
         && stat2.isSemanticallyValid()
-        && expr.type() == TypeEnum.BOOL;
+        && expr.type().equals(
+            new TypeNode(TypeEnum.BOOL));
   }
 
 }

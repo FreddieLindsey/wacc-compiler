@@ -1,14 +1,14 @@
 package wacc.ast;
 
-import wacc.symbolTable.TypeEnum;
+import wacc.ast.type.*;
 
 public class NewAssignNode extends StatNode {
 
-  private TypeEnum t;
+  private TypeNode t;
   private IdentNode i;
   private AssignNode rhs;
 
-  public NewAssignNode(TypeEnum t, IdentNode i, AssignNode rhs) {
+  public NewAssignNode(TypeNode t, IdentNode i, AssignNode rhs) {
     super();
     this.t = t;
     this.i = i;
@@ -17,7 +17,7 @@ public class NewAssignNode extends StatNode {
     rhs.setParent(this);
   }
 
-  public TypeEnum getType() {
+  public TypeNode getType() {
     return t;
   }
 
@@ -35,7 +35,7 @@ public class NewAssignNode extends StatNode {
     return i.isSemanticallyValid()
       && rhs.validRight()
       && rhs.isSemanticallyValid()
-      && t == rhs.type();
+      && t.equals(rhs.type());
   }
 
 }
