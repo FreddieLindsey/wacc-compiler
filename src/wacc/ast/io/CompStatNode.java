@@ -28,6 +28,8 @@ public class CompStatNode extends StatNode {
 
   @Override
   public boolean isSemanticallyValid() {
+    stat1.setSymbolTable(this.symbolTable);
+    stat2.setSymbolTable(this.symbolTable);
     return stat1.isSemanticallyValid() && stat2.isSemanticallyValid();
   }
 
