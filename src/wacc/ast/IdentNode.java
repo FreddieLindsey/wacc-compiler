@@ -16,7 +16,7 @@ public class IdentNode extends AssignNode {
   }
 
   @Override
-  public TypeEnum type() {
+  public TypeNode type() {
     return this.symbolTable.lookUp(ident);
   }
 

@@ -19,7 +19,7 @@ public class SymbolTable {
   }
 
   // Looks up s in the current SymbolTable, returns null if not found
-  public TypeEnum lookUpHere(String s) {
+  public TypeNode lookUpHere(String s) {
     return dictionary.get(s);
   }
 

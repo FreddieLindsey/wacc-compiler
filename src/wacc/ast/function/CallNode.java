@@ -36,7 +36,7 @@ public class CallNode extends AssignNode {
   }
 
   @Override
-  public TypeEnum type() {
+  public TypeNode type() {
     // We only care about the return type of the function being called,
     // which is included in the IdentNode assigned to the object
     return ident.type();
