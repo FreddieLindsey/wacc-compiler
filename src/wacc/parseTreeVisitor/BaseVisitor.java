@@ -6,17 +6,9 @@ import org.antlr.v4.runtime.misc.NotNull;
 import wacc.ast.*;
 import wacc.ast.function.*;
 import wacc.ast.io.*;
-import wacc.ast.operator.BinOpNode;
-import wacc.ast.operator.BinaryOperator;
-import wacc.ast.operator.UnOpNode;
-import wacc.ast.operator.UnaryOperator;
-import wacc.ast.pair.NewPairNode;
-import wacc.ast.pair.PairLiteralNode;
-import wacc.ast.pair.PairNode;
+import wacc.ast.operator.*;
+import wacc.ast.pair.*;
 import wacc.ast.type.*;
-import wacc.ast.IdentNode;
-
-import wacc.ast.ASTNode;
 
 public class BaseVisitor<ASTNode> extends BasicParserBaseVisitor<ASTNode> {
   @Override
