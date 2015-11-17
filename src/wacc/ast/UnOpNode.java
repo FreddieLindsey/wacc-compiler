@@ -18,11 +18,11 @@ public class UnOpNode extends ExprNode {
   @Override
   public TypeNode type() {
     switch (op) {
-      case NOT: return new TypeNode(null, TypeEnum.BOOL);
-      case NEG: return new TypeNode(null, TypeEnum.INT);
-      case LEN: return new TypeNode(null, TypeEnum.INT);
-      case ORD: return new TypeNode(null, TypeEnum.INT);
-      case CHR: return new TypeNode(null, TypeEnum.CHAR);
+      case NOT: return new TypeNode(TypeEnum.BOOL);
+      case NEG: return new TypeNode(TypeEnum.INT);
+      case LEN: return new TypeNode(TypeEnum.INT);
+      case ORD: return new TypeNode(TypeEnum.INT);
+      case CHR: return new TypeNode(TypeEnum.CHAR);
       default:
         return null;
     }
@@ -34,15 +34,15 @@ public class UnOpNode extends ExprNode {
 
     switch (op) {
       case NOT: return expr.type().equals(
-          new TypeNode(null, TypeEnum.BOOL));
+          new TypeNode(TypeEnum.BOOL));
       case NEG: return expr.type().equals(
-          new TypeNode(null, TypeEnum.INT));
+          new TypeNode(TypeEnum.INT));
       case LEN: return expr.type().equals(
-          new TypeNode(null, TypeEnum.ARR));
+          new TypeNode(TypeEnum.ARR));
       case ORD: return expr.type().equals(
-          new TypeNode(null, TypeEnum.CHAR));
+          new TypeNode(TypeEnum.CHAR));
       case CHR: return expr.type().equals(
-          new TypeNode(null, TypeEnum.INT));
+          new TypeNode(TypeEnum.INT));
       default:
         System.err.println("Invalid Unary Operator");
     }

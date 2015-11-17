@@ -3,6 +3,8 @@ package wacc.ast.type;
 import wacc.ast.StatNode;
 import wacc.symbolTable.TypeEnum;
 
+import static wacc.symbolTable.TypeEnum.*;
+
 public class TypeNode extends StatNode {
 
   private final TypeEnum t;
@@ -20,13 +22,13 @@ public class TypeNode extends StatNode {
     super();
     this.lhs = lhs;
     this.rhs = rhs;
-    this.t = TypeEnum.PAIR;
+    this.t = PAIR;
   }
 
   public TypeNode(TypeNode arrType) {
     super();
     this.type = arrType;
-    this.t = TypeEnum.ARR;
+    this.t = ARR;
   }
 
   public TypeNode getLHS() {
@@ -52,17 +54,22 @@ public class TypeNode extends StatNode {
   }
 
   @Override
-  public boolean equals(TypeNode tn) {
-    boolean valid = tn.type() == t;
+  public boolean equals(Object o) {
+    if (o instanceof TypeNode) {
+      TypeNode tn = (TypeNode) o;
+      boolean valid = tn.getType() == getType();
 
-    if (type == TypeEnum.PAIR) {
-      valid &= tn.getLHS().equals(lhs)
-            && tn.getRHS().equals(rhs);
-    } else if (type == TypeEnum.ARR) {
-      valid &= tn.getArrType().equals(type);
+      if (getType() == new TypeNode(PAIR)) {
+        valid &= tn.getLHS().equals(lhs)
+          && tn.getRHS().equals(rhs);
+      } else if (getType() == new TypeNode(ARR)) {
+        valid &= tn.getArrType().equals(type);
+      }
+
+      return valid;
+    } else {
+      return false;
     }
-
-    return valid;
   }
 
 }

@@ -5,7 +5,7 @@ import wacc.symbolTable.TypeEnum;
 
 public class StringNode extends LiteralNode<String> {
 
-  private static final TypeNode type = new TypeNode(null, TypeEnum.STRING);
+  private static final TypeNode type = new TypeNode(TypeEnum.STRING);
 
   public StringNode(String value) {
     super();

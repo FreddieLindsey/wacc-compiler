@@ -1,5 +1,6 @@
 package wacc.ast;
 
+import wacc.ast.type.TypeNode;
 import wacc.symbolTable.TypeEnum;
 
 public class PairLiteralNode extends LiteralNode {
@@ -7,7 +8,7 @@ public class PairLiteralNode extends LiteralNode {
   public PairLiteralNode() {
     super();
     this.value = null;
-    this.type = new TypeNode(null, TypeEnum.PAIR);
+    this.type = new TypeNode(TypeEnum.PAIR);
   }
 
   @Override

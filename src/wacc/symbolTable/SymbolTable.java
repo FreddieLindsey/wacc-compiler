@@ -1,31 +1,33 @@
 package wacc.symbolTable;
 
+import wacc.ast.type.TypeNode;
+
 import java.util.HashMap;
 import java.util.Map;
 
 public class SymbolTable {
 
-  private Map<String, TypeEnum> dictionary;
+  private Map<String, TypeNode> dictionary;
   private SymbolTable parent;
 
   public SymbolTable() {
     dictionary = new HashMap<>();
   }
 
-  public void add(String s, TypeEnum t) {
+  public void add(String s, TypeNode t) {
     dictionary.put(s, t);
   }
 
   // Looks up s in the current SymbolTable, returns null if not found
-  private TypeEnum lookUpHere(String s) {
+  private TypeNode lookUpHere(String s) {
     return dictionary.get(s);
   }
 
   // Looks up s in the current and enclosing SymbolTables,
   // returns null if not found
-  public TypeEnum lookUp(String s) {
+  public TypeNode lookUp(String s) {
     SymbolTable current = this;
-    TypeEnum result;
+    TypeNode result;
     while (current != null) {
       result = current.lookUpHere(s);
       if (result != null) {

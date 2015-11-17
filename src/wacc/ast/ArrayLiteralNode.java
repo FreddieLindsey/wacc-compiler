@@ -1,5 +1,6 @@
 package wacc.ast;
 
+import wacc.ast.type.TypeNode;
 import wacc.symbolTable.TypeEnum;
 
 import java.util.ArrayList;
@@ -8,15 +9,18 @@ public class ArrayLiteralNode extends LiteralNode<ExprNode> {
 
   private final ArrayList<ExprNode> exprs;
 
-  public ArrayLiteralNode(ASTNode parent, ExprNode[] value) {
-    super(parent);
+  public ArrayLiteralNode() {
+    super();
     exprs = new ArrayList<>();
-    this.type = new TypeNode(ExprNode[0].type()));
   }
 
   public void addExpr(ExprNode e) {
     exprs.add(e);
     e.setParent(this);
+
+    if (this.type == null) {
+      type = new TypeNode(new TypeNode(e.type()));
+    }
   }
 
   public ArrayList<ExprNode> getExprs() {
@@ -29,10 +33,8 @@ public class ArrayLiteralNode extends LiteralNode<ExprNode> {
       return true;
     }
 
-    TypeEnum t = exprs.get(0).type();
-
     for (ExprNode e : exprs) {
-      if (!e.isSemanticallyValid() || !e.type().equals(t)) {
+      if (!e.isSemanticallyValid() || !e.type().equals(type().getArrType())) {
         return false;
       }
     }

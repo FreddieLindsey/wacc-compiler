@@ -36,7 +36,7 @@ public class ArrayElemNode extends AssignNode {
   @Override
   public boolean isSemanticallyValid() {
     for (ExprNode e : exprs) {
-      if (!e.isSemanticallyValid() || e.type() != TypeEnum.INT) {
+      if (!e.isSemanticallyValid() || e.type().equals(new TypeNode(TypeEnum.INT))) {
         return false;
       }
     }
