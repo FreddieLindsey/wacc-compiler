@@ -60,12 +60,7 @@ public class BaseVisitor<ASTNode> extends BasicParserBaseVisitor<ASTNode> {
 
   @Override
   public ASTNode visitExpr(@NotNull BasicParser.ExprContext ctx) {
-    if (ctx.binaryOper() != null) {
-      BinOpNode b = (BinOpNode) visitBinaryOper(ctx.binaryOper());
-      b.setLHS((ExprNode) visitExpr(ctx.expr(0)));
-      b.setRHS((ExprNode) visitExpr(ctx.expr(1)));
-      return (ASTNode) b;
-    } else if (ctx.unaryoper() != null) {
+    if (ctx.unaryoper() != null) {
       UnOpNode u = (UnOpNode) visitUnaryoper(ctx.unaryoper());
       u.setExpr((ExprNode) visitExpr(ctx.expr(0)));
       return (ASTNode) u;
@@ -83,8 +78,41 @@ public class BaseVisitor<ASTNode> extends BasicParserBaseVisitor<ASTNode> {
       return visitIdent(ctx.ident());
     } else if (ctx.arrayelem() != null) {
       return visitArrayelem(ctx.arrayelem());
+    } else if (ctx.OR() != null) {
+      return getBinaryOper(ctx, BinaryOperator.OR);
+    } else if (ctx.AND() != null) {
+      return getBinaryOper(ctx, BinaryOperator.AND);
+    } else if (ctx.G() != null) {
+      return getBinaryOper(ctx, BinaryOperator.GT);
+    } else if (ctx.GE() != null) {
+      return getBinaryOper(ctx, BinaryOperator.GTE);
+    } else if (ctx.L() != null) {
+      return getBinaryOper(ctx, BinaryOperator.LT);
+    } else if (ctx.LE() != null) {
+      return getBinaryOper(ctx, BinaryOperator.LTE);
+    } else if (ctx.EQ() != null) {
+      return getBinaryOper(ctx, BinaryOperator.EQ);
+    } else if (ctx.NEQ() != null) {
+      return getBinaryOper(ctx, BinaryOperator.NEQ);
+    } else if (ctx.MUL() != null) {
+      return getBinaryOper(ctx, BinaryOperator.MUL);
+    } else if (ctx.DIV() != null) {
+      return getBinaryOper(ctx, BinaryOperator.DIV);
+    } else if (ctx.MOD() != null) {
+      return getBinaryOper(ctx, BinaryOperator.MOD);
+    } else if (ctx.ADD() != null) {
+      return getBinaryOper(ctx, BinaryOperator.ADD);
+    } else if (ctx.SUB() != null) {
+      return getBinaryOper(ctx, BinaryOperator.SUB);
     }
     return visitExpr(ctx.expr(0));
+  }
+
+  public ASTNode getBinaryOper(@NotNull BasicParser.ExprContext ctx, BinaryOperator op) {
+    BinOpNode b = new BinOpNode(op);
+    b.setLHS((ExprNode) visitExpr(ctx.expr(0)));
+    b.setRHS((ExprNode) visitExpr(ctx.expr(1)));
+    return (ASTNode) b;
   }
 
   @Override
@@ -195,38 +223,6 @@ public class BaseVisitor<ASTNode> extends BasicParserBaseVisitor<ASTNode> {
     return (ASTNode) ((ctx.SUB() != null) ?
       new IntNode(-1) :
       new IntNode(1));
-  }
-
-  @Override
-  public ASTNode visitBinaryOper(@NotNull BasicParser.BinaryOperContext ctx) {
-    if (ctx.MUL() != null) {
-      return (ASTNode) new BinOpNode(BinaryOperator.MUL);
-    } else if (ctx.DIV() != null) {
-      return (ASTNode) new BinOpNode(BinaryOperator.DIV);
-    } else if (ctx.MOD() != null) {
-      return (ASTNode) new BinOpNode(BinaryOperator.MOD);
-    } else if (ctx.ADD() != null) {
-      return (ASTNode) new BinOpNode(BinaryOperator.ADD);
-    } else if (ctx.SUB() != null) {
-      return (ASTNode) new BinOpNode(BinaryOperator.SUB);
-    } else if (ctx.G() != null) {
-      return (ASTNode) new BinOpNode(BinaryOperator.GT);
-    } else if (ctx.GE() != null) {
-      return (ASTNode) new BinOpNode(BinaryOperator.GTE);
-    } else if (ctx.L() != null) {
-      return (ASTNode) new BinOpNode(BinaryOperator.LT);
-    } else if (ctx.LE() != null) {
-      return (ASTNode) new BinOpNode(BinaryOperator.LTE);
-    } else if (ctx.EQ() != null) {
-      return (ASTNode) new BinOpNode(BinaryOperator.EQ);
-    } else if (ctx.NEQ() != null) {
-      return (ASTNode) new BinOpNode(BinaryOperator.NEQ);
-    } else if (ctx.AND() != null) {
-      return (ASTNode) new BinOpNode(BinaryOperator.AND);
-    } else if (ctx.OR() != null) {
-      return (ASTNode) new BinOpNode(BinaryOperator.OR);
-    }
-    return null;
   }
 
   @Override
