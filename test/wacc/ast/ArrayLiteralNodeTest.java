@@ -11,12 +11,12 @@ public class ArrayLiteralNodeTest {
   private ASTNode parent;
   private ArrayLiteralNode a;
   private ExprNode[] es = new ExprNode[2];
-  private ExprNode e1 = new IntNode(a, 1);
-  private ExprNode e2 = new StringNode(a, "bob's your uncle");
+  private ExprNode e1 = new IntNode(1);
+  private ExprNode e2 = new StringNode("bob's your uncle");
 
   @Test
   public void canGetArrayFromNode() {
-    a = new ArrayLiteralNode(parent, es);
+    a = new ArrayLiteralNode(es);
     assertTrue(Arrays.equals(a.getValue(), es));
   }
 
@@ -24,7 +24,7 @@ public class ArrayLiteralNodeTest {
   public void validWhenValid() {
     es[0] = e1;
     es[1] = e1;
-    a = new ArrayLiteralNode(parent, es);
+    a = new ArrayLiteralNode(es);
     assertTrue(a.isSemanticallyValid());
   }
 
@@ -32,7 +32,7 @@ public class ArrayLiteralNodeTest {
   public void notValidWhenNotValid() {
     es[0] = e2;
     es[1] = e2;
-    a = new ArrayLiteralNode(parent, es);
+    a = new ArrayLiteralNode(es);
     assertFalse(a.isSemanticallyValid());
   }
 
@@ -40,7 +40,7 @@ public class ArrayLiteralNodeTest {
   public void notValidWhenNotValidNotWholeArray() {
     es[0] = e1;
     es[1] = e2;
-    a = new ArrayLiteralNode(parent, es);
+    a = new ArrayLiteralNode(es);
     assertFalse(a.isSemanticallyValid());
   }
 }

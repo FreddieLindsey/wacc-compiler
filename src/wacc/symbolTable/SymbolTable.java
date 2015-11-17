@@ -5,11 +5,10 @@ import java.util.Map;
 
 public class SymbolTable {
 
-  private SymbolTable parentSymbolTable; // Parent SymbolTable
   private Map<String, TypeEnum> dictionary;
+  private SymbolTable parent;
 
-  public SymbolTable(SymbolTable st) {
-    parentSymbolTable = st;
+  public SymbolTable() {
     dictionary = new HashMap<>();
   }
 
@@ -26,15 +25,18 @@ public class SymbolTable {
   // returns null if not found
   public TypeEnum lookUp(String s) {
     SymbolTable current = this;
-    TypeEnum result = null;
+    TypeEnum result;
     while (current != null) {
       result = current.lookUpHere(s);
       if (result != null) {
         return result;
       }
-      current = current.parentSymbolTable;
+      current = current.parent;
     }
     return null;
   }
 
+  public void setParent(SymbolTable parent) {
+    this.parent = parent;
+  }
 }

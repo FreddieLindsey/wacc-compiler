@@ -9,10 +9,10 @@ public class ProgramNode extends ASTNode {
   private ArrayList<FuncNode> funcs;
   private StatNode stat;
 
-  public ProgramNode(ASTNode parent) {
-    super(parent);
+  public ProgramNode() {
+    super();
     this.funcs = new ArrayList<>();
-    this.symbolTable = new SymbolTable(null);
+    this.symbolTable = new SymbolTable();
   }
 
   @Override

@@ -9,8 +9,8 @@ public class ParamNode extends ASTNode {
   private IdentNode ident;
   private SymbolTable scope;
 
-  public ParamNode(ASTNode parent, TypeEnum type, IdentNode ident) {
-    super(parent);
+  public ParamNode(TypeEnum type, IdentNode ident) {
+    super();
     this.type = type;
     this.ident = ident;
   }

@@ -4,8 +4,8 @@ public class BeginStatNode extends StatNode {
 
 	private StatNode stat;
 
-	public BeginStatNode(ASTNode parent, StatNode stat) {
-    super(parent);
+	public BeginStatNode(StatNode stat) {
+    super();
 		this.stat = stat;
 	}
 

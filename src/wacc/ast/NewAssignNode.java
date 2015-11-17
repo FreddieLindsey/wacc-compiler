@@ -8,8 +8,8 @@ public class NewAssignNode extends StatNode {
   private IdentNode i;
   private AssignNode rhs;
 
-  public NewAssignNode(ASTNode parent, TypeEnum t, IdentNode i, AssignNode rhs) {
-    super(parent);
+  public NewAssignNode(TypeEnum t, IdentNode i, AssignNode rhs) {
+    super();
     this.t = t;
     this.i = i;
     this.rhs = rhs;

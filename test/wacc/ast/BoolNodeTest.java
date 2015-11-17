@@ -11,19 +11,19 @@ public class BoolNodeTest {
 
   @Test
   public void boolNodeInit() {
-      b = new BoolNode(parent, true);
+      b = new BoolNode(true);
       assertTrue(b.getValue());
   }
 
   @Test
   public void boolNodeValidity() {
-      b = new BoolNode(parent, false);
+      b = new BoolNode(false);
       assert (b.isSemanticallyValid());
   }
 
   @Test
   public void boolNodeType() {
-      b = new BoolNode(parent, false);
+      b = new BoolNode(false);
       assert (b.type() == TypeEnum.BOOL);
   }
 

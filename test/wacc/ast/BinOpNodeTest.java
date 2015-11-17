@@ -6,7 +6,6 @@ import wacc.symbolTable.TypeEnum;
 
 public class BinOpNodeTest {
 
-  private ASTNode parent;
   private ExprNode e1;
   private BinaryOperator bo;
   private ExprNode e2;
@@ -14,7 +13,7 @@ public class BinOpNodeTest {
 
   @Test
   public void canGetFirstExpr() {
-    e1 = new ExprNode(b) {
+    e1 = new ExprNode() {
       @Override
       public TypeEnum type() {
         return null;
@@ -25,20 +24,20 @@ public class BinOpNodeTest {
         return false;
       }
     };
-    b = new BinOpNode(parent, e1, bo, e2);
+    b = new BinOpNode(e1, bo, e2);
     assertTrue(b.getLHS().equals(e1));
   }
 
   @Test
   public void canGetBinaryOperator() {
     bo = BinaryOperator.EQ;
-    b = new BinOpNode(parent, e1, bo, e2);
+    b = new BinOpNode(e1, bo, e2);
     assertTrue(b.type().equals(TypeEnum.BOOL));
   }
 
   @Test
   public void canGetSecondExpr() {
-    e2 = new ExprNode(b) {
+    e2 = new ExprNode() {
       @Override
       public TypeEnum type() {
         return null;
@@ -49,7 +48,7 @@ public class BinOpNodeTest {
         return false;
       }
     };
-    b = new BinOpNode(parent, e1, bo, e2);
+    b = new BinOpNode(e1, bo, e2);
     assertTrue(b.getRHS().equals(e2));
   }
 

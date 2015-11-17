@@ -6,8 +6,8 @@ public class IdentNode extends AssignNode {
 
   private String ident;
 
-  public IdentNode(ASTNode parent, String ident) {
-    super(parent);
+  public IdentNode(String ident) {
+    super();
     this.ident = ident;
   }
   

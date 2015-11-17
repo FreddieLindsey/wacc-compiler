@@ -7,10 +7,10 @@ public class ParamListNode extends ASTNode {
   private ParamNode[] ps;
   private SymbolTable scope;
 
-  public ParamListNode(ASTNode parent, ParamNode[] ps) {
-    super(parent);
+  public ParamListNode(ParamNode[] ps) {
+    super();
     this.ps = ps;
-    this.scope = new SymbolTable(null);
+    this.scope = new SymbolTable();
   }
 
   @Override
@@ -22,7 +22,7 @@ public class ParamListNode extends ASTNode {
       }
       scope.add(p.getIdent().getIdent(), p.getType());
     }
-    scope = new SymbolTable(null);
+    scope = new SymbolTable();
     return true;
   }
 

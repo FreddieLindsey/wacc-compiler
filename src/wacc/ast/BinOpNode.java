@@ -8,8 +8,8 @@ public class BinOpNode extends ExprNode {
   private BinaryOperator op;
   private ExprNode rhs;
 
-  public BinOpNode(ASTNode parent, ExprNode lhs, BinaryOperator op, ExprNode rhs) {
-    super(parent);
+  public BinOpNode(ExprNode lhs, BinaryOperator op, ExprNode rhs) {
+    super();
     this.lhs = lhs;
     this.op  = op;
     this.rhs = rhs;

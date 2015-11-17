@@ -4,8 +4,8 @@ import wacc.symbolTable.TypeEnum;
 
 public class BoolNode extends LiteralNode<Boolean> {
 
-  public BoolNode(ASTNode parent, boolean value) {
-    super(parent);
+  public BoolNode(boolean value) {
+    super();
     this.value = value;
     this.type = TypeEnum.BOOL;
   }
