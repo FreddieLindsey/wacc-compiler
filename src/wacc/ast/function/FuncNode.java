@@ -27,6 +27,9 @@ public class FuncNode extends ASTNode {
   public void addParam(ParamNode p) {
     ps.addParam(p);
     p.setParent(ps);
+
+    // ERROR if already exists in symbol table
+    checkSymbolTable(n.getIdent());
   }
 
   public TypeNode getType() {

@@ -9,6 +9,9 @@ public class IdentNode extends AssignNode {
   public IdentNode(String ident) {
     super();
     this.ident = ident;
+
+    // ERROR if already exists in symbol table
+    checkSymbolTable(ident);
   }
   
   public String getIdent() {
@@ -16,9 +19,8 @@ public class IdentNode extends AssignNode {
   }
 
   @Override
-  public TypeNode type() {
-    // TODO: Needs to fetch from symbol table
-    return null;
+  public TypeEnum type() {
+    return this.symbolTable.lookUp(ident);
   }
 
   @Override

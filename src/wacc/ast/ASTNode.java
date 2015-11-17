@@ -19,4 +19,18 @@ public abstract class ASTNode {
     return symbolTable;
   }
 
+  public void checkSymbolTable(String ident) {
+    if (this.symbolTable.lookUp(ident)) {
+      throw new RuntimeException("Function " + n.getIdent() + " has already "
+        + "been declared in the current scope");
+    }
+  }
+
+  public void requireSymbol(String ident) {
+    if (!this.symbolTable.lookUp(ident)) {
+      throw new RuntimeException("Identifier " + ident + " does not exist in " +
+        "the current scope");
+    }
+  }
+
 }

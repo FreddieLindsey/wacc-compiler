@@ -16,6 +16,7 @@ public class ParamNode extends ASTNode {
     this.type = type;
     this.ident = ident;
     ident.setParent(this);
+    // ERROR checking will be done by ident's creation
   }
 
   public TypeNode getType() {

@@ -15,6 +15,7 @@ public class NewAssignNode extends StatNode {
     this.rhs = rhs;
     i.setParent(this);
     rhs.setParent(this);
+    // Scope checking will be handled by the initialisation of the IdentNode
   }
 
   public TypeNode getType() {
