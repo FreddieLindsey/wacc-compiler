@@ -32,7 +32,7 @@ public class CharNodeTest {
   @Test
   public void charNodeType() {
     c = new CharNode('r');
-    assertTrue(c.type() == new TypeNode(TypeEnum.CHAR));
+    assertTrue(c.type().equals(new TypeNode(TypeEnum.CHAR)));
   }
 
 }

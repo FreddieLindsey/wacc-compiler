@@ -47,7 +47,7 @@ public class BinOpNodeTest {
     b = new BinOpNode(bo);
     b.addLHS(e1);
     b.addRHS(e2);
-    assertTrue(b.type().equals(TypeEnum.BOOL));
+    assertTrue(b.type().equals(new TypeNode(TypeEnum.BOOL)));
   }
 
   @Test

@@ -34,7 +34,7 @@ public class ArrayLiteralNode extends LiteralNode<ExprNode> {
     }
 
     for (ExprNode e : exprs) {
-      if (!e.isSemanticallyValid() || !e.type().equals(type().getArrType())) {
+      if (!e.isSemanticallyValid() || e.type().equals(type().getArrType())) {
         return false;
       }
     }

@@ -57,7 +57,9 @@ public class TypeNode extends StatNode {
   public boolean equals(Object o) {
     if (o instanceof TypeNode) {
       TypeNode tn = (TypeNode) o;
-      boolean valid = tn.getType() == getType();
+      boolean valid = tn.getType().t == getType().t;
+
+      if (!valid) return false;
 
       if (getType() == new TypeNode(PAIR)) {
         valid &= tn.getLHS().equals(lhs)
