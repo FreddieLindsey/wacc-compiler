@@ -2,15 +2,17 @@ package wacc.ast;
 
 import wacc.symbolTable.TypeEnum;
 
+import java.util.ArrayList;
+
 public class ArrayElemNode extends AssignNode {
 
   private IdentNode ident;
-  private ExprNode expr;
-  
-  public ArrayElemNode(ASTNode parent, IdentNode ident, ExprNode expr) {
+  private ArrayList<ExprNode> exprs;
+
+  public ArrayElemNode(ASTNode parent, IdentNode ident) {
     super(parent);
     this.ident = ident;
-    this.expr  = expr;
+    ident.setParent(this);
   }
 
   public TypeEnum type() {
@@ -21,15 +23,24 @@ public class ArrayElemNode extends AssignNode {
     return this.ident;
   }
 
-  public ExprNode getExpr() {
-    return this.expr;
+  public ArrayList<ExprNode> getExprs() {
+    return this.exprs;
+  }
+
+  public void addExpr(ExprNode e) {
+    exprs.add(e);
+    e.setParent(this);
   }
 
   @Override
   public boolean isSemanticallyValid() {
-    return ident.isSemanticallyValid() 
-        && expr.isSemanticallyValid()
-        && expr.type() == ident.type();
+    for (ExprNode e : exprs) {
+      if (!e.isSemanticallyValid() || e.type() != TypeEnum.INT) {
+        return false;
+      }
+    }
+
+    return ident.isSemanticallyValid();
   }
 
   @Override
