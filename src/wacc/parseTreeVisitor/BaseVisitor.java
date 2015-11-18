@@ -30,7 +30,7 @@ public class BaseVisitor<ASTNode> extends BasicParserBaseVisitor<ASTNode> {
       }
       return (ASTNode) new CharNode(ctx.CHARAC().getText().charAt(0));
     } else {
-      return (ASTNode) new CharNode('a'); // TODO: Return actual escaped character
+      return (ASTNode) new CharNode(ctx.ESCAPED_CHAR().getText().charAt(2));
     }
   }
 
@@ -217,7 +217,15 @@ public class BaseVisitor<ASTNode> extends BasicParserBaseVisitor<ASTNode> {
 
   @Override
   public ASTNode visitStrliter(@NotNull BasicParser.StrliterContext ctx) {
-    return (ASTNode) new StringNode(ctx.getText());
+    String s = ctx.getText();
+    if (s.charAt(0) == '\"' && s.charAt(s.length() - 1) == '\"') {
+      return (ASTNode) new StringNode(s.split("\"")[1]);
+    } else if (s.charAt(0) == '\'' && s.charAt(s.length() - 1) == '\'') {
+      return (ASTNode) new StringNode(s.split("\'")[1]);
+    } else {
+      return (ASTNode) new StringNode(s);
+    }
+
   }
 
   @Override

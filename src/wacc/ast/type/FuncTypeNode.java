@@ -20,6 +20,10 @@ public class FuncTypeNode extends TypeNode {
     paramType.setParent(this);
   }
 
+  public TypeNode getReturnType() {
+    return returnType;
+  }
+
   public ArrayList<TypeNode> getParamsTypes() {
     return paramsType;
   }
