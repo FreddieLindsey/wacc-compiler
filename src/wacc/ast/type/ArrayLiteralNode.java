@@ -30,15 +30,11 @@ public class ArrayLiteralNode extends LiteralNode<ExprNode> {
 
   @Override
   public boolean isSemanticallyValid() {
-    // Must contain at least one expression
-    if (exprs.size() <= 0) {
-      return false;
-    }
-
     // Ensure types are the same and each expression is valid
-    ArrayTypeNode thisType = (ArrayTypeNode) type;
+    if (type == null) return exprs.size() == 0;
+    TypeNode thisType = ((ArrayTypeNode) type).type();
     for (ExprNode e : exprs) {
-      if (!e.isSemanticallyValid() || e.type().equals(thisType.type())) {
+      if (!e.isSemanticallyValid() || !e.type().equals(thisType)) {
         return false;
       }
     }
