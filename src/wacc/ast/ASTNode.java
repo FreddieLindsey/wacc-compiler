@@ -1,5 +1,7 @@
 package wacc.ast;
 
+import wacc.ast.io.CompStatNode;
+import wacc.ast.type.TypeNode;
 import wacc.symbolTable.SymbolTable;
 
 public abstract class ASTNode {
@@ -10,11 +12,26 @@ public abstract class ASTNode {
   public ASTNode() {
     symbolTable = new SymbolTable();
   }
+
   public void setParent(ASTNode parent) {
     this.parent = parent;
     if (parent != null) symbolTable.setParent(parent.getSymbolTable());
   }
+
+  public void addToScope(String s, TypeNode t) {
+    ASTNode a = parent;
+    while (a instanceof CompStatNode) {
+      if (a.parent != null) {
+        a = a.parent;
+      } else {
+        break;
+      }
+    }
+    a.symbolTable.add(s, t);
+  }
+
   public abstract boolean isSemanticallyValid();
+
   public SymbolTable getSymbolTable() {
     return symbolTable;
   }
