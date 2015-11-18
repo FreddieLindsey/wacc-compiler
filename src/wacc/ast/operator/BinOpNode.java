@@ -1,5 +1,6 @@
 package wacc.ast.operator;
 
+import wacc.ast.IdentNode;
 import wacc.ast.type.TypeNode;
 import wacc.ast.ExprNode;
 import wacc.ast.AssignNode;
@@ -48,29 +49,42 @@ public class BinOpNode extends AssignNode {
 
   @Override
   public boolean isSemanticallyValid() {
-    boolean valid =
-           lhs != null && rhs != null
-        && lhs.isSemanticallyValid()
-        && rhs.isSemanticallyValid()
-        && lhs.type() == rhs.type();
+    TypeNode lhs_type, rhs_type;
 
-    if (!valid) return false;
+    // Check null
+    if (lhs == null || rhs == null) return false;
+
+    // Check lhs and rhs are valid
+    if ( !lhs.isSemanticallyValid()
+      || !rhs.isSemanticallyValid()) return false;
+
+    // Check lhs
+    lhs_type = (lhs instanceof IdentNode) ?
+      symbolTable.lookUp(((IdentNode) lhs).getIdent()) :
+      lhs.type();
+
+    // Check rhs
+    rhs_type = (rhs instanceof IdentNode) ?
+      symbolTable.lookUp(((IdentNode) rhs).getIdent()) :
+      rhs.type();
+
+    if (!lhs_type.equals(rhs_type)) return false;
 
     switch(op) {
       case MUL:
       case DIV:
       case MOD:
       case ADD:
-      case SUB: return lhs.type().equals(new TypeNode(TypeEnum.INT));
+      case SUB: return lhs_type.equals(new TypeNode(TypeEnum.INT));
       case GT :
       case GTE:
       case LT :
-      case LTE: return lhs.type().equals(new TypeNode(TypeEnum.INT))
-                    || lhs.type().equals(new TypeNode(TypeEnum.CHAR));
+      case LTE: return lhs_type.equals(new TypeNode(TypeEnum.INT))
+                    || lhs_type.equals(new TypeNode(TypeEnum.CHAR));
       case EQ :
-      case NEQ: return !lhs.type().equals(new TypeNode(TypeEnum.STRING));
+      case NEQ: return !lhs_type.equals(new TypeNode(TypeEnum.STRING));
       case AND:
-      case OR : return lhs.type().equals(new TypeNode(TypeEnum.BOOL));
+      case OR : return lhs_type.equals(new TypeNode(TypeEnum.BOOL));
       default : return false;
     }
   }
