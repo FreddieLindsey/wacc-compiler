@@ -110,8 +110,8 @@ public class BaseVisitor<ASTNode> extends BasicParserBaseVisitor<ASTNode> {
 
   public ASTNode getBinaryOper(@NotNull BasicParser.ExprContext ctx, BinaryOperator op) {
     BinOpNode b = new BinOpNode(op);
-    b.setLHS((ExprNode) visitExpr(ctx.expr(0)));
-    b.setRHS((ExprNode) visitExpr(ctx.expr(1)));
+    b.addLHS((ExprNode) visitExpr(ctx.expr(0)));
+    b.addRHS((ExprNode) visitExpr(ctx.expr(1)));
     return (ASTNode) b;
   }
 

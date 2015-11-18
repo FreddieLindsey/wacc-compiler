@@ -1,6 +1,8 @@
 package wacc.ast;
 
 import wacc.ast.function.CallNode;
+import wacc.ast.type.ArrayElemNode;
+import wacc.ast.type.ArrayTypeNode;
 import wacc.ast.type.FuncTypeNode;
 import wacc.ast.type.TypeNode;
 
@@ -19,7 +21,28 @@ public class ReAssignNode extends StatNode {
 
   @Override
   public boolean isSemanticallyValid() {
-    TypeNode returnType;
+    // Check lhs is valid on the left
+    if (!lhs.validLeft()) return false;
+
+    // Check rhs is valid on the right
+    if (!rhs.validRight()) return false;
+
+    // Check lhs is semantically valid
+    if (!lhs.isSemanticallyValid()) return false;
+
+    // Check rhs is semantically valid
+    if (!rhs.isSemanticallyValid()) return false;
+
+    TypeNode assignType, returnType;
+
+    // Check the type of what we are assigning
+    if (lhs instanceof ArrayElemNode) {
+      assignType = ((ArrayTypeNode) lhs.type()).type();
+    } else {
+      assignType = lhs.type();
+    }
+
+    // Check the type of what we are returning
     if (rhs instanceof CallNode) {
       returnType = (
         (FuncTypeNode) symbolTable.lookUp(
@@ -29,11 +52,7 @@ public class ReAssignNode extends StatNode {
       returnType = rhs.type();
     }
 
-    return lhs.validLeft()
-      && rhs.validRight()
-      && lhs.isSemanticallyValid()
-      && rhs.isSemanticallyValid()
-      && lhs.type().equals(returnType);
+    return assignType.equals(returnType);
   }
 
 }

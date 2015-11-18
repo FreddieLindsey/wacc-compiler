@@ -97,14 +97,6 @@ public class BinOpNode extends AssignNode {
     return rhs;
   }
 
-  public void setLHS(ExprNode LHS) {
-    this.lhs = LHS;
-  }
-
-  public void setRHS(ExprNode RHS) {
-    this.rhs = RHS;
-  }
-
   @Override
   public boolean validLeft() {
     return false;

@@ -46,7 +46,7 @@ public class ArrayElemNode extends AssignNode {
 
   @Override
   public boolean validLeft() {
-    return false;
+    return true;
   }
 
   @Override
