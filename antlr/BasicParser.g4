@@ -68,25 +68,14 @@ expr   : intliter
 	   | ident
 	   | arrayelem
 	   | unaryoper expr
-	   | expr binaryOper expr
+	   | expr (G | GE | L | LE) expr
+	   | expr (OR | AND) expr
+	   | expr (EQ | NEQ) expr
+	   | expr (MUL | DIV | MOD) expr
+	   | expr (ADD | SUB) expr
 	   | OPEN_PARENTHESES expr CLOSE_PARENTHESES ;
 
 unaryoper : NOT | SUB | LEN | ORD | CHR ;
-
-
-binaryOper :  MUL 
-			| DIV
-			| MOD
-			| ADD
-			| SUB
-			| G  
-			| GE  
-			| L  
-			| LE  
-			| EQ  
-			| NEQ 
-			| AND 
-			| OR ;
 
 ident : IDENT ;
 

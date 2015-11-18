@@ -3,33 +3,32 @@ package wacc.ast.function;
 import wacc.ast.ASTNode;
 import wacc.ast.IdentNode;
 import wacc.ast.StatNode;
+import wacc.ast.type.FuncTypeNode;
 import wacc.ast.type.TypeNode;
+import wacc.symbolTable.SymbolTable;
 
 public class FuncNode extends ASTNode {
 
-  private TypeNode t;
+  private FuncTypeNode t;
   private IdentNode n;
   private ParamListNode ps;
   private StatNode stat;
 
   public FuncNode(TypeNode t, IdentNode n, StatNode stat) {
     super();
-    this.t = t;
+    this.t = new FuncTypeNode(t);
     this.n = n;
     this.ps = new ParamListNode();
     this.stat = stat;
     t.setParent(this);
     n.setParent(this);
-    this.ps.setParent(this);
+    ps.setParent(this);
     stat.setParent(this);
   }
 
   public void addParam(ParamNode p) {
     ps.addParam(p);
-    p.setParent(ps);
-
-    // ERROR if already exists in symbol table
-    checkSymbolTable(n.getIdent());
+    t.addParamType(p.getType());
   }
 
   public TypeNode getType() {
@@ -50,6 +49,16 @@ public class FuncNode extends ASTNode {
 
   @Override
   public boolean isSemanticallyValid() {
+    SymbolTable s = new SymbolTable();
+    for (ParamNode p : ps.getParams()) {
+      if (s.lookUp(p.getIdent().getIdent()) != null) {
+        return false;
+      }
+      s.add(p.getIdent().getIdent(), p.getType());
+    }
+
+    // TODO: Check if stat contains a return
+
     return t.isSemanticallyValid()
         && n.isSemanticallyValid()
         && ps.isSemanticallyValid()

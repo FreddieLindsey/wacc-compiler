@@ -23,7 +23,6 @@ public class ReAssignNode extends StatNode {
 
   @Override
   public boolean isSemanticallyValid() {
-    //TODO: check that the lhs isnt already being used in same scope
     return lhs.validLeft()
       && rhs.validRight()
       && lhs.isSemanticallyValid()

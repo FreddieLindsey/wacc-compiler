@@ -1,10 +1,12 @@
 package wacc.ast.pair;
 
+import wacc.ast.AssignNode;
 import wacc.ast.ExprNode;
 import wacc.ast.IdentNode;
+import wacc.ast.type.PairTypeNode;
 import wacc.ast.type.TypeNode;
 
-public class PairLookupNode extends ExprNode {
+public class PairLookupNode extends AssignNode {
 
   private final String ident;
   private final boolean fst;
@@ -17,13 +19,24 @@ public class PairLookupNode extends ExprNode {
   @Override
   public TypeNode type() {
     TypeNode t = symbolTable.lookUp(ident);
-    if (t == null) return null;
+    if (t == null || !(t instanceof PairTypeNode)) return null;
+    PairTypeNode t_ = (PairTypeNode) t;
     return (fst) ?
-      t.getLHS().getType() : t.getRHS().getType();
+      t_.getFst() : t_.getSnd();
   }
 
   @Override
   public boolean isSemanticallyValid() {
     return symbolTable.lookUp(ident) != null;
+  }
+
+  @Override
+  public boolean validLeft() {
+    return true;
+  }
+
+  @Override
+  public boolean validRight() {
+    return true;
   }
 }

@@ -51,12 +51,7 @@ test
 
 #### Adding tests
 
-When adding new tests, using the file structure above, they should be added to the `Makefile` for the project, under the build `test`. For the example above, this means we append it to the build as so:
-
-```
-test:
-  $(JUNIT) wacc.MainTest ... wacc.AST.ASTNodeTest
-```
+New tests are automatically run if they are in the test directory
 
 #### Test dependencies
 

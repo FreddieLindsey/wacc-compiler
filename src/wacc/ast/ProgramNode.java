@@ -32,6 +32,7 @@ public class ProgramNode extends ASTNode {
   public void addFunc(FuncNode f) {
     funcs.add(f);
     f.setParent(this);
+    symbolTable.add(f.getIdent().getIdent(), f.getType());
   }
 
   public ArrayList<FuncNode> getFuncs() {

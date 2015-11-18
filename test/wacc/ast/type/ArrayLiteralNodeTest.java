@@ -34,13 +34,6 @@ public class ArrayLiteralNodeTest {
   @Test
   public void notValidWhenNotValid() {
     a = new ArrayLiteralNode();
-    a.addExpr(e2);
-    assertFalse(a.isSemanticallyValid());
-  }
-
-  @Test
-  public void notValidWhenNotValidNotWholeArray() {
-    a = new ArrayLiteralNode();
     a.addExpr(e1);
     a.addExpr(e2);
     assertFalse(a.isSemanticallyValid());

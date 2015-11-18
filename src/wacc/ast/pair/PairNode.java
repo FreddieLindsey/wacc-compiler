@@ -1,24 +1,20 @@
 package wacc.ast.pair;
 
 import wacc.ast.AssignNode;
-import wacc.ast.type.*;
-import wacc.ast.ASTNode;
 import wacc.ast.ExprNode;
+import wacc.ast.type.PairTypeNode;
 import wacc.ast.type.TypeNode;
-import wacc.ast.type.TypeEnum;
 
 public class PairNode<F extends ExprNode, S extends ExprNode> extends AssignNode {
 
   private F fst;
   private S snd;	
-
-  private TypeNode type;	
   
   public PairNode(F fst, S snd) {
     super();
     this.fst = fst;
     this.snd = snd;
-    this.type = new TypeNode(fst.type(), snd.type());
+    this.type = new PairTypeNode(fst.type(), snd.type());
     fst.setParent(this);
     snd.setParent(this);
   }
@@ -31,10 +27,6 @@ public class PairNode<F extends ExprNode, S extends ExprNode> extends AssignNode
     return this.snd;
   }
 
-  public TypeNode getType() {
-    return this.type;
-  }
-
   @Override
   public boolean isSemanticallyValid() {
     return fst.isSemanticallyValid() && snd.isSemanticallyValid();
@@ -42,11 +34,11 @@ public class PairNode<F extends ExprNode, S extends ExprNode> extends AssignNode
 
   @Override
   public boolean validLeft() {
-    return false;
+    return !(this instanceof NewPairNode);
   }
 
   @Override
   public boolean validRight() {
-    return false;
+    return (this instanceof NewPairNode);
   }
 }

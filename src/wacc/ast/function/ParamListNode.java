@@ -1,6 +1,7 @@
 package wacc.ast.function;
 
 import wacc.ast.ASTNode;
+import wacc.symbolTable.SymbolTable;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -17,18 +18,13 @@ public class ParamListNode extends ASTNode {
 
   @Override
   public boolean isSemanticallyValid() {
-    // Check for multiple declarations of same ident
-    Set<String> idents = new HashSet<>();
+    SymbolTable s = new SymbolTable();
     for (ParamNode p : ps) {
-      if (!p.isSemanticallyValid()) {
+      if (!p.isSemanticallyValid()
+        || s.lookUp(p.getIdent().getIdent()) != null) {
         return false;
       }
-      String ident = p.getIdent().getIdent();
-      if (idents.contains(ident)) {
-        return false;
-      } else {
-        idents.add(ident);
-      }
+      s.add(p.getIdent().getIdent(), p.getType());
     }
     return true;
   }

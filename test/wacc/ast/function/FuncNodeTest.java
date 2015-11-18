@@ -1,5 +1,6 @@
 package wacc.ast.function;
 
+import wacc.ast.type.FuncTypeNode;
 import wacc.ast.type.TypeNode;
 import wacc.ast.ASTNode;
 import wacc.ast.IdentNode;
@@ -17,6 +18,7 @@ import static org.junit.Assert.*;
 public class FuncNodeTest {
 
   private FuncNode f;
+  private FuncTypeNode fType;
 
   private ParamNode p1 = new ParamNode(new TypeNode(TypeEnum.INT), new IdentNode("a"));
   private ParamNode p2 = new ParamNode(new TypeNode(TypeEnum.INT), new IdentNode("b"));
@@ -32,7 +34,8 @@ public class FuncNodeTest {
   @Test
   public void canGetType() {
     f = new FuncNode(t, n, stat1);
-    assertTrue(f.getType().equals(t));
+    fType = new FuncTypeNode(t);
+    assertTrue(f.getType().equals(fType));
   }
 
   @Test

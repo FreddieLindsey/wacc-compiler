@@ -23,15 +23,18 @@ JFLAGS_TEST := -sourcepath $(TEST_SRC) -d $(TEST_BIN) -cp lib/antlr-4.4-complete
 
 # the make rules
 
-all: rules test_compile test
+all: rules compiler test_compile test
 
 # runs the antlr build script then attempts to compile all .java files within src
 rules:
 	cd $(ANTLR_DIR) && ./$(ANTLR)
+	$(RM) rules
+
+compiler:
 	$(FIND) $(SOURCE_DIR) -name '*.java' > $@
 	$(MKDIR) $(OUTPUT_DIR)
 	$(JAVAC) $(JFLAGS) @$@
-	$(RM) rules
+	$(RM) compiler
 	cd ..
 
 test_compile:
@@ -45,6 +48,6 @@ test_compile:
 	$(JUNIT) $@
 
 clean:
-	$(RM) rules test_bin test_compile $(OUTPUT_DIR) antlr/*.java antlr/*.tokens antlr/*.class src/antlr/*
+	$(RM) out rules compiler test_bin test_compile $(OUTPUT_DIR) antlr/*.java antlr/*.tokens antlr/*.class src/antlr/*
 
 .PHONY: all rules test_compile test clean
