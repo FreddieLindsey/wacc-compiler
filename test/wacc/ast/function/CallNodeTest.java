@@ -12,16 +12,12 @@ import static org.junit.Assert.*;
 
 public class CallNodeTest {
 
-  private ASTNode parent;
   private CallNode c;
   private IdentNode ident = new IdentNode("x");
-  private ExprNode e1 = new IntNode(5);
-  private ExprNode e2 = new IntNode(10);
-  private ExprNode e3 = new IntNode(Integer.MAX_VALUE + 1000L); //invalid
 
   @Test
-  public void callInit() {
-    c = new CallNode(ident);
+  public void canGetIdent() {
+    c = new CallNode(ident, new ArgListNode());
     assertTrue(c.getIdent().equals(ident));
   }
 

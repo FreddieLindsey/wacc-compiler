@@ -13,19 +13,12 @@ public class CallNode extends AssignNode {
   private IdentNode ident;
   private ArgListNode args;
 
-  public CallNode(IdentNode ident) {
+  public CallNode(IdentNode ident, ArgListNode args) {
     super();
     this.ident = ident;
-    this.args = new ArgListNode();
+    this.args = args;
     ident.setParent(this);
-    this.args.setParent(this);
-  }
-
-  public void addArg(ExprNode e) {
-    args.addExpr(e);
-
-    // ERROR if function trying to be called doesn't exist in symbol table
-    requireSymbol(ident.getIdent());
+    args.setParent(this);
   }
 
   public IdentNode getIdent() {

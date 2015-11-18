@@ -183,7 +183,8 @@ public class BaseVisitor<ASTNode> extends BasicParserBaseVisitor<ASTNode> {
   public ASTNode visitAssignrhs(@NotNull BasicParser.AssignrhsContext ctx) {
     if (ctx.CALL() != null) {
       return (ASTNode) new CallNode(
-        (IdentNode) visitIdent(ctx.ident()));
+        (IdentNode) visitIdent(ctx.ident()),
+        (ArgListNode) visitArglist(ctx.arglist()));
     } else if (ctx.NEWPAIR() != null) {
       if (ctx.expr().size() != 2) return null;
       return (ASTNode) new NewPairNode<ExprNode, ExprNode>(
@@ -218,10 +219,11 @@ public class BaseVisitor<ASTNode> extends BasicParserBaseVisitor<ASTNode> {
   @Override
   public ASTNode visitStrliter(@NotNull BasicParser.StrliterContext ctx) {
     String s = ctx.getText();
-    if (s.charAt(0) == '\"' && s.charAt(s.length() - 1) == '\"') {
-      return (ASTNode) new StringNode(s.split("\"")[1]);
-    } else if (s.charAt(0) == '\'' && s.charAt(s.length() - 1) == '\'') {
-      return (ASTNode) new StringNode(s.split("\'")[1]);
+    if ((s.charAt(0) == '\"' && s.charAt(s.length() - 1) == '\"')
+     || (s.charAt(0) == '\'' && s.charAt(s.length() - 1) == '\'')){
+      char[] result = new char[s.length() - 2];
+      s.getChars(1, s.length() - 1, result, 0);
+      return (ASTNode) new StringNode(new String(result));
     } else {
       return (ASTNode) new StringNode(s);
     }
