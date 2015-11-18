@@ -1,5 +1,6 @@
 package wacc.ast.operator;
 
+import wacc.ast.type.ArrayTypeNode;
 import wacc.ast.type.TypeNode;
 import wacc.ast.AssignNode;
 import wacc.ast.ExprNode;
@@ -37,8 +38,7 @@ public class UnOpNode extends AssignNode {
           new TypeNode(TypeEnum.BOOL));
       case NEG: return expr.type().equals(
           new TypeNode(TypeEnum.INT));
-      case LEN: return expr.type().equals(
-          new TypeNode(TypeEnum.ARR));
+      case LEN: return expr.type() instanceof ArrayTypeNode;
       case ORD: return expr.type().equals(
           new TypeNode(TypeEnum.CHAR));
       case CHR: return expr.type().equals(
