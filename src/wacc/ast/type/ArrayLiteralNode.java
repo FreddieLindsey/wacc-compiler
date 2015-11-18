@@ -31,8 +31,8 @@ public class ArrayLiteralNode extends LiteralNode<ExprNode> {
   @Override
   public boolean isSemanticallyValid() {
     // Ensure types are the same and each expression is valid
-    if (type == null) return exprs.size() == 0;
     TypeNode thisType = ((ArrayTypeNode) type).type();
+    if (thisType == null) return exprs.size() == 0;
     for (ExprNode e : exprs) {
       if (!e.isSemanticallyValid() || !e.type().equals(thisType)) {
         return false;

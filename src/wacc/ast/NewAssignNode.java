@@ -31,8 +31,6 @@ public class NewAssignNode extends StatNode {
 
   @Override
   public boolean isSemanticallyValid() {
-    // ERROR if already exists in the CURRENT symbol table (variable shadowing)
-    checkSymbolHere(i.getIdent());
     addToScope(i.getIdent(), t);
     return i.isSemanticallyValid()
       && rhs.validRight()

@@ -21,6 +21,7 @@ public class ArrayTypeNode extends TypeNode {
   public boolean equals(Object o) {
     if (super.equals(o)) {
       ArrayTypeNode that = (ArrayTypeNode) o;
+      if (that.arrayType == null || arrayType == null) return true;
       return that.arrayType.equals(arrayType);
     } else {
       return false;
