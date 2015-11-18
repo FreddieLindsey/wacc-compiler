@@ -11,14 +11,16 @@ public class ArrayLiteralNode extends LiteralNode<ExprNode> {
   public ArrayLiteralNode() {
     super();
     exprs = new ArrayList<>();
+    type = new ArrayTypeNode();
   }
 
   public void addExpr(ExprNode e) {
     exprs.add(e);
     e.setParent(this);
 
-    if (this.type == null) {
-      type = new TypeNode(new TypeNode(e.type()));
+    ArrayTypeNode thisType = (ArrayTypeNode) type;
+    if (thisType.type() == null) {
+      thisType.setArrayType(e.type().copy());
     }
   }
 
@@ -28,12 +30,15 @@ public class ArrayLiteralNode extends LiteralNode<ExprNode> {
 
   @Override
   public boolean isSemanticallyValid() {
+    // Must contain at least one expression
     if (exprs.size() <= 0) {
-      return true;
+      return false;
     }
 
+    // Ensure types are the same and each expression is valid
+    ArrayTypeNode thisType = (ArrayTypeNode) type;
     for (ExprNode e : exprs) {
-      if (!e.isSemanticallyValid() || e.type().equals(type().getArrType())) {
+      if (!e.isSemanticallyValid() || e.type().equals(thisType.type())) {
         return false;
       }
     }

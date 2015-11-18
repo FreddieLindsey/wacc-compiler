@@ -2,6 +2,7 @@ package wacc.ast.pair;
 
 import wacc.ast.AssignNode;
 import wacc.ast.ExprNode;
+import wacc.ast.type.PairTypeNode;
 import wacc.ast.type.TypeNode;
 
 public class PairNode<F extends ExprNode, S extends ExprNode> extends AssignNode {
@@ -13,7 +14,7 @@ public class PairNode<F extends ExprNode, S extends ExprNode> extends AssignNode
     super();
     this.fst = fst;
     this.snd = snd;
-    this.type = new TypeNode(fst.type(), snd.type());
+    this.type = new PairTypeNode(fst.type(), snd.type());
     fst.setParent(this);
     snd.setParent(this);
   }

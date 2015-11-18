@@ -23,4 +23,13 @@ public class FuncTypeNode extends TypeNode {
   public ArrayList<TypeNode> getParamsTypes() {
     return paramsType;
   }
+
+  @Override
+  public TypeNode copy() {
+    FuncTypeNode t = new FuncTypeNode(returnType);
+    for (TypeNode p : paramsType) {
+      t.addParamType(p);
+    }
+    return t;
+  }
 }

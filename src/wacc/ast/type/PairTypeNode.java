@@ -24,4 +24,16 @@ public class PairTypeNode extends TypeNode {
     }
   }
 
+  @Override
+  public TypeNode copy() {
+    return new PairTypeNode(fst, snd);
+  }
+
+  public TypeNode getFst() {
+    return fst;
+  }
+
+  public TypeNode getSnd() {
+    return snd;
+  }
 }

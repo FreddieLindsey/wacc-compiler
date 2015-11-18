@@ -2,12 +2,19 @@ package wacc.ast.type;
 
 public class ArrayTypeNode extends TypeNode {
 
-  private final TypeNode arrayType;
+  private TypeNode arrayType;
 
-  public ArrayTypeNode(TypeNode arrayType) {
+  public ArrayTypeNode() {
     super(TypeEnum.ARR);
+  }
+
+  public void setArrayType(TypeNode arrayType) {
     this.arrayType = arrayType;
     arrayType.setParent(this);
+  }
+
+  public TypeNode type() {
+    return arrayType;
   }
 
   @Override
@@ -18,5 +25,12 @@ public class ArrayTypeNode extends TypeNode {
     } else {
       return false;
     }
+  }
+
+  @Override
+  public TypeNode copy() {
+    ArrayTypeNode a = new ArrayTypeNode();
+    a.setArrayType(arrayType.copy());
+    return a;
   }
 }

@@ -11,6 +11,10 @@ public class TypeNode extends ASTNode {
     this.type = type;
   }
 
+  public TypeEnum getType() {
+    return type;
+  }
+
   @Override
   public boolean isSemanticallyValid() {
     return true;
@@ -26,4 +30,7 @@ public class TypeNode extends ASTNode {
     }
   }
 
+  public TypeNode copy() {
+    return new TypeNode(type);
+  }
 }
