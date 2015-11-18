@@ -49,7 +49,7 @@ public class BaseVisitor<ASTNode> extends BasicParserBaseVisitor<ASTNode> {
   @Override
   public ASTNode visitParam(@NotNull BasicParser.ParamContext ctx) {
     return (ASTNode) new ParamNode(
-      ((TypeNode) visitType(ctx.type())).getType(),
+      ((TypeNode) visitType(ctx.type())),
       (IdentNode) visitIdent(ctx.ident()));
   }
 
@@ -237,7 +237,7 @@ public class BaseVisitor<ASTNode> extends BasicParserBaseVisitor<ASTNode> {
       return (ASTNode) b;
     } else if (ctx.ASSIGN() != null && ctx.type() != null) {
       return (ASTNode) new NewAssignNode(
-        ((TypeNode) visitType(ctx.type())).getType(),
+        ((TypeNode) visitType(ctx.type())),
         (IdentNode) visitIdent(ctx.ident()),
         (AssignNode) visitAssignrhs(ctx.assignrhs()));
     } else if (ctx.ASSIGN() != null) {
@@ -297,7 +297,7 @@ public class BaseVisitor<ASTNode> extends BasicParserBaseVisitor<ASTNode> {
   public ASTNode visitPairtype(@NotNull BasicParser.PairtypeContext ctx) {
     TypeNode p1 = (TypeNode) visitPairelemtype(ctx.pairelemtype(0));
     TypeNode p2 = (TypeNode) visitPairelemtype(ctx.pairelemtype(1));
-    return (ASTNode) new TypeNode(p1, p2);
+    return (ASTNode) new PairTypeNode(p1, p2);
   }
 
   @Override
@@ -344,7 +344,7 @@ public class BaseVisitor<ASTNode> extends BasicParserBaseVisitor<ASTNode> {
   @Override
   public ASTNode visitPairelemtype(@NotNull BasicParser.PairelemtypeContext ctx) {
     if (ctx.PAIR() != null) {
-      return (ASTNode) new TypeNode(TypeEnum.PAIR);
+      return (ASTNode) new PairTypeNode(null, null);
     } else if (ctx.arraytype() != null) {
       return visitArraytype(ctx.arraytype());
     } else {

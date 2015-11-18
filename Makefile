@@ -28,6 +28,8 @@ all: rules test_compile test
 # runs the antlr build script then attempts to compile all .java files within src
 rules:
 	cd $(ANTLR_DIR) && ./$(ANTLR)
+
+compiler:
 	$(FIND) $(SOURCE_DIR) -name '*.java' > $@
 	$(MKDIR) $(OUTPUT_DIR)
 	$(JAVAC) $(JFLAGS) @$@
