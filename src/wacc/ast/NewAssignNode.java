@@ -42,11 +42,16 @@ public class NewAssignNode extends StatNode {
       returnType = rhs.type();
     }
 
-    addToScope(i.getIdent(), t);
-    return i.isSemanticallyValid()
+    boolean valid = i.isSemanticallyValid()
       && rhs.validRight()
       && rhs.isSemanticallyValid()
       && t.equals(returnType);
+
+    if (!valid) return false;
+
+    addToScope(i.getIdent(), t);
+
+    return true;
   }
 
 }
