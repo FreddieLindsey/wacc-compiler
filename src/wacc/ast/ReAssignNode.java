@@ -13,14 +13,6 @@ public class ReAssignNode extends StatNode {
     rhs.setParent(this);
   }
 
-  public AssignNode getLHS() {
-    return lhs;
-  }
-
-  public AssignNode getRHS() {
-    return rhs;
-  }
-
   @Override
   public boolean isSemanticallyValid() {
     return lhs.validLeft()
