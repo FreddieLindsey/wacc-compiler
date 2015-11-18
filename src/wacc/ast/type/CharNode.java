@@ -12,11 +12,11 @@ public class CharNode extends LiteralNode<Character> {
 
   @Override
   public boolean isSemanticallyValid() {
-//    for (char c : invalid) {
-//      if (value == c) {
-//        return false;
-//      }
-//    }
+    for (char c : invalid) {
+      if (value == c) {
+        return false;
+      }
+    }
     return true;
   }
 }

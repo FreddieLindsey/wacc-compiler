@@ -1,5 +1,6 @@
 package wacc.ast.function;
 
+import wacc.ast.type.FuncTypeNode;
 import wacc.ast.type.TypeNode;
 import wacc.ast.ASTNode;
 import wacc.ast.IdentNode;
