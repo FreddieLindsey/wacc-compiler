@@ -4,10 +4,10 @@ ARGV.each do|a|
     print "\nCompiling #{a}\n\n"
     system("java -cp bin:lib/antlr-4.4-complete.jar wacc.Main < #{a}")
     if ($?.exitstatus != 0)
-      if ($?.exitstatus == 100) do
+      if ($?.exitstatus == 100)
         print "There was a syntax error...\n"
       end
-      if ($?.exitstatus == 200) do
+      if ($?.exitstatus == 200)
         print "There was a semantic error...\n"
       end
       exit $?.exitstatus
