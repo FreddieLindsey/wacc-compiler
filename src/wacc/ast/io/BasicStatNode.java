@@ -1,6 +1,5 @@
 package wacc.ast.io;
 
-import wacc.ast.ASTNode;
 import wacc.ast.ExprNode;
 import wacc.ast.StatNode;
 import wacc.ast.StatTypeEnum;
