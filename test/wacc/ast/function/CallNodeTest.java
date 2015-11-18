@@ -25,24 +25,4 @@ public class CallNodeTest {
     assertTrue(c.getIdent().equals(ident));
   }
 
-  @Test
-  public void callValidityT() {
-    c = new CallNode(ident);
-    c.addArg(e1);
-    c.addArg(e2);
-    assertTrue(ident.isSemanticallyValid());
-    assertTrue(c.getArgs().isSemanticallyValid());
-    assertTrue(c.isSemanticallyValid());
-  }
-
-  @Test
-  public void callValidityF() {
-    c = new CallNode(ident);
-    c.addArg(e2);
-    c.addArg(e3);
-    assertTrue(ident.isSemanticallyValid());
-    assertFalse(c.getArgs().isSemanticallyValid());
-    assertFalse(c.isSemanticallyValid());
-  }
-
 }
