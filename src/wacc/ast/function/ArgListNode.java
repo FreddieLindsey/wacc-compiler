@@ -25,13 +25,11 @@ public class ArgListNode extends ASTNode {
 
   @Override
   public boolean isSemanticallyValid() {
-
     for (ExprNode e : exprs) {
       if (!e.isSemanticallyValid()) {
         return false;
       }
     }
-
     return true;
   }
 }
