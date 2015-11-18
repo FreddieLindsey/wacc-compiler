@@ -7,6 +7,6 @@ public enum TypeEnum {
     STRING,
     CHAR,
     ARR,
-    PAIR
+  FUNC, PAIR
 
 }
