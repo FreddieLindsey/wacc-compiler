@@ -30,4 +30,5 @@ public class IntNodeTest {
     i = new IntNode(Integer.MAX_VALUE);
     assertTrue(i.type().equals(new TypeNode(TypeEnum.INT)));
   }
+  
 }

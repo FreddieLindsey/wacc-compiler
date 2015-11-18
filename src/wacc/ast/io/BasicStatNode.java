@@ -43,4 +43,9 @@ public class BasicStatNode extends StatNode {
     return false;
   }
 
+  @Override
+  public boolean hasReturn() {
+    return st == StatTypeEnum.RETURN;
+  }
+
 }
