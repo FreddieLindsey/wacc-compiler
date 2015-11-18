@@ -19,15 +19,17 @@ public abstract class ASTNode {
   }
 
   public void addToScope(String s, TypeNode t) {
-    ASTNode a = parent;
-    while (a instanceof CompStatNode) {
-      if (a.parent != null) {
-        a = a.parent;
-      } else {
-        break;
+    if (parent != null) {
+      ASTNode a = parent;
+      while (a instanceof CompStatNode) {
+        if (a.parent != null) {
+          a = a.parent;
+        } else {
+          break;
+        }
       }
+      a.symbolTable.add(s, t);
     }
-    a.symbolTable.add(s, t);
   }
 
   public abstract boolean isSemanticallyValid();

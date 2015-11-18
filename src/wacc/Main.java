@@ -43,7 +43,8 @@ public class Main {
 
     ProgramNode prog = analyseFile(parseTree);
     if (prog == null) System.exit(100);
-    if (!prog.isSemanticallyValid()) System.exit(200);
+    boolean valid = prog.isSemanticallyValid();
+    if (!valid) System.exit(200);
 
     // Compile
   }
