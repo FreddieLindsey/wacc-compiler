@@ -59,10 +59,25 @@ public class FuncNode extends ASTNode {
 
     // TODO: Check if stat contains a return
 
-    return t.isSemanticallyValid()
-        && n.isSemanticallyValid()
-        && ps.isSemanticallyValid()
-        && stat.isSemanticallyValid();
+    // Check the type is valid
+    if (!t.isSemanticallyValid()) return false;
+
+    // Check the type is valid
+    if (!n.isSemanticallyValid()) return false;
+
+    // Check the type is valid
+    if (!ps.isSemanticallyValid()) return false;
+
+    // Add the params to the symbolTable for stats to use
+    for (ParamNode p : ps.getParams()) {
+      symbolTable.add(p.getIdent().getIdent(), p.getType());
+    }
+
+    // Check the type is valid
+    if (!stat.isSemanticallyValid()) return false;
+
+    semanticallyValid = true;
+    return semanticallyValid;
   }
 
 }

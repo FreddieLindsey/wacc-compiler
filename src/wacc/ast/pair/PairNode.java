@@ -3,13 +3,12 @@ package wacc.ast.pair;
 import wacc.ast.AssignNode;
 import wacc.ast.ExprNode;
 import wacc.ast.type.PairTypeNode;
-import wacc.ast.type.TypeNode;
 
 public class PairNode<F extends ExprNode, S extends ExprNode> extends AssignNode {
 
   private F fst;
-  private S snd;	
-  
+  private S snd;
+
   public PairNode(F fst, S snd) {
     super();
     this.fst = fst;
@@ -29,7 +28,8 @@ public class PairNode<F extends ExprNode, S extends ExprNode> extends AssignNode
 
   @Override
   public boolean isSemanticallyValid() {
-    return fst.isSemanticallyValid() && snd.isSemanticallyValid();
+    semanticallyValid = fst.isSemanticallyValid() && snd.isSemanticallyValid();
+    return semanticallyValid;
   }
 
   @Override

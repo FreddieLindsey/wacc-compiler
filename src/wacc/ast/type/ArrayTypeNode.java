@@ -19,7 +19,7 @@ public class ArrayTypeNode extends TypeNode {
 
   @Override
   public boolean equals(Object o) {
-    if (super.equals(o)) {
+    if (super.equals(o) && o instanceof ArrayTypeNode) {
       ArrayTypeNode that = (ArrayTypeNode) o;
       if (that.arrayType == null || arrayType == null) return true;
       return that.arrayType.equals(arrayType);

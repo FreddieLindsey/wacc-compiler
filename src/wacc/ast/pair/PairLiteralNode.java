@@ -1,12 +1,10 @@
 package wacc.ast.pair;
 
-import wacc.ast.type.PairTypeNode;
-import wacc.ast.type.TypeNode;
-import wacc.ast.type.TypeEnum;
 import wacc.ast.type.LiteralNode;
+import wacc.ast.type.PairTypeNode;
 
 public class PairLiteralNode extends LiteralNode {
-  
+
   public PairLiteralNode() {
     super();
     this.value = null;
@@ -15,6 +13,7 @@ public class PairLiteralNode extends LiteralNode {
 
   @Override
   public boolean isSemanticallyValid() {
-    return true;
+    semanticallyValid = true;
+    return semanticallyValid;
   }
 }

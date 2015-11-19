@@ -3,7 +3,6 @@ package wacc.ast.io;
 import wacc.ast.ExprNode;
 import wacc.ast.StatNode;
 import wacc.ast.type.TypeEnum;
-import wacc.ast.type.TypeNode;
 
 public class WhileStatNode extends StatNode {
 
@@ -28,10 +27,10 @@ public class WhileStatNode extends StatNode {
 
   @Override
   public boolean isSemanticallyValid() {
-    return stat.isSemanticallyValid()
-        && expr.isSemanticallyValid()
-        && expr.type().equals(
-          new TypeNode(TypeEnum.BOOL));
+    semanticallyValid = stat.isSemanticallyValid()
+      && expr.isSemanticallyValid()
+      && expr.type().getType().equals(TypeEnum.BOOL);
+    return semanticallyValid;
   }
 
   @Override

@@ -1,7 +1,6 @@
 package wacc.ast.type;
 
 import java.util.ArrayList;
-import java.util.Collection;
 
 public class FuncTypeNode extends TypeNode {
 
@@ -18,6 +17,10 @@ public class FuncTypeNode extends TypeNode {
   public void addParamType(TypeNode paramType) {
     paramsType.add(paramType);
     paramType.setParent(this);
+  }
+
+  public TypeNode getReturnType() {
+    return returnType;
   }
 
   public ArrayList<TypeNode> getParamsTypes() {

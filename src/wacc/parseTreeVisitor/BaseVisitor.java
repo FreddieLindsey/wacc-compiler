@@ -30,7 +30,7 @@ public class BaseVisitor<ASTNode> extends BasicParserBaseVisitor<ASTNode> {
       }
       return (ASTNode) new CharNode(ctx.CHARAC().getText().charAt(0));
     } else {
-      return (ASTNode) new CharNode('a'); // TODO: Return actual escaped character
+      return (ASTNode) new CharNode(ctx.ESCAPED_CHAR().getText().charAt(2));
     }
   }
 
@@ -110,8 +110,8 @@ public class BaseVisitor<ASTNode> extends BasicParserBaseVisitor<ASTNode> {
 
   public ASTNode getBinaryOper(@NotNull BasicParser.ExprContext ctx, BinaryOperator op) {
     BinOpNode b = new BinOpNode(op);
-    b.setLHS((ExprNode) visitExpr(ctx.expr(0)));
-    b.setRHS((ExprNode) visitExpr(ctx.expr(1)));
+    b.addLHS((ExprNode) visitExpr(ctx.expr(0)));
+    b.addRHS((ExprNode) visitExpr(ctx.expr(1)));
     return (ASTNode) b;
   }
 
@@ -182,8 +182,13 @@ public class BaseVisitor<ASTNode> extends BasicParserBaseVisitor<ASTNode> {
   @Override
   public ASTNode visitAssignrhs(@NotNull BasicParser.AssignrhsContext ctx) {
     if (ctx.CALL() != null) {
-      return (ASTNode) new CallNode(
-        (IdentNode) visitIdent(ctx.ident()));
+      return (ASTNode) ((ctx.arglist() != null) ?
+        new CallNode(
+        (IdentNode) visitIdent(ctx.ident()),
+        (ArgListNode) visitArglist(ctx.arglist())) :
+        new CallNode(
+          (IdentNode) visitIdent(ctx.ident()),
+          new ArgListNode()));
     } else if (ctx.NEWPAIR() != null) {
       if (ctx.expr().size() != 2) return null;
       return (ASTNode) new NewPairNode<ExprNode, ExprNode>(
@@ -217,7 +222,16 @@ public class BaseVisitor<ASTNode> extends BasicParserBaseVisitor<ASTNode> {
 
   @Override
   public ASTNode visitStrliter(@NotNull BasicParser.StrliterContext ctx) {
-    return (ASTNode) new StringNode(ctx.getText());
+    String s = ctx.getText();
+    if ((s.charAt(0) == '\"' && s.charAt(s.length() - 1) == '\"')
+     || (s.charAt(0) == '\'' && s.charAt(s.length() - 1) == '\'')){
+      char[] result = new char[s.length() - 2];
+      s.getChars(1, s.length() - 1, result, 0);
+      return (ASTNode) new StringNode(new String(result));
+    } else {
+      return (ASTNode) new StringNode(s);
+    }
+
   }
 
   @Override

@@ -17,7 +17,8 @@ public class TypeNode extends ASTNode {
 
   @Override
   public boolean isSemanticallyValid() {
-    return true;
+    semanticallyValid = true;
+    return semanticallyValid;
   }
 
   @Override

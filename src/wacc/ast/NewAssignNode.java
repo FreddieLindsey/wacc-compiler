@@ -1,6 +1,8 @@
 package wacc.ast;
 
-import wacc.ast.type.*;
+import wacc.ast.function.CallNode;
+import wacc.ast.type.FuncTypeNode;
+import wacc.ast.type.TypeNode;
 
 public class NewAssignNode extends StatNode {
 
@@ -31,11 +33,27 @@ public class NewAssignNode extends StatNode {
 
   @Override
   public boolean isSemanticallyValid() {
-    addToScope(i.getIdent(), t);
-    return i.isSemanticallyValid()
+    TypeNode returnType;
+    if (rhs instanceof CallNode) {
+      returnType = (
+        (FuncTypeNode) symbolTable.lookUp(
+          ((CallNode) rhs).getIdent().getIdent())
+      ).getReturnType();
+    } else {
+      returnType = rhs.type();
+    }
+
+    boolean valid = i.isSemanticallyValid()
       && rhs.validRight()
       && rhs.isSemanticallyValid()
-      && t.equals(rhs.type());
+      && t.equals(returnType);
+
+    if (!valid) return false;
+
+    addToScope(i.getIdent(), t);
+
+    semanticallyValid = true;
+    return semanticallyValid;
   }
 
 }

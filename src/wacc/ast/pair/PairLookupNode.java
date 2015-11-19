@@ -1,8 +1,6 @@
 package wacc.ast.pair;
 
 import wacc.ast.AssignNode;
-import wacc.ast.ExprNode;
-import wacc.ast.IdentNode;
 import wacc.ast.type.PairTypeNode;
 import wacc.ast.type.TypeNode;
 
@@ -27,7 +25,8 @@ public class PairLookupNode extends AssignNode {
 
   @Override
   public boolean isSemanticallyValid() {
-    return symbolTable.lookUp(ident) != null;
+    semanticallyValid = symbolTable.lookUp(ident) != null;
+    return semanticallyValid;
   }
 
   @Override

@@ -10,7 +10,7 @@ public class IdentNode extends AssignNode {
     super();
     this.ident = ident;
   }
-  
+
   public String getIdent() {
     return ident;
   }
@@ -33,7 +33,8 @@ public class IdentNode extends AssignNode {
         return false;
       }
     }
-    return true;
+    semanticallyValid = true;
+    return semanticallyValid;
   }
 
   private boolean isFirstValid(char c) {

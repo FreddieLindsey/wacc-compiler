@@ -41,12 +41,13 @@ public class ArrayElemNode extends AssignNode {
         return false;
       }
     }
-    return ident.isSemanticallyValid();
+    semanticallyValid = ident.isSemanticallyValid();
+    return semanticallyValid;
   }
 
   @Override
   public boolean validLeft() {
-    return false;
+    return true;
   }
 
   @Override

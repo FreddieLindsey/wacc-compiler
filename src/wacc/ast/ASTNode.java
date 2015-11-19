@@ -8,8 +8,10 @@ public abstract class ASTNode {
 
   protected ASTNode parent;
   protected SymbolTable symbolTable;
+  protected boolean semanticallyValid;
 
   public ASTNode() {
+    semanticallyValid = false;
     symbolTable = new SymbolTable();
   }
 
@@ -32,27 +34,6 @@ public abstract class ASTNode {
 
   public SymbolTable getSymbolTable() {
     return symbolTable;
-  }
-
-  public void checkSymbolTable(String ident) {
-    if (this.symbolTable.lookUp(ident) != null) {
-      System.out.println("Function " + ident + " has already "
-        + "been declared in the program scope");
-    }
-  }
-
-  public void checkSymbolHere(String ident) {
-    if (this.symbolTable.lookUpHere(ident) != null) {
-      System.out.println("Function " + ident + " has already "
-        + "been declared in the current scope");
-    }
-  }
-
-  public void requireSymbol(String ident) {
-    if (this.symbolTable.lookUp(ident) == null) {
-      System.out.println("Identifier " + ident + " does not exist in " +
-        "the program scope");
-    }
   }
 
 }
