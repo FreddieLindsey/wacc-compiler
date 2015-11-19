@@ -1,5 +1,6 @@
 package wacc.ast;
 
+import wacc.ast.type.TypeNode;
 import wacc.symbolTable.SymbolTable;
 
 public abstract class StatNode extends ASTNode {
@@ -8,7 +9,11 @@ public abstract class StatNode extends ASTNode {
     this.symbolTable = symbolTable;
   }
 
-  public boolean hasReturn() {
+  public TypeNode returnType() {
+    return null;
+  }
+
+  public boolean returns() {
     return false;
   }
 }

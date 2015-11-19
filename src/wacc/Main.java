@@ -13,6 +13,9 @@ import java.io.*;
 
 public class Main {
 
+  public static final int SYNTAX_EXIT = 100;
+  protected static final int SEMANTIC_EXIT = 200;
+
   private static final PrintStream default_ = System.out;
   private static final PrintStream default_err = System.err;
   private static final ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -42,9 +45,9 @@ public class Main {
     }
 
     ProgramNode prog = analyseFile(parseTree);
-    if (prog == null) System.exit(100);
+    if (prog == null) System.exit(SYNTAX_EXIT);
     boolean valid = prog.isSemanticallyValid();
-    if (!valid) System.exit(200);
+    if (!valid) System.exit(SEMANTIC_EXIT);
 
     // Compile
   }

@@ -10,15 +10,20 @@ public class PairTypeNode extends TypeNode {
     this.type = TypeEnum.PAIR;
     this.fst = fst;
     this.snd = snd;
-    fst.setParent(this);
-    snd.setParent(this);
+    if (fst != null) fst.setParent(this);
+    if (snd != null) snd.setParent(this);
   }
 
   @Override
   public boolean equals(Object o) {
     if (super.equals(o)) {
       PairTypeNode that = (PairTypeNode) o;
-      return that.fst.equals(fst) && that.snd.equals(snd);
+      try {
+        return that.fst.equals(fst) && that.snd.equals(snd);
+      } catch (NullPointerException e) {
+        return that.fst == null && fst == null
+          && that.snd == null && snd == null;
+      }
     } else {
       return false;
     }

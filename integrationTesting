@@ -1,0 +1,73 @@
+#!/bin/bash
+
+make 1>/dev/null 2>&1
+
+VALID_TEST_CASES=$(find wacc_examples/valid -iname '*.wacc')
+INVALID_SYNTAX_TEST_CASES=$(find wacc_examples/invalid/syntaxErr -iname '*.wacc')
+INVALID_SEMANTIC_TEST_CASES=$(find wacc_examples/invalid/semanticErr -iname '*.wacc')
+
+# Valid test cases
+
+valid_count=0
+invalid_count=0
+valid_tests=0
+for i in $VALID_TEST_CASES; do
+  valid_tests=$((valid_tests + 1))
+  TEST_DATA=$(./compile "$i" 2>&1)
+
+  if (( $? != 0 )); then
+    echo -e "\nFailed: $i"
+    echo "-------------------------------"
+    echo -e "$TEST_DATA"
+    echo "-------------------------------"
+    invalid_count=$((invalid_count + 1))
+  else
+    valid_count=$((valid_count + 1))
+  fi
+done 
+
+echo -e "\n\nVALID TEST CASES:\n\nTOTAL:\t\t$valid_tests\nVALID:\t\t$valid_count\nINVALID:\t$invalid_count\n"
+
+# Invalid syntax cases
+
+valid_count=0
+invalid_count=0
+valid_tests=0
+for i in $INVALID_SYNTAX_TEST_CASES; do
+  valid_tests=$((valid_tests + 1))
+  TEST_DATA=$(./compile "$i" 2>&1)
+
+  if (( $? != 100 )); then
+    echo -e "\nFailed: $i"
+    echo "-------------------------------"
+    echo -e "$TEST_DATA"
+    echo "-------------------------------"
+    invalid_count=$((invalid_count + 1))
+  else
+    valid_count=$((valid_count + 1))
+  fi
+done 
+
+echo -e "\n\nSYNTAX TEST CASES:\n\nTOTAL:\t\t$valid_tests\nVALID:\t\t$valid_count\nINVALID:\t$invalid_count\n"
+
+# Invalid semantic cases
+
+valid_count=0
+invalid_count=0
+valid_tests=0
+for i in $INVALID_SEMANTIC_TEST_CASES; do
+  valid_tests=$((valid_tests + 1))
+  TEST_DATA=$(./compile "$i" 2>&1)
+
+  if (( $? != 200 )); then
+    echo -e "\nFailed: $i"
+    echo "-------------------------------"
+    echo -e "$TEST_DATA"
+    echo "-------------------------------"
+    invalid_count=$((invalid_count + 1))
+  else
+    valid_count=$((valid_count + 1))
+  fi
+done 
+
+echo -e "\n\nSEMANTIC TEST CASES:\n\nTOTAL:\t\t$valid_tests\nVALID:\t\t$valid_count\nINVALID:\t$invalid_count\n"

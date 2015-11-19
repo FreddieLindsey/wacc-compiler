@@ -1,6 +1,7 @@
 package wacc.ast;
 
 import wacc.ast.function.CallNode;
+import wacc.ast.pair.PairLookupNode;
 import wacc.ast.type.ArrayElemNode;
 import wacc.ast.type.ArrayTypeNode;
 import wacc.ast.type.FuncTypeNode;
