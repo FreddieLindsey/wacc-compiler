@@ -35,6 +35,10 @@ public class ReAssignNode extends StatNode {
 
     TypeNode assignType, returnType;
 
+    // Check that the lhs has already been declared in scope
+    if (lhs instanceof IdentNode &&
+      symbolTable.lookUp(((IdentNode) lhs).getIdent()) == null) return false;
+
     // Check the type of what we are assigning
     if (lhs instanceof ArrayElemNode) {
       assignType = ((ArrayTypeNode) lhs.type()).type();
