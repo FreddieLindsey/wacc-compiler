@@ -33,7 +33,7 @@ public class ProgramNode extends ASTNode {
     }
 
     // Check the stat is valid and doesn't have immediate return
-    if (stat.hasReturn() != null || !stat.isSemanticallyValid()) return false;
+    if (stat.returnType() != null || !stat.isSemanticallyValid()) return false;
 
     semanticallyValid = true;
     return semanticallyValid;

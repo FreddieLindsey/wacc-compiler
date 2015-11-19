@@ -43,9 +43,9 @@ public class IfStatNode extends StatNode {
   }
 
   @Override
-  public TypeNode hasReturn() {
-    TypeNode true_ = stat1.hasReturn();
-    TypeNode false_ = stat2.hasReturn();
+  public TypeNode returnType() {
+    TypeNode true_ = stat1.returnType();
+    TypeNode false_ = stat2.returnType();
     if (true_ != null && false_  != null && true_.equals(false_)) return true_;
     return null;
   }

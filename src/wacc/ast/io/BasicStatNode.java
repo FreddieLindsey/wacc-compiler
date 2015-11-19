@@ -49,7 +49,7 @@ public class BasicStatNode extends StatNode {
   }
 
   @Override
-  public TypeNode hasReturn() {
+  public TypeNode returnType() {
     return (st == StatTypeEnum.RETURN) ? expr.type() : null;
   }
 

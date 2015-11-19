@@ -23,8 +23,8 @@ public class BeginStatNode extends StatNode {
   }
 
   @Override
-  public TypeNode hasReturn() {
-    return stat.hasReturn();
+  public TypeNode returnType() {
+    return stat.returnType();
   }
 
 }

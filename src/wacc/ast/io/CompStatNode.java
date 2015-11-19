@@ -33,9 +33,9 @@ public class CompStatNode extends StatNode {
   }
 
   @Override
-  public TypeNode hasReturn() {
-    TypeNode s1 = stat1.hasReturn();
-    return (s1 == null) ? stat2.hasReturn() : s1;
+  public TypeNode returnType() {
+    TypeNode s1 = stat1.returnType();
+    return (s1 == null) ? stat2.returnType() : s1;
   }
 
 }

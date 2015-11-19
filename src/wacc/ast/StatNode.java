@@ -9,7 +9,7 @@ public abstract class StatNode extends ASTNode {
     this.symbolTable = symbolTable;
   }
 
-  public TypeNode hasReturn() {
+  public TypeNode returnType() {
     return null;
   }
 }
