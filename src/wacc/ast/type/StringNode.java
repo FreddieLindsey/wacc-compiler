@@ -11,13 +11,6 @@ public class StringNode extends LiteralNode<String> {
 
   @Override
   public boolean isSemanticallyValid() {
-    for (int i = 0; i < value.length(); ++i) {
-      for (char c : CharNode.invalid) {
-        if (value.charAt(i) == c) {
-          return false;
-        }
-      }
-    }
     semanticallyValid = true;
     return semanticallyValid;
   }
