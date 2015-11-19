@@ -67,7 +67,7 @@ public class FuncNode extends ASTNode {
     if (!ps.isSemanticallyValid()) return false;
 
     // Check the function has a valid return
-    if (stat.returnType() != t.getReturnType()) return false;
+    if (!(stat.returnType().equals(t.getReturnType()))) return false;
 
     // Add the params to the symbolTable for stats to use
     for (ParamNode p : ps.getParams()) {
