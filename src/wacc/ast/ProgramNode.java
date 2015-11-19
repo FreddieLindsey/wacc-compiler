@@ -18,12 +18,14 @@ public class ProgramNode extends ASTNode {
 
   @Override
   public boolean isSemanticallyValid() {
-    for (FuncNode f : funcs) {
-      if (!f.isSemanticallyValid()) return false;
-    }
-
     // Check the program does something
     if (stat == null) return false;
+
+    // Check the functions are valid
+    for (FuncNode f : funcs) {
+      if (!f.isSemanticallyValid()) return false;
+      symbolTable.add(f.getIdent().getIdent(), f.getType());
+    }
 
     // Check the stat is valid and doesn't have immediate return
     if (stat.hasReturn() || !stat.isSemanticallyValid()) return false;
@@ -35,7 +37,6 @@ public class ProgramNode extends ASTNode {
   public void addFunc(FuncNode f) {
     funcs.add(f);
     f.setParent(this);
-    symbolTable.add(f.getIdent().getIdent(), f.getType());
   }
 
   public ArrayList<FuncNode> getFuncs() {

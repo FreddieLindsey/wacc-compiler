@@ -33,7 +33,7 @@ public class NewAssignNode extends StatNode {
 
   @Override
   public boolean isSemanticallyValid() {
-    if (parent.getSymbolTable().lookUpHere(i.getIdent()) != null) return false;
+    if (parent.getSymbolTable().lookUpHere(i.getIdent()) == t) return false;
 
     TypeNode returnType;
     if (rhs instanceof CallNode) {
@@ -51,6 +51,7 @@ public class NewAssignNode extends StatNode {
       && t.equals(returnType);
 
     if (!valid) return false;
+
 
     addToScope(i.getIdent(), t);
 
