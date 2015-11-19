@@ -1,7 +1,9 @@
 package wacc.ast;
 
 import wacc.ast.function.CallNode;
+import wacc.ast.pair.NewPairNode;
 import wacc.ast.type.FuncTypeNode;
+import wacc.ast.type.PairTypeNode;
 import wacc.ast.type.TypeNode;
 
 public class NewAssignNode extends StatNode {
@@ -41,6 +43,36 @@ public class NewAssignNode extends StatNode {
         (FuncTypeNode) symbolTable.lookUp(
           ((CallNode) rhs).getIdent().getIdent())
       ).getReturnType();
+    } else if (rhs instanceof NewPairNode) {
+      ExprNode fst = ((NewPairNode) rhs).getFst();
+      ExprNode snd = ((NewPairNode) rhs).getSnd();
+      TypeNode fstType, sndType;
+
+
+      if (fst instanceof IdentNode) {
+        TypeNode t = symbolTable.lookUp(((IdentNode) fst).getIdent());
+        if (t instanceof PairTypeNode) {
+          fstType = new PairTypeNode(null, null);
+        } else {
+          fstType = t;
+        }
+      } else {
+        fstType = fst.type();
+      }
+
+      if (snd instanceof IdentNode) {
+        TypeNode t = symbolTable.lookUp(((IdentNode) snd).getIdent());
+        if (t instanceof PairTypeNode) {
+          sndType = new PairTypeNode(null, null);
+        } else {
+          sndType = t;
+        }
+      } else {
+        sndType = snd.type();
+      }
+
+      returnType = (
+        new PairTypeNode(fstType, sndType));
     } else {
       returnType = rhs.type();
     }
