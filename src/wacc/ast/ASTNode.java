@@ -23,7 +23,7 @@ public abstract class ASTNode {
   public void addToScope(String s, TypeNode t) {
     if (parent != null) {
       ASTNode a = parent;
-      while (a.parent != null && a.parent instanceof CompStatNode) {
+      while (a.parent != null && a instanceof CompStatNode) {
         a = a.parent;
       }
       a.symbolTable.add(s, t);
