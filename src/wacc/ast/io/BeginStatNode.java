@@ -27,4 +27,9 @@ public class BeginStatNode extends StatNode {
     return stat.returnType();
   }
 
+  @Override
+  public boolean returns() {
+    return stat.returns();
+  }
+
 }

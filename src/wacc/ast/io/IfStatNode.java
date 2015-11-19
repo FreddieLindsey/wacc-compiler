@@ -50,4 +50,9 @@ public class IfStatNode extends StatNode {
     return null;
   }
 
+  @Override
+  public boolean returns() {
+    return stat1.returns() && stat2.returns();
+  }
+
 }

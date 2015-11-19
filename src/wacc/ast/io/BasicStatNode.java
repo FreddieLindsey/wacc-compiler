@@ -66,4 +66,9 @@ public class BasicStatNode extends StatNode {
     return (st == StatTypeEnum.RETURN) ? expr.type() : null;
   }
 
+  @Override
+  public boolean returns() {
+    return st == StatTypeEnum.RETURN;
+  }
+
 }

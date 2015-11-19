@@ -12,4 +12,8 @@ public abstract class StatNode extends ASTNode {
   public TypeNode returnType() {
     return null;
   }
+
+  public boolean returns() {
+    return false;
+  }
 }

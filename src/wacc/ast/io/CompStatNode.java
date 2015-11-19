@@ -38,4 +38,10 @@ public class CompStatNode extends StatNode {
     return (s1 == null) ? stat2.returnType() : s1;
   }
 
+  @Override
+  public boolean returns() {
+    boolean s1 = stat1.returns();
+    return (!s1) ? stat2.returns() : s1;
+  }
+
 }

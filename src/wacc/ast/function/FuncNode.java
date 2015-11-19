@@ -1,5 +1,6 @@
 package wacc.ast.function;
 
+import wacc.Main;
 import wacc.ast.ASTNode;
 import wacc.ast.IdentNode;
 import wacc.ast.StatNode;
@@ -70,6 +71,9 @@ public class FuncNode extends ASTNode {
     for (ParamNode p : ps.getParams()) {
       symbolTable.add(p.getIdent().getIdent(), p.getType());
     }
+
+    // Check whether the function returns
+    if (!stat.returns()) System.exit(Main.SYNTAX_EXIT);
 
     // Check the function has a valid return
     if (!(stat.returnType().equals(t.getReturnType()))) return false;
