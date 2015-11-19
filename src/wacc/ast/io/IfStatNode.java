@@ -3,6 +3,7 @@ package wacc.ast.io;
 import wacc.ast.ExprNode;
 import wacc.ast.StatNode;
 import wacc.ast.type.TypeEnum;
+import wacc.ast.type.TypeNode;
 
 public class IfStatNode extends StatNode {
 
@@ -42,8 +43,11 @@ public class IfStatNode extends StatNode {
   }
 
   @Override
-  public boolean hasReturn() {
-    return stat1.hasReturn() && stat2.hasReturn();
+  public TypeNode hasReturn() {
+    TypeNode true_ = stat1.hasReturn();
+    TypeNode false_ = stat2.hasReturn();
+    if (true_ != null && false_  != null && true_.equals(false_)) return true_;
+    return null;
   }
 
 }

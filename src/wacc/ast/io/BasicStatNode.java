@@ -5,6 +5,7 @@ import wacc.ast.StatNode;
 import wacc.ast.StatTypeEnum;
 import wacc.ast.type.PairTypeNode;
 import wacc.ast.type.TypeEnum;
+import wacc.ast.type.TypeNode;
 
 public class BasicStatNode extends StatNode {
 
@@ -48,8 +49,8 @@ public class BasicStatNode extends StatNode {
   }
 
   @Override
-  public boolean hasReturn() {
-    return st == StatTypeEnum.RETURN;
+  public TypeNode hasReturn() {
+    return (st == StatTypeEnum.RETURN) ? expr.type() : null;
   }
 
 }

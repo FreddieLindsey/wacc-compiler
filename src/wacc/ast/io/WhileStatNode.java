@@ -4,6 +4,7 @@ import wacc.ast.ExprNode;
 import wacc.ast.IdentNode;
 import wacc.ast.StatNode;
 import wacc.ast.type.TypeEnum;
+import wacc.ast.type.TypeNode;
 
 public class WhileStatNode extends StatNode {
 
@@ -38,7 +39,7 @@ public class WhileStatNode extends StatNode {
   }
 
   @Override
-  public boolean hasReturn() {
+  public TypeNode hasReturn() {
     return stat.hasReturn();
   }
 

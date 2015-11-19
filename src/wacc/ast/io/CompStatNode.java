@@ -1,6 +1,7 @@
 package wacc.ast.io;
 
 import wacc.ast.StatNode;
+import wacc.ast.type.TypeNode;
 
 public class CompStatNode extends StatNode {
 
@@ -32,8 +33,9 @@ public class CompStatNode extends StatNode {
   }
 
   @Override
-  public boolean hasReturn() {
-    return stat1.hasReturn() || stat2.hasReturn();
+  public TypeNode hasReturn() {
+    TypeNode s1 = stat1.hasReturn();
+    return (s1 == null) ? stat2.hasReturn() : s1;
   }
 
 }

@@ -1,4 +1,7 @@
-package wacc.ast;
+package wacc.ast.io;
+
+import wacc.ast.StatNode;
+import wacc.ast.type.TypeNode;
 
 public class BeginStatNode extends StatNode {
 
@@ -20,7 +23,7 @@ public class BeginStatNode extends StatNode {
   }
 
   @Override
-  public boolean hasReturn() {
+  public TypeNode hasReturn() {
     return stat.hasReturn();
   }
 

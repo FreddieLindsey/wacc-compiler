@@ -1,5 +1,6 @@
 package wacc.ast;
 
+import wacc.ast.io.BeginStatNode;
 import wacc.ast.io.CompStatNode;
 import wacc.ast.type.TypeNode;
 import wacc.symbolTable.SymbolTable;
