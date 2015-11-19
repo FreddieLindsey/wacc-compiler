@@ -3,6 +3,7 @@ package wacc.ast.io;
 import wacc.ast.ExprNode;
 import wacc.ast.StatNode;
 import wacc.ast.StatTypeEnum;
+import wacc.ast.type.TypeEnum;
 
 public class BasicStatNode extends StatNode {
 
@@ -31,12 +32,12 @@ public class BasicStatNode extends StatNode {
   public boolean isSemanticallyValid() {
     switch (st) {
       case SKIP:
-        semanticallyValid = true;
-        return semanticallyValid;
+        semanticallyValid = true; break;
       case READ:
       case FREE:
       case RETURN:
       case EXIT:
+        semanticallyValid = expr.type().getType().equals(TypeEnum.INT); break;
       case PRINT:
       case PRINTLN:
         semanticallyValid = expr != null && expr.isSemanticallyValid();
