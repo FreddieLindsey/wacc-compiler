@@ -10,6 +10,7 @@ public class BoolNode extends LiteralNode<Boolean> {
 
   @Override
   public boolean isSemanticallyValid() {
-    return value != null;
+    semanticallyValid = value != null;
+    return semanticallyValid;
   }
 }

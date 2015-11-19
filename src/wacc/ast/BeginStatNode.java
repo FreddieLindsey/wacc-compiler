@@ -15,7 +15,8 @@ public class BeginStatNode extends StatNode {
 
 	@Override
 	public boolean isSemanticallyValid() {
-		return stat.isSemanticallyValid();
+		semanticallyValid = stat.isSemanticallyValid();
+    return semanticallyValid;
 	}
 
   @Override

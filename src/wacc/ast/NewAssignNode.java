@@ -51,7 +51,8 @@ public class NewAssignNode extends StatNode {
 
     addToScope(i.getIdent(), t);
 
-    return true;
+    semanticallyValid = true;
+    return semanticallyValid;
   }
 
 }

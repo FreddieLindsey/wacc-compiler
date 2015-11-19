@@ -17,6 +17,7 @@ public class CharNode extends LiteralNode<Character> {
         return false;
       }
     }
-    return true;
+    semanticallyValid = true;
+    return semanticallyValid;
   }
 }

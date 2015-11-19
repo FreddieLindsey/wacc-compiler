@@ -38,6 +38,7 @@ public class ArrayLiteralNode extends LiteralNode<ExprNode> {
         return false;
       }
     }
-    return true;
+    semanticallyValid = true;
+    return semanticallyValid;
   }
 }

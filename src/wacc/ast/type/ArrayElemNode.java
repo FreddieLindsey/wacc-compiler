@@ -41,7 +41,8 @@ public class ArrayElemNode extends AssignNode {
         return false;
       }
     }
-    return ident.isSemanticallyValid();
+    semanticallyValid = ident.isSemanticallyValid();
+    return semanticallyValid;
   }
 
   @Override

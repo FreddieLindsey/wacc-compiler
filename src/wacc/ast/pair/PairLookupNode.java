@@ -27,7 +27,8 @@ public class PairLookupNode extends AssignNode {
 
   @Override
   public boolean isSemanticallyValid() {
-    return symbolTable.lookUp(ident) != null;
+    semanticallyValid = symbolTable.lookUp(ident) != null;
+    return semanticallyValid;
   }
 
   @Override

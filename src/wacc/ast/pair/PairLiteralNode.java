@@ -15,6 +15,7 @@ public class PairLiteralNode extends LiteralNode {
 
   @Override
   public boolean isSemanticallyValid() {
-    return true;
+    semanticallyValid = true;
+    return semanticallyValid;
   }
 }

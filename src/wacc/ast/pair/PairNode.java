@@ -29,7 +29,8 @@ public class PairNode<F extends ExprNode, S extends ExprNode> extends AssignNode
 
   @Override
   public boolean isSemanticallyValid() {
-    return fst.isSemanticallyValid() && snd.isSemanticallyValid();
+    semanticallyValid = fst.isSemanticallyValid() && snd.isSemanticallyValid();
+    return semanticallyValid;
   }
 
   @Override
