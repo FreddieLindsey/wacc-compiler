@@ -76,7 +76,8 @@ public class FuncNode extends ASTNode {
     // Check the type is valid
     if (!stat.isSemanticallyValid()) return false;
 
-    return true;
+    semanticallyValid = true;
+    return semanticallyValid;
   }
 
 }

@@ -28,10 +28,10 @@ public class WhileStatNode extends StatNode {
 
   @Override
   public boolean isSemanticallyValid() {
-    return stat.isSemanticallyValid()
-        && expr.isSemanticallyValid()
-        && expr.type().equals(
-          new TypeNode(TypeEnum.BOOL));
+    semanticallyValid = stat.isSemanticallyValid()
+      && expr.isSemanticallyValid()
+      && expr.type().getType().equals(TypeEnum.BOOL);
+    return semanticallyValid;
   }
 
   @Override

@@ -26,6 +26,7 @@ public class ProgramNode extends ASTNode {
 
     valid &= stat != null && stat.isSemanticallyValid();
 
+    semanticallyValid = valid;
     return valid;
   }
 

@@ -30,6 +30,7 @@ public class ArgListNode extends ASTNode {
         return false;
       }
     }
-    return true;
+    semanticallyValid = true;
+    return semanticallyValid;
   }
 }

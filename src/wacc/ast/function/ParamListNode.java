@@ -26,7 +26,9 @@ public class ParamListNode extends ASTNode {
       }
       s.add(p.getIdent().getIdent(), p.getType());
     }
-    return true;
+
+    semanticallyValid = true;
+    return semanticallyValid;
   }
 
   public ArrayList<ParamNode> getParams() {

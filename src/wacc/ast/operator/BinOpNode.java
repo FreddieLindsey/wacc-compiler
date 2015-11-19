@@ -75,18 +75,22 @@ public class BinOpNode extends AssignNode {
       case DIV:
       case MOD:
       case ADD:
-      case SUB: return lhs_type.equals(new TypeNode(TypeEnum.INT));
+      case SUB:
+        semanticallyValid = lhs_type.getType().equals(TypeEnum.INT); break;
       case GT :
       case GTE:
       case LT :
-      case LTE: return lhs_type.equals(new TypeNode(TypeEnum.INT))
-                    || lhs_type.equals(new TypeNode(TypeEnum.CHAR));
+      case LTE:
+        semanticallyValid = lhs_type.getType().equals(TypeEnum.INT)
+                         || lhs_type.getType().equals(TypeEnum.CHAR); break;
       case EQ :
-      case NEQ: return !lhs_type.equals(new TypeNode(TypeEnum.STRING));
+      case NEQ:
+        semanticallyValid = !lhs_type.getType().equals(TypeEnum.STRING); break;
       case AND:
-      case OR : return lhs_type.equals(new TypeNode(TypeEnum.BOOL));
-      default : return false;
+      case OR :
+        semanticallyValid = lhs_type.getType().equals(TypeEnum.BOOL);
     }
+    return semanticallyValid;
   }
 
   public ExprNode getLHS() {

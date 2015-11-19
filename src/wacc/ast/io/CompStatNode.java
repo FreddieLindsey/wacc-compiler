@@ -28,7 +28,8 @@ public class CompStatNode extends StatNode {
 
   @Override
   public boolean isSemanticallyValid() {
-    return stat1.isSemanticallyValid() && stat2.isSemanticallyValid();
+    semanticallyValid = stat1.isSemanticallyValid() && stat2.isSemanticallyValid();
+    return semanticallyValid;
   }
 
   @Override

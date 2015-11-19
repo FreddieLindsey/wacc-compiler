@@ -31,23 +31,21 @@ public class UnOpNode extends AssignNode {
 
   @Override
   public boolean isSemanticallyValid() {
-    boolean valid = expr.isSemanticallyValid();
+    if (!expr.isSemanticallyValid()) return false;
 
     switch (op) {
-      case NOT: return expr.type().equals(
-          new TypeNode(TypeEnum.BOOL));
-      case NEG: return expr.type().equals(
-          new TypeNode(TypeEnum.INT));
-      case LEN: return expr.type() instanceof ArrayTypeNode;
-      case ORD: return expr.type().equals(
-          new TypeNode(TypeEnum.CHAR));
-      case CHR: return expr.type().equals(
-          new TypeNode(TypeEnum.INT));
-      default:
-        System.err.println("Invalid Unary Operator");
+      case NOT:
+        semanticallyValid = expr.type().getType().equals(TypeEnum.BOOL); break;
+      case NEG:
+        semanticallyValid = expr.type().getType().equals(TypeEnum.INT); break;
+      case LEN:
+        semanticallyValid = expr.type() instanceof ArrayTypeNode; break;
+      case ORD:
+        semanticallyValid = expr.type().getType().equals(TypeEnum.CHAR); break;
+      case CHR:
+        semanticallyValid = expr.type().getType().equals(TypeEnum.INT);
     }
-
-    return valid;
+    return semanticallyValid;
   }
 
   public void setExpr(ExprNode expr) {

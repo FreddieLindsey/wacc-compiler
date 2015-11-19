@@ -18,7 +18,8 @@ public class StringNode extends LiteralNode<String> {
         }
       }
     }
-    return true;
+    semanticallyValid = true;
+    return semanticallyValid;
   }
 
   @Override

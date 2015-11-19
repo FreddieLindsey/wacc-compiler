@@ -70,7 +70,8 @@ public class CallNode extends AssignNode {
       if (argType == null || !argType.equals(paramType)) return false;
     }
 
-    return true;
+    semanticallyValid = true;
+    return semanticallyValid;
   }
 
   @Override

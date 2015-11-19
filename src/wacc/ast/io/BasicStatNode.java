@@ -31,16 +31,16 @@ public class BasicStatNode extends StatNode {
   public boolean isSemanticallyValid() {
     switch (st) {
       case SKIP:
-        return true;
+        semanticallyValid = true; return semanticallyValid;
       case READ:
       case FREE:
       case RETURN:
       case EXIT:
       case PRINT:
       case PRINTLN:
-        return expr != null && expr.isSemanticallyValid();
+        semanticallyValid = expr != null && expr.isSemanticallyValid();
     }
-    return false;
+    return semanticallyValid;
   }
 
   @Override

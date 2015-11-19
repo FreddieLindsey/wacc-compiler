@@ -35,10 +35,11 @@ public class IfStatNode extends StatNode {
 
   @Override
   public boolean isSemanticallyValid() {
-    return expr.isSemanticallyValid()
+    semanticallyValid = expr.isSemanticallyValid()
         && stat1.isSemanticallyValid()
         && stat2.isSemanticallyValid()
         && expr.type().getType().equals(TypeEnum.BOOL);
+    return semanticallyValid;
   }
 
   @Override
