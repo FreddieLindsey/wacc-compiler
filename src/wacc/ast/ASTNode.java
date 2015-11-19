@@ -8,9 +8,10 @@ public abstract class ASTNode {
 
   protected ASTNode parent;
   protected SymbolTable symbolTable;
-  protected boolean semanticallyValid = false;
+  protected boolean semanticallyValid;
 
   public ASTNode() {
+    semanticallyValid = false;
     symbolTable = new SymbolTable();
   }
 
