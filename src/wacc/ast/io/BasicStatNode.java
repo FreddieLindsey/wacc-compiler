@@ -3,6 +3,7 @@ package wacc.ast.io;
 import wacc.ast.ExprNode;
 import wacc.ast.StatNode;
 import wacc.ast.StatTypeEnum;
+import wacc.ast.type.PairTypeNode;
 import wacc.ast.type.TypeEnum;
 
 public class BasicStatNode extends StatNode {
@@ -35,6 +36,7 @@ public class BasicStatNode extends StatNode {
         semanticallyValid = true; break;
       case READ:
       case FREE:
+        semanticallyValid = expr.type() instanceof PairTypeNode; break;
       case RETURN:
       case EXIT:
         semanticallyValid = expr.type().getType().equals(TypeEnum.INT); break;
