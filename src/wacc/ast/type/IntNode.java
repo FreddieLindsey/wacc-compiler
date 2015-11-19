@@ -1,5 +1,7 @@
 package wacc.ast.type;
 
+import wacc.Main;
+
 public class IntNode extends LiteralNode<Long> {
 
   public IntNode(long value) {
@@ -8,7 +10,7 @@ public class IntNode extends LiteralNode<Long> {
     this.type = new TypeNode(TypeEnum.INT);
     type.setParent(this);
     if (!isSemanticallyValid()) {
-      System.out.println("Not a valid 32 bit integer");
+      System.exit(Main.SYNTAX_EXIT);
     }
   }
 
