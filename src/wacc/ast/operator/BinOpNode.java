@@ -89,8 +89,7 @@ public class BinOpNode extends AssignNode {
         break;
       case EQ:
       case NEQ:
-        semanticallyValid = !lhs_type.getType().equals(TypeEnum.STRING);
-        break;
+        semanticallyValid = true; break;
       case AND:
       case OR:
         semanticallyValid = lhs_type.getType().equals(TypeEnum.BOOL);
