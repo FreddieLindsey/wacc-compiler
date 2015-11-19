@@ -33,17 +33,15 @@ public class BasicStatNode extends StatNode {
   public boolean isSemanticallyValid() {
     switch (st) {
       case SKIP:
-        semanticallyValid = true; break;
-      case READ:
-      case FREE:
-        semanticallyValid = expr.type() instanceof PairTypeNode; break;
-      case RETURN:
+        semanticallyValid = true; return semanticallyValid;
       case EXIT:
         semanticallyValid = expr.type().getType().equals(TypeEnum.INT); break;
-      case PRINT:
-      case PRINTLN:
-        semanticallyValid = expr != null && expr.isSemanticallyValid();
+      case FREE:
+        semanticallyValid = expr.type() instanceof PairTypeNode; break;
+      case READ:
+        semanticallyValid = !(expr.type() instanceof PairTypeNode);
     }
+    semanticallyValid &= expr != null && expr.isSemanticallyValid();
     return semanticallyValid;
   }
 
