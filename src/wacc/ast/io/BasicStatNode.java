@@ -39,7 +39,9 @@ public class BasicStatNode extends StatNode {
       case FREE:
         semanticallyValid = expr.type() instanceof PairTypeNode; break;
       case READ:
-        semanticallyValid = !(expr.type() instanceof PairTypeNode);
+        semanticallyValid = !(expr.type() instanceof PairTypeNode); break;
+      default:
+        semanticallyValid = true;
     }
     semanticallyValid &= expr != null && expr.isSemanticallyValid();
     return semanticallyValid;
