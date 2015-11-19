@@ -18,16 +18,18 @@ public class ProgramNode extends ASTNode {
 
   @Override
   public boolean isSemanticallyValid() {
-    boolean valid = true;
-
     for (FuncNode f : funcs) {
-      valid &= f.isSemanticallyValid();
+      if (!f.isSemanticallyValid()) return false;
     }
 
-    valid &= stat != null && stat.isSemanticallyValid();
+    // Check the program does something
+    if (stat == null) return false;
 
-    semanticallyValid = valid;
-    return valid;
+    // Check the stat is valid and doesn't have immediate return
+    if (stat.hasReturn() || !stat.isSemanticallyValid()) return false;
+
+    semanticallyValid = true;
+    return semanticallyValid;
   }
 
   public void addFunc(FuncNode f) {

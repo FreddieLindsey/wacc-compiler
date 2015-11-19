@@ -1,6 +1,7 @@
 package wacc.ast.io;
 
 import wacc.ast.ExprNode;
+import wacc.ast.IdentNode;
 import wacc.ast.StatNode;
 import wacc.ast.type.TypeEnum;
 
@@ -27,6 +28,9 @@ public class WhileStatNode extends StatNode {
 
   @Override
   public boolean isSemanticallyValid() {
+    if (expr instanceof IdentNode &&
+      symbolTable.lookUp(((IdentNode) expr).getIdent()) == null) return false;
+
     semanticallyValid = stat.isSemanticallyValid()
       && expr.isSemanticallyValid()
       && expr.type().getType().equals(TypeEnum.BOOL);

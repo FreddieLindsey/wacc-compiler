@@ -33,6 +33,8 @@ public class NewAssignNode extends StatNode {
 
   @Override
   public boolean isSemanticallyValid() {
+    if (parent.getSymbolTable().lookUpHere(i.getIdent()) != null) return false;
+
     TypeNode returnType;
     if (rhs instanceof CallNode) {
       returnType = (
