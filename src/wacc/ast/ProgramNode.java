@@ -21,10 +21,15 @@ public class ProgramNode extends ASTNode {
     // Check the program does something
     if (stat == null) return false;
 
+    // Check the functions have different names
+    for (FuncNode f : funcs) {
+      if (symbolTable.lookUp(f.getIdent().getIdent()) != null) return false;
+      symbolTable.add(f.getIdent().getIdent(), f.getType());
+    }
+
     // Check the functions are valid
     for (FuncNode f : funcs) {
       if (!f.isSemanticallyValid()) return false;
-      symbolTable.add(f.getIdent().getIdent(), f.getType());
     }
 
     // Check the stat is valid and doesn't have immediate return

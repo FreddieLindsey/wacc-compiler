@@ -49,8 +49,6 @@ public class FuncNode extends ASTNode {
 
   @Override
   public boolean isSemanticallyValid() {
-    if (symbolTable.lookUp(n.getIdent()) != null) return false;
-
     SymbolTable s = new SymbolTable();
     for (ParamNode p : ps.getParams()) {
       if (s.lookUp(p.getIdent().getIdent()) != null) {
@@ -58,8 +56,6 @@ public class FuncNode extends ASTNode {
       }
       s.add(p.getIdent().getIdent(), p.getType());
     }
-
-    // TODO: Check if stat contains a return
 
     // Check the type is valid
     if (!t.isSemanticallyValid()) return false;
