@@ -1,13 +1,13 @@
 package wacc.ast.operator;
 
-import wacc.ast.type.ArrayTypeNode;
-import wacc.ast.type.TypeNode;
 import wacc.ast.AssignNode;
 import wacc.ast.ExprNode;
+import wacc.ast.type.ArrayTypeNode;
 import wacc.ast.type.TypeEnum;
+import wacc.ast.type.TypeNode;
 
 public class UnOpNode extends AssignNode {
-  
+
   private UnaryOperator op;
   private ExprNode expr;
 
@@ -19,11 +19,16 @@ public class UnOpNode extends AssignNode {
   @Override
   public TypeNode type() {
     switch (op) {
-      case NOT: return new TypeNode(TypeEnum.BOOL);
-      case NEG: return new TypeNode(TypeEnum.INT);
-      case LEN: return new TypeNode(TypeEnum.INT);
-      case ORD: return new TypeNode(TypeEnum.INT);
-      case CHR: return new TypeNode(TypeEnum.CHAR);
+      case NOT:
+        return new TypeNode(TypeEnum.BOOL);
+      case NEG:
+        return new TypeNode(TypeEnum.INT);
+      case LEN:
+        return new TypeNode(TypeEnum.INT);
+      case ORD:
+        return new TypeNode(TypeEnum.INT);
+      case CHR:
+        return new TypeNode(TypeEnum.CHAR);
       default:
         return null;
     }
@@ -35,13 +40,17 @@ public class UnOpNode extends AssignNode {
 
     switch (op) {
       case NOT:
-        semanticallyValid = expr.type().getType().equals(TypeEnum.BOOL); break;
+        semanticallyValid = expr.type().getType().equals(TypeEnum.BOOL);
+        break;
       case NEG:
-        semanticallyValid = expr.type().getType().equals(TypeEnum.INT); break;
+        semanticallyValid = expr.type().getType().equals(TypeEnum.INT);
+        break;
       case LEN:
-        semanticallyValid = expr.type() instanceof ArrayTypeNode; break;
+        semanticallyValid = expr.type() instanceof ArrayTypeNode;
+        break;
       case ORD:
-        semanticallyValid = expr.type().getType().equals(TypeEnum.CHAR); break;
+        semanticallyValid = expr.type().getType().equals(TypeEnum.CHAR);
+        break;
       case CHR:
         semanticallyValid = expr.type().getType().equals(TypeEnum.INT);
     }

@@ -4,8 +4,6 @@ import wacc.ast.ASTNode;
 import wacc.symbolTable.SymbolTable;
 
 import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Set;
 
 public class ParamListNode extends ASTNode {
 

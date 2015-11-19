@@ -27,7 +27,7 @@ public class ParamNode extends ASTNode {
   @Override
   public boolean isSemanticallyValid() {
     semanticallyValid = ident.isSemanticallyValid()
-                     && type.isSemanticallyValid();
+      && type.isSemanticallyValid();
     return semanticallyValid;
   }
 

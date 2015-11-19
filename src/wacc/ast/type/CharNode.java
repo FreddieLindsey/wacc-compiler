@@ -1,6 +1,7 @@
 package wacc.ast.type;
 
-public class CharNode extends LiteralNode<Character> {;
+public class CharNode extends LiteralNode<Character> {
+  ;
 
   public CharNode(char value) {
     super();

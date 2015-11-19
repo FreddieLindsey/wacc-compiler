@@ -31,7 +31,8 @@ public class BasicStatNode extends StatNode {
   public boolean isSemanticallyValid() {
     switch (st) {
       case SKIP:
-        semanticallyValid = true; return semanticallyValid;
+        semanticallyValid = true;
+        return semanticallyValid;
       case READ:
       case FREE:
       case RETURN:

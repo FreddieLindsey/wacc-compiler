@@ -10,7 +10,7 @@ public class IdentNode extends AssignNode {
     super();
     this.ident = ident;
   }
-  
+
   public String getIdent() {
     return ident;
   }

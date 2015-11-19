@@ -1,10 +1,10 @@
 package wacc.ast.operator;
 
-import wacc.ast.IdentNode;
-import wacc.ast.type.TypeNode;
-import wacc.ast.ExprNode;
 import wacc.ast.AssignNode;
+import wacc.ast.ExprNode;
+import wacc.ast.IdentNode;
 import wacc.ast.type.TypeEnum;
+import wacc.ast.type.TypeNode;
 
 public class BinOpNode extends AssignNode {
 
@@ -14,7 +14,7 @@ public class BinOpNode extends AssignNode {
 
   public BinOpNode(BinaryOperator op) {
     super();
-    this.op  = op;
+    this.op = op;
   }
 
   public void addLHS(ExprNode e) {
@@ -29,20 +29,22 @@ public class BinOpNode extends AssignNode {
 
   @Override
   public TypeNode type() {
-    switch(op) {
+    switch (op) {
       case MUL:
       case DIV:
       case MOD:
       case ADD:
-      case SUB: return new TypeNode(TypeEnum.INT);
-      case GT :
+      case SUB:
+        return new TypeNode(TypeEnum.INT);
+      case GT:
       case GTE:
-      case LT :
+      case LT:
       case LTE:
-      case EQ :
+      case EQ:
       case NEQ:
       case AND:
-      case OR : return new TypeNode(TypeEnum.BOOL);
+      case OR:
+        return new TypeNode(TypeEnum.BOOL);
     }
     return null;
   }
@@ -55,7 +57,7 @@ public class BinOpNode extends AssignNode {
     if (lhs == null || rhs == null) return false;
 
     // Check lhs and rhs are valid
-    if ( !lhs.isSemanticallyValid()
+    if (!lhs.isSemanticallyValid()
       || !rhs.isSemanticallyValid()) return false;
 
     // Check lhs
@@ -70,24 +72,27 @@ public class BinOpNode extends AssignNode {
 
     if (!lhs_type.equals(rhs_type)) return false;
 
-    switch(op) {
+    switch (op) {
       case MUL:
       case DIV:
       case MOD:
       case ADD:
       case SUB:
-        semanticallyValid = lhs_type.getType().equals(TypeEnum.INT); break;
-      case GT :
+        semanticallyValid = lhs_type.getType().equals(TypeEnum.INT);
+        break;
+      case GT:
       case GTE:
-      case LT :
+      case LT:
       case LTE:
         semanticallyValid = lhs_type.getType().equals(TypeEnum.INT)
-                         || lhs_type.getType().equals(TypeEnum.CHAR); break;
-      case EQ :
+          || lhs_type.getType().equals(TypeEnum.CHAR);
+        break;
+      case EQ:
       case NEQ:
-        semanticallyValid = !lhs_type.getType().equals(TypeEnum.STRING); break;
+        semanticallyValid = !lhs_type.getType().equals(TypeEnum.STRING);
+        break;
       case AND:
-      case OR :
+      case OR:
         semanticallyValid = lhs_type.getType().equals(TypeEnum.BOOL);
     }
     return semanticallyValid;

@@ -1,7 +1,8 @@
 package wacc.ast;
 
 import wacc.ast.function.CallNode;
-import wacc.ast.type.*;
+import wacc.ast.type.FuncTypeNode;
+import wacc.ast.type.TypeNode;
 
 public class NewAssignNode extends StatNode {
 
@@ -37,7 +38,7 @@ public class NewAssignNode extends StatNode {
       returnType = (
         (FuncTypeNode) symbolTable.lookUp(
           ((CallNode) rhs).getIdent().getIdent())
-        ).getReturnType();
+      ).getReturnType();
     } else {
       returnType = rhs.type();
     }

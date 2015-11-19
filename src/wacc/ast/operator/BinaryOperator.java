@@ -1,7 +1,7 @@
 package wacc.ast.operator;
 
 public enum BinaryOperator {
-  
+
   MUL, // *
   DIV, // /
   MOD, // %
