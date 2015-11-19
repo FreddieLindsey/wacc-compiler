@@ -20,12 +20,6 @@ public class StringNodeTest {
   }
 
   @Test
-  public void stringNodeValidityF() {
-    s = new StringNode("tes\\t");
-    assertFalse(s.isSemanticallyValid());
-  }
-
-  @Test
   public void stringNodeType() {
     s = new StringNode("test");
     assertTrue(s.type().equals(new TypeNode(TypeEnum.STRING)));

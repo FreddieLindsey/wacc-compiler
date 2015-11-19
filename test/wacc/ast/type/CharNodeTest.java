@@ -20,12 +20,6 @@ public class CharNodeTest {
   }
 
   @Test
-  public void charNodeValidityF() {
-      c = new CharNode('\'');
-      assertFalse(c.isSemanticallyValid());
-  }
-
-  @Test
   public void charNodeType() {
     c = new CharNode('r');
     assertTrue(c.type().equals(new TypeNode(TypeEnum.CHAR)));

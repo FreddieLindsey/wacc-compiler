@@ -22,15 +22,4 @@ public class NewAssignNodeTest {
     assertTrue(n.getRHS().equals(rhs));
   }
 
-  @Test
-  public void newAssignNodeValid() {
-    n = new NewAssignNode(t, i, rhs);
-    assertTrue(n.isSemanticallyValid() ==
-          (
-            i.isSemanticallyValid()
-            && rhs.isSemanticallyValid()
-            && t == rhs.type()
-          ));
-  }
-
 }
