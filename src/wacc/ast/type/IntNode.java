@@ -16,7 +16,7 @@ public class IntNode extends LiteralNode<Long> {
 
   @Override
   public boolean isSemanticallyValid() {
-    semanticallyValid = value - Integer.MIN_VALUE >= 0;
+    semanticallyValid = value + Integer.MIN_VALUE <= 0;
     return semanticallyValid;
   }
 }

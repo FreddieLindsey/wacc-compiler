@@ -1,9 +1,6 @@
 package wacc.ast;
 
 import wacc.ast.function.CallNode;
-import wacc.ast.pair.PairLookupNode;
-import wacc.ast.type.ArrayElemNode;
-import wacc.ast.type.ArrayTypeNode;
 import wacc.ast.type.FuncTypeNode;
 import wacc.ast.type.TypeNode;
 
@@ -41,11 +38,7 @@ public class ReAssignNode extends StatNode {
       symbolTable.lookUp(((IdentNode) lhs).getIdent()) == null) return false;
 
     // Check the type of what we are assigning
-    if (lhs instanceof ArrayElemNode) {
-      assignType = ((ArrayTypeNode) lhs.type()).type();
-    } else {
-      assignType = lhs.type();
-    }
+    assignType = lhs.type();
 
     // Check the type of what we are returning
     if (rhs instanceof CallNode) {
