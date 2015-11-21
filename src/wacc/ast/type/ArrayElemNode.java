@@ -18,7 +18,7 @@ public class ArrayElemNode extends AssignNode {
   }
 
   public TypeNode type() {
-    return ident.type();
+    return ((ArrayTypeNode) ident.type()).type();
   }
 
   public IdentNode getId() {
