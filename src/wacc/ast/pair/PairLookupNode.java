@@ -38,4 +38,8 @@ public class PairLookupNode extends AssignNode {
   public boolean validRight() {
     return true;
   }
+
+  public boolean first() {
+    return fst;
+  }
 }

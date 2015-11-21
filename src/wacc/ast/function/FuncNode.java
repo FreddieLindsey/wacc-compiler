@@ -59,13 +59,19 @@ public class FuncNode extends ASTNode {
     }
 
     // Check the type is valid
-    if (!t.isSemanticallyValid()) return false;
+    if (!t.isSemanticallyValid()) {
+      return false;
+    }
 
     // Check the type is valid
-    if (!n.isSemanticallyValid()) return false;
+    if (!n.isSemanticallyValid()) {
+      return false;
+    }
 
     // Check the type is valid
-    if (!ps.isSemanticallyValid()) return false;
+    if (!ps.isSemanticallyValid()) {
+      return false;
+    }
 
     // Add the params to the symbolTable for stats to use
     for (ParamNode p : ps.getParams()) {
@@ -73,13 +79,19 @@ public class FuncNode extends ASTNode {
     }
 
     // Check whether the function returns
-    if (!stat.returns()) System.exit(Main.SYNTAX_EXIT);
+    if (!stat.returns()) {
+      System.exit(Main.SYNTAX_EXIT);
+    }
 
     // Check the type is valid
-    if (!stat.isSemanticallyValid()) return false;
+    if (!stat.isSemanticallyValid()) {
+      return false;
+    }
 
     // Check the function has a valid return
-    if (!(stat.returnType().equals(t.getReturnType()))) return false;
+    if (!(t.getReturnType().equals(stat.returnType()))) {
+      return false;
+    }
 
     semanticallyValid = true;
     return semanticallyValid;
