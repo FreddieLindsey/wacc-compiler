@@ -325,7 +325,7 @@ public class BaseVisitor<ASTNode> extends BasicParserBaseVisitor<ASTNode> {
     } else if (ctx.INT() != null) {
       return (ASTNode) new TypeNode(TypeEnum.INT);
     } else if (ctx.STRING() != null) {
-      return (ASTNode) new TypeNode(TypeEnum.STRING);
+      return (ASTNode) new ArrayTypeNode(TypeEnum.CHAR);
     }
     return null;
   }
