@@ -1,6 +1,7 @@
 package wacc.ast.type;
 
 import wacc.ast.ExprNode;
+import wacc.ast.IdentNode;
 
 import java.util.ArrayList;
 
@@ -17,11 +18,6 @@ public class ArrayLiteralNode extends LiteralNode<ExprNode> {
   public void addExpr(ExprNode e) {
     exprs.add(e);
     e.setParent(this);
-
-    ArrayTypeNode thisType = (ArrayTypeNode) type;
-    if (thisType.type() == null) {
-      thisType.setArrayType(e.type().copy());
-    }
   }
 
   public ArrayList<ExprNode> getExprs() {
@@ -30,11 +26,18 @@ public class ArrayLiteralNode extends LiteralNode<ExprNode> {
 
   @Override
   public boolean isSemanticallyValid() {
-    // Ensure types are the same and each expression is valid
-    TypeNode thisType = ((ArrayTypeNode) type).type();
-    if (thisType == null) return exprs.size() == 0;
+    ArrayTypeNode thisType = (ArrayTypeNode) type;
+    if (exprs.size() == 0) return true;
+
+    ExprNode firstElement = exprs.get(0);
+    if (firstElement.type() == null && firstElement instanceof IdentNode) {
+      thisType.setArrayType(symbolTable.lookUp(((IdentNode) firstElement).getIdent()));
+    } else {
+      thisType.setArrayType(firstElement.type().copy());
+    }
+
     for (ExprNode e : exprs) {
-      if (!e.isSemanticallyValid() || !e.type().equals(thisType)) {
+      if (!e.isSemanticallyValid() || !e.type().equals(thisType.type())) {
         return false;
       }
     }
