@@ -2,7 +2,9 @@ package wacc.ast.pair;
 
 import wacc.ast.AssignNode;
 import wacc.ast.ExprNode;
+import wacc.ast.IdentNode;
 import wacc.ast.type.PairTypeNode;
+import wacc.ast.type.TypeNode;
 
 public class PairNode<F extends ExprNode, S extends ExprNode> extends AssignNode {
 
@@ -13,7 +15,6 @@ public class PairNode<F extends ExprNode, S extends ExprNode> extends AssignNode
     super();
     this.fst = fst;
     this.snd = snd;
-    this.type = new PairTypeNode(fst.type(), snd.type());
     fst.setParent(this);
     snd.setParent(this);
   }
@@ -24,6 +25,17 @@ public class PairNode<F extends ExprNode, S extends ExprNode> extends AssignNode
 
   public S getSnd() {
     return this.snd;
+  }
+
+  @Override
+  public TypeNode type() {
+    TypeNode t1 = (fst instanceof IdentNode) ?
+      symbolTable.lookUp(((IdentNode) fst).getIdent()) :
+      fst.type();
+    TypeNode t2 = (snd instanceof IdentNode) ?
+      symbolTable.lookUp(((IdentNode) snd).getIdent()) :
+      snd.type();
+    return new PairTypeNode(t1, t2);
   }
 
   @Override
