@@ -81,7 +81,7 @@ public class NewAssignNode extends StatNode {
     boolean valid = i.isSemanticallyValid()
       && rhs.validRight()
       && rhs.isSemanticallyValid()
-      && t.equals(returnType);
+      && (returnType.equals(t) || t.equals(returnType));
 
     if (!valid) return false;
 
