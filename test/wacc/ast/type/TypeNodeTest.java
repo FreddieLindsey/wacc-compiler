@@ -11,4 +11,28 @@ public class TypeNodeTest {
     t = new TypeNode(TypeEnum.INT);
   }
 
+  @Test
+  public void testGetType() throws Exception {
+
+  }
+
+  @Test
+  public void testIsSemanticallyValid() throws Exception {
+
+  }
+
+  @Test
+  public void testEquals() throws Exception {
+
+  }
+
+  @Test
+  public void testCopy() throws Exception {
+
+  }
+
+  @Test
+  public void testIsSemanticallyValid1() throws Exception {
+
+  }
 }

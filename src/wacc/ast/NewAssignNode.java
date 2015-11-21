@@ -63,7 +63,7 @@ public class NewAssignNode extends StatNode {
       if (snd instanceof IdentNode) {
         TypeNode t = symbolTable.lookUp(((IdentNode) snd).getIdent());
         if (t instanceof PairTypeNode) {
-          sndType = new PairTypeNode(null, null);
+          sndType = new PairTypeNode();
         } else {
           sndType = t;
         }

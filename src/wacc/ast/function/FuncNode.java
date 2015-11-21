@@ -75,11 +75,11 @@ public class FuncNode extends ASTNode {
     // Check whether the function returns
     if (!stat.returns()) System.exit(Main.SYNTAX_EXIT);
 
-    // Check the function has a valid return
-    if (!(stat.returnType().equals(t.getReturnType()))) return false;
-
     // Check the type is valid
     if (!stat.isSemanticallyValid()) return false;
+
+    // Check the function has a valid return
+    if (!(stat.returnType().equals(t.getReturnType()))) return false;
 
     semanticallyValid = true;
     return semanticallyValid;

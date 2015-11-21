@@ -1,5 +1,7 @@
 package wacc.ast.type;
 
+import wacc.ast.pair.PairLiteralNode;
+
 public class PairTypeNode extends TypeNode {
 
   private final TypeNode fst;
@@ -7,11 +9,18 @@ public class PairTypeNode extends TypeNode {
 
   public PairTypeNode(TypeNode fst, TypeNode snd) {
     super(TypeEnum.PAIR);
-    this.type = TypeEnum.PAIR;
     this.fst = fst;
     this.snd = snd;
-    if (fst != null) fst.setParent(this);
-    if (snd != null) snd.setParent(this);
+    fst.setParent(this);
+    snd.setParent(this);
+  }
+
+  public PairTypeNode() {
+    super(TypeEnum.PAIR);
+    this.fst = new AnyTypeNode();
+    this.snd = new AnyTypeNode();
+    fst.setParent(this);
+    snd.setParent(this);
   }
 
   @Override

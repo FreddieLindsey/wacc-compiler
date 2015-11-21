@@ -1,6 +1,7 @@
 package wacc.ast.io;
 
 import wacc.ast.ExprNode;
+import wacc.ast.IdentNode;
 import wacc.ast.StatNode;
 import wacc.ast.StatTypeEnum;
 import wacc.ast.type.PairTypeNode;
@@ -63,7 +64,15 @@ public class BasicStatNode extends StatNode {
 
   @Override
   public TypeNode returnType() {
-    return (st == StatTypeEnum.RETURN) ? expr.type() : null;
+    if (st == StatTypeEnum.RETURN) {
+      if (expr instanceof IdentNode) {
+        return symbolTable.lookUp(((IdentNode) expr).getIdent());
+      } else {
+        return expr.type();
+      }
+    } else {
+      return null;
+    }
   }
 
   @Override
