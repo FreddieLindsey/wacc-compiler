@@ -360,7 +360,7 @@ public class BaseVisitor<ASTNode> extends BasicParserBaseVisitor<ASTNode> {
   @Override
   public ASTNode visitPairelemtype(@NotNull BasicParser.PairelemtypeContext ctx) {
     if (ctx.PAIR() != null) {
-      return (ASTNode) new PairTypeNode(null, null);
+      return (ASTNode) new PairTypeNode();
     } else if (ctx.arraytype() != null) {
       return visitArraytype(ctx.arraytype());
     } else {
