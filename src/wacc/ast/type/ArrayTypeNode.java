@@ -8,6 +8,11 @@ public class ArrayTypeNode extends TypeNode {
     super(TypeEnum.ARR);
   }
 
+  public ArrayTypeNode(TypeEnum arrayType) {
+    super(TypeEnum.ARR);
+    this.arrayType = new TypeNode(arrayType);
+  }
+
   public void setArrayType(TypeNode arrayType) {
     this.arrayType = arrayType;
     arrayType.setParent(this);
