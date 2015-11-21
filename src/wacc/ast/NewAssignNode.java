@@ -2,6 +2,7 @@ package wacc.ast;
 
 import wacc.ast.function.CallNode;
 import wacc.ast.pair.NewPairNode;
+import wacc.ast.type.AnyTypeNode;
 import wacc.ast.type.FuncTypeNode;
 import wacc.ast.type.PairTypeNode;
 import wacc.ast.type.TypeNode;
@@ -52,7 +53,7 @@ public class NewAssignNode extends StatNode {
       if (fst instanceof IdentNode) {
         TypeNode t = symbolTable.lookUp(((IdentNode) fst).getIdent());
         if (t instanceof PairTypeNode) {
-          fstType = new PairTypeNode(null, null);
+          fstType = new PairTypeNode(new AnyTypeNode(), new AnyTypeNode());
         } else {
           fstType = t;
         }

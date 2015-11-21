@@ -50,7 +50,7 @@ public class ReAssignNode extends StatNode {
       returnType = rhs.type();
     }
 
-    semanticallyValid = assignType.equals(returnType);
+    semanticallyValid = (returnType.equals(assignType) || assignType.equals(returnType));
     return semanticallyValid;
   }
 

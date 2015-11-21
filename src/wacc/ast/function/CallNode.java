@@ -52,11 +52,6 @@ public class CallNode extends AssignNode {
     // Check the argsList is valid
     if (!args.isSemanticallyValid()) return false;
 
-    // Check length of arguments equals length of params
-    if (func.getParamsTypes().size() != args.getExprs().size()) {
-      return false;
-    }
-
     ArrayList<TypeNode> paramTypes = func.getParamsTypes();
     ArrayList<ExprNode> argTypes = args.getExprs();
 
@@ -67,7 +62,7 @@ public class CallNode extends AssignNode {
     for (int i = 0; i < paramTypes.size(); i++) {
       TypeNode paramType = paramTypes.get(i);
       TypeNode argType = argTypes.get(i).type();
-      if (argType == null || !argType.equals(paramType)) return false;
+      if (argType == null || !paramType.equals(argType)) return false;
     }
 
     semanticallyValid = true;
