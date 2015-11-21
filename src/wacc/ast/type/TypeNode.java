@@ -9,6 +9,7 @@ public class TypeNode extends ASTNode {
   public TypeNode(TypeEnum type) {
     super();
     this.type = type;
+    this.semanticallyValid = true;
   }
 
   public TypeEnum getType() {
@@ -17,7 +18,6 @@ public class TypeNode extends ASTNode {
 
   @Override
   public boolean isSemanticallyValid() {
-    semanticallyValid = true;
     return semanticallyValid;
   }
 
