@@ -1,0 +1,46 @@
+#!/usr/bin/env python
+
+import os
+import subprocess
+
+# FUNCTIONS
+
+def getNextAssembly():
+    print "Called getNextAssembly"
+
+def makeFileDirectory(file_path):
+    file_dirs=file_path.split('/')
+    i = 0
+    while (i < len(file_dirs) - 1):
+        current_dir = "/".join(file_dirs[:i + 1])
+        if not os.path.exists(current_dir):
+            os.mkdir(current_dir)
+        i += 1
+
+# MAIN
+
+system_command = "wacc_examples/refCompile -a -d wacc_examples/valid"
+process = subprocess.Popen(system_command.split(), stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+output = process.communicate()[0].split('\n')
+
+data = []
+i = 0
+while (i < len(output)):
+    if "calling the reference compiler on" in output[i]:
+        filename = output[i][34:] # Gets the text after the above
+        separator = '==========================================================='
+        while (separator not in output[i]):
+            i += 1
+        assembly = []
+        i += 1
+        while (separator not in output[i]):
+            assembly.append('\t'.join(output[i].split('\t')[1:]))
+            i += 1
+        data.append((filename.replace('wacc', 's'), '\n'.join(assembly)))
+    i += 1
+
+for i in data:
+    data_path = "referenceCompilerOutput/{0}".format(i[0])
+    makeFileDirectory(data_path)
+    with open(data_path, 'w') as f:
+        f.write(i[1])
