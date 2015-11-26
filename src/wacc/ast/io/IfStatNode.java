@@ -57,6 +57,12 @@ public class IfStatNode extends StatNode {
   @Override
   public InstructionBlock generateCode() {
     InstructionBlock i = new InstructionBlock();
+
+    i.add(expr.generateCode()); //TODO: supply valid registers that can be used for eval
+    //instrs.add(); //TODO: add the comparator + jump statements. TODO: think about how we can make unique labels?
+    i.add(stat1.generateCode());
+    i.add(stat2.generateCode());
+
     return i;
   }
 
