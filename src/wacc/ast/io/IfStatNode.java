@@ -3,6 +3,9 @@ package wacc.ast.io;
 import wacc.ast.ExprNode;
 import wacc.ast.type.TypeEnum;
 import wacc.ast.type.TypeNode;
+import wacc.backend.*;
+
+import java.util.ArrayList;
 
 public class IfStatNode extends StatNode {
 
@@ -51,6 +54,12 @@ public class IfStatNode extends StatNode {
   @Override
   public boolean returns() {
     return stat1.returns() && stat2.returns();
+  }
+
+  @Override
+  public ArrayList<AssemblyInstr> generateCode() {
+    ArrayList<AssemblyInstr> instrs = new ArrayList<AssemblyInstr>();
+    return instrs;
   }
 
 }

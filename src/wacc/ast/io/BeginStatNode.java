@@ -1,6 +1,9 @@
 package wacc.ast.io;
 
 import wacc.ast.type.TypeNode;
+import wacc.backend.*;
+
+import java.util.ArrayList;
 
 public class BeginStatNode extends StatNode {
 
@@ -32,6 +35,12 @@ public class BeginStatNode extends StatNode {
   @Override
   public boolean returns() {
     return stat.returns();
+  }
+
+  @Override
+  public ArrayList<AssemblyInstr> generateCode() {
+    ArrayList<AssemblyInstr> instrs = new ArrayList<AssemblyInstr>();
+    return instrs;
   }
 
 }
