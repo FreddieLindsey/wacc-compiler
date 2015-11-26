@@ -1,8 +1,8 @@
 package wacc.ast.operator;
 
-import wacc.ast.assign.AssignNode;
 import wacc.ast.ExprNode;
 import wacc.ast.IdentNode;
+import wacc.ast.assign.AssignNode;
 import wacc.ast.type.TypeEnum;
 import wacc.ast.type.TypeNode;
 
@@ -89,7 +89,8 @@ public class BinOpNode extends AssignNode {
         break;
       case EQ:
       case NEQ:
-        semanticallyValid = true; break;
+        semanticallyValid = true;
+        break;
       case AND:
       case OR:
         semanticallyValid = lhs_type.getType().equals(TypeEnum.BOOL);

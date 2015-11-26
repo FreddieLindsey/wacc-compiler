@@ -3,14 +3,21 @@ package wacc.parseTreeVisitor;
 import antlr.BasicParser;
 import antlr.BasicParserBaseVisitor;
 import org.antlr.v4.runtime.misc.NotNull;
-import wacc.ast.*;
+import wacc.ast.ExprNode;
+import wacc.ast.IdentNode;
+import wacc.ast.ProgramNode;
 import wacc.ast.assign.AssignNode;
 import wacc.ast.assign.NewAssignNode;
 import wacc.ast.assign.ReAssignNode;
 import wacc.ast.function.*;
 import wacc.ast.io.*;
-import wacc.ast.operator.*;
-import wacc.ast.pair.*;
+import wacc.ast.operator.BinOpNode;
+import wacc.ast.operator.BinaryOperator;
+import wacc.ast.operator.UnOpNode;
+import wacc.ast.operator.UnaryOperator;
+import wacc.ast.pair.NewPairNode;
+import wacc.ast.pair.PairLiteralNode;
+import wacc.ast.pair.PairLookupNode;
 import wacc.ast.type.*;
 
 public class BaseVisitor<ASTNode> extends BasicParserBaseVisitor<ASTNode> {
@@ -187,8 +194,8 @@ public class BaseVisitor<ASTNode> extends BasicParserBaseVisitor<ASTNode> {
     if (ctx.CALL() != null) {
       return (ASTNode) ((ctx.arglist() != null) ?
         new CallNode(
-        (IdentNode) visitIdent(ctx.ident()),
-        (ArgListNode) visitArglist(ctx.arglist())) :
+          (IdentNode) visitIdent(ctx.ident()),
+          (ArgListNode) visitArglist(ctx.arglist())) :
         new CallNode(
           (IdentNode) visitIdent(ctx.ident()),
           new ArgListNode()));
@@ -227,7 +234,7 @@ public class BaseVisitor<ASTNode> extends BasicParserBaseVisitor<ASTNode> {
   public ASTNode visitStrliter(@NotNull BasicParser.StrliterContext ctx) {
     String s = ctx.getText();
     if ((s.charAt(0) == '\"' && s.charAt(s.length() - 1) == '\"')
-     || (s.charAt(0) == '\'' && s.charAt(s.length() - 1) == '\'')){
+      || (s.charAt(0) == '\'' && s.charAt(s.length() - 1) == '\'')) {
       char[] result = new char[s.length() - 2];
       s.getChars(1, s.length() - 1, result, 0);
       return (ASTNode) new StringNode(new String(result));

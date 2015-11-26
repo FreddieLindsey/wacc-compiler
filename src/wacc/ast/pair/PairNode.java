@@ -1,8 +1,8 @@
 package wacc.ast.pair;
 
-import wacc.ast.assign.AssignNode;
 import wacc.ast.ExprNode;
 import wacc.ast.IdentNode;
+import wacc.ast.assign.AssignNode;
 import wacc.ast.type.PairTypeNode;
 import wacc.ast.type.TypeNode;
 

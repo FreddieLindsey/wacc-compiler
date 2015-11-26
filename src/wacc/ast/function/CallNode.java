@@ -1,8 +1,8 @@
 package wacc.ast.function;
 
-import wacc.ast.assign.AssignNode;
 import wacc.ast.ExprNode;
 import wacc.ast.IdentNode;
+import wacc.ast.assign.AssignNode;
 import wacc.ast.type.FuncTypeNode;
 import wacc.ast.type.TypeNode;
 
