@@ -1,6 +1,6 @@
 package wacc.ast.type;
 
-import wacc.ast.AssignNode;
+import wacc.ast.assign.AssignNode;
 import wacc.ast.ExprNode;
 import wacc.ast.IdentNode;
 

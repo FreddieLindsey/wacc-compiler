@@ -25,6 +25,7 @@ public class ArgListNode extends ASTNode {
 
   @Override
   public boolean isSemanticallyValid() {
+    // Check all expressions are valid individually
     for (ExprNode e : exprs) {
       if (!e.isSemanticallyValid()) {
         return false;

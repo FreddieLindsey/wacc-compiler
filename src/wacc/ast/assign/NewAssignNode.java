@@ -1,6 +1,9 @@
-package wacc.ast;
+package wacc.ast.assign;
 
+import wacc.ast.ExprNode;
+import wacc.ast.IdentNode;
 import wacc.ast.function.CallNode;
+import wacc.ast.io.StatNode;
 import wacc.ast.pair.NewPairNode;
 import wacc.ast.type.AnyTypeNode;
 import wacc.ast.type.FuncTypeNode;
@@ -36,8 +39,10 @@ public class NewAssignNode extends StatNode {
 
   @Override
   public boolean isSemanticallyValid() {
+    // Check that the identifier being created doesn't already exist in this scope
     if (parent.getSymbolTable().lookUpHere(i.getIdent()) != null) return false;
 
+    // Get the type of the new statement
     TypeNode returnType;
     if (rhs instanceof CallNode) {
       returnType = (
@@ -78,13 +83,17 @@ public class NewAssignNode extends StatNode {
       returnType = rhs.type();
     }
 
-    boolean valid = i.isSemanticallyValid()
-      && rhs.validRight()
-      && rhs.isSemanticallyValid()
-      && (returnType.equals(t) || t.equals(returnType));
+    // Return false if the ident isn't valid
+    if (!i.isSemanticallyValid()) return false;
 
-    if (!valid) return false;
+    // Check the rhs is valid for the right
+    if (!rhs.validRight()) return false;
 
+    // Check the rhs is semantically valid
+    if (!rhs.isSemanticallyValid()) return false;
+
+    // Check that the type of the new node and the given type are equal
+    if (!(returnType.equals(t) || t.equals(returnType))) return false;
 
     addToScope(i.getIdent(), t);
 

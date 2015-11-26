@@ -1,5 +1,6 @@
 package wacc.ast;
 
+import wacc.ast.assign.AssignNode;
 import wacc.ast.type.TypeNode;
 
 public class IdentNode extends AssignNode {

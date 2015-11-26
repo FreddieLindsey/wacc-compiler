@@ -3,6 +3,8 @@ package wacc.ast;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
+import wacc.ast.assign.AssignNode;
+import wacc.ast.assign.NewAssignNode;
 import wacc.ast.type.TypeEnum;
 import wacc.ast.type.TypeNode;
 

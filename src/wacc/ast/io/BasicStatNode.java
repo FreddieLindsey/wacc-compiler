@@ -2,8 +2,6 @@ package wacc.ast.io;
 
 import wacc.ast.ExprNode;
 import wacc.ast.IdentNode;
-import wacc.ast.StatNode;
-import wacc.ast.StatTypeEnum;
 import wacc.ast.type.PairTypeNode;
 import wacc.ast.type.TypeEnum;
 import wacc.ast.type.TypeNode;
@@ -33,6 +31,7 @@ public class BasicStatNode extends StatNode {
 
   @Override
   public boolean isSemanticallyValid() {
+    // TODO: Tidy up and comment
     switch (st) {
       case SKIP:
         semanticallyValid = true;

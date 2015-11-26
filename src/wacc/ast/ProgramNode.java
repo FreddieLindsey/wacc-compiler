@@ -1,6 +1,7 @@
 package wacc.ast;
 
 import wacc.ast.function.FuncNode;
+import wacc.ast.io.StatNode;
 import wacc.symbolTable.SymbolTable;
 
 import java.util.ArrayList;

@@ -1,6 +1,5 @@
 package wacc.ast.io;
 
-import wacc.ast.StatNode;
 import wacc.ast.type.TypeNode;
 
 public class BeginStatNode extends StatNode {
@@ -18,7 +17,10 @@ public class BeginStatNode extends StatNode {
 
   @Override
   public boolean isSemanticallyValid() {
-    semanticallyValid = stat.isSemanticallyValid();
+    // Check if the stat is valid
+    if (!stat.isSemanticallyValid()) return false;
+
+    semanticallyValid = true;
     return semanticallyValid;
   }
 

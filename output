@@ -14,7 +14,7 @@ Successfully compiled...
 Compiling wacc_examples/valid/IO/print/multipleStringsAssignment.wacc
 
 Exception in thread "main" java.lang.ClassCastException: wacc.ast.type.TypeNode cannot be cast to wacc.ast.type.ArrayTypeNode
-	at wacc.ast.ReAssignNode.isSemanticallyValid(ReAssignNode.java:44)
+	at wacc.ast.assign.ReAssignNode.isSemanticallyValid(ReAssignNode.java:44)
 	at wacc.ast.io.CompStatNode.isSemanticallyValid(CompStatNode.java:30)
 	at wacc.ast.io.CompStatNode.isSemanticallyValid(CompStatNode.java:30)
 	at wacc.ast.io.CompStatNode.isSemanticallyValid(CompStatNode.java:30)
@@ -139,7 +139,7 @@ Successfully compiled...
 Compiling wacc_examples/valid/array/modifyString.wacc
 
 Exception in thread "main" java.lang.ClassCastException: wacc.ast.type.TypeNode cannot be cast to wacc.ast.type.ArrayTypeNode
-	at wacc.ast.ReAssignNode.isSemanticallyValid(ReAssignNode.java:44)
+	at wacc.ast.assign.ReAssignNode.isSemanticallyValid(ReAssignNode.java:44)
 	at wacc.ast.io.CompStatNode.isSemanticallyValid(CompStatNode.java:30)
 	at wacc.ast.io.CompStatNode.isSemanticallyValid(CompStatNode.java:30)
 	at wacc.ast.io.CompStatNode.isSemanticallyValid(CompStatNode.java:30)

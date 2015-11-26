@@ -3,12 +3,7 @@ package wacc.ast.io;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
-import wacc.ast.ASTNode;
 import wacc.ast.ExprNode;
-import wacc.ast.StatNode;
-import wacc.ast.StatTypeEnum;
-import wacc.ast.io.BasicStatNode;
-import wacc.ast.io.CompStatNode;
 import wacc.ast.type.TypeNode;
 
 public class CompStatNodeTest {

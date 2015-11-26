@@ -1,6 +1,8 @@
-package wacc.ast;
+package wacc.ast.assign;
 
+import wacc.ast.IdentNode;
 import wacc.ast.function.CallNode;
+import wacc.ast.io.StatNode;
 import wacc.ast.type.FuncTypeNode;
 import wacc.ast.type.TypeNode;
 
