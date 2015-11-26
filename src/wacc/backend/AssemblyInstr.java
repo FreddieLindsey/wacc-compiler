@@ -8,15 +8,18 @@ public class AssemblyInstr {
 
   private AssemblyInstrEnum instrType;
   private AssemblyInstrCond cond;
-  private ArrayList<String> args;
+  private ArrayList<Register> args;
+  private BarrelShift bs;
 
 
   public AssemblyInstr(AssemblyInstrEnum instrType, 
                        AssemblyInstrCond cond, 
-                       ArrayList<String> args) {
+                       ArrayList<Register> args,
+                       BarrelShift bs) {
     this.instrType = instrType;
     this.cond = cond;
     this.args = args;
+    this.bs = bs;
   }
 
   public AssemblyInstrEnum instrType() {
@@ -27,7 +30,7 @@ public class AssemblyInstr {
     return cond;
   }
 
-  public ArrayList<String> getArgs() {
+  public ArrayList<Register> getArgs() {
     return args;
   }
 
