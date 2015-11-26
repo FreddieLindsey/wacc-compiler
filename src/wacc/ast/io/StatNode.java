@@ -1,5 +1,6 @@
-package wacc.ast;
+package wacc.ast.io;
 
+import wacc.ast.ASTNode;
 import wacc.ast.type.TypeNode;
 import wacc.symbolTable.SymbolTable;
 

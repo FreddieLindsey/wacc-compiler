@@ -1,6 +1,6 @@
 package wacc.ast.type;
 
-import wacc.ast.AssignNode;
+import wacc.ast.assign.AssignNode;
 
 public abstract class LiteralNode<T> extends AssignNode {
 

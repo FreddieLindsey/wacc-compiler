@@ -1,7 +1,5 @@
 package wacc.ast.type;
 
-import wacc.ast.pair.PairLiteralNode;
-
 public class PairTypeNode extends TypeNode {
 
   private final TypeNode fst;

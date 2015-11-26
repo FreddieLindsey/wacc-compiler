@@ -1,8 +1,8 @@
 package wacc.ast.type;
 
-import wacc.ast.AssignNode;
 import wacc.ast.ExprNode;
 import wacc.ast.IdentNode;
+import wacc.ast.assign.AssignNode;
 
 import java.util.ArrayList;
 

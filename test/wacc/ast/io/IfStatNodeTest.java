@@ -1,12 +1,7 @@
 package wacc.ast.io;
 
 import org.junit.Test;
-import wacc.ast.ASTNode;
 import wacc.ast.ExprNode;
-import wacc.ast.StatNode;
-import wacc.ast.StatTypeEnum;
-import wacc.ast.io.BasicStatNode;
-import wacc.ast.io.IfStatNode;
 import wacc.ast.type.BoolNode;
 import wacc.ast.type.StringNode;
 

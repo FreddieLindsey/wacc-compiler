@@ -1,4 +1,6 @@
-package wacc.ast;
+package wacc.ast.assign;
+
+import wacc.ast.ExprNode;
 
 public abstract class AssignNode extends ExprNode {
 

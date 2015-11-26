@@ -2,15 +2,9 @@ package wacc.ast.function;
 
 import wacc.ast.type.FuncTypeNode;
 import wacc.ast.type.TypeNode;
-import wacc.ast.ASTNode;
 import wacc.ast.IdentNode;
-import wacc.ast.StatNode;
-import wacc.ast.StatTypeEnum;
-import wacc.ast.function.FuncNode;
-import wacc.ast.function.ParamListNode;
-import wacc.ast.function.ParamNode;
+import wacc.ast.io.StatTypeEnum;
 import wacc.ast.io.BasicStatNode;
-import wacc.ast.type.TypeNode;
 import wacc.ast.type.TypeEnum;
 import org.junit.Test;
 import static org.junit.Assert.*;

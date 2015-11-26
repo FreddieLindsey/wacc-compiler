@@ -3,7 +3,7 @@ package wacc.ast.function;
 import wacc.Main;
 import wacc.ast.ASTNode;
 import wacc.ast.IdentNode;
-import wacc.ast.StatNode;
+import wacc.ast.io.StatNode;
 import wacc.ast.type.FuncTypeNode;
 import wacc.ast.type.TypeNode;
 import wacc.symbolTable.SymbolTable;

@@ -1,6 +1,5 @@
 package wacc.ast.io;
 
-import wacc.ast.StatNode;
 import wacc.ast.type.TypeNode;
 
 public class CompStatNode extends StatNode {

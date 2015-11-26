@@ -4,10 +4,10 @@ import org.junit.Test;
 import wacc.ast.function.FuncNode;
 import wacc.ast.function.ParamNode;
 import wacc.ast.io.BasicStatNode;
+import wacc.ast.io.StatNode;
+import wacc.ast.io.StatTypeEnum;
 import wacc.ast.type.TypeEnum;
 import wacc.ast.type.TypeNode;
-
-import java.util.ArrayList;
 
 import static org.junit.Assert.*;
 

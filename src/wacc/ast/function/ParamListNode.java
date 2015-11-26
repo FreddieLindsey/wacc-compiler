@@ -16,6 +16,7 @@ public class ParamListNode extends ASTNode {
 
   @Override
   public boolean isSemanticallyValid() {
+    // Check no parameter has the same identifier and is valid
     SymbolTable s = new SymbolTable();
     for (ParamNode p : ps) {
       if (!p.isSemanticallyValid()
