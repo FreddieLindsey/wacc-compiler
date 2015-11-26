@@ -52,7 +52,7 @@ public class CompStatNode extends StatNode {
 
     instrs.addAll(stat1.generateCode());
     instrs.addAll(stat2.generateCode());
-
+    
     return instrs;
   }
 
