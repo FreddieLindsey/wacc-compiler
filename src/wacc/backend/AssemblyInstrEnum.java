@@ -20,8 +20,8 @@ public enum AssemblyInstrEnum {
   RSC, // operand2 - operand1 + carry - 1
 
   //NOTE: Rd != Rm
-  MUL  // Rd, Rm, Rs    // Rd = Rm * Rs
-  MLA  // Rd, Rm, Rs,Rn // Rd = (Rm * Rs) + Rn
+  MUL, // Rd, Rm, Rs    // Rd = Rm * Rs
+  MLA, // Rd, Rm, Rs,Rn // Rd = (Rm * Rs) + Rn
 
   // COMPARISON
   // <Operation>{<cond>} Rn, Operand2
