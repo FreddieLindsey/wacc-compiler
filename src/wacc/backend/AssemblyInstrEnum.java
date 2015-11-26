@@ -15,7 +15,7 @@ public enum AssemblyInstrEnum {
   ADD, // operand1 + operand2
   ADC, // operand1 + operand2 + carry
   SUB, // operand1 - operand2
-  SBC, // operand1 - operand2 + carry -1
+  SBC, // operand1 - operand2 + carry - 1
   RSB, // operand2 - operand1
   RSC, // operand2 - operand1 + carry - 1
 
@@ -37,6 +37,7 @@ public enum AssemblyInstrEnum {
   AND, // operand1 AND operand2
   EOR, // operand1 EOR operand2
   ORR, // operand1 OR operand2
+  ORN, // operand1 NOR operand2
   BIC, // operand1 AND NOT operand2 [ie bit clear]
 
   // DATA MOVEMENT
@@ -45,6 +46,12 @@ public enum AssemblyInstrEnum {
   MOV, // operand2
   MVN, // NOT operand2
   LDR, // Load into register
-  STR  // Store to memory
+  STR, // Store to memory
+
+  //STACK
+
+  PUSH, // Push value to stack
+  POP   // Pop value from stack
+
 
 }
