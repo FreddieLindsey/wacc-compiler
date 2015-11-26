@@ -40,6 +40,7 @@ public class BeginStatNode extends StatNode {
   @Override
   public ArrayList<AssemblyInstr> generateCode() {
     ArrayList<AssemblyInstr> instrs = new ArrayList<AssemblyInstr>();
+    //TODO: Figure out what a begin block actually represents in assembly
     return instrs;
   }
 
