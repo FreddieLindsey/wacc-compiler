@@ -7,6 +7,9 @@ import wacc.ast.io.StatNode;
 import wacc.ast.type.FuncTypeNode;
 import wacc.ast.type.TypeNode;
 import wacc.symbolTable.SymbolTable;
+import wacc.backend.*;
+
+import java.util.ArrayList;
 
 public class FuncNode extends ASTNode {
 
@@ -95,6 +98,15 @@ public class FuncNode extends ASTNode {
 
     semanticallyValid = true;
     return semanticallyValid;
+  }
+
+  public ArrayList<AssemblyInstr> generateCode() {
+    ArrayList<AssemblyInstr> instrs = new ArrayList<AssemblyInstr>();
+
+
+    instrs.addAll(stat.generateCode());
+
+    return instrs;
   }
 
 }

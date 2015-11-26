@@ -2,7 +2,13 @@ package wacc.backend;
 
 
 public enum AssemblyInstrEnum {
-	
+
+  //BRANCHING
+
+  B,  
+  BL,
+  BLT,
+
   // ARITHMETIC
   // <Operation>{<cond>}{S} Rd, Rn, Operand2
 
@@ -12,6 +18,10 @@ public enum AssemblyInstrEnum {
   SBC, // operand1 - operand2 + carry -1
   RSB, // operand2 - operand1
   RSC, // operand2 - operand1 + carry - 1
+
+  //NOTE: Rd != Rm
+  MUL  // Rd, Rm, Rs    // Rd = Rm * Rs
+  MLA  // Rd, Rm, Rs,Rn // Rd = (Rm * Rs) + Rn
 
   // COMPARISON
   // <Operation>{<cond>} Rn, Operand2
@@ -32,7 +42,9 @@ public enum AssemblyInstrEnum {
   // DATA MOVEMENT
   // <Operation>{<cond>}{S} Rd, Operand2
 
-  MOV, //operand2
-  MVN //NOT operand2
+  MOV, // operand2
+  MVN, // NOT operand2
+  LDR, // Load into register
+  STR  // Store to memory
 
 }

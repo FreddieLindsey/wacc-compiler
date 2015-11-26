@@ -79,4 +79,10 @@ public class CallNode extends AssignNode {
     return true;
   }
 
+  public ArrayList<AssemblyInstr> generateCode() {
+    ArrayList<AssemblyInstr> instrs = new ArrayList<AssemblyInstr>();
+
+    return instrs;
+  }
+
 }

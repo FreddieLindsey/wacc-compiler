@@ -3,6 +3,7 @@ package wacc.ast;
 import wacc.ast.function.FuncNode;
 import wacc.ast.io.StatNode;
 import wacc.symbolTable.SymbolTable;
+import wacc.backend.*;
 
 import java.util.ArrayList;
 
@@ -59,5 +60,17 @@ public class ProgramNode extends ASTNode {
 
   public StatNode getStat() {
     return stat;
+  }
+
+  public ArrayList<AssemblyInstr> generateCode() {
+    ArrayList<AssemblyInstr> instrs = new ArrayList<AssemblyInstr>();
+
+    for (FuncNode f : funcs) {
+      instrs.addAll(f.generateCode());
+    }
+
+    instrs.addAll(stat.generateCode());
+
+    return instrs;
   }
 }
