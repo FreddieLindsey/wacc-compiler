@@ -85,6 +85,19 @@ public class BasicStatNode extends StatNode {
   @Override
   public ArrayList<AssemblyInstr> generateCode() {
     ArrayList<AssemblyInstr> instrs = new ArrayList<AssemblyInstr>();
+
+    switch (st) {
+      case SKIP: break;
+      case READ: 
+      case FREE:
+      case RETURN:
+      case EXIT:
+      case PRINT:
+      case PRINTLN:
+      default: break;
+    }
+
+
     return instrs;
   }
 
