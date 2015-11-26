@@ -17,4 +17,9 @@ public abstract class StatNode extends ASTNode {
   public boolean returns() {
     return false;
   }
+
+  public abstract ArrayList<AssemblyInstr> generateCode();
+
+
+
 }
