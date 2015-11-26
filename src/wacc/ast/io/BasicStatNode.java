@@ -79,4 +79,9 @@ public class BasicStatNode extends StatNode {
     return st == StatTypeEnum.RETURN;
   }
 
+  @Override
+  public ArrayList<AssemblyInstr> generateCode() {
+    ArrayList<AssemblyInstr> instrs = new ArrayList<AssemblyInstr>();
+  }
+
 }
