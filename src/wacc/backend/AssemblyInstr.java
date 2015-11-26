@@ -5,20 +5,27 @@ public class AssemblyInstr {
 
 
   private AssemblyInstrEnum instrType;
+  private AssemblyInstrCond cond;
   private ArrayList<String> args;
 
 
   public AssemblyInstr(AssemblyInstrEnum instrType, 
+                       AssemblyInstrCond cond, 
                        ArrayList<String> args) {
     this.instrType = instrType;
+    this.cond = cond;
     this.args = args;
   }
 
-  public instrType() {
+  public AssemblyInstrEnum instrType() {
     return instrType;
   }
 
-  public getArgs() {
+  public AssemblyInstrCond getCond() {
+    return cond;
+  }
+
+  public ArrayList<String> getArgs() {
     return args;
   }
 
