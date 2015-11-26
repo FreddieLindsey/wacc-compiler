@@ -1,6 +1,9 @@
 package wacc.ast.io;
 
 import wacc.ast.type.TypeNode;
+import wacc.backend.*;
+
+import java.util.ArrayList;
 
 public class CompStatNode extends StatNode {
 
@@ -41,6 +44,12 @@ public class CompStatNode extends StatNode {
   public boolean returns() {
     boolean s1 = stat1.returns();
     return (!s1) ? stat2.returns() : s1;
+  }
+
+  @Override
+  public ArrayList<AssemblyInstr> generateCode() {
+    ArrayList<AssemblyInstr> instrs = new ArrayList<AssemblyInstr>();
+    return instrs;
   }
 
 }

@@ -4,6 +4,9 @@ import wacc.ast.ExprNode;
 import wacc.ast.IdentNode;
 import wacc.ast.type.TypeEnum;
 import wacc.ast.type.TypeNode;
+import wacc.backend.*;
+
+import java.util.ArrayList;
 
 public class WhileStatNode extends StatNode {
 
@@ -40,6 +43,12 @@ public class WhileStatNode extends StatNode {
   @Override
   public TypeNode returnType() {
     return stat.returnType();
+  }
+
+  @Override
+  public ArrayList<AssemblyInstr> generateCode() {
+    ArrayList<AssemblyInstr> instrs = new ArrayList<AssemblyInstr>();
+    return instrs;
   }
 
 }

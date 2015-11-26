@@ -9,6 +9,9 @@ import wacc.ast.type.AnyTypeNode;
 import wacc.ast.type.FuncTypeNode;
 import wacc.ast.type.PairTypeNode;
 import wacc.ast.type.TypeNode;
+import wacc.backend.*;
+
+import java.util.ArrayList;
 
 public class NewAssignNode extends StatNode {
 
@@ -99,6 +102,12 @@ public class NewAssignNode extends StatNode {
 
     semanticallyValid = true;
     return semanticallyValid;
+  }
+
+  @Override
+  public ArrayList<AssemblyInstr> generateCode() {
+    ArrayList<AssemblyInstr> instrs = new ArrayList<AssemblyInstr>();
+    return instrs;
   }
 
 }

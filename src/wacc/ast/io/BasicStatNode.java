@@ -5,6 +5,9 @@ import wacc.ast.IdentNode;
 import wacc.ast.type.PairTypeNode;
 import wacc.ast.type.TypeEnum;
 import wacc.ast.type.TypeNode;
+import wacc.backend.*;
+
+import java.util.ArrayList;
 
 public class BasicStatNode extends StatNode {
 
@@ -82,6 +85,7 @@ public class BasicStatNode extends StatNode {
   @Override
   public ArrayList<AssemblyInstr> generateCode() {
     ArrayList<AssemblyInstr> instrs = new ArrayList<AssemblyInstr>();
+    return instrs;
   }
 
 }

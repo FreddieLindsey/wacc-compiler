@@ -5,6 +5,9 @@ import wacc.ast.function.CallNode;
 import wacc.ast.io.StatNode;
 import wacc.ast.type.FuncTypeNode;
 import wacc.ast.type.TypeNode;
+import wacc.backend.*;
+
+import java.util.ArrayList;
 
 public class ReAssignNode extends StatNode {
 
@@ -54,6 +57,12 @@ public class ReAssignNode extends StatNode {
 
     semanticallyValid = (returnType.equals(assignType) || assignType.equals(returnType));
     return semanticallyValid;
+  }
+
+  @Override
+  public ArrayList<AssemblyInstr> generateCode() {
+    ArrayList<AssemblyInstr> instrs = new ArrayList<AssemblyInstr>();
+    return instrs;
   }
 
 }
