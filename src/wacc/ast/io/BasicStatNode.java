@@ -90,7 +90,7 @@ public class BasicStatNode extends StatNode {
     switch (st) {
       case SKIP: 
         ArrayList<Arg> args = new ArrayList<Arg>();
-        args.add(new (REG, Register.R0));
+        args.add(new Register(ArgEnum.REG, RegEnum.R0));
         args.add(new Const(ArgEnum.CONST, 0));
         AssemblyInstr a = new AssemblyInstr(
           AssemblyInstrEnum.LDR, 
