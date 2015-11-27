@@ -1,28 +1,28 @@
 package wacc.backend;
 
 
-public class BarrelShift {
+public class BarrelShift extends Arg{
 	
 
   private BarrelShiftEnum shift;
-  private int amount;
+  private Arg shiftee;
 
-  public BarrelShift(BarrelShiftEnum shift, int amount) {
+  public BarrelShift(BarrelShiftEnum shift, Arg shiftee) {
     this.shift = shift;
-    this.amount = amount;
+    this.shiftee = shiftee;
   }
 
-  public BarrelShiftEnum getShift() {
+  public BarrelShiftEnum getShiftType() {
     return shift;
   }
 
-  public int getAmount() {
-    return amount;
+  public Arg getShiftee() {
+    return shiftee;
   }
 
   @Override
   public String toString() {
-    return shift.name() + "#" + amount;
+    return shift.name() + "#" + shiftee.toString();
   } 
 
 
