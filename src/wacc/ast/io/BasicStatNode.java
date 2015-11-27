@@ -89,12 +89,13 @@ public class BasicStatNode extends StatNode {
 
     switch (st) {
       case SKIP: 
+        ArrayList<Arg> args = new ArrayList<Arg>();
+        args.add(new (REG, Register.R0));
+        args.add(new Const(ArgEnum.CONST, 0));
         AssemblyInstr a = new AssemblyInstr(
           AssemblyInstrEnum.LDR, 
           null, 
-          new ArrayList<>(Arrays.asList(Register.R0,
-                              new Const(ArgEnum.CONST, 0)),
-          null));
+          args);
         instrs.add(a);
                       break;
       case READ: 
