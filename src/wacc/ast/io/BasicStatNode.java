@@ -87,7 +87,13 @@ public class BasicStatNode extends StatNode {
     ArrayList<AssemblyInstr> instrs = new ArrayList<AssemblyInstr>();
 
     switch (st) {
-      case SKIP: break;
+      case SKIP: instrs.add(new AssemblyInstr(
+                      LDR, 
+                      null, 
+                      new ArrayList<Register>(Arrays.asList(Register.r0),
+                        
+                      BarrelShift bs)
+                      break;
       case READ: 
       case FREE:
       case RETURN:
