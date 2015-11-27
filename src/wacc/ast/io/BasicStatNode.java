@@ -8,6 +8,7 @@ import wacc.ast.type.TypeNode;
 import wacc.backend.*;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class BasicStatNode extends StatNode {
 
@@ -87,12 +88,14 @@ public class BasicStatNode extends StatNode {
     ArrayList<AssemblyInstr> instrs = new ArrayList<AssemblyInstr>();
 
     switch (st) {
-      case SKIP: instrs.add(new AssemblyInstr(
-                      LDR, 
-                      null, 
-                      new ArrayList<Register>(Arrays.asList(Register.r0),
-                        
-                      BarrelShift bs)
+      case SKIP: 
+        AssemblyInstr a = new AssemblyInstr(
+          AssemblyInstrEnum.LDR, 
+          null, 
+          new ArrayList<>(Arrays.asList(Register.R0,
+                              new Const(ArgEnum.CONST, 0)),
+          null));
+        instrs.add(a);
                       break;
       case READ: 
       case FREE:
