@@ -53,5 +53,4 @@ public enum AssemblyInstrEnum {
   PUSH, // Push value to stack
   POP   // Pop value from stack
 
-
 }
