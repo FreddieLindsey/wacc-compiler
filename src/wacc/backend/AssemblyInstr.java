@@ -34,7 +34,16 @@ public class AssemblyInstr {
   public String toString() {
     StringBuilder sb = new StringBuilder();
 
-    //sb.append(x);
+    sb.append(instrType.name());
+    sb.append(cond.name() + " ");
+
+    for (int i = 0; i < args.size(); i++) {
+      if (i == args.size()-1) {
+        sb.append(args.get(i).toString());
+      } else {
+        sb.append(args.get(i).toString() + ", ");
+      }
+    }
 
     return sb.toString();
   }
