@@ -4,7 +4,7 @@ public class Const extends Arg {
 	
   private int value;
 
-  public Const(ArgEnum type, int value) {
+  public Const(int value) {
     this.type = type;
     this.value = value;
   }
