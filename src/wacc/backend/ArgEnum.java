@@ -6,6 +6,7 @@ public enum ArgEnum {
   REG,
   CONST,
   MEMACC,
-  BARREL
+  BARREL,
+  LABEL
   
 }
