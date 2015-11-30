@@ -13,4 +13,14 @@ public class Const extends Arg {
     return value;
   }
 
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("=");
+    if (this.type == ArgEnum.CONST) {
+        sb.append(value);
+    }
+    return sb.toString();
+  }
+
 }

@@ -8,6 +8,8 @@ import org.antlr.v4.runtime.tree.ParseTree;
 import wacc.ast.ASTNode;
 import wacc.ast.ProgramNode;
 import wacc.parseTreeVisitor.BaseVisitor;
+import wacc.backend.Instruction;
+import java.util.ArrayList;
 
 import java.io.*;
 
@@ -50,6 +52,12 @@ public class Main {
     if (!valid) System.exit(SEMANTIC_EXIT);
 
     // Compile
+    ArrayList<Instruction> programCode = prog.generateCode();
+    StringBuilder sb = new StringBuilder();
+    for (Instruction inst : programCode) {
+      sb.append(inst + "\n");
+    }
+    System.out.println(sb.toString());
   }
 
   public static BasicParser parseInput(InputStream i) throws IOException {
