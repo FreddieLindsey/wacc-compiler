@@ -63,5 +63,12 @@ public class AssemblyInstr implements Instruction {
     return sb.toString();
   }
 
+  private ArrayList<AssemblyInstr> getPrintFunc() {
+    return null;
+  }
+
+  private ArrayList<AssemblyInstr> getPrintlnFunc() {
+    return null;
+  }
 
 }
