@@ -40,6 +40,7 @@ public class AssemblyInstr {
      || instrType == AssemblyInstrEnum.PUSH) {
       sb.append(" {");
     } else if (cond != AssemblyInstrCond.NO_CODE) {
+      // I think push/pop cannot have conditions
       sb.append(cond.name() + " ");
     }
 

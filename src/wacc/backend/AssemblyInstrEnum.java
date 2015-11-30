@@ -50,7 +50,7 @@ public enum AssemblyInstrEnum {
 
   //STACK
 
-  PUSH, // Push value to stack
-  POP   // Pop value from stack
+  PUSH, // Push value to stack NB: only R0=7 + LR
+  POP   // Pop value from stack NB: only R0=7 + PC
 
 }
