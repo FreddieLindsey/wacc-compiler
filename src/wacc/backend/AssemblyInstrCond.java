@@ -17,7 +17,9 @@ public enum AssemblyInstrCond {
   GT, // Z clear, and either N set and V set, or N clear and V set (>)
   LE, // Z set, or N set and V clear,or N clear and V set (<, or =)
   AL, // always
-  NV // reserved.
+  NV, // reserved.
+
+  NO_CODE // as code is optional we can also have no code!
 
 
 

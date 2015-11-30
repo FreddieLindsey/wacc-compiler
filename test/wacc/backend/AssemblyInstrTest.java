@@ -21,10 +21,11 @@ public class AssemblyInstrTest {
     args = new ArrayList<Arg>();
 
     instr = new AssemblyInstr(AssemblyInstrEnum.B,
-                       AssemblyInstrCond.AL, 
+                       AssemblyInstrCond.NO_CODE, 
                        args);
 
-    System.out.println("assemInstrInit: " + instr.toString());
+    //System.err.println("assemInstrInit: " + instr.toString());
+    //assertTrue(true);
 
     assertTrue(instr.toString().equals("B"));
   }

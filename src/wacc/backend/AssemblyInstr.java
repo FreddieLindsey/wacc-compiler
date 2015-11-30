@@ -35,7 +35,9 @@ public class AssemblyInstr {
     StringBuilder sb = new StringBuilder();
 
     sb.append(instrType.name());
-    sb.append(cond.name() + " ");
+    if (cond != AssemblyInstrCond.NO_CODE) {
+      sb.append(cond.name() + " ");
+    }
 
     for (int i = 0; i < args.size(); i++) {
       if (i == args.size()-1) {
