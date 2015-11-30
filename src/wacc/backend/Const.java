@@ -5,12 +5,14 @@ public class Const extends Arg {
   private int value;
   private String str;
 
-  private boolean isInt();
+  private boolean isInt;
+  private boolean isHash; // in ADD etc #NUM is used...
 
-  public Const(int value) {
+  public Const(int value, boolean isHash) {
     this.type = ArgEnum.CONST;
     isInt = true;
     this.value = value;
+    this.isHash = isHash;
   }
 
   public Const(String str) {
@@ -31,14 +33,24 @@ public class Const extends Arg {
   @Override
   public String toString() {
 
-  	if (!isInt && str != nill) {
-  		return "=" + str;
-  	} else if (isInt) {
-      return "=" + value;
+    StringBuilder sb = new StringBuilder();
+
+    if (isHash) {
+      sb.append("#");
     } else {
-      //error
-      return null;
+      sb.append("=");
+      
+      if (!isInt && str != null) {
+        sb.append(str);
+      } else if (isInt) {
+        sb.append(value);
+      } else {
+        //error
+        return null;
+      }
     }
+
+    return sb;
   }
 
 }

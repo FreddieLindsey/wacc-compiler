@@ -63,7 +63,45 @@ public class AssemblyInstr implements Instruction {
     return sb.toString();
   }
 
-  private ArrayList<AssemblyInstr> getPrintFunc() {
+  private ArrayList<Instruction> getPrintFunc() {
+    //p_print_string:
+      //PUSH {lr}
+      //LDR r1, [r0]
+      //ADD r2, r0, #4
+      //LDR r0, =msg_1
+      //ADD r0, r0, #4
+      //BL printf
+      //MOV r0, #0
+      //BL fflush
+      //POP {pc}
+
+    ArrayList<Instruction> instrs = new ArrayList<Instruction>();
+
+    Instruction i = new Label("p_print_string:");
+    instrs.add(i);
+
+    ArrayList<Arg> args = new ArrayList<Arg>();
+    args.add(new Register(RegEnum.LR));
+    i = new AssemblyInstr(AssemblyInstrEnum.PUSH, 
+                          AssemblyInstrCond.NO_CODE, args);
+    instrs.add(i);
+
+    args = new ArrayList<Arg>();
+    args.add(new Register(RegEnum.R1));
+    args.add(new MemoryAccess(RegEnum.R0))
+    i = new AssemblyInstr(AssemblyInstrEnum.LDR, 
+                          AssemblyInstrCond.NO_CODE, args);
+    instrs.add(i);
+
+    args = new ArrayList<Arg>();
+    args.add(new Register(RegEnum.R2));
+    args.add(new Register(RegEnum.R0));
+    args.add(new Const(4), true);
+    i = new AssemblyInstr(AssemblyInstrEnum.LDR, 
+                          AssemblyInstrCond.NO_CODE, args);
+    instrs.add(i);
+
+
     return null;
   }
 
