@@ -39,7 +39,7 @@ public class Const extends Arg {
       sb.append("#");
     } else {
       sb.append("=");
-      
+
       if (!isInt && str != null) {
         sb.append(str);
       } else if (isInt) {
@@ -50,7 +50,7 @@ public class Const extends Arg {
       }
     }
 
-    return sb;
+    return sb.toString();
   }
 
 }

@@ -103,7 +103,7 @@ public class BasicStatNode extends StatNode {
 
       args = new ArrayList<Arg>();
       args.add(new Register(RegEnum.R4));
-      args.add(new Const(7));
+      args.add(new Const(7, false));
       a = new AssemblyInstr(AssemblyInstrEnum.LDR, null, args);
       instrs.add(a);
 

@@ -88,7 +88,7 @@ public class AssemblyInstr implements Instruction {
 
     args = new ArrayList<Arg>();
     args.add(new Register(RegEnum.R1));
-    args.add(new MemoryAccess(RegEnum.R0))
+    args.add(new MemoryAccess(new Register(RegEnum.R0)));
     i = new AssemblyInstr(AssemblyInstrEnum.LDR, 
                           AssemblyInstrCond.NO_CODE, args);
     instrs.add(i);
@@ -96,7 +96,7 @@ public class AssemblyInstr implements Instruction {
     args = new ArrayList<Arg>();
     args.add(new Register(RegEnum.R2));
     args.add(new Register(RegEnum.R0));
-    args.add(new Const(4), true);
+    args.add(new Const(4, true));
     i = new AssemblyInstr(AssemblyInstrEnum.LDR, 
                           AssemblyInstrCond.NO_CODE, args);
     instrs.add(i);

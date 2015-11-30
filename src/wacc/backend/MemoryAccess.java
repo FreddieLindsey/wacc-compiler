@@ -15,7 +15,7 @@ public class MemoryAccess extends Arg {
 
   @Override
   public String toString() {
-  	return "[" + reg.name().toLowerCase() + "]";
+  	return "[" + reg.toString() + "]";
   }
 
 
