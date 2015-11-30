@@ -2,8 +2,7 @@ package wacc.backend;
 
 import java.util.ArrayList;
 
-
-public class AssemblyInstr {
+public class AssemblyInstr implements Instruction {
 
 
   private AssemblyInstrEnum instrType;
@@ -31,6 +30,7 @@ public class AssemblyInstr {
     return args;
   }
 
+  @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
 
@@ -39,9 +39,12 @@ public class AssemblyInstr {
     if (instrType == AssemblyInstrEnum.POP
      || instrType == AssemblyInstrEnum.PUSH) {
       sb.append(" {");
-    } else if (cond != AssemblyInstrCond.NO_CODE) {
-      // I think push/pop cannot have conditions
-      sb.append(cond.name() + " ");
+    } else {
+      if (cond != AssemblyInstrCond.NO_CODE) {
+        // I think push/pop cannot have conditions
+        sb.append(cond.name());
+      }
+      sb.append(" ");
     }
 
     for (int i = 0; i < args.size(); i++) {

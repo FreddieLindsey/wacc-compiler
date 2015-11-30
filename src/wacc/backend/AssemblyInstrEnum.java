@@ -7,7 +7,6 @@ public enum AssemblyInstrEnum {
 
   B,  
   BL,
-  BLT,
 
   // ARITHMETIC
   // <Operation>{<cond>}{S} Rd, Rn, Operand2

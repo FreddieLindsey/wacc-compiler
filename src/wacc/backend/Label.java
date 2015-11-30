@@ -1,8 +1,10 @@
 package wacc.backend;
 
-public class Label extends Arg {
+import java.util.ArrayList;
 
-  private String label; 
+public class Label extends Arg implements Instruction {
+
+  private String label;
 
   public Label(String label) {
     this.type = ArgEnum.LABEL;
