@@ -30,5 +30,22 @@ public class AssemblyInstrTest {
     assertTrue(instr.toString().equals("B"));
   }
 
+  @Test
+  public void pushInstr() {
+    args = new ArrayList<Arg>();
+
+    arg1 = new Register(RegEnum.R0);
+    args.add(arg1);
+
+    instr = new AssemblyInstr(AssemblyInstrEnum.PUSH,
+                       AssemblyInstrCond.NO_CODE, 
+                       args);
+
+    //System.err.println("pushInstr: " + instr.toString());
+    //assertTrue(true);
+
+    assertTrue(instr.toString().equals("PUSH {R0}"));
+  }
+
 
 }

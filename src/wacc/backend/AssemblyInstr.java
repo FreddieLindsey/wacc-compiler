@@ -35,7 +35,11 @@ public class AssemblyInstr {
     StringBuilder sb = new StringBuilder();
 
     sb.append(instrType.name());
-    if (cond != AssemblyInstrCond.NO_CODE) {
+
+    if (instrType == AssemblyInstrEnum.POP
+     || instrType == AssemblyInstrEnum.PUSH) {
+      sb.append(" {");
+    } else if (cond != AssemblyInstrCond.NO_CODE) {
       sb.append(cond.name() + " ");
     }
 
@@ -45,6 +49,11 @@ public class AssemblyInstr {
       } else {
         sb.append(args.get(i).toString() + ", ");
       }
+    }
+
+    if (instrType == AssemblyInstrEnum.POP
+     || instrType == AssemblyInstrEnum.PUSH) {
+      sb.append("}");
     }
 
     return sb.toString();
