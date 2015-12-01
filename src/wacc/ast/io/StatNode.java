@@ -20,7 +20,7 @@ public abstract class StatNode extends ASTNode {
     return false;
   }
 
-  public abstract ArrayList<AssemblyInstr> generateCode();
+  public abstract ArrayList<Instruction> generateCode();
 
 
 
