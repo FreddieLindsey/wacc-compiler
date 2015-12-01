@@ -20,14 +20,16 @@ public class AssemblyInstrTest {
   public void assemInstrInit() {
     args = new ArrayList<Arg>();
 
+    args.add(new Label("link"));
+
     instr = new AssemblyInstr(AssemblyInstrEnum.B,
                        AssemblyInstrCond.NO_CODE, 
                        args);
 
-    //System.err.println("assemInstrInit: " + instr.toString());
+    System.err.println("assemInstrInit: " + instr.toString());
     //assertTrue(true);
 
-    assertTrue(instr.toString().equals("B"));
+    assertTrue(instr.toString().equals("B link"));
   }
 
   @Test
@@ -44,7 +46,7 @@ public class AssemblyInstrTest {
     //System.err.println("pushInstr: " + instr.toString());
     //assertTrue(true);
 
-    assertTrue(instr.toString().equals("PUSH {R0}"));
+    assertTrue(instr.toString().equals("PUSH {r0}"));
   }
 
 

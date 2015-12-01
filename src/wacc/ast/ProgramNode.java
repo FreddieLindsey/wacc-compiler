@@ -80,7 +80,7 @@ public class ProgramNode extends ASTNode {
 
     ArrayList<Arg> loadArgs = new ArrayList<Arg>();
     loadArgs.add(new Register(RegEnum.R0));
-    loadArgs.add(new Const(ArgEnum.CONST, 0));
+    loadArgs.add(new Const(0, false));
     instrs.add(new AssemblyInstr(AssemblyInstrEnum.LDR, AssemblyInstrCond.NO_CODE, loadArgs));
 
     instrs.addAll(stat.generateCode());

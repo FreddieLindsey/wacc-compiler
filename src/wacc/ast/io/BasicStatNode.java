@@ -87,14 +87,41 @@ public class BasicStatNode extends StatNode {
   public ArrayList<AssemblyInstr> generateCode() {
     ArrayList<AssemblyInstr> instrs = new ArrayList<AssemblyInstr>();
 
+    ArrayList<Arg> args;
+    AssemblyInstr a;
+
     switch (st) {
-      case SKIP:
+      case SKIP: break;
       case READ: 
       case FREE:
       case RETURN:
       case EXIT:
-      case PRINT:
-      case PRINTLN:
+      // LDR r4, =7
+      // MOV r0, r4
+      // BL exit
+      // LDR r0, =0
+
+      args = new ArrayList<Arg>();
+      args.add(new Register(RegEnum.R4));
+      args.add(new Const(7, false));
+      a = new AssemblyInstr(AssemblyInstrEnum.LDR, null, args);
+      instrs.add(a);
+
+      args = new ArrayList<Arg>();
+      args.add(new Register(RegEnum.R0));
+      args.add(new Register(RegEnum.R4));
+      a = new AssemblyInstr(AssemblyInstrEnum.MOV, null, args);
+      instrs.add(a);
+
+      args = new ArrayList<Arg>();
+      args.add(new Label("exit"));
+      a = new AssemblyInstr(AssemblyInstrEnum.BL, null, args);
+      instrs.add(a);
+
+      break;
+
+      case PRINT: break;
+      case PRINTLN: break;
       default: break;
     }
 
