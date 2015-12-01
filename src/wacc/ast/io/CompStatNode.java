@@ -49,10 +49,13 @@ public class CompStatNode extends StatNode {
   @Override
   public ArrayList<Instruction> generateCode() {
     ArrayList<Instruction> instrs = new ArrayList<Instruction>();
+<<<<<<< 9c2519f01ba3bd550c4e9873cb217ba900d85687
 
     instrs.addAll(stat1.generateCode());
     instrs.addAll(stat2.generateCode());
 
+=======
+>>>>>>> changed arraylist type everywhere
     return instrs;
   }
 
