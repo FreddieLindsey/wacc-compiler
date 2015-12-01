@@ -225,6 +225,8 @@ public class AssemblyInstr implements Instruction {
       //BL scanf
       //POP {pc}
 
+    ArrayList<Instruction> instrs = new ArrayList<Instruction>();
+
     Instruction i = new Label("p_read_int:");
     instrs.add(i);
 
@@ -274,6 +276,7 @@ public class AssemblyInstr implements Instruction {
                           AssemblyInstrCond.NO_CODE, args);
     instrs.add(i);
 
+    return instrs;
   }
 
 }
