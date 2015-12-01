@@ -60,8 +60,8 @@ public class ReAssignNode extends StatNode {
   }
 
   @Override
-  public ArrayList<AssemblyInstr> generateCode() {
-    ArrayList<AssemblyInstr> instrs = new ArrayList<AssemblyInstr>();
+  public ArrayList<Instruction> generateCode() {
+    ArrayList<Instruction> instrs = new ArrayList<Instruction>();
     return instrs;
   }
 
