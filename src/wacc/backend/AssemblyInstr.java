@@ -215,4 +215,65 @@ public class AssemblyInstr implements Instruction {
     return instrs;
   }
 
+  public ArrayList<Instruction> getReadFunc() {
+
+    //p_read_int:
+      //PUSH {lr}
+      //MOV r1, r0
+      //LDR r0, =msg_3
+      //ADD r0, r0, #4
+      //BL scanf
+      //POP {pc}
+
+    Instruction i = new Label("p_read_int:");
+    instrs.add(i);
+
+    ArrayList<Arg> args = new ArrayList<Arg>();
+    args.add(new Register(RegEnum.LR));
+    i = new AssemblyInstr(AssemblyInstrEnum.PUSH, 
+                          AssemblyInstrCond.NO_CODE, args);
+    instrs.add(i);
+
+    args = new ArrayList<Arg>();
+    args.add(new Register(RegEnum.R1));
+    args.add(new Register(RegEnum.R0));
+    i = new AssemblyInstr(AssemblyInstrEnum.MOV, 
+                          AssemblyInstrCond.NO_CODE, args);
+    instrs.add(i);
+
+    args = new ArrayList<Arg>();
+    args.add(new Register(RegEnum.R0));
+    args.add(new Const("msg_3"));
+    i = new AssemblyInstr(AssemblyInstrEnum.LDR, 
+                          AssemblyInstrCond.NO_CODE, args);
+    instrs.add(i);
+
+    args = new ArrayList<Arg>();
+    args.add(new Register(RegEnum.R0));
+    args.add(new Register(RegEnum.R0));
+    args.add(new Const(4, true));
+    i = new AssemblyInstr(AssemblyInstrEnum.ADD, 
+                          AssemblyInstrCond.NO_CODE, args);
+    instrs.add(i);
+
+    args = new ArrayList<Arg>();
+    args.add(new Label("scanf"));
+    i = new AssemblyInstr(AssemblyInstrEnum.BL, 
+                          AssemblyInstrCond.NO_CODE, args);
+    instrs.add(i);
+
+    args = new ArrayList<Arg>();
+    args.add(new Label("scanf"));
+    i = new AssemblyInstr(AssemblyInstrEnum.BL, 
+                          AssemblyInstrCond.NO_CODE, args);
+    instrs.add(i);
+
+    args = new ArrayList<Arg>();
+    args.add(new Register(RegEnum.PC));
+    i = new AssemblyInstr(AssemblyInstrEnum.POP, 
+                          AssemblyInstrCond.NO_CODE, args);
+    instrs.add(i);
+
+  }
+
 }
