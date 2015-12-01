@@ -97,16 +97,122 @@ public class AssemblyInstr implements Instruction {
     args.add(new Register(RegEnum.R2));
     args.add(new Register(RegEnum.R0));
     args.add(new Const(4, true));
+    i = new AssemblyInstr(AssemblyInstrEnum.ADD, 
+                          AssemblyInstrCond.NO_CODE, args);
+    instrs.add(i);
+
+    args = new ArrayList<Arg>();
+    args.add(new Register(RegEnum.R0));
+    args.add(new Const("msg_1"));
     i = new AssemblyInstr(AssemblyInstrEnum.LDR, 
                           AssemblyInstrCond.NO_CODE, args);
     instrs.add(i);
 
+    args = new ArrayList<Arg>();
+    args.add(new Register(RegEnum.R0));
+    args.add(new Register(RegEnum.R0));
+    args.add(new Const(4, true));
+    i = new AssemblyInstr(AssemblyInstrEnum.LDR, 
+                          AssemblyInstrCond.NO_CODE, args);
+    instrs.add(i);
 
-    return null;
+    args = new ArrayList<Arg>();
+    args.add(new Const("printf"));
+    i = new AssemblyInstr(AssemblyInstrEnum.BL, 
+                          AssemblyInstrCond.NO_CODE, args);
+    instrs.add(i);
+
+    args = new ArrayList<Arg>();
+    args.add(new Register(RegEnum.R0));
+    args.add(new Const(0, true));
+    i = new AssemblyInstr(AssemblyInstrEnum.MOV, 
+                          AssemblyInstrCond.NO_CODE, args);
+    instrs.add(i);
+
+    args = new ArrayList<Arg>();
+    args.add(new Const("fflush"));
+    i = new AssemblyInstr(AssemblyInstrEnum.BL, 
+                          AssemblyInstrCond.NO_CODE, args);
+    instrs.add(i);
+
+    args = new ArrayList<Arg>();
+    args.add(new Register(RegEnum.PC));
+    i = new AssemblyInstr(AssemblyInstrEnum.POP, 
+                          AssemblyInstrCond.NO_CODE, args);
+    instrs.add(i);
+
+    return instrs;
   }
 
-  private ArrayList<AssemblyInstr> getPrintlnFunc() {
-    return null;
+  private ArrayList<Instruction> getPrintlnFunc() {
+
+    //p_print_ln:
+      //PUSH {lr}
+      //LDR r0, =msg_2
+      //ADD r0, r0, #4
+      //BL puts
+      //MOV r0, #0
+      //BL fflush
+      //POP {pc}
+
+    ArrayList<Instruction> instrs = new ArrayList<Instruction>();
+
+    Instruction i = new Label("p_print_ln:");
+    instrs.add(i);
+
+    ArrayList<Arg> args = new ArrayList<Arg>();
+    args.add(new Register(RegEnum.LR));
+    i = new AssemblyInstr(AssemblyInstrEnum.PUSH, 
+                          AssemblyInstrCond.NO_CODE, args);
+    instrs.add(i);
+
+    args = new ArrayList<Arg>();
+    args.add(new Register(RegEnum.LR));
+    i = new AssemblyInstr(AssemblyInstrEnum.PUSH, 
+                          AssemblyInstrCond.NO_CODE, args);
+    instrs.add(i);
+
+    args = new ArrayList<Arg>();
+    args.add(new Register(RegEnum.R0));
+    args.add(new Const("msg_2"));
+    i = new AssemblyInstr(AssemblyInstrEnum.LDR, 
+                          AssemblyInstrCond.NO_CODE, args);
+    instrs.add(i);
+
+    args = new ArrayList<Arg>();
+    args.add(new Register(RegEnum.R0));
+    args.add(new Register(RegEnum.R0));
+    args.add(new Const(4, true));
+    i = new AssemblyInstr(AssemblyInstrEnum.ADD, 
+                          AssemblyInstrCond.NO_CODE, args);
+    instrs.add(i);
+
+    args = new ArrayList<Arg>();
+    args.add(new Const("puts"));
+    i = new AssemblyInstr(AssemblyInstrEnum.BL, 
+                          AssemblyInstrCond.NO_CODE, args);
+    instrs.add(i);
+
+    args = new ArrayList<Arg>();
+    args.add(new Register(RegEnum.R0));
+    args.add(new Const(0, true));
+    i = new AssemblyInstr(AssemblyInstrEnum.MOV, 
+                          AssemblyInstrCond.NO_CODE, args);
+    instrs.add(i);
+
+    args = new ArrayList<Arg>();
+    args.add(new Const("fflush"));
+    i = new AssemblyInstr(AssemblyInstrEnum.BL, 
+                          AssemblyInstrCond.NO_CODE, args);
+    instrs.add(i);
+
+    args = new ArrayList<Arg>();
+    args.add(new Register(RegEnum.PC));
+    i = new AssemblyInstr(AssemblyInstrEnum.POP, 
+                          AssemblyInstrCond.NO_CODE, args);
+    instrs.add(i);
+
+    return instrs;
   }
 
 }
