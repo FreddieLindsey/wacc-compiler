@@ -15,7 +15,7 @@ public class Register extends Arg {
 
   @Override
   public String toString() {
-  	return reg.name();
+  	return reg.name().toLowerCase();
   }
 
 

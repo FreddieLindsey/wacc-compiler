@@ -117,7 +117,7 @@ public class AssemblyInstr implements Instruction {
     instrs.add(i);
 
     args = new ArrayList<Arg>();
-    args.add(new Const("printf"));
+    args.add(new Label("printf"));
     i = new AssemblyInstr(AssemblyInstrEnum.BL, 
                           AssemblyInstrCond.NO_CODE, args);
     instrs.add(i);
@@ -130,7 +130,7 @@ public class AssemblyInstr implements Instruction {
     instrs.add(i);
 
     args = new ArrayList<Arg>();
-    args.add(new Const("fflush"));
+    args.add(new Label("fflush"));
     i = new AssemblyInstr(AssemblyInstrEnum.BL, 
                           AssemblyInstrCond.NO_CODE, args);
     instrs.add(i);
