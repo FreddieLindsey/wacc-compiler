@@ -5,8 +5,8 @@ public enum AssemblyInstrEnum {
 
   //BRANCHING
 
-  B,  
-  BL,
+  B,  //use Label as argument!
+  BL, //use Label as argument!
 
   // ARITHMETIC
   // <Operation>{<cond>}{S} Rd, Rn, Operand2
