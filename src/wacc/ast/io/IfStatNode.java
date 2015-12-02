@@ -56,8 +56,6 @@ public class IfStatNode extends StatNode {
   }
 
   @Override
-  <<<<<<<23d0a41e9d85da35458a0dc1226f03bb8647d974
-
   public InstructionBlock generateCode() {
     InstructionBlock i = new InstructionBlock();
     ArrayList<Arg> args;
@@ -83,7 +81,9 @@ public class IfStatNode extends StatNode {
       args));
 
     i.add(thenStat.generateCode());
+    i.add(new Label("else")); // TODO: placeholder string
     i.add(elseStat.generateCode());
+
 
     return i;
     }
