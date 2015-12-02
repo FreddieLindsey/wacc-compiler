@@ -16,6 +16,7 @@ import wacc.backend.instruction.AssemblyInstr;
 import wacc.backend.instruction.AssemblyInstrCond;
 import wacc.backend.instruction.AssemblyInstrEnum;
 import wacc.backend.instruction.Const;
+import wacc.backend.instruction.Instruction;
 import wacc.backend.instruction.InstructionBlock;
 import wacc.backend.instruction.MemoryAccess;
 import wacc.backend.instruction.RegEnum;
@@ -118,11 +119,39 @@ public class NewAssignNode extends StatNode {
     semanticallyValid = true;
     return semanticallyValid;
   }
+  
+  // Move stack pointer down (stack grows down)
+  // SUB sp, sp, #bytes
+  private Instruction decStackPointer(int bytes) {
+    ArrayList<Arg> args = new ArrayList<>();
+    args.add(new Register(RegEnum.SP));
+    args.add(new Register(RegEnum.SP));
+    args.add(new Const(bytes, true));
+    return new AssemblyInstr(AssemblyInstrEnum.SUB,
+        AssemblyInstrCond.NO_CODE, args);
+  }
+  
+  // Restore stack pointer when variable leaves scope
+  // ADD sp, sp, #bytes
+  private Instruction incStackPointer(int bytes) {
+    ArrayList<Arg> args = new ArrayList<>();
+    args.add(new Register(RegEnum.SP));
+    args.add(new Register(RegEnum.SP));
+    args.add(new Const(bytes, true));
+    return new AssemblyInstr(AssemblyInstrEnum.ADD,
+        AssemblyInstrCond.NO_CODE, args);
+  }
 
   @Override
   public InstructionBlock generateCode() {
     InstructionBlock i = new InstructionBlock();
-
+    /*
+     * TODO: In the reference compiler there seems to be some lookahead on
+     * multiple declarations, and the stack pointer is decremented by the total
+     * amount needed initially then each variable increments it back gradually.
+     * This could be considered as an optimisation for the extension.
+     */
+    
     switch (t.getType()) {
     case BOOL:
     case CHAR:
@@ -130,13 +159,8 @@ public class NewAssignNode extends StatNode {
 
       // Move the stack pointer down by 1 byte (stack grows downwards)
       // SUB sp, sp, #1
-      ArrayList<Arg> byteSubArgs = new ArrayList<>();
-      byteSubArgs.add(new Register(RegEnum.SP));
-      byteSubArgs.add(new Register(RegEnum.SP));
-      byteSubArgs.add(new Const(1, true));
-      i.add(new AssemblyInstr(AssemblyInstrEnum.SUB,
-          AssemblyInstrCond.NO_CODE, byteSubArgs));
-      
+      i.add(decStackPointer(1));
+
       // Set the register up with the rhs value
       // MOV r4, #value
       ArrayList<Arg> charBoolMovArgs = new ArrayList<>();
@@ -153,15 +177,15 @@ public class NewAssignNode extends StatNode {
       byteStoreArgs.add(new MemoryAccess(new Register(RegEnum.SP)));
       i.add(new AssemblyInstr(AssemblyInstrEnum.STRB,
           AssemblyInstrCond.NO_CODE, byteStoreArgs));
-
-      // Restore stack pointer up 1 byte
+      
+      // TODO: this should happen when the variable goes out of scope
+      // Restore stack pointer up
       // Same arguments as moving pointer down
       // ADD sp, sp, #1
-      i.add(new AssemblyInstr(AssemblyInstrEnum.ADD,
-          AssemblyInstrCond.NO_CODE, byteSubArgs));
+      i.add(incStackPointer(1));
     }
 
-    // TODO
+    // TODO: is this stuff needed?
     // evaluate rhs, leaves result in a register/finds memory addr
     // instrs.addAll(rhs.generateCode());
 
