@@ -17,6 +17,7 @@ import wacc.backend.instruction.AssemblyInstrCond;
 import wacc.backend.instruction.AssemblyInstrEnum;
 import wacc.backend.instruction.Const;
 import wacc.backend.instruction.InstructionBlock;
+import wacc.backend.instruction.MemoryAccess;
 import wacc.backend.instruction.RegEnum;
 import wacc.backend.instruction.Register;
 
@@ -126,7 +127,7 @@ public class NewAssignNode extends StatNode {
     case BOOL:
     case CHAR:
       // bool and char cases the same, both 1 byte
-      
+
       // Move the stack pointer down by 1 byte (stack grows downwards)
       // SUB sp, sp, #1
       ArrayList<Arg> byteSubArgs = new ArrayList<>();
@@ -138,12 +139,26 @@ public class NewAssignNode extends StatNode {
       
       // Set the register up with the rhs value
       // MOV r4, #value
-      
+      ArrayList<Arg> charBoolMovArgs = new ArrayList<>();
+      charBoolMovArgs.add(new Register(RegEnum.R4));
+      // TODO: replace -1 with delegated immediate value
+      charBoolMovArgs.add(new Const(-1, true));
+      i.add(new AssemblyInstr(AssemblyInstrEnum.MOV,
+          AssemblyInstrCond.NO_CODE, charBoolMovArgs));
+
       // Store the signle byte with the value on the stack
       // STRB r4, [sp]
-      
+      ArrayList<Arg> byteStoreArgs = new ArrayList<>();
+      byteStoreArgs.add(new Register(RegEnum.R4));
+      byteStoreArgs.add(new MemoryAccess(new Register(RegEnum.SP)));
+      i.add(new AssemblyInstr(AssemblyInstrEnum.STRB,
+          AssemblyInstrCond.NO_CODE, byteStoreArgs));
+
       // Restore stack pointer up 1 byte
+      // Same arguments as moving pointer down
       // ADD sp, sp, #1
+      i.add(new AssemblyInstr(AssemblyInstrEnum.ADD,
+          AssemblyInstrCond.NO_CODE, byteSubArgs));
     }
 
     // TODO
