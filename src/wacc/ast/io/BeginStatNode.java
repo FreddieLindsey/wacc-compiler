@@ -40,7 +40,8 @@ public class BeginStatNode extends StatNode {
   @Override
   public ArrayList<Instruction> generateCode() {
     ArrayList<Instruction> instrs = new ArrayList<Instruction>();
-    //TODO: Figure out what a begin block actually represents in assembly
+    // Scope instruction generates no assembly instructions
+    // Return empty list
     return instrs;
   }
 
