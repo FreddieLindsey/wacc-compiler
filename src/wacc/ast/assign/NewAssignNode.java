@@ -119,28 +119,6 @@ public class NewAssignNode extends StatNode {
     semanticallyValid = true;
     return semanticallyValid;
   }
-  
-  // Move stack pointer down (stack grows down)
-  // SUB sp, sp, #bytes
-  private Instruction decStackPointer(int bytes) {
-    ArrayList<Arg> args = new ArrayList<>();
-    args.add(new Register(RegEnum.SP));
-    args.add(new Register(RegEnum.SP));
-    args.add(new Const(bytes, true));
-    return new AssemblyInstr(AssemblyInstrEnum.SUB,
-        AssemblyInstrCond.NO_CODE, args);
-  }
-  
-  // Restore stack pointer when variable leaves scope
-  // ADD sp, sp, #bytes
-  private Instruction incStackPointer(int bytes) {
-    ArrayList<Arg> args = new ArrayList<>();
-    args.add(new Register(RegEnum.SP));
-    args.add(new Register(RegEnum.SP));
-    args.add(new Const(bytes, true));
-    return new AssemblyInstr(AssemblyInstrEnum.ADD,
-        AssemblyInstrCond.NO_CODE, args);
-  }
 
   @Override
   public InstructionBlock generateCode() {
@@ -151,38 +129,50 @@ public class NewAssignNode extends StatNode {
      * amount needed initially then each variable increments it back gradually.
      * This could be considered as an optimisation for the extension.
      */
-    
     switch (t.getType()) {
-    case BOOL:
-    case CHAR:
-      // bool and char cases the same, both 1 byte
+    case INT:
+      // Move the stack pointer down by 4 bytes (word)
+      // SUB sp, sp, #4
+      i.add(decStackPointer(4));
 
-      // Move the stack pointer down by 1 byte (stack grows downwards)
+      // MOV r4, #value
+      i.add(loadImmediate());
+
+      // Store the word with the value on the stack
+      // STR r4, [sp]
+      ArrayList<Arg> wordStoreArgs = new ArrayList<>();
+      wordStoreArgs.add(new Register(RegEnum.R4));
+      wordStoreArgs.add(new MemoryAccess(new Register(RegEnum.SP)));
+      i.add(new AssemblyInstr(AssemblyInstrEnum.STR,
+          AssemblyInstrCond.NO_CODE, wordStoreArgs));
+
+      // TODO: this should happen when the variable goes out of scope
+      // Restore stack pointer up
+      // ADD sp, sp, #4
+      i.add(incStackPointer(4));
+      break;
+    case BOOL: // bool and char cases the same, both 1 byte
+    case CHAR:
+      // Move the stack pointer down by 1 byte
       // SUB sp, sp, #1
       i.add(decStackPointer(1));
 
-      // Set the register up with the rhs value
       // MOV r4, #value
-      ArrayList<Arg> charBoolMovArgs = new ArrayList<>();
-      charBoolMovArgs.add(new Register(RegEnum.R4));
-      // TODO: replace -1 with delegated immediate value
-      charBoolMovArgs.add(new Const(-1, true));
-      i.add(new AssemblyInstr(AssemblyInstrEnum.MOV,
-          AssemblyInstrCond.NO_CODE, charBoolMovArgs));
+      i.add(loadImmediate());
 
-      // Store the signle byte with the value on the stack
+      // Store the single byte with the value on the stack
       // STRB r4, [sp]
       ArrayList<Arg> byteStoreArgs = new ArrayList<>();
       byteStoreArgs.add(new Register(RegEnum.R4));
       byteStoreArgs.add(new MemoryAccess(new Register(RegEnum.SP)));
       i.add(new AssemblyInstr(AssemblyInstrEnum.STRB,
           AssemblyInstrCond.NO_CODE, byteStoreArgs));
-      
+
       // TODO: this should happen when the variable goes out of scope
       // Restore stack pointer up
-      // Same arguments as moving pointer down
       // ADD sp, sp, #1
       i.add(incStackPointer(1));
+      break;
     }
 
     // TODO: is this stuff needed?
@@ -195,6 +185,39 @@ public class NewAssignNode extends StatNode {
     // TODO: make ident point to memory addr
 
     return i;
+  }
+
+  // Move stack pointer down (stack grows down)
+  // SUB sp, sp, #bytes
+  private Instruction decStackPointer(int bytes) {
+    ArrayList<Arg> args = new ArrayList<>();
+    args.add(new Register(RegEnum.SP));
+    args.add(new Register(RegEnum.SP));
+    args.add(new Const(bytes, true));
+    return new AssemblyInstr(AssemblyInstrEnum.SUB, AssemblyInstrCond.NO_CODE,
+        args);
+  }
+
+  // Restore stack pointer when variable leaves scope
+  // ADD sp, sp, #bytes
+  private Instruction incStackPointer(int bytes) {
+    ArrayList<Arg> args = new ArrayList<>();
+    args.add(new Register(RegEnum.SP));
+    args.add(new Register(RegEnum.SP));
+    args.add(new Const(bytes, true));
+    return new AssemblyInstr(AssemblyInstrEnum.ADD, AssemblyInstrCond.NO_CODE,
+        args);
+  }
+
+  // Set the register up with the rhs value
+  // MOV r4, #value
+  private Instruction loadImmediate() {
+    ArrayList<Arg> charBoolMovArgs = new ArrayList<>();
+    charBoolMovArgs.add(new Register(RegEnum.R4));
+    // TODO: replace -1 with delegated immediate value
+    charBoolMovArgs.add(new Const(-1, true));
+    return new AssemblyInstr(AssemblyInstrEnum.MOV, AssemblyInstrCond.NO_CODE,
+        charBoolMovArgs);
   }
 
 }
