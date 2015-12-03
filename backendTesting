@@ -11,7 +11,7 @@ def cacheOutput():
     cacheFile = 'test_compile_output/cachedData.txt'
     if (os.path.exists(cacheFile)):
         with open(cacheFile, 'r') as f:
-            return f.read()
+            return f.read().split('\n')
     else:
         system_command = "wacc_examples/refCompile -a -d wacc_examples/valid"
         process = subprocess.Popen(system_command.split(), stdout=subprocess.PIPE, stderr=subprocess.PIPE)
@@ -98,7 +98,8 @@ def printResult(verified, incorrect):
 
 # MAIN
 
-data = getDataFromOutput(cacheOutput())
+output = cacheOutput()
+data = getDataFromOutput(output)
 writeData(data)
 
 verified = 0
