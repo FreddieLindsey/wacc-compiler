@@ -7,19 +7,29 @@ import fnmatch
 
 # FUNCTIONS
 
+def getReferenceOutput(cacheFile):
+    system_command = "wacc_examples/refCompile -a -d wacc_examples/valid"
+    process = subprocess.Popen(system_command.split(), stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    output = process.communicate()[0].split('\n')
+    print output
+    if len(output) == 1 and len(output[0] == 0):
+        print "Couldn't get reference output. Thank Mark for using a silly system ruby instead of a local one."
+        exit(1)
+    makeFileDirectory(cacheFile)
+    with open(cacheFile, 'w') as f:
+        f.write('\n'.join(output))
+    return output
+
 def cacheOutput():
     cacheFile = 'test_compile_output/cachedData.txt'
     if (os.path.exists(cacheFile)):
         with open(cacheFile, 'r') as f:
+            data = f.read()
+            if (len(data) < 10):
+                return getReferenceOutput(cacheFile)
             return f.read().split('\n')
     else:
-        system_command = "wacc_examples/refCompile -a -d wacc_examples/valid"
-        process = subprocess.Popen(system_command.split(), stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-        output = process.communicate()[0].split('\n')
-        makeFileDirectory(cacheFile)
-        with open(cacheFile, 'w') as f:
-            f.write('\n'.join(output))
-        return output
+        return getReferenceOutput(cacheFile)
 
 def compile(filename):
     system_command = "./compile {0}".format(filename)
@@ -123,4 +133,5 @@ for root, dirnames, filenames in os.walk(root):
         verified += 1
         if not verify_file(root, filename):
             incorrect += 1
+
 printResult(verified, incorrect)
