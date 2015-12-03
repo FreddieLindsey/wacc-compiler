@@ -212,10 +212,18 @@ public class NewAssignNode extends StatNode {
   // Set the register up with the rhs value
   // MOV r4, #value
   private Instruction loadImmediate() {
+
+    assert t.getType() == TypeEnum.BOOL 
+        || t.getType() == TypeEnum.CHAR;
+
     ArrayList<Arg> charBoolMovArgs = new ArrayList<>();
     charBoolMovArgs.add(new Register(RegEnum.R4));
     // TODO: replace -1 with delegated immediate value
-    charBoolMovArgs.add(new Const(-1, true));
+    if (t.getType() == TypeEnum.BOOL) {
+      charBoolMovArgs.add(new Const(-1, true));
+    } else if (t.getType() == TypeEnum.CHAR){
+      charBoolMovArgs.add(new Const(-1, true));
+    }
     return new AssemblyInstr(AssemblyInstrEnum.MOV, AssemblyInstrCond.NO_CODE,
         charBoolMovArgs);
   }

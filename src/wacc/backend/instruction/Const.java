@@ -34,12 +34,24 @@ public class Const extends Arg {
     this.isCommand = isCommand;
   }
 
+  public Const(char c) {
+    // for e.g. LDR r0, =msg_1
+    this.type = ArgEnum.CONST;
+    isInt = true;
+    isHash = true;
+    this.c = c;
+  }
+
   public int getValue() {
     return value;
   }
 
   public String getString() {
     return str;
+  }
+
+  public char getChar() {
+    return c;
   }
 
   @Override
