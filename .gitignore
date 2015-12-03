@@ -49,3 +49,4 @@ src/antlr
 
 #ignore test files
 test_bin/
+test_compile_output

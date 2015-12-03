@@ -1,12 +1,35 @@
 #!/usr/bin/env python
 
 import os
+import sys
 import subprocess
+import fnmatch
 
 # FUNCTIONS
 
-def getNextAssembly():
-    print "Called getNextAssembly"
+def cacheOutput():
+    cacheFile = 'test_compile_output/cachedData.txt'
+    if (os.path.exists(cacheFile)):
+        with open(cacheFile, 'r') as f:
+            return f.read()
+    else:
+        system_command = "wacc_examples/refCompile -a -d wacc_examples/valid"
+        process = subprocess.Popen(system_command.split(), stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        output = process.communicate()[0].split('\n')
+        makeFileDirectory(cacheFile)
+        with open(cacheFile, 'w') as f:
+            f.write('\n'.join(output))
+        return output
+
+def compile(filename):
+    system_command = "./compile {0}".format(filename)
+    process = subprocess.Popen(system_command.split(), stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    output = process.communicate()[0]
+    newfile = 'test_compile_output/compiled_output' + filename.split('wacc_examples')[1]
+    newfile = newfile.replace('.wacc', '.s')
+    makeFileDirectory(newfile)
+    with open(newfile, 'w') as f:
+        f.write(output)
 
 def makeFileDirectory(file_path):
     file_dirs=file_path.split('/')
@@ -17,30 +40,86 @@ def makeFileDirectory(file_path):
             os.mkdir(current_dir)
         i += 1
 
+def getDataFromOutput(output):
+    data = []
+    i = 0
+    while (i < len(output)):
+        if "calling the reference compiler on" in output[i]:
+            filename = output[i][34:] # Gets the text after the above
+            separator = '==========================================================='
+            while (separator not in output[i]):
+                i += 1
+            assembly = []
+            i += 1
+            while (separator not in output[i]):
+                assembly.append('\t'.join(output[i].split('\t')[1:]))
+                i += 1
+            data.append((filename.replace('wacc', 's'), '\n'.join(assembly)))
+        i += 1
+    return data
+
+def writeData(data):
+    for i in data:
+        data_path = "test_compile_output/{0}".format(i[0])
+        makeFileDirectory(data_path)
+        with open(data_path, 'w') as f:
+            f.write(i[1])
+
+def compareFiles(file_1, file_2):
+    with open(file_1, 'r') as f1:
+        with open(file_2, 'r') as f2:
+            return f1.read() == f2.read()
+
+def show_error(file_1_orig, file1, file2):
+    print '====================================='
+    print '{0} has a compile error:\n'.format(file_1_orig.split('/')[-1])
+    system_command = "diff {0} {1}".format(file1, file2)
+    process = subprocess.Popen(system_command.split(), stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    print process.communicate()[0]
+
+def verify_file(root, filename):
+    compile_file = os.path.join(root, filename)
+    compile(compile_file)
+    compile_file = compile_file.replace('wacc_examples', 'test_compile_output/compiled_output')
+    compile_file = compile_file.replace('.wacc', '.s')
+    referenceOutput = compile_file.replace('compiled_output', 's_examples')
+    correct = True
+    if not compareFiles(compile_file, referenceOutput):
+        show_error(filename, compile_file, referenceOutput)
+        correct = False
+    return correct
+
+def printResult(verified, incorrect):
+    print '====================================='
+    print '====================================='
+    print 'Verified:\t{0}'.format(verified)
+    print 'Correct:\t{0}'.format(verified - incorrect)
+    print 'Incorrect:\t{0}'.format(incorrect)
+
 # MAIN
 
-system_command = "wacc_examples/refCompile -a -d wacc_examples/valid"
-process = subprocess.Popen(system_command.split(), stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-output = process.communicate()[0].split('\n')
+data = getDataFromOutput(cacheOutput())
+writeData(data)
 
-data = []
-i = 0
-while (i < len(output)):
-    if "calling the reference compiler on" in output[i]:
-        filename = output[i][34:] # Gets the text after the above
-        separator = '==========================================================='
-        while (separator not in output[i]):
-            i += 1
-        assembly = []
-        i += 1
-        while (separator not in output[i]):
-            assembly.append('\t'.join(output[i].split('\t')[1:]))
-            i += 1
-        data.append((filename.replace('wacc', 's'), '\n'.join(assembly)))
-    i += 1
+verified = 0
+incorrect = 0
 
-for i in data:
-    data_path = "referenceCompilerOutput/{0}".format(i[0])
-    makeFileDirectory(data_path)
-    with open(data_path, 'w') as f:
-        f.write(i[1])
+root = 'wacc_examples/valid'
+
+if len(sys.argv) > 1:
+    path = sys.argv[1]
+    if '.wacc' in path:
+        verified += 1
+        if not verify_file('/'.join(path.split('/')[:-1]), path.split('/')[-1]):
+            incorrect += 1
+        printResult(verified, incorrect)
+        exit(0)
+    else:
+        root = path
+
+for root, dirnames, filenames in os.walk(root):
+    for filename in fnmatch.filter(filenames, '*.wacc'):
+        verified += 1
+        if not verify_file(root, filename):
+            incorrect += 1
+printResult(verified, incorrect)
