@@ -10,6 +10,7 @@ import wacc.ast.pair.NewPairNode;
 import wacc.ast.type.AnyTypeNode;
 import wacc.ast.type.FuncTypeNode;
 import wacc.ast.type.PairTypeNode;
+import wacc.ast.type.TypeEnum;
 import wacc.ast.type.TypeNode;
 import wacc.backend.instruction.Arg;
 import wacc.backend.instruction.AssemblyInstr;
@@ -59,8 +60,9 @@ public class NewAssignNode extends StatNode {
     // Get the type of the new statement
     TypeNode returnType;
     if (rhs instanceof CallNode) {
-      returnType = ((FuncTypeNode) symbolTable.lookUp(((CallNode) rhs)
-          .getIdent().getIdent())).getReturnType();
+      returnType =
+          ((FuncTypeNode) symbolTable.lookUp(((CallNode) rhs).getIdent()
+              .getIdent())).getReturnType();
     } else if (rhs instanceof NewPairNode) {
       ExprNode fst = ((NewPairNode) rhs).getFst();
       ExprNode snd = ((NewPairNode) rhs).getSnd();
@@ -129,22 +131,58 @@ public class NewAssignNode extends StatNode {
      * amount needed initially then each variable increments it back gradually.
      * This could be considered as an optimisation for the extension.
      */
+
+    // STR r4, [sp]
+    // Used by multiple cases to store a word on the stack
+    ArrayList<Arg> wordStoreArgs = new ArrayList<>();
+    wordStoreArgs.add(new Register(RegEnum.R4));
+    wordStoreArgs.add(new MemoryAccess(new Register(RegEnum.SP)));
+    AssemblyInstr wordStore =
+        new AssemblyInstr(AssemblyInstrEnum.STR, AssemblyInstrCond.NO_CODE,
+            wordStoreArgs);
+
+    // TODO: string case requires creating a string label, are we
+    // pre-processing for that?
+
     switch (t.getType()) {
+    case STRING:
+      // Move the stack pointer down by 4 bytes (word)
+      // SUB sp, sp, #4
+      i.add(decStackPointer(4));
+
+      // Load the register with the string at the generated label
+      // LDR r4, =label
+      ArrayList<Arg> loadStringArgs = new ArrayList<>();
+      loadStringArgs.add(new Register(RegEnum.R4));
+      // TODO: replace -1 with delegated string return value
+      loadStringArgs.add(new Const(-1, false));
+      i.add(new AssemblyInstr(AssemblyInstrEnum.MOV,
+          AssemblyInstrCond.NO_CODE, loadStringArgs));
+
+      // STR r4, [sp]
+      i.add(wordStore);
+
+      // TODO: this should happen when the variable goes out of scope
+      // Restore stack pointer up
+      // ADD sp, sp, #4
+      i.add(incStackPointer(4));
+      break;
     case INT:
       // Move the stack pointer down by 4 bytes (word)
       // SUB sp, sp, #4
       i.add(decStackPointer(4));
 
-      // MOV r4, #value
-      i.add(loadImmediate());
+      // Load the register with the appropriate int value
+      // LDR r4, =x
+      ArrayList<Arg> loadIntArgs = new ArrayList<>();
+      loadIntArgs.add(new Register(RegEnum.R4));
+      // TODO: replace -1 with delegated int return value
+      loadIntArgs.add(new Const(-1, false));
+      i.add(new AssemblyInstr(AssemblyInstrEnum.MOV,
+          AssemblyInstrCond.NO_CODE, loadIntArgs));
 
-      // Store the word with the value on the stack
       // STR r4, [sp]
-      ArrayList<Arg> wordStoreArgs = new ArrayList<>();
-      wordStoreArgs.add(new Register(RegEnum.R4));
-      wordStoreArgs.add(new MemoryAccess(new Register(RegEnum.SP)));
-      i.add(new AssemblyInstr(AssemblyInstrEnum.STR,
-          AssemblyInstrCond.NO_CODE, wordStoreArgs));
+      i.add(wordStore);
 
       // TODO: this should happen when the variable goes out of scope
       // Restore stack pointer up
@@ -213,20 +251,17 @@ public class NewAssignNode extends StatNode {
   // MOV r4, #value
   private Instruction loadImmediate() {
 
-    assert t.getType() == TypeEnum.BOOL 
-        || t.getType() == TypeEnum.CHAR
-        || t.getType() == TypeEnum.INT;
+    assert t.getType() == TypeEnum.BOOL || t.getType() == TypeEnum.CHAR;
 
     ArrayList<Arg> loadImmediateArgs = new ArrayList<>();
     loadImmediateArgs.add(new Register(RegEnum.R4));
     // TODO: replace -1 with delegated immediate value
     if (t.getType() == TypeEnum.BOOL) {
       loadImmediateArgs.add(new Const(-1, true));
-    } else if (t.getType() == TypeEnum.CHAR){
-      loadImmediateArgs.add(new Const(-1, true));
-    } else if (t.getType() == TypeEnum.INT) {
+    } else if (t.getType() == TypeEnum.CHAR) {
       loadImmediateArgs.add(new Const(-1, true));
     }
+
     return new AssemblyInstr(AssemblyInstrEnum.MOV, AssemblyInstrCond.NO_CODE,
         loadImmediateArgs);
   }
