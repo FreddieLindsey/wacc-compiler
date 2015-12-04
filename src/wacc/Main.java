@@ -25,9 +25,12 @@ public class Main {
 
   public static void main(String[] args) throws IOException {
     InputStream i;
+    String n = "out";
 
     if (args.length > 0) {
-      i = new FileInputStream(args[0]);
+      File f = new File(args[0]);
+      n = f.getName();
+      i = new FileInputStream(f);
     } else {
       i = System.in;
     }
@@ -57,7 +60,18 @@ public class Main {
     for (Instruction inst : programCode) {
       sb.append(inst + "\n");
     }
-    System.out.println(sb.toString());
+
+    // Generate output file name
+    String outputName = n;
+    if (outputName.indexOf(".") > 0)
+      outputName = outputName.substring(0, outputName.lastIndexOf("."));
+    outputName += ".s";
+
+    // Save to file
+    String outputAsm = sb.toString();
+    FileWriter writer = new FileWriter(outputName);
+    writer.write(outputAsm);
+    writer.close();
   }
 
   public static BasicParser parseInput(InputStream i) throws IOException {
