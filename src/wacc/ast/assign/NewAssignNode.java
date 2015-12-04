@@ -149,19 +149,19 @@ public class NewAssignNode extends StatNode {
       /*
        *  Code from ref compiler:
        *  SUB sp, sp, #4
-       *  LDR r0, =8
+       *  LDR r0, =8 // size required in memory (word for each address)
+       *  BL malloc  // convert r0 to a memory address with corresponding size
+       *  MOV r4, r0 // save allocated address to r4
+       *  LDR r5, =x / MOV r5, #value / etc.
+       *  LDR r0, =size (e.g. byte = 1, word = 4)
        *  BL malloc
-       *  MOV r4, r0
+       *  STR(B) r5, [r0] // store value in r5 in new memory address
+       *  STR r0, [r4]    // store address of r5 in initially allocated addr
        *  LDR r5, =x / MOV r5, #value / etc.
        *  LDR r0, =size (e.g. byte = 1, word = 4)
        *  BL malloc
        *  STR(B) r5, [r0]
-       *  STR r0, [r4]
-       *  LDR r5, =x / MOV r5, #value / etc.
-       *  LDR r0, =size (e.g. byte = 1, word = 4)
-       *  BL malloc
-       *  STR(B) r5, [r0]
-       *  STR r0, [r4, #4]
+       *  STR r0, [r4, #4] // store next address 1 word along
        *  STR r4, [sp]
        *  ADD sp, sp, #4
        */
