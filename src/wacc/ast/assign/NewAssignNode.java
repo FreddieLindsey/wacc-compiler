@@ -57,7 +57,7 @@ public class NewAssignNode extends StatNode {
     if (parent.getSymbolTable().lookUpHere(i.getIdent()) != null)
       return false;
 
-    // Get the type of the new statement
+    // Get the type of the rhs
     TypeNode returnType;
     if (rhs instanceof CallNode) {
       returnType =
@@ -145,6 +145,26 @@ public class NewAssignNode extends StatNode {
     // pre-processing for that?
 
     switch (t.getType()) {
+    case PAIR:
+      /*
+       *  Code from ref compiler:
+       *  SUB sp, sp, #4
+       *  LDR r0, =8
+       *  BL malloc
+       *  MOV r4, r0
+       *  LDR r5, =x / MOV r5, #value / etc.
+       *  LDR r0, =size (e.g. byte = 1, word = 4)
+       *  BL malloc
+       *  STR(B) r5, [r0]
+       *  STR r0, [r4]
+       *  LDR r5, =x / MOV r5, #value / etc.
+       *  LDR r0, =size (e.g. byte = 1, word = 4)
+       *  BL malloc
+       *  STR(B) r5, [r0]
+       *  STR r0, [r4, #4]
+       *  STR r4, [sp]
+       *  ADD sp, sp, #4
+       */
     case STRING:
       // Move the stack pointer down by 4 bytes (word)
       // SUB sp, sp, #4
