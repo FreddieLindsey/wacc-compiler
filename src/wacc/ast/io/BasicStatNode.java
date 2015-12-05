@@ -102,16 +102,16 @@ public class BasicStatNode extends StatNode {
       // BL exit
 
 
-      // if (expr.type().getType() != TypeEnum.INT) {
-      //   throw new RuntimeException("Exit statement should have int return");
-      // }
+      if (!(expr instanceof IntNode)) {
+        throw new RuntimeException("Exit statement should have int return");
+      }
 
-      // long exitCode = ((IntNode)expr).getValue();
+      long exitCode = ((IntNode)expr).getValue();
 
       args = new ArrayList<Arg>();
       args.add(new Register(RegEnum.R4));
-      // args.add(new Const((int)exitCode, false));
-      args.add(new Const(0, false));
+      args.add(new Const((int)exitCode, false));
+      // args.add(new Const(exitCode, false));
       a = new AssemblyInstr(AssemblyInstrEnum.LDR, 
                             AssemblyInstrCond.NO_CODE, args);
       instrs.add(a);

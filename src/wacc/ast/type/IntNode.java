@@ -19,4 +19,5 @@ public class IntNode extends LiteralNode<Long> {
     semanticallyValid = value + Integer.MIN_VALUE <= 0;
     return semanticallyValid;
   }
+  
 }
