@@ -48,6 +48,6 @@ test_compile:
 	$(JUNIT) $@
 
 clean:
-	$(RM) out rules compiler test_bin test_compile $(OUTPUT_DIR) antlr/*.java antlr/*.tokens antlr/*.class src/antlr/*
+	$(RM) out rules compiler test_bin test_compile test_compile_output $(OUTPUT_DIR) antlr/*.java antlr/*.tokens antlr/*.class src/antlr/*
 
 .PHONY: all rules test_compile test clean
