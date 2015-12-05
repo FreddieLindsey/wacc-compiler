@@ -98,9 +98,12 @@ def compareFiles(file_1, file_2):
 def runFile(file_in, file_out):
     system_command = "arm-linux-gnueabi-gcc -o {1} -mcpu=arm1176jzf-s -mtune=arm1176jzf-s {0}".format(file_in, file_out)
     process = subprocess.Popen(system_command.split(), stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-    print process.communicate()
+    if process.communicate()[1] != '':
+        raise IOError
     system_command = "qemu-arm -L /usr/arm-linux-gnueabi/ {0}".format(file_out)
     process = subprocess.Popen(system_command.split(), stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    if process.communicate()[1] != '':
+        raise IOError
     output = process.communicate()[0]
     os.remove(file_out)
     with open(file_out, 'w') as f:
