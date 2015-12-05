@@ -66,7 +66,7 @@ public class ProgramNode extends ASTNode {
     ArrayList<Instruction> instrs = new ArrayList<Instruction>();
 
     instrs.add(new Label(".text")); // temporary
-    instrs.add(new Label("global .main")); // set entry point
+    instrs.add(new Label(".global main")); // set entry point
 
     for (FuncNode f : funcs) {
       instrs.addAll(f.generateCode());

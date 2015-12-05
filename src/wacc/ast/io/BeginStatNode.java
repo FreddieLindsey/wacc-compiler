@@ -40,8 +40,6 @@ public class BeginStatNode extends StatNode {
   @Override
   public ArrayList<Instruction> generateCode() {
     ArrayList<Instruction> instrs = new ArrayList<Instruction>();
-    // Scope instruction generates no assembly instructions
-    // Return empty list
     return instrs;
   }
 
