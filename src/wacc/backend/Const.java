@@ -26,6 +26,7 @@ public class Const extends Arg {
     return value;
   }
 
+  @Override
   public String getString() {
     return str;
   }

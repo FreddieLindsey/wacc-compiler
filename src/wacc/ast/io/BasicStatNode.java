@@ -90,6 +90,9 @@ public class BasicStatNode extends StatNode {
     ArrayList<Arg> args;
     AssemblyInstr a;
 
+    ArrayList<Arg> args;
+    AssemblyInstr a;
+
     switch (st) {
       case SKIP: break;
       case READ: 
@@ -99,23 +102,25 @@ public class BasicStatNode extends StatNode {
       // LDR r4, =7
       // MOV r0, r4
       // BL exit
-      // LDR r0, =0
 
       args = new ArrayList<Arg>();
       args.add(new Register(RegEnum.R4));
       args.add(new Const(7, false));
-      a = new AssemblyInstr(AssemblyInstrEnum.LDR, null, args);
+      a = new AssemblyInstr(AssemblyInstrEnum.LDR, 
+                            AssemblyInstrCond.NO_CODE, args);
       instrs.add(a);
 
       args = new ArrayList<Arg>();
       args.add(new Register(RegEnum.R0));
       args.add(new Register(RegEnum.R4));
-      a = new AssemblyInstr(AssemblyInstrEnum.MOV, null, args);
+      a = new AssemblyInstr(AssemblyInstrEnum.MOV, 
+                            AssemblyInstrCond.NO_CODE, args);
       instrs.add(a);
 
       args = new ArrayList<Arg>();
       args.add(new Label("exit"));
-      a = new AssemblyInstr(AssemblyInstrEnum.BL, null, args);
+      a = new AssemblyInstr(AssemblyInstrEnum.BL, 
+                            AssemblyInstrCond.NO_CODE, args);
       instrs.add(a);
 
       break;
