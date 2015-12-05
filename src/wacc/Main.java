@@ -8,6 +8,8 @@ import org.antlr.v4.runtime.tree.ParseTree;
 import wacc.ast.ASTNode;
 import wacc.ast.ProgramNode;
 import wacc.parseTreeVisitor.BaseVisitor;
+import wacc.backend.Instruction;
+import java.util.ArrayList;
 
 import java.io.*;
 
@@ -23,9 +25,12 @@ public class Main {
 
   public static void main(String[] args) throws IOException {
     InputStream i;
+    String n = "out";
 
     if (args.length > 0) {
-      i = new FileInputStream(args[0]);
+      File f = new File(args[0]);
+      n = f.getName();
+      i = new FileInputStream(f);
     } else {
       i = System.in;
     }
@@ -50,6 +55,23 @@ public class Main {
     if (!valid) System.exit(SEMANTIC_EXIT);
 
     // Compile
+    ArrayList<Instruction> programCode = prog.generateCode();
+    StringBuilder sb = new StringBuilder();
+    for (Instruction inst : programCode) {
+      sb.append(inst + "\n");
+    }
+
+    // Generate output file name
+    String outputName = n;
+    if (outputName.indexOf(".") > 0)
+      outputName = outputName.substring(0, outputName.lastIndexOf("."));
+    outputName += ".s";
+
+    // Save to file
+    String outputAsm = sb.toString();
+    FileWriter writer = new FileWriter(outputName);
+    writer.write(outputAsm);
+    writer.close();
   }
 
   public static BasicParser parseInput(InputStream i) throws IOException {

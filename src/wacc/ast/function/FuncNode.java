@@ -100,8 +100,8 @@ public class FuncNode extends ASTNode {
     return semanticallyValid;
   }
 
-  public ArrayList<AssemblyInstr> generateCode() {
-    ArrayList<AssemblyInstr> instrs = new ArrayList<AssemblyInstr>();
+  public ArrayList<Instruction> generateCode() {
+    ArrayList<Instruction> instrs = new ArrayList<Instruction>();
 
 //     According to wiki, this is the ARM calling convention:
 //     In the prologue, push r4 to r11 to the stack, and push the return address in r14, to the stack. (This can be done with a single STM instruction).

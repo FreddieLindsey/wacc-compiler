@@ -84,8 +84,11 @@ public class BasicStatNode extends StatNode {
   }
 
   @Override
-  public ArrayList<AssemblyInstr> generateCode() {
-    ArrayList<AssemblyInstr> instrs = new ArrayList<AssemblyInstr>();
+  public ArrayList<Instruction> generateCode() {
+    ArrayList<Instruction> instrs = new ArrayList<Instruction>();
+
+    ArrayList<Arg> args;
+    AssemblyInstr a;
 
     ArrayList<Arg> args;
     AssemblyInstr a;
@@ -102,7 +105,7 @@ public class BasicStatNode extends StatNode {
 
       args = new ArrayList<Arg>();
       args.add(new Register(RegEnum.R4));
-      args.add(new Const(7));
+      args.add(new Const(7, false));
       a = new AssemblyInstr(AssemblyInstrEnum.LDR, 
                             AssemblyInstrCond.NO_CODE, args);
       instrs.add(a);

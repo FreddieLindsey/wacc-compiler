@@ -62,14 +62,34 @@ public class ProgramNode extends ASTNode {
     return stat;
   }
 
-  public ArrayList<AssemblyInstr> generateCode() {
-    ArrayList<AssemblyInstr> instrs = new ArrayList<AssemblyInstr>();
+  public ArrayList<Instruction> generateCode() {
+    ArrayList<Instruction> instrs = new ArrayList<Instruction>();
+
+    instrs.add(new Label(".text")); // temporary
+    instrs.add(new Label(".global main")); // set entry point
 
     for (FuncNode f : funcs) {
       instrs.addAll(f.generateCode());
     }
 
+    instrs.add(new Label("main:"));
+
+    ArrayList<Arg> pushArgs = new ArrayList<Arg>();
+    pushArgs.add(new Register(RegEnum.LR));
+    instrs.add(new AssemblyInstr(AssemblyInstrEnum.PUSH, AssemblyInstrCond.NO_CODE, pushArgs));
+
+    ArrayList<Arg> loadArgs = new ArrayList<Arg>();
+    loadArgs.add(new Register(RegEnum.R0));
+    loadArgs.add(new Const(0, false));
+    instrs.add(new AssemblyInstr(AssemblyInstrEnum.LDR, AssemblyInstrCond.NO_CODE, loadArgs));
+
     instrs.addAll(stat.generateCode());
+
+    ArrayList<Arg> popArgs = new ArrayList<Arg>();
+    popArgs.add(new Register(RegEnum.PC));
+    instrs.add(new AssemblyInstr(AssemblyInstrEnum.POP, AssemblyInstrCond.NO_CODE, popArgs));
+
+    instrs.add(new Label(".ltorg"));
 
     return instrs;
   }
