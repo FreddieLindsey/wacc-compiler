@@ -90,9 +90,6 @@ public class BasicStatNode extends StatNode {
     ArrayList<Arg> args;
     AssemblyInstr a;
 
-    ArrayList<Arg> args;
-    AssemblyInstr a;
-
     switch (st) {
       case SKIP: break;
       case READ: 
