@@ -122,15 +122,17 @@ public class NewAssignNode extends StatNode {
                           AssemblyInstrCond.NO_CODE, args);
     instrs.add(a);
 
-    if (rhs.type().getType() == TypeEnum.INT) {
-      // LDR r4, =19
-      long exitCode = ((IntNode)rhs).getValue();
-      args = new ArrayList<Arg>();
-      args.add(new Register(RegEnum.R4));
-      args.add(new Const((int)exitCode, false));
-      a = new AssemblyInstr(AssemblyInstrEnum.LDR, 
-                            AssemblyInstrCond.NO_CODE, args);
-      instrs.add(a);
+    // Find code for all types
+    switch(rhs.type().getType()) {
+      case INT:
+        // LDR r4, =19
+        long exitCode = ((IntNode)rhs).getValue();
+        args = new ArrayList<Arg>();
+        args.add(new Register(RegEnum.R4));
+        args.add(new Const((int)exitCode, false));
+        a = new AssemblyInstr(AssemblyInstrEnum.LDR, 
+                              AssemblyInstrCond.NO_CODE, args);
+        instrs.add(a);
     }
 
     // STR r4, [sp]
