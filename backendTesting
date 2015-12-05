@@ -24,7 +24,6 @@ def getReferenceOutput(cacheFile):
 
 def cacheOutput():
     cacheFile = 'test_compile_output/cachedData.txt'
-    data = []
     if (os.path.exists(cacheFile)):
         with open(cacheFile, 'r') as f:
             data = f.read().split('\n')
