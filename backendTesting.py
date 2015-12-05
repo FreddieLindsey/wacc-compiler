@@ -11,14 +11,16 @@ def getReferenceOutput(cacheFile):
     system_command = "wacc_examples/refCompile -a -d wacc_examples/valid"
     process = subprocess.Popen(system_command.split(), stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     output = process.communicate()[0].split('\n')
-    print output
-    if len(output) == 1 and len(output[0] == 0):
-        print "Couldn't get reference output. Thank Mark for using a silly system ruby instead of a local one."
+    if len(output) == 1 and len(output[0]) == 0:
+        print "Couldn't get reference output. Either:"
+        print "\t1: Thank Mark for using a silly system ruby instead of a local one."
+        print "\t2: You're not on campus."
         exit(1)
     makeFileDirectory(cacheFile)
     with open(cacheFile, 'w') as f:
         f.write('\n'.join(output))
     return output
+
 
 def cacheOutput():
     cacheFile = 'test_compile_output/cachedData.txt'
@@ -31,6 +33,7 @@ def cacheOutput():
     else:
         return getReferenceOutput(cacheFile)
 
+
 def compile(filename):
     system_command = "./compile {0}".format(filename)
     process = subprocess.Popen(system_command.split(), stdout=subprocess.PIPE, stderr=subprocess.PIPE)
@@ -41,8 +44,9 @@ def compile(filename):
     with open(newfile, 'w') as f:
         f.write(output)
 
+
 def makeFileDirectory(file_path):
-    file_dirs=file_path.split('/')
+    file_dirs = file_path.split('/')
     i = 0
     while (i < len(file_dirs) - 1):
         current_dir = "/".join(file_dirs[:i + 1])
@@ -50,12 +54,13 @@ def makeFileDirectory(file_path):
             os.mkdir(current_dir)
         i += 1
 
+
 def getDataFromOutput(output):
     data = []
     i = 0
     while (i < len(output)):
         if "calling the reference compiler on" in output[i]:
-            filename = output[i][34:] # Gets the text after the above
+            filename = output[i][34:]  # Gets the text after the above
             separator = '==========================================================='
             while (separator not in output[i]):
                 i += 1
@@ -68,6 +73,7 @@ def getDataFromOutput(output):
         i += 1
     return data
 
+
 def writeData(data):
     for i in data:
         data_path = "test_compile_output/{0}".format(i[0])
@@ -75,10 +81,12 @@ def writeData(data):
         with open(data_path, 'w') as f:
             f.write(i[1])
 
+
 def compareFiles(file_1, file_2):
     with open(file_1, 'r') as f1:
         with open(file_2, 'r') as f2:
             return f1.read() == f2.read()
+
 
 def show_error(file_1_orig, file1, file2):
     print '====================================='
@@ -86,6 +94,7 @@ def show_error(file_1_orig, file1, file2):
     system_command = "diff {0} {1}".format(file1, file2)
     process = subprocess.Popen(system_command.split(), stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     print process.communicate()[0]
+
 
 def verify_file(root, filename):
     compile_file = os.path.join(root, filename)
@@ -99,12 +108,14 @@ def verify_file(root, filename):
         correct = False
     return correct
 
+
 def printResult(verified, incorrect):
     print '====================================='
     print '====================================='
     print 'Verified:\t{0}'.format(verified)
     print 'Correct:\t{0}'.format(verified - incorrect)
     print 'Incorrect:\t{0}'.format(incorrect)
+
 
 # MAIN
 
