@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 
-import os
-import sys
+import os, sys
 import subprocess
 import fnmatch
 
@@ -34,16 +33,14 @@ def cacheOutput():
     return data
 
 
-def compile(filename):
-    system_command = "./compile {0}".format(filename)
+def compile(file_in):
+    file_out = 'test_compile_output/compiled_output' + file_in.split('wacc_examples')[1]
+    file_out = file_out.replace('.wacc', '.s')
+    makeFileDirectory(file_out)
+    system_command = "./compile {0} {1}".format(file_in, file_out)
     process = subprocess.Popen(system_command.split(), stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-    output = process.communicate()[0]
-    newfile = 'test_compile_output/compiled_output' + filename.split('wacc_examples')[1]
-    newfile = newfile.replace('.wacc', '.s')
-    makeFileDirectory(newfile)
-    with open(newfile, 'w') as f:
-        f.write(output)
-
+    process.communicate()
+    return file_out
 
 def makeFileDirectory(file_path):
     file_dirs = file_path.split('/')
@@ -61,6 +58,15 @@ def getDataFromOutput(output):
     while (i < len(output)):
         if "calling the reference compiler on" in output[i]:
             filename = output[i][34:]  # Gets the text after the above
+
+            # Get expected output
+            while 'Output:' not in output[i-1]: i += 1
+            output_exec = []
+            while '# ' in output[i]:
+                output_exec.append(output[i][2:])
+                i += 1
+
+            # Get expected assembly
             separator = '==========================================================='
             while (separator not in output[i]):
                 i += 1
@@ -69,7 +75,7 @@ def getDataFromOutput(output):
             while (separator not in output[i]):
                 assembly.append('\t'.join(output[i].split('\t')[1:]))
                 i += 1
-            data.append((filename.replace('wacc', 's'), '\n'.join(assembly)))
+            data.append((filename.replace('wacc', 's'), '\n'.join(assembly), '\n'.join(output_exec)))
         i += 1
     return data
 
@@ -87,6 +93,20 @@ def compareFiles(file_1, file_2):
         with open(file_2, 'r') as f2:
             return f1.read() == f2.read()
 
+def runFile(file_in, file_out):
+    system_command = "arm-linux-gnueabi-gcc -o {1} -mcpu=arm1176jzf-s -mtune=arm1176jzf-s {0}".format(file_in, file_out)
+    process = subprocess.Popen(system_command.split(), stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    if process.communicate()[1] != '':
+        raise IOError
+    system_command = "qemu-arm -L /usr/arm-linux-gnueabi/ {0}".format(file_out)
+    process = subprocess.Popen(system_command.split(), stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    if process.communicate()[1] != '':
+        raise IOError
+    output = process.communicate()[0]
+    os.remove(file_out)
+    with open(file_out, 'w') as f:
+        f.write(output)
+    return file_out
 
 def show_error(file_1_orig, file1, file2):
     print '====================================='
@@ -95,18 +115,47 @@ def show_error(file_1_orig, file1, file2):
     process = subprocess.Popen(system_command.split(), stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     print process.communicate()[0]
 
+def show_output_error(file_1_orig, file1, file2):
+    print '====================================='
+    print '{0} has an output error:\n'.format(file_1_orig.split('/')[-1])
+    outputfile1 = 'output1.txt'
+    outputfile2 = 'output2.txt'
+    system_command = "diff {0} {1}".format(runFile(file1, outputfile1), runFile(file2, outputfile2))
+    os.remove(outputfile1)
+    os.remove(outputfile2)
+    process = subprocess.Popen(system_command.split(), stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    print process.communicate()[0]
+
+def validateOutput(file1, file2):
+    system_command = "which arm-linux-gnueabi-gcc"
+    process = subprocess.Popen(system_command.split(), stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    if 'not found' in process.communicate()[0]:
+        raise IOError
+    system_command = "which qemu-arm"
+    process = subprocess.Popen(system_command.split(), stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    if 'not found' in process.communicate()[0] or not os.path.exists('/usr/arm-linux-gnueabi'):
+        raise IOError
+    output1 = 'output1.txt'
+    output2 = 'output2.txt'
+    runFile(file1, output1)
+    runFile(file2, output2)
+    with open(output1, 'r') as f1:
+        with open(output2, 'r') as f2:
+            return f1.read() == f2.read()
 
 def verify_file(root, filename):
     compile_file = os.path.join(root, filename)
-    compile(compile_file)
-    compile_file = compile_file.replace('wacc_examples', 'test_compile_output/compiled_output')
-    compile_file = compile_file.replace('.wacc', '.s')
-    referenceOutput = compile_file.replace('compiled_output', 's_examples')
+    compiled_file = compile(compile_file)
+    referenceOutput = compiled_file.replace('compiled_output', 's_examples')
     correct = True
     try:
-        if not compareFiles(compile_file, referenceOutput):
-            show_error(filename, compile_file, referenceOutput)
-            correct = False
+        if not compareFiles(compiled_file, referenceOutput):
+            try:
+                if not validateOutput(compile_file, referenceOutput):
+                    show_output_error(filename, compile_file, referenceOutput)
+            except IOError:
+                show_error(filename, compiled_file, referenceOutput)
+                correct = False
     except IOError:
         correct = False
     return correct

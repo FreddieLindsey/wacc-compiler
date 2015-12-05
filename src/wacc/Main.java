@@ -7,11 +7,11 @@ import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.ParseTree;
 import wacc.ast.ASTNode;
 import wacc.ast.ProgramNode;
-import wacc.parseTreeVisitor.BaseVisitor;
 import wacc.backend.Instruction;
-import java.util.ArrayList;
+import wacc.parseTreeVisitor.BaseVisitor;
 
 import java.io.*;
+import java.util.ArrayList;
 
 public class Main {
 
@@ -25,10 +25,13 @@ public class Main {
 
   public static void main(String[] args) throws IOException {
     InputStream i;
-    String n = "a.out";
+    StringBuilder outputName = new StringBuilder("a.out");
 
     if (args.length > 0) {
-      n = args[0];
+      outputName = Main.generateOutputName(args[0]);
+      if (args.length > 1) {
+        outputName = new StringBuilder(args[1]);
+      }
       i = new FileInputStream(new File(args[0]));
     } else {
       i = System.in;
@@ -61,14 +64,6 @@ public class Main {
       assemblyCode.append(inst);
       assemblyCode.append("\n");
     }
-
-    // Generate output file name
-    StringBuilder outputName = new StringBuilder(n);
-    if (outputName.indexOf(".") > 0) {
-      int lastIndex = outputName.lastIndexOf(".");
-      outputName.setLength(lastIndex);
-    }
-    outputName.append(".s");
 
     // Save to file
     FileWriter writer = new FileWriter(outputName.toString());
@@ -107,5 +102,15 @@ public class Main {
       System.out.println("Error " + error_count + ":\t" + error);
       error_count++;
     }
+  }
+
+  private static StringBuilder generateOutputName(String input) {
+    StringBuilder outputName = new StringBuilder(input);
+    if (outputName.indexOf(".") > 0) {
+      int lastIndex = outputName.lastIndexOf(".");
+      outputName.setLength(lastIndex);
+    }
+    outputName.append(".s");
+    return outputName;
   }
 }
