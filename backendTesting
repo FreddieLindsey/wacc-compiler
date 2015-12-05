@@ -33,16 +33,14 @@ def cacheOutput():
     return data
 
 
-def compile(filename):
-    system_command = "./compile {0}".format(filename)
+def compile(file_in):
+    file_out = 'test_compile_output/compiled_output' + file_in.split('wacc_examples')[1]
+    file_out = file_out.replace('.wacc', '.s')
+    makeFileDirectory(file_out)
+    system_command = "./compile {0} {1}".format(file_in, file_out)
     process = subprocess.Popen(system_command.split(), stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-    output = process.communicate()[0]
-    newfile = 'test_compile_output/compiled_output' + filename.split('wacc_examples')[1]
-    newfile = newfile.replace('.wacc', '.s')
-    makeFileDirectory(newfile)
-    with open(newfile, 'w') as f:
-        f.write(output)
-
+    process.communicate()
+    return file_out
 
 def makeFileDirectory(file_path):
     file_dirs = file_path.split('/')
@@ -147,18 +145,16 @@ def validateOutput(file1, file2):
 
 def verify_file(root, filename):
     compile_file = os.path.join(root, filename)
-    compile(compile_file)
-    compile_file = compile_file.replace('wacc_examples', 'test_compile_output/compiled_output')
-    compile_file = compile_file.replace('.wacc', '.s')
-    referenceOutput = compile_file.replace('compiled_output', 's_examples')
+    compiled_file = compile(compile_file)
+    referenceOutput = compiled_file.replace('compiled_output', 's_examples')
     correct = True
     try:
-        if not compareFiles(compile_file, referenceOutput):
+        if not compareFiles(compiled_file, referenceOutput):
             try:
                 if not validateOutput(compile_file, referenceOutput):
                     show_output_error(filename, compile_file, referenceOutput)
             except IOError:
-                show_error(filename, compile_file, referenceOutput)
+                show_error(filename, compiled_file, referenceOutput)
                 correct = False
     except IOError:
         correct = False
