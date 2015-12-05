@@ -25,17 +25,17 @@ public class Main {
 
   public static void main(String[] args) throws IOException {
     InputStream i;
-    String n = "out";
+    String n = "a.out";
 
     if (args.length > 0) {
-      File f = new File(args[0]);
-      n = f.getName();
-      i = new FileInputStream(f);
+      n = args[0];
+      i = new FileInputStream(new File(args[0]));
     } else {
       i = System.in;
     }
 
     BasicParser parser = parseInput(i);
+    i.close();
 
     engageMessageLock();
     ParseTree parseTree = parser.program();
@@ -56,21 +56,23 @@ public class Main {
 
     // Compile
     ArrayList<Instruction> programCode = prog.generateCode();
-    StringBuilder sb = new StringBuilder();
+    StringBuilder assemblyCode = new StringBuilder();
     for (Instruction inst : programCode) {
-      sb.append(inst + "\n");
+      assemblyCode.append(inst);
+      assemblyCode.append("\n");
     }
 
     // Generate output file name
-    String outputName = n;
-    if (outputName.indexOf(".") > 0)
-      outputName = outputName.substring(0, outputName.lastIndexOf("."));
-    outputName += ".s";
+    StringBuilder outputName = new StringBuilder(n);
+    if (outputName.indexOf(".") > 0) {
+      int lastIndex = outputName.lastIndexOf(".");
+      outputName.setLength(lastIndex);
+    }
+    outputName.append(".s");
 
     // Save to file
-    String outputAsm = sb.toString();
-    FileWriter writer = new FileWriter(outputName);
-    writer.write(outputAsm);
+    FileWriter writer = new FileWriter(outputName.toString());
+    writer.write(assemblyCode.toString());
     writer.close();
   }
 
