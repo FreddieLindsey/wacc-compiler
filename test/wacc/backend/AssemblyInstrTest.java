@@ -1,6 +1,7 @@
 package wacc.backend;
 
 import org.junit.Test;
+
 import java.util.ArrayList;
 
 import static org.junit.Assert.*;
@@ -17,8 +18,8 @@ public class AssemblyInstrTest {
     args.add(new Label("link"));
 
     instr = new AssemblyInstr(AssemblyInstrEnum.B,
-                       AssemblyInstrCond.NO_CODE, 
-                       args);
+      AssemblyInstrCond.NO_CODE,
+      args);
 
     assertTrue(instr.toString().equals("B link"));
   }
@@ -28,8 +29,8 @@ public class AssemblyInstrTest {
     args.add(new Register(RegEnum.R0));
 
     instr = new AssemblyInstr(AssemblyInstrEnum.PUSH,
-                       AssemblyInstrCond.NO_CODE, 
-                       args);
+      AssemblyInstrCond.NO_CODE,
+      args);
 
     assertTrue(instr.toString().equals("PUSH {r0}"));
   }
