@@ -56,10 +56,10 @@ public class Main {
 
     // Compile
     ArrayList<Instruction> programCode = prog.generateCode();
-    StringBuilder sb = new StringBuilder();
+    StringBuilder assemblyCode = new StringBuilder();
     for (Instruction inst : programCode) {
-      sb.append(inst);
-      sb.append("\n");
+      assemblyCode.append(inst);
+      assemblyCode.append("\n");
     }
 
     // Generate output file name
@@ -72,7 +72,7 @@ public class Main {
 
     // Save to file
     FileWriter writer = new FileWriter(outputName.toString());
-    writer.write(sb.toString());
+    writer.write(assemblyCode.toString());
     writer.close();
   }
 
