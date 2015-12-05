@@ -24,14 +24,15 @@ def getReferenceOutput(cacheFile):
 
 def cacheOutput():
     cacheFile = 'test_compile_output/cachedData.txt'
+    data = []
     if (os.path.exists(cacheFile)):
         with open(cacheFile, 'r') as f:
-            data = f.read()
+            data = f.read().split('\n')
             if (len(data) < 10):
-                return getReferenceOutput(cacheFile)
-            return f.read().split('\n')
+                data = getReferenceOutput(cacheFile)
     else:
-        return getReferenceOutput(cacheFile)
+        data = getReferenceOutput(cacheFile)
+    return data
 
 
 def compile(filename):
@@ -103,8 +104,11 @@ def verify_file(root, filename):
     compile_file = compile_file.replace('.wacc', '.s')
     referenceOutput = compile_file.replace('compiled_output', 's_examples')
     correct = True
-    if not compareFiles(compile_file, referenceOutput):
-        show_error(filename, compile_file, referenceOutput)
+    try:
+        if not compareFiles(compile_file, referenceOutput):
+            show_error(filename, compile_file, referenceOutput)
+            correct = False
+    except IOError:
         correct = False
     return correct
 
