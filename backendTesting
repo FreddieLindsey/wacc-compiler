@@ -96,14 +96,16 @@ def compareFiles(file_1, file_2):
             return f1.read() == f2.read()
 
 def runFile(file_in, file_out):
-    system_command = "arm-linux-gnueabi-gcc -o output_arm -mcpu=arm1176jzf-s -mtune=arm1176jzf-s {0}".format(file_in)
+    system_command = "arm-linux-gnueabi-gcc -o {1} -mcpu=arm1176jzf-s -mtune=arm1176jzf-s {0}".format(file_in, file_out)
     process = subprocess.Popen(system_command.split(), stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     print process.communicate()
-    system_command = "qemu-arm -L /usr/arm-linux-gnueabi/ output_arm"
+    system_command = "qemu-arm -L /usr/arm-linux-gnueabi/ {0}".format(file_out)
     process = subprocess.Popen(system_command.split(), stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     output = process.communicate()[0]
-    os.remove('output_arm')
-    return output
+    os.remove(file_out)
+    with open(file_out, 'w') as f:
+        f.write(output)
+    return file_out
 
 def show_error(file_1_orig, file1, file2):
     print '====================================='
@@ -132,7 +134,13 @@ def validateOutput(file1, file2):
     process = subprocess.Popen(system_command.split(), stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     if 'not found' in process.communicate()[0] or not os.path.exists('/usr/arm-linux-gnueabi'):
         raise IOError
-    return runFile(file1) == runFile(file2)
+    output1 = 'output1.txt'
+    output2 = 'output2.txt'
+    runFile(file1, output1)
+    runFile(file2, output2)
+    with open(output1, 'r') as f1:
+        with open(output2, 'r') as f2:
+            return f1.read() == f2.read()
 
 def verify_file(root, filename):
     compile_file = os.path.join(root, filename)
