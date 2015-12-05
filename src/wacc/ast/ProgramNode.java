@@ -78,12 +78,13 @@ public class ProgramNode extends ASTNode {
     pushArgs.add(new Register(RegEnum.LR));
     instrs.add(new AssemblyInstr(AssemblyInstrEnum.PUSH, AssemblyInstrCond.NO_CODE, pushArgs));
 
+    System.out.println(stat);
+    instrs.addAll(stat.generateCode());
+
     ArrayList<Arg> loadArgs = new ArrayList<Arg>();
     loadArgs.add(new Register(RegEnum.R0));
     loadArgs.add(new Const(0, false));
     instrs.add(new AssemblyInstr(AssemblyInstrEnum.LDR, AssemblyInstrCond.NO_CODE, loadArgs));
-
-    instrs.addAll(stat.generateCode());
 
     ArrayList<Arg> popArgs = new ArrayList<Arg>();
     popArgs.add(new Register(RegEnum.PC));

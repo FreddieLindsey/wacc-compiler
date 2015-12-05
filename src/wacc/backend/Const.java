@@ -39,15 +39,15 @@ public class Const extends Arg {
       sb.append("#");
     } else {
       sb.append("=");
+    }
 
-      if (!isInt && str != null) {
-        sb.append(str);
-      } else if (isInt) {
-        sb.append(value);
-      } else {
-        //error
-        return null;
-      }
+    if (!isInt && str != null) {
+      sb.append(str);
+    } else if (isInt) {
+      sb.append(value);
+    } else {
+      //error
+      return null;
     }
 
     return sb.toString();

@@ -2,6 +2,7 @@ package wacc.ast.io;
 
 import wacc.ast.ExprNode;
 import wacc.ast.IdentNode;
+import wacc.ast.type.IntNode;
 import wacc.ast.type.PairTypeNode;
 import wacc.ast.type.TypeEnum;
 import wacc.ast.type.TypeNode;
@@ -100,9 +101,17 @@ public class BasicStatNode extends StatNode {
       // MOV r0, r4
       // BL exit
 
+
+      // if (expr.type().getType() != TypeEnum.INT) {
+      //   throw new RuntimeException("Exit statement should have int return");
+      // }
+
+      // long exitCode = ((IntNode)expr).getValue();
+
       args = new ArrayList<Arg>();
       args.add(new Register(RegEnum.R4));
-      args.add(new Const(7, false));
+      // args.add(new Const((int)exitCode, false));
+      args.add(new Const(0, false));
       a = new AssemblyInstr(AssemblyInstrEnum.LDR, 
                             AssemblyInstrCond.NO_CODE, args);
       instrs.add(a);
