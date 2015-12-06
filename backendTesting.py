@@ -22,6 +22,9 @@ def getReferenceOutput(cacheFile):
         print "Couldn't get reference output. Either:"
         print "\t1: Thank Mark for using a silly system ruby instead of a local one."
         print "\t2: You're not on campus."
+        print "\t3: You haven't got ruby installed at system level"
+        print "\t4: You haven't got the rest-client installed"
+        print "\t5: The earth might not exist..."
         exit(1)
     makeFileDirectory(cacheFile)
     with open(cacheFile, 'w') as f:
