@@ -109,19 +109,19 @@ public class BasicStatNode extends StatNode {
 
         long exitCode = ((IntNode) expr).getValue();
 
-        args = new ArrayList<Arg>();
+        args = new ArrayList<>();
         args.add(new Register(RegEnum.R4));
         args.add(new Const((int) exitCode, false));
         i.add(new AssemblyInstr(AssemblyInstrEnum.LDR,
           AssemblyInstrCond.NO_CODE, args));
 
-        args = new ArrayList<Arg>();
+        args = new ArrayList<>();
         args.add(new Register(RegEnum.R0));
         args.add(new Register(RegEnum.R4));
         i.add(new AssemblyInstr(AssemblyInstrEnum.MOV,
           AssemblyInstrCond.NO_CODE, args));
 
-        args = new ArrayList<Arg>();
+        args = new ArrayList<>();
         args.add(new Label("exit"));
         i.add(new AssemblyInstr(AssemblyInstrEnum.BL,
           AssemblyInstrCond.NO_CODE, args));
@@ -133,7 +133,6 @@ public class BasicStatNode extends StatNode {
       case PRINTLN:
         break;
     }
-
 
     return i;
   }
