@@ -71,4 +71,12 @@ public class UnOpNode extends AssignNode {
   public boolean validRight() {
     return true;
   }
+
+  public UnaryOperator getOperator() {
+    return op;
+  }
+
+  public ExprNode getExpr() {
+    return expr;
+  }
 }
