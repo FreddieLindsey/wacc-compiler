@@ -12,6 +12,6 @@ end
       if ($?.exitstatus == 200)
         print "There was a semantic error...\n"
       end
-      print "\nTried compiling #{a}\n\n"
+      print "\nTried compiling #{ARGV[0]}\n\n"
       exit $?.exitstatus
     end
