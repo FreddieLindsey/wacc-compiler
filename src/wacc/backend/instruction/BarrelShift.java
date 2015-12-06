@@ -1,8 +1,8 @@
-package wacc.backend;
+package wacc.backend.instruction;
 
 
-public class BarrelShift extends Arg{
-	
+public class BarrelShift extends Arg {
+
 
   private BarrelShiftEnum shift;
   private Arg shiftee;
@@ -23,7 +23,7 @@ public class BarrelShift extends Arg{
   @Override
   public String toString() {
     return shift.name() + "#" + shiftee.toString();
-  } 
+  }
 
 
 }

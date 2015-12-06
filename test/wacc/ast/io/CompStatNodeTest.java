@@ -1,10 +1,10 @@
 package wacc.ast.io;
 
 import org.junit.Test;
-import static org.junit.Assert.*;
-
 import wacc.ast.ExprNode;
 import wacc.ast.type.TypeNode;
+
+import static org.junit.Assert.assertTrue;
 
 public class CompStatNodeTest {
 

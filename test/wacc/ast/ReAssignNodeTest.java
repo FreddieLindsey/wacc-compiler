@@ -1,12 +1,12 @@
 package wacc.ast;
 
 import org.junit.Test;
-import static org.junit.Assert.*;
-
 import wacc.ast.assign.AssignNode;
 import wacc.ast.assign.NewAssignNode;
 import wacc.ast.type.TypeEnum;
 import wacc.ast.type.TypeNode;
+
+import static org.junit.Assert.assertTrue;
 
 public class ReAssignNodeTest {
 
@@ -28,11 +28,11 @@ public class ReAssignNodeTest {
   public void newAssignNodeValid() {
     n = new NewAssignNode(t, i, rhs);
     assertTrue(n.isSemanticallyValid() ==
-          (
-            i.isSemanticallyValid()
-            && rhs.isSemanticallyValid()
-            && t == rhs.type()
-          ));
+      (
+        i.isSemanticallyValid()
+          && rhs.isSemanticallyValid()
+          && t == rhs.type()
+      ));
   }
 
 }

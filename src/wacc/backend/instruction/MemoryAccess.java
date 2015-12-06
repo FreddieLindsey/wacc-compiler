@@ -1,9 +1,9 @@
-package wacc.backend;
+package wacc.backend.instruction;
 
 public class MemoryAccess extends Arg {
 
   private Register reg;
-	
+
   public MemoryAccess(Register reg) {
     this.type = ArgEnum.MEMACC;
     this.reg = reg;
@@ -15,7 +15,7 @@ public class MemoryAccess extends Arg {
 
   @Override
   public String toString() {
-  	return "[" + reg.toString() + "]";
+    return "[" + reg.toString() + "]";
   }
 
 

@@ -1,13 +1,10 @@
 package wacc.ast.type;
 
 import org.junit.Test;
-import wacc.ast.ASTNode;
 import wacc.ast.ExprNode;
-import wacc.ast.type.ArrayLiteralNode;
-import wacc.ast.type.IntNode;
-import wacc.ast.type.StringNode;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 public class ArrayLiteralNodeTest {
 

@@ -1,6 +1,4 @@
-package wacc.backend;
-
-import java.util.ArrayList;
+package wacc.backend.instruction;
 
 public class Label extends Arg implements Instruction {
 
@@ -11,14 +9,9 @@ public class Label extends Arg implements Instruction {
     this.label = label;
   }
 
-  public String getLabel() {
-    return label;
-  }
-
   @Override
   public String toString() {
-  	return label;
+    return label;
   }
-
 
 }

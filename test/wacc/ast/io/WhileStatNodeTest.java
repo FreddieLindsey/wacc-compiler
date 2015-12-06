@@ -5,7 +5,8 @@ import wacc.ast.ExprNode;
 import wacc.ast.type.BoolNode;
 import wacc.ast.type.StringNode;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 public class WhileStatNodeTest {
 

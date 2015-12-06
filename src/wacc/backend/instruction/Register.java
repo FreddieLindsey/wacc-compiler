@@ -1,8 +1,8 @@
-package wacc.backend;
+package wacc.backend.instruction;
 
 public class Register extends Arg {
 
-  private RegEnum reg; 
+  private RegEnum reg;
 
   public Register(RegEnum reg) {
     this.type = ArgEnum.REG;
@@ -15,9 +15,8 @@ public class Register extends Arg {
 
   @Override
   public String toString() {
-  	return reg.name().toLowerCase();
+    return reg.name().toLowerCase();
   }
-
 
 
 }

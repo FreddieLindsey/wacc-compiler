@@ -1,12 +1,11 @@
 package wacc.ast.pair;
 
 import org.junit.Test;
-import wacc.ast.ASTNode;
 import wacc.ast.ExprNode;
-import wacc.ast.pair.NewPairNode;
 import wacc.ast.type.IntNode;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 public class NewPairNodeTest {
 

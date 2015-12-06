@@ -1,12 +1,13 @@
-package wacc.backend;
+package wacc.backend.instruction;
 
 public class Const extends Arg {
-	
+
   private int value;
   private String str;
 
   private boolean isInt;
   private boolean isHash; // in ADD etc #NUM is used...
+  private boolean isCommand;
 
   public Const(int value, boolean isHash) {
     this.type = ArgEnum.CONST;
@@ -15,11 +16,11 @@ public class Const extends Arg {
     this.isHash = isHash;
   }
 
-  public Const(String str) {
-  	// for e.g. LDR r0, =msg_1
-  	this.type = ArgEnum.CONST;
+  public Const(String str, boolean isCommand) {
+    this.type = ArgEnum.CONST;
     isInt = true;
-  	this.str = str;
+    this.str = str;
+    this.isCommand = isCommand;
   }
 
   public int getValue() {
@@ -38,10 +39,10 @@ public class Const extends Arg {
     if (isHash) {
       sb.append("#");
     } else {
-      sb.append("=");
+      if (!isCommand) sb.append("=");
     }
 
-    if (!isInt && str != null) {
+    if (!isInt || str != null) {
       sb.append(str);
     } else if (isInt) {
       sb.append(value);

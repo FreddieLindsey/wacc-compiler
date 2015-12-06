@@ -5,13 +5,8 @@ import wacc.ast.IdentNode;
 import wacc.ast.function.CallNode;
 import wacc.ast.io.StatNode;
 import wacc.ast.pair.NewPairNode;
-import wacc.ast.type.IntNode;
-import wacc.ast.type.AnyTypeNode;
-import wacc.ast.type.FuncTypeNode;
-import wacc.ast.type.PairTypeNode;
-import wacc.ast.type.TypeNode;
-import wacc.ast.type.TypeEnum;
-import wacc.backend.*;
+import wacc.ast.type.*;
+import wacc.backend.instruction.*;
 
 import java.util.ArrayList;
 
@@ -107,8 +102,8 @@ public class NewAssignNode extends StatNode {
   }
 
   @Override
-  public ArrayList<Instruction> generateCode() {
-    ArrayList<Instruction> instrs = new ArrayList<Instruction>();
+  public InstructionBlock generateCode() {
+    InstructionBlock i = new InstructionBlock();
 
     ArrayList<Arg> args;
     AssemblyInstr a;
@@ -118,32 +113,32 @@ public class NewAssignNode extends StatNode {
     args.add(new Register(RegEnum.SP));
     args.add(new Register(RegEnum.SP));
     args.add(new Const(4, true));
-    a = new AssemblyInstr(AssemblyInstrEnum.SUB, 
-                          AssemblyInstrCond.NO_CODE, args);
-    instrs.add(a);
+    a = new AssemblyInstr(AssemblyInstrEnum.SUB,
+      AssemblyInstrCond.NO_CODE, args);
+    i.add(a);
 
     // Find code for all types
-    switch(rhs.type().getType()) {
+    switch (rhs.type().getType()) {
       case INT:
         // LDR r4, =19
-        long exitCode = ((IntNode)rhs).getValue();
+        long exitCode = ((IntNode) rhs).getValue();
         args = new ArrayList<Arg>();
         args.add(new Register(RegEnum.R4));
-        args.add(new Const((int)exitCode, false));
-        a = new AssemblyInstr(AssemblyInstrEnum.LDR, 
-                              AssemblyInstrCond.NO_CODE, args);
-        instrs.add(a);
+        args.add(new Const((int) exitCode, false));
+        a = new AssemblyInstr(AssemblyInstrEnum.LDR,
+          AssemblyInstrCond.NO_CODE, args);
+        i.add(a);
     }
 
     // STR r4, [sp]
     args = new ArrayList<Arg>();
     args.add(new Register(RegEnum.R4));
     args.add(new Register(RegEnum.SP));
-    a = new AssemblyInstr(AssemblyInstrEnum.STR, 
-                          AssemblyInstrCond.NO_CODE, args);
-    instrs.add(a);
+    a = new AssemblyInstr(AssemblyInstrEnum.STR,
+      AssemblyInstrCond.NO_CODE, args);
+    i.add(a);
 
-    return instrs;
+    return i;
   }
 
 }

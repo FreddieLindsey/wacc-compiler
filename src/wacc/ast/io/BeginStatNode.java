@@ -1,9 +1,7 @@
 package wacc.ast.io;
 
 import wacc.ast.type.TypeNode;
-import wacc.backend.*;
-
-import java.util.ArrayList;
+import wacc.backend.instruction.InstructionBlock;
 
 public class BeginStatNode extends StatNode {
 
@@ -38,11 +36,11 @@ public class BeginStatNode extends StatNode {
   }
 
   @Override
-  public ArrayList<Instruction> generateCode() {
-    ArrayList<Instruction> instrs = new ArrayList<Instruction>();
+  public InstructionBlock generateCode() {
+    InstructionBlock i = new InstructionBlock();
     // Scope instruction generates no assembly instructions
     // Return empty list
-    return instrs;
+    return i;
   }
 
 }

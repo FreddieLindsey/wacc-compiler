@@ -5,7 +5,7 @@ import wacc.ast.IdentNode;
 import wacc.ast.assign.AssignNode;
 import wacc.ast.type.FuncTypeNode;
 import wacc.ast.type.TypeNode;
-import wacc.backend.*;
+import wacc.backend.instruction.AssemblyInstr;
 
 import java.util.ArrayList;
 

@@ -4,9 +4,7 @@ import wacc.ast.ExprNode;
 import wacc.ast.IdentNode;
 import wacc.ast.type.TypeEnum;
 import wacc.ast.type.TypeNode;
-import wacc.backend.*;
-
-import java.util.ArrayList;
+import wacc.backend.instruction.InstructionBlock;
 
 public class WhileStatNode extends StatNode {
 
@@ -46,9 +44,9 @@ public class WhileStatNode extends StatNode {
   }
 
   @Override
-  public ArrayList<Instruction> generateCode() {
-    ArrayList<Instruction> instrs = new ArrayList<Instruction>();
-    return instrs;
+  public InstructionBlock generateCode() {
+    InstructionBlock i = new InstructionBlock();
+    return i;
   }
 
 }

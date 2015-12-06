@@ -2,8 +2,8 @@ package wacc.ast;
 
 import wacc.ast.function.FuncNode;
 import wacc.ast.io.StatNode;
+import wacc.backend.instruction.*;
 import wacc.symbolTable.SymbolTable;
-import wacc.backend.*;
 
 import java.util.ArrayList;
 
@@ -62,35 +62,37 @@ public class ProgramNode extends ASTNode {
     return stat;
   }
 
-  public ArrayList<Instruction> generateCode() {
-    ArrayList<Instruction> instrs = new ArrayList<Instruction>();
+  public InstructionBlock generateCode() {
+    InstructionBlock i = new InstructionBlock();
 
-    instrs.add(new Label(".text")); // temporary
-    instrs.add(new Label(".global main")); // set entry point
+    i.add(new DataMessage(".text")); // temporary
+    i.add(new InformationDataMessage(".global", "main")); // set entry point
 
     for (FuncNode f : funcs) {
-      instrs.addAll(f.generateCode());
+      i.add(f.generateCode());
     }
 
-    instrs.add(new Label("main:"));
+    InstructionBlock main = new InstructionBlock("main");
 
-    ArrayList<Arg> pushArgs = new ArrayList<Arg>();
+    ArrayList<Arg> pushArgs = new ArrayList<>();
     pushArgs.add(new Register(RegEnum.LR));
-    instrs.add(new AssemblyInstr(AssemblyInstrEnum.PUSH, AssemblyInstrCond.NO_CODE, pushArgs));
+    main.add(new AssemblyInstr(AssemblyInstrEnum.PUSH, AssemblyInstrCond.NO_CODE, pushArgs));
 
-    instrs.addAll(stat.generateCode());
+    main.add(stat.generateCode());
 
-    ArrayList<Arg> loadArgs = new ArrayList<Arg>();
+    ArrayList<Arg> loadArgs = new ArrayList<>();
     loadArgs.add(new Register(RegEnum.R0));
     loadArgs.add(new Const(0, false));
-    instrs.add(new AssemblyInstr(AssemblyInstrEnum.LDR, AssemblyInstrCond.NO_CODE, loadArgs));
+    main.add(new AssemblyInstr(AssemblyInstrEnum.LDR, AssemblyInstrCond.NO_CODE, loadArgs));
 
     ArrayList<Arg> popArgs = new ArrayList<Arg>();
     popArgs.add(new Register(RegEnum.PC));
-    instrs.add(new AssemblyInstr(AssemblyInstrEnum.POP, AssemblyInstrCond.NO_CODE, popArgs));
+    main.add(new AssemblyInstr(AssemblyInstrEnum.POP, AssemblyInstrCond.NO_CODE, popArgs));
 
-    instrs.add(new Label(".ltorg"));
+    main.add(new DataMessage(".ltorg"));
 
-    return instrs;
+    i.add(main);
+
+    return i;
   }
 }

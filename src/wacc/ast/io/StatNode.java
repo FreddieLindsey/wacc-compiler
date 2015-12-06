@@ -2,9 +2,8 @@ package wacc.ast.io;
 
 import wacc.ast.ASTNode;
 import wacc.ast.type.TypeNode;
+import wacc.backend.instruction.InstructionBlock;
 import wacc.symbolTable.SymbolTable;
-import wacc.backend.*;
-import java.util.ArrayList;
 
 public abstract class StatNode extends ASTNode {
 
@@ -20,8 +19,6 @@ public abstract class StatNode extends ASTNode {
     return false;
   }
 
-  public abstract ArrayList<Instruction> generateCode();
-
-
+  public abstract InstructionBlock generateCode();
 
 }

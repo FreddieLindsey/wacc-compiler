@@ -6,10 +6,9 @@ import wacc.ast.type.IntNode;
 import wacc.ast.type.PairTypeNode;
 import wacc.ast.type.TypeEnum;
 import wacc.ast.type.TypeNode;
-import wacc.backend.*;
+import wacc.backend.instruction.*;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class BasicStatNode extends StatNode {
 
@@ -85,59 +84,62 @@ public class BasicStatNode extends StatNode {
   }
 
   @Override
-  public ArrayList<Instruction> generateCode() {
-    ArrayList<Instruction> instrs = new ArrayList<Instruction>();
+  public InstructionBlock generateCode() {
+    InstructionBlock i = new InstructionBlock();
 
     ArrayList<Arg> args;
     AssemblyInstr a;
 
     switch (st) {
-      case SKIP: break;
-      case READ: 
+      case SKIP:
+        break;
+      case READ:
       case FREE:
       case RETURN:
       case EXIT:
-      // LDR r4, =7
-      // MOV r0, r4
-      // BL exit
+        // LDR r4, =7
+        // MOV r0, r4
+        // BL exit
 
+        if (!(expr instanceof IntNode)) {
+          throw new RuntimeException("Exit statement should have int return");
+        }
 
-      if (!(expr instanceof IntNode)) {
-        throw new RuntimeException("Exit statement should have int return");
-      }
+        long exitCode = ((IntNode) expr).getValue();
 
-      long exitCode = ((IntNode)expr).getValue();
+        args = new ArrayList<Arg>();
+        args.add(new Register(RegEnum.R4));
+        args.add(new Const((int) exitCode, false));
+        // args.add(new Const(exitCode, false));
+        a = new AssemblyInstr(AssemblyInstrEnum.LDR,
+          AssemblyInstrCond.NO_CODE, args);
+        i.add(a);
 
-      args = new ArrayList<Arg>();
-      args.add(new Register(RegEnum.R4));
-      args.add(new Const((int)exitCode, false));
-      // args.add(new Const(exitCode, false));
-      a = new AssemblyInstr(AssemblyInstrEnum.LDR, 
-                            AssemblyInstrCond.NO_CODE, args);
-      instrs.add(a);
+        args = new ArrayList<Arg>();
+        args.add(new Register(RegEnum.R0));
+        args.add(new Register(RegEnum.R4));
+        a = new AssemblyInstr(AssemblyInstrEnum.MOV,
+          AssemblyInstrCond.NO_CODE, args);
+        i.add(a);
 
-      args = new ArrayList<Arg>();
-      args.add(new Register(RegEnum.R0));
-      args.add(new Register(RegEnum.R4));
-      a = new AssemblyInstr(AssemblyInstrEnum.MOV, 
-                            AssemblyInstrCond.NO_CODE, args);
-      instrs.add(a);
+        args = new ArrayList<Arg>();
+        args.add(new Label("exit"));
+        a = new AssemblyInstr(AssemblyInstrEnum.BL,
+          AssemblyInstrCond.NO_CODE, args);
+        i.add(a);
 
-      args = new ArrayList<Arg>();
-      args.add(new Label("exit"));
-      a = new AssemblyInstr(AssemblyInstrEnum.BL, 
-                            AssemblyInstrCond.NO_CODE, args);
-      instrs.add(a);
+        break;
 
-      break;
-
-      case PRINT: break;
-      case PRINTLN: break;
-      default: break;
+      case PRINT:
+        break;
+      case PRINTLN:
+        break;
+      default:
+        break;
     }
 
 
-    return instrs;
+    return i;
   }
 
 }

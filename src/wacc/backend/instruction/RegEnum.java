@@ -1,9 +1,9 @@
-package wacc.backend;
+package wacc.backend.instruction;
 
 
 public enum RegEnum {
 
-	R0,
+  R0,
   R1,
   R2,
   R3,
