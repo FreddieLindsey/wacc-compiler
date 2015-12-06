@@ -101,32 +101,30 @@ public class BasicStatNode extends StatNode {
         // MOV r0, r4
         // BL exit
 
-        if (!(expr instanceof IntNode)) {
+        if (!(expr.type().getType() == TypeEnum.INT)) {
           throw new RuntimeException("Exit statement should have int return");
         }
+
+        // TODO: Evaluate code in expr
 
         long exitCode = ((IntNode) expr).getValue();
 
         args = new ArrayList<Arg>();
         args.add(new Register(RegEnum.R4));
         args.add(new Const((int) exitCode, false));
-        // args.add(new Const(exitCode, false));
-        a = new AssemblyInstr(AssemblyInstrEnum.LDR,
-          AssemblyInstrCond.NO_CODE, args);
-        i.add(a);
+        i.add(new AssemblyInstr(AssemblyInstrEnum.LDR,
+          AssemblyInstrCond.NO_CODE, args));
 
         args = new ArrayList<Arg>();
         args.add(new Register(RegEnum.R0));
         args.add(new Register(RegEnum.R4));
-        a = new AssemblyInstr(AssemblyInstrEnum.MOV,
-          AssemblyInstrCond.NO_CODE, args);
-        i.add(a);
+        i.add(new AssemblyInstr(AssemblyInstrEnum.MOV,
+          AssemblyInstrCond.NO_CODE, args))
 
         args = new ArrayList<Arg>();
         args.add(new Label("exit"));
-        a = new AssemblyInstr(AssemblyInstrEnum.BL,
-          AssemblyInstrCond.NO_CODE, args);
-        i.add(a);
+        i.add(new AssemblyInstr(AssemblyInstrEnum.BL,
+          AssemblyInstrCond.NO_CODE, args));
 
         break;
 
