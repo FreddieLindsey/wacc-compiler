@@ -106,6 +106,6 @@ public class Main {
     }
     outputName.setLength(end);
     outputName.append(".s");
-    return outputName;
+    return new StringBuilder(outputName.substring(outputName.lastIndexOf("/") + 1));
   }
 }
