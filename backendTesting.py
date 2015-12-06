@@ -4,16 +4,27 @@ import os, sys
 import subprocess
 import fnmatch
 
+# CONSTANTS
+
+compiler = "wacc_examples/refCompile"
+root = "wacc_examples/valid"
+
 # FUNCTIONS
 
 def getReferenceOutput(cacheFile):
-    system_command = "wacc_examples/refCompile -a -d wacc_examples/valid"
+    system_command = "{0} -a -d {1}".format(compiler, root)
+    if not os.path.exists(compiler) or not os.path.exists(root):
+        print "The reference compiler or the root of your examples can not be found."
+        exit(1)
     process = subprocess.Popen(system_command.split(), stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     output = process.communicate()[0].split('\n')
     if len(output) == 1 and len(output[0]) == 0:
         print "Couldn't get reference output. Either:"
         print "\t1: Thank Mark for using a silly system ruby instead of a local one."
         print "\t2: You're not on campus."
+        print "\t3: You haven't got ruby installed at system level"
+        print "\t4: You haven't got the rest-client installed"
+        print "\t5: The earth might not exist..."
         exit(1)
     makeFileDirectory(cacheFile)
     with open(cacheFile, 'w') as f:
@@ -96,16 +107,17 @@ def compareFiles(file_1, file_2):
 def runFile(file_in, file_out):
     system_command = "arm-linux-gnueabi-gcc -o {1} -mcpu=arm1176jzf-s -mtune=arm1176jzf-s {0}".format(file_in, file_out)
     process = subprocess.Popen(system_command.split(), stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-    if process.communicate()[1] != '':
+    output = process.communicate()
+    if output[1] != '':
         raise IOError
     system_command = "qemu-arm -L /usr/arm-linux-gnueabi/ {0}".format(file_out)
     process = subprocess.Popen(system_command.split(), stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-    if process.communicate()[1] != '':
+    output = process.communicate()
+    if output[1] != '':
         raise IOError
-    output = process.communicate()[0]
     os.remove(file_out)
     with open(file_out, 'w') as f:
-        f.write(output)
+        f.write(output[0])
     return file_out
 
 def show_error(file_1_orig, file1, file2):
@@ -141,7 +153,16 @@ def validateOutput(file1, file2):
     runFile(file2, output2)
     with open(output1, 'r') as f1:
         with open(output2, 'r') as f2:
-            return f1.read() == f2.read()
+            valid = f1.read() == f2.read()
+    try:
+        os.remove(output1)
+    except IOError:
+        valid = valid
+    try:
+        os.remove(output2)
+    except IOError:
+        valid = valid
+    return valid
 
 def verify_file(root, filename):
     compile_file = os.path.join(root, filename)
@@ -151,7 +172,7 @@ def verify_file(root, filename):
     try:
         if not compareFiles(compiled_file, referenceOutput):
             try:
-                if not validateOutput(compile_file, referenceOutput):
+                if not validateOutput(compiled_file, referenceOutput):
                     show_output_error(filename, compile_file, referenceOutput)
             except IOError:
                 show_error(filename, compiled_file, referenceOutput)
