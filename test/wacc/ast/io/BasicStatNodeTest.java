@@ -4,7 +4,6 @@ import org.junit.Test;
 import wacc.ast.type.IntNode;
 
 import static junit.framework.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 public class BasicStatNodeTest {
 

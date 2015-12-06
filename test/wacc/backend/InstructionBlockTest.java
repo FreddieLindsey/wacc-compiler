@@ -1,12 +1,7 @@
 package wacc.backend;
 
 import org.junit.Test;
-import wacc.backend.instruction.AssemblyInstr;
-import wacc.backend.instruction.Instruction;
-import wacc.backend.instruction.InstructionBlock;
-import wacc.backend.instruction.Arg;
-import wacc.backend.instruction.AssemblyInstrCond;
-import wacc.backend.instruction.AssemblyInstrEnum;
+import wacc.backend.instruction.*;
 
 import java.util.ArrayList;
 

@@ -7,12 +7,10 @@ import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.ParseTree;
 import wacc.ast.ASTNode;
 import wacc.ast.ProgramNode;
-import wacc.backend.instruction.Instruction;
 import wacc.backend.instruction.InstructionBlock;
 import wacc.parseTreeVisitor.BaseVisitor;
 
 import java.io.*;
-import java.util.ArrayList;
 
 public class Main {
 

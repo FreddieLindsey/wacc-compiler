@@ -3,10 +3,7 @@ package wacc.ast.io;
 import wacc.ast.ExprNode;
 import wacc.ast.type.TypeEnum;
 import wacc.ast.type.TypeNode;
-import wacc.backend.instruction.Instruction;
 import wacc.backend.instruction.InstructionBlock;
-
-import java.util.ArrayList;
 
 public class IfStatNode extends StatNode {
 

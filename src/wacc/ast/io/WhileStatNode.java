@@ -4,10 +4,7 @@ import wacc.ast.ExprNode;
 import wacc.ast.IdentNode;
 import wacc.ast.type.TypeEnum;
 import wacc.ast.type.TypeNode;
-import wacc.backend.instruction.Instruction;
 import wacc.backend.instruction.InstructionBlock;
-
-import java.util.ArrayList;
 
 public class WhileStatNode extends StatNode {
 
