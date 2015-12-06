@@ -101,7 +101,7 @@ public class BasicStatNode extends StatNode {
         // MOV r0, r4
         // BL exit
 
-        if (!(expr.type().getType() == TypeEnum.INT)) {
+        if (expr.type().getType() != TypeEnum.INT) {
           throw new RuntimeException("Exit statement should have int return");
         }
 
