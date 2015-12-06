@@ -72,24 +72,26 @@ public class ProgramNode extends ASTNode {
       i.add(f.generateCode());
     }
 
-    i.add(new Label("main"));
+    InstructionBlock main = new InstructionBlock("main");
 
     ArrayList<Arg> pushArgs = new ArrayList<>();
     pushArgs.add(new Register(RegEnum.LR));
-    i.add(new AssemblyInstr(AssemblyInstrEnum.PUSH, AssemblyInstrCond.NO_CODE, pushArgs));
+    main.add(new AssemblyInstr(AssemblyInstrEnum.PUSH, AssemblyInstrCond.NO_CODE, pushArgs));
 
-    i.add(stat.generateCode());
+    main.add(stat.generateCode());
 
     ArrayList<Arg> loadArgs = new ArrayList<>();
     loadArgs.add(new Register(RegEnum.R0));
     loadArgs.add(new Const(0, false));
-    i.add(new AssemblyInstr(AssemblyInstrEnum.LDR, AssemblyInstrCond.NO_CODE, loadArgs));
+    main.add(new AssemblyInstr(AssemblyInstrEnum.LDR, AssemblyInstrCond.NO_CODE, loadArgs));
 
     ArrayList<Arg> popArgs = new ArrayList<Arg>();
     popArgs.add(new Register(RegEnum.PC));
-    i.add(new AssemblyInstr(AssemblyInstrEnum.POP, AssemblyInstrCond.NO_CODE, popArgs));
+    main.add(new AssemblyInstr(AssemblyInstrEnum.POP, AssemblyInstrCond.NO_CODE, popArgs));
 
-    i.add(new DataMessage(".ltorg"));
+    main.add(new DataMessage(".ltorg"));
+
+    i.add(main);
 
     return i;
   }
