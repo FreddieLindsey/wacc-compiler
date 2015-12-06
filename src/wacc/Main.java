@@ -8,6 +8,7 @@ import org.antlr.v4.runtime.tree.ParseTree;
 import wacc.ast.ASTNode;
 import wacc.ast.ProgramNode;
 import wacc.backend.instruction.Instruction;
+import wacc.backend.instruction.InstructionBlock;
 import wacc.parseTreeVisitor.BaseVisitor;
 
 import java.io.*;
@@ -58,16 +59,11 @@ public class Main {
     if (!valid) System.exit(SEMANTIC_EXIT);
 
     // Compile
-    ArrayList<Instruction> programCode = prog.generateCode();
-    StringBuilder assemblyCode = new StringBuilder();
-    for (Instruction inst : programCode) {
-      assemblyCode.append(inst);
-      assemblyCode.append("\n");
-    }
+    InstructionBlock programCode = prog.generateCode();
 
     // Save to file
     FileWriter writer = new FileWriter(outputName.toString());
-    writer.write(assemblyCode.toString());
+    writer.write(programCode.toString());
     writer.close();
   }
 

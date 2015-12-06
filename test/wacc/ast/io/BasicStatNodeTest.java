@@ -3,13 +3,12 @@ package wacc.ast.io;
 import org.junit.Test;
 import wacc.ast.type.IntNode;
 
+import static junit.framework.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-
 
 public class BasicStatNodeTest {
 
   private BasicStatNode node;
-
 
   @Test
   public void basicStatSkip() {
@@ -18,7 +17,7 @@ public class BasicStatNodeTest {
 
     //System.err.println("basicStatSkip: " + node.generateCode());
 
-    assertTrue(node.generateCode().size() == 0);
+    assertEquals(node.generateCode().size(), 0);
   }
 
   @Test
@@ -31,7 +30,7 @@ public class BasicStatNodeTest {
     //assertTrue(true);
 
     //need to wait for refactor to change this to string version
-    assertTrue(node.generateCode().size() == 3);
+    assertEquals(node.generateCode().size(), 3);
   }
 
 

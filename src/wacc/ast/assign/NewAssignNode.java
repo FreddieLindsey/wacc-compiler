@@ -102,8 +102,8 @@ public class NewAssignNode extends StatNode {
   }
 
   @Override
-  public ArrayList<Instruction> generateCode() {
-    ArrayList<Instruction> instrs = new ArrayList<Instruction>();
+  public InstructionBlock generateCode() {
+    InstructionBlock i = new InstructionBlock();
 
     ArrayList<Arg> args;
     AssemblyInstr a;
@@ -115,7 +115,7 @@ public class NewAssignNode extends StatNode {
     args.add(new Const(4, true));
     a = new AssemblyInstr(AssemblyInstrEnum.SUB,
       AssemblyInstrCond.NO_CODE, args);
-    instrs.add(a);
+    i.add(a);
 
     // Find code for all types
     switch (rhs.type().getType()) {
@@ -127,7 +127,7 @@ public class NewAssignNode extends StatNode {
         args.add(new Const((int) exitCode, false));
         a = new AssemblyInstr(AssemblyInstrEnum.LDR,
           AssemblyInstrCond.NO_CODE, args);
-        instrs.add(a);
+        i.add(a);
     }
 
     // STR r4, [sp]
@@ -136,9 +136,9 @@ public class NewAssignNode extends StatNode {
     args.add(new Register(RegEnum.SP));
     a = new AssemblyInstr(AssemblyInstrEnum.STR,
       AssemblyInstrCond.NO_CODE, args);
-    instrs.add(a);
+    i.add(a);
 
-    return instrs;
+    return i;
   }
 
 }

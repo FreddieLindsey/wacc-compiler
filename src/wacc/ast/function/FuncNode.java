@@ -7,6 +7,7 @@ import wacc.ast.io.StatNode;
 import wacc.ast.type.FuncTypeNode;
 import wacc.ast.type.TypeNode;
 import wacc.backend.instruction.Instruction;
+import wacc.backend.instruction.InstructionBlock;
 import wacc.symbolTable.SymbolTable;
 
 import java.util.ArrayList;
@@ -100,8 +101,8 @@ public class FuncNode extends ASTNode {
     return semanticallyValid;
   }
 
-  public ArrayList<Instruction> generateCode() {
-    ArrayList<Instruction> instrs = new ArrayList<Instruction>();
+  public InstructionBlock generateCode() {
+    InstructionBlock i = new InstructionBlock();
 
 //     According to wiki, this is the ARM calling convention:
 //     In the prologue, push r4 to r11 to the stack, and push the return address in r14, to the stack. (This can be done with a single STM instruction).
@@ -111,10 +112,9 @@ public class FuncNode extends ASTNode {
 //     put the result in r0
 //     In the epilogue, pull r4 to r11 from the stack, and pull the return address to the program counter r15. (This can be done with a single LDM instruction).
 
+    i.add(stat.generateCode());
 
-    instrs.addAll(stat.generateCode());
-
-    return instrs;
+    return i;
   }
 
 }

@@ -84,8 +84,8 @@ public class BasicStatNode extends StatNode {
   }
 
   @Override
-  public ArrayList<Instruction> generateCode() {
-    ArrayList<Instruction> instrs = new ArrayList<Instruction>();
+  public InstructionBlock generateCode() {
+    InstructionBlock i = new InstructionBlock();
 
     ArrayList<Arg> args;
     AssemblyInstr a;
@@ -101,7 +101,6 @@ public class BasicStatNode extends StatNode {
         // MOV r0, r4
         // BL exit
 
-
         if (!(expr instanceof IntNode)) {
           throw new RuntimeException("Exit statement should have int return");
         }
@@ -114,20 +113,20 @@ public class BasicStatNode extends StatNode {
         // args.add(new Const(exitCode, false));
         a = new AssemblyInstr(AssemblyInstrEnum.LDR,
           AssemblyInstrCond.NO_CODE, args);
-        instrs.add(a);
+        i.add(a);
 
         args = new ArrayList<Arg>();
         args.add(new Register(RegEnum.R0));
         args.add(new Register(RegEnum.R4));
         a = new AssemblyInstr(AssemblyInstrEnum.MOV,
           AssemblyInstrCond.NO_CODE, args);
-        instrs.add(a);
+        i.add(a);
 
         args = new ArrayList<Arg>();
         args.add(new Label("exit"));
         a = new AssemblyInstr(AssemblyInstrEnum.BL,
           AssemblyInstrCond.NO_CODE, args);
-        instrs.add(a);
+        i.add(a);
 
         break;
 
@@ -140,7 +139,7 @@ public class BasicStatNode extends StatNode {
     }
 
 
-    return instrs;
+    return i;
   }
 
 }

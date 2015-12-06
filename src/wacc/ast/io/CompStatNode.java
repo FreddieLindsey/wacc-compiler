@@ -2,6 +2,7 @@ package wacc.ast.io;
 
 import wacc.ast.type.TypeNode;
 import wacc.backend.instruction.Instruction;
+import wacc.backend.instruction.InstructionBlock;
 
 import java.util.ArrayList;
 
@@ -47,13 +48,13 @@ public class CompStatNode extends StatNode {
   }
 
   @Override
-  public ArrayList<Instruction> generateCode() {
-    ArrayList<Instruction> instrs = new ArrayList<Instruction>();
+  public InstructionBlock generateCode() {
+    InstructionBlock i = new InstructionBlock();
 
-    instrs.addAll(stat1.generateCode());
-    instrs.addAll(stat2.generateCode());
+    i.add(stat1.generateCode());
+    i.add(stat2.generateCode());
 
-    return instrs;
+    return i;
   }
 
 }

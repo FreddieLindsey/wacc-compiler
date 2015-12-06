@@ -3,7 +3,7 @@ package wacc.backend.instruction;
 import java.util.ArrayList;
 import java.util.List;
 
-public class InstructionBlock {
+public class InstructionBlock implements Instruction {
 
   private String label;
   private List<Instruction> instructions;
@@ -36,5 +36,17 @@ public class InstructionBlock {
 
   public void add(Instruction i) {
     instructions.add(i);
+  }
+
+  public int size() {
+    int j = 0;
+    for (Instruction i : instructions) {
+      if (i instanceof InstructionBlock) {
+        j += ((InstructionBlock) i).size();
+      } else {
+        j++;
+      }
+    }
+    return j;
   }
 }

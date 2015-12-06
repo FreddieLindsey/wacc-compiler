@@ -62,35 +62,35 @@ public class ProgramNode extends ASTNode {
     return stat;
   }
 
-  public ArrayList<Instruction> generateCode() {
-    ArrayList<Instruction> instrs = new ArrayList<Instruction>();
+  public InstructionBlock generateCode() {
+    InstructionBlock i = new InstructionBlock();
 
-    instrs.add(new DataMessage(".text")); // temporary
-    instrs.add(new InformationDataMessage(".global", "main")); // set entry point
+    i.add(new DataMessage(".text")); // temporary
+    i.add(new InformationDataMessage(".global", "main")); // set entry point
 
     for (FuncNode f : funcs) {
-      instrs.addAll(f.generateCode());
+      i.add(f.generateCode());
     }
 
-    instrs.add(new Label("main"));
+    i.add(new Label("main"));
 
     ArrayList<Arg> pushArgs = new ArrayList<>();
     pushArgs.add(new Register(RegEnum.LR));
-    instrs.add(new AssemblyInstr(AssemblyInstrEnum.PUSH, AssemblyInstrCond.NO_CODE, pushArgs));
+    i.add(new AssemblyInstr(AssemblyInstrEnum.PUSH, AssemblyInstrCond.NO_CODE, pushArgs));
 
-    instrs.addAll(stat.generateCode());
+    i.add(stat.generateCode());
 
     ArrayList<Arg> loadArgs = new ArrayList<>();
     loadArgs.add(new Register(RegEnum.R0));
     loadArgs.add(new Const(0, false));
-    instrs.add(new AssemblyInstr(AssemblyInstrEnum.LDR, AssemblyInstrCond.NO_CODE, loadArgs));
+    i.add(new AssemblyInstr(AssemblyInstrEnum.LDR, AssemblyInstrCond.NO_CODE, loadArgs));
 
     ArrayList<Arg> popArgs = new ArrayList<Arg>();
     popArgs.add(new Register(RegEnum.PC));
-    instrs.add(new AssemblyInstr(AssemblyInstrEnum.POP, AssemblyInstrCond.NO_CODE, popArgs));
+    i.add(new AssemblyInstr(AssemblyInstrEnum.POP, AssemblyInstrCond.NO_CODE, popArgs));
 
-    instrs.add(new DataMessage(".ltorg"));
+    i.add(new DataMessage(".ltorg"));
 
-    return instrs;
+    return i;
   }
 }
