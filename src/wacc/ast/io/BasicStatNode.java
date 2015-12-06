@@ -2,6 +2,8 @@ package wacc.ast.io;
 
 import wacc.ast.ExprNode;
 import wacc.ast.IdentNode;
+import wacc.ast.operator.UnOpNode;
+import wacc.ast.operator.UnaryOperator;
 import wacc.ast.type.IntNode;
 import wacc.ast.type.PairTypeNode;
 import wacc.ast.type.TypeEnum;
@@ -9,6 +11,8 @@ import wacc.ast.type.TypeNode;
 import wacc.backend.instruction.*;
 
 import java.util.ArrayList;
+
+import static wacc.ast.operator.UnaryOperator.*;
 
 public class BasicStatNode extends StatNode {
 
@@ -97,23 +101,48 @@ public class BasicStatNode extends StatNode {
       case FREE:
       case RETURN:
       case EXIT:
+        // --------------
         // LDR r4, =7
         // MOV r0, r4
         // BL exit
+        // --------------
 
         if (expr.type().getType() != TypeEnum.INT) {
           throw new RuntimeException("Exit statement should have int return");
         }
 
-        // TODO: Evaluate code in expr
+        if (expr instanceof IntNode || expr instanceof UnOpNode) {
+          long exitCode = 0;
+          if (expr instanceof IntNode) {
+            exitCode = ((IntNode) expr).getValue();
+          }
 
-        long exitCode = ((IntNode) expr).getValue();
+          if (expr instanceof UnOpNode) {
+            UnOpNode expr_ = (UnOpNode) expr;
+            UnaryOperator unop = expr_.getOperator();
+            switch(unop) {
+              case NEG:
+                ExprNode expr__ = expr_.getExpr();
+                if (expr__ instanceof IntNode) {
+                  exitCode = -1 * ((IntNode) expr__).getValue();
+                  break;
+                }
+              default:
+                throw new UnsupportedOperationException("Code generation hasn't been written for this operator");
+            }
 
-        args = new ArrayList<>();
-        args.add(new Register(RegEnum.R4));
-        args.add(new Const((int) exitCode, false));
-        i.add(new AssemblyInstr(AssemblyInstrEnum.LDR,
-          AssemblyInstrCond.NO_CODE, args));
+            while (exitCode < 0) {
+              exitCode += 256;
+            }
+            exitCode %= 256;
+          }
+
+          args = new ArrayList<>();
+          args.add(new Register(RegEnum.R4));
+          args.add(new Const((int) exitCode, false));
+          i.add(new AssemblyInstr(AssemblyInstrEnum.LDR,
+            AssemblyInstrCond.NO_CODE, args));
+        }
 
         args = new ArrayList<>();
         args.add(new Register(RegEnum.R0));
