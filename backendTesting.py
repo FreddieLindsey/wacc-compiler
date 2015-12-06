@@ -8,6 +8,7 @@ import fnmatch
 
 compiler = "wacc_examples/refCompile"
 root = "wacc_examples/valid"
+ignores = ['Loop', 'loop', 'manyVariables']
 
 # FUNCTIONS
 
@@ -204,6 +205,9 @@ root = 'wacc_examples/valid'
 if len(sys.argv) > 1:
     path = sys.argv[1]
     if '.wacc' in path:
+        for i in ignores:
+            if i in path:
+                exit(0)
         verified += 1
         if not verify_file('/'.join(path.split('/')[:-1]), path.split('/')[-1]):
             incorrect += 1
@@ -214,6 +218,13 @@ if len(sys.argv) > 1:
 
 for root, dirnames, filenames in os.walk(root):
     for filename in fnmatch.filter(filenames, '*.wacc'):
+        print 'Running verify on:\t{0}'.format(filename)
+        breaker = False
+        for i in ignores:
+            if i in filename:
+                breaker = True
+                break
+        if breaker: continue
         verified += 1
         if not verify_file(root, filename):
             incorrect += 1
