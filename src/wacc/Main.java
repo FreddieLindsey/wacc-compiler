@@ -100,14 +100,11 @@ public class Main {
 
   private static StringBuilder generateOutputName(String input) {
     StringBuilder outputName = new StringBuilder(input);
-    int start = 0, end = 0;
-    if (outputName.indexOf("/") > 0) {
-      start = outputName.lastIndexOf("/");
-    }
+    int end = 0;
     if (outputName.indexOf(".") > 0) {
       end = outputName.lastIndexOf(".");
     }
-    outputName = new StringBuilder(outputName.substring(start + 1, end));
+    outputName.setLength(end);
     outputName.append(".s");
     return outputName;
   }
