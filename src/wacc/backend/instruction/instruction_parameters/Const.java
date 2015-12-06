@@ -1,4 +1,7 @@
-package wacc.backend;
+package wacc.backend.instruction.instruction_parameters;
+
+import wacc.backend.instruction.instruction_parameters.Arg;
+import wacc.backend.instruction.instruction_parameters.ArgEnum;
 
 public class Const extends Arg {
 	

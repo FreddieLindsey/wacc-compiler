@@ -1,7 +1,7 @@
-package wacc.backend;
+package wacc.backend.instruction.instruction_parameters;
 
 
-public class BarrelShift extends Arg{
+public class BarrelShift extends Arg {
 	
 
   private BarrelShiftEnum shift;

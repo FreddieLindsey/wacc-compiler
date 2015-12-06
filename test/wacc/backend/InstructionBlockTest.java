@@ -4,7 +4,9 @@ import org.junit.Test;
 import wacc.backend.instruction.AssemblyInstr;
 import wacc.backend.instruction.Instruction;
 import wacc.backend.instruction.InstructionBlock;
-import wacc.backend.instruction.Label;
+import wacc.backend.instruction.instruction_parameters.Arg;
+import wacc.backend.instruction.instruction_parameters.AssemblyInstrCond;
+import wacc.backend.instruction.instruction_parameters.AssemblyInstrEnum;
 
 import java.util.ArrayList;
 

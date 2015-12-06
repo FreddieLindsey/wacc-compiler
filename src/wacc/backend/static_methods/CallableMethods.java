@@ -1,9 +1,9 @@
 package wacc.backend.static_methods;
 
-import wacc.backend.*;
 import wacc.backend.instruction.AssemblyInstr;
 import wacc.backend.instruction.InstructionBlock;
 import wacc.backend.instruction.Label;
+import wacc.backend.instruction.instruction_parameters.*;
 
 import java.util.ArrayList;
 

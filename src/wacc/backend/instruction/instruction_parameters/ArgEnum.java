@@ -1,4 +1,4 @@
-package wacc.backend;
+package wacc.backend.instruction.instruction_parameters;
 
 
 public enum ArgEnum {

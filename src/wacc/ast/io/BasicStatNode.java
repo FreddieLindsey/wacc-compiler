@@ -6,10 +6,10 @@ import wacc.ast.type.IntNode;
 import wacc.ast.type.PairTypeNode;
 import wacc.ast.type.TypeEnum;
 import wacc.ast.type.TypeNode;
-import wacc.backend.*;
 import wacc.backend.instruction.AssemblyInstr;
 import wacc.backend.instruction.Instruction;
 import wacc.backend.instruction.Label;
+import wacc.backend.instruction.instruction_parameters.*;
 
 import java.util.ArrayList;
 
@@ -114,7 +114,7 @@ public class BasicStatNode extends StatNode {
       args.add(new Register(RegEnum.R4));
       args.add(new Const((int)exitCode, false));
       // args.add(new Const(exitCode, false));
-      a = new AssemblyInstr(AssemblyInstrEnum.LDR, 
+      a = new AssemblyInstr(AssemblyInstrEnum.LDR,
                             AssemblyInstrCond.NO_CODE, args);
       instrs.add(a);
 

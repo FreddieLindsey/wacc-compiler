@@ -3,8 +3,8 @@ package wacc.ast;
 import wacc.ast.function.FuncNode;
 import wacc.ast.io.StatNode;
 import wacc.backend.instruction.*;
+import wacc.backend.instruction.instruction_parameters.*;
 import wacc.symbolTable.SymbolTable;
-import wacc.backend.*;
 
 import java.util.ArrayList;
 

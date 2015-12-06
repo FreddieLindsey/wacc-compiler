@@ -10,9 +10,9 @@ import wacc.ast.type.AnyTypeNode;
 import wacc.ast.type.FuncTypeNode;
 import wacc.ast.type.PairTypeNode;
 import wacc.ast.type.TypeNode;
-import wacc.backend.*;
 import wacc.backend.instruction.AssemblyInstr;
 import wacc.backend.instruction.Instruction;
+import wacc.backend.instruction.instruction_parameters.*;
 
 import java.util.ArrayList;
 
@@ -119,7 +119,7 @@ public class NewAssignNode extends StatNode {
     args.add(new Register(RegEnum.SP));
     args.add(new Register(RegEnum.SP));
     args.add(new Const(4, true));
-    a = new AssemblyInstr(AssemblyInstrEnum.SUB, 
+    a = new AssemblyInstr(AssemblyInstrEnum.SUB,
                           AssemblyInstrCond.NO_CODE, args);
     instrs.add(a);
 
