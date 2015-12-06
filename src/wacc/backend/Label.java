@@ -1,7 +1,5 @@
 package wacc.backend;
 
-import java.util.ArrayList;
-
 public class Label extends Arg implements Instruction {
 
   private String label;
@@ -17,8 +15,11 @@ public class Label extends Arg implements Instruction {
 
   @Override
   public String toString() {
-  	return label;
-  }
+  	StringBuilder output = new StringBuilder(label);
 
+    output.append(":");
+
+    return output.toString();
+  }
 
 }
