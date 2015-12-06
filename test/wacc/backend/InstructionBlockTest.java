@@ -20,7 +20,7 @@ public class InstructionBlockTest {
 
   @Test
   public void validToStingForJustLabel() {
-    assertEquals(i_withlabel, "Bob:\n");
+    assertEquals(i_withlabel.toString(), "Bob:\n");
   }
 
   @Test
