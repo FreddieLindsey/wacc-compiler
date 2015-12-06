@@ -11,6 +11,6 @@ public class LabelTest {
 
   @Test
   public void returnsCorrectString() {
-    assertEquals(l.toString(), "a label:");
+    assertEquals(l.toString(), "a label");
   }
 }

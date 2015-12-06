@@ -13,7 +13,7 @@ import static org.junit.Assert.assertEquals;
 public class InstructionBlockTest {
 
   private InstructionBlock i = new InstructionBlock();
-  private InstructionBlock i_withlabel = new InstructionBlock(new Label("Bob"));
+  private InstructionBlock i_withlabel = new InstructionBlock("Bob");
   private Instruction i1 = new AssemblyInstr(AssemblyInstrEnum.B, AssemblyInstrCond.NO_CODE, new ArrayList<Arg>());
   private Instruction i2 = new AssemblyInstr(AssemblyInstrEnum.B, AssemblyInstrCond.NO_CODE, new ArrayList<Arg>());
 

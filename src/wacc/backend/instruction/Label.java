@@ -2,7 +2,6 @@ package wacc.backend.instruction;
 
 import wacc.backend.Arg;
 import wacc.backend.ArgEnum;
-import wacc.backend.instruction.Instruction;
 
 public class Label extends Arg implements Instruction {
 
@@ -19,11 +18,7 @@ public class Label extends Arg implements Instruction {
 
   @Override
   public String toString() {
-  	StringBuilder output = new StringBuilder(label);
-
-    output.append(":");
-
-    return output.toString();
+    return label;
   }
 
 }

@@ -5,14 +5,14 @@ import java.util.List;
 
 public class InstructionBlock {
 
-  private Label label;
+  private String label;
   private List<Instruction> instructions;
 
   public InstructionBlock() {
     instructions = new ArrayList<>();
   }
 
-  public InstructionBlock(Label label) {
+  public InstructionBlock(String label) {
     this();
     this.label = label;
   }
@@ -21,8 +21,8 @@ public class InstructionBlock {
     StringBuilder code = new StringBuilder();
 
     if (label != null) {
-      code.append(label.toString());
-      code.append("\n");
+      code.append(label);
+      code.append(":\n");
     }
 
     for (Instruction i : instructions) {
