@@ -19,6 +19,7 @@ import wacc.backend.instruction.AssemblyInstrEnum;
 import wacc.backend.instruction.Const;
 import wacc.backend.instruction.Instruction;
 import wacc.backend.instruction.InstructionBlock;
+import wacc.backend.instruction.Label;
 import wacc.backend.instruction.MemoryAccess;
 import wacc.backend.instruction.RegEnum;
 import wacc.backend.instruction.Register;
@@ -165,6 +166,30 @@ public class NewAssignNode extends StatNode {
        *  STR r4, [sp]
        *  ADD sp, sp, #4
        */
+      
+      // Move the stack pointer down by 4 bytes (word)
+      // SUB sp, sp, #4
+      i.add(decStackPointer(4));
+      
+      // Set r0 to the space in bytes required to hold two addresses (pair)
+      // LDR r0, =8
+      ArrayList<Arg> loadPairAddressesArgs = new ArrayList<>();
+      loadPairAddressesArgs.add(new Register(RegEnum.R0));
+      loadPairAddressesArgs.add(new Const(8, false));
+      i.add(new AssemblyInstr(AssemblyInstrEnum.LDR,
+          AssemblyInstrCond.NO_CODE, loadPairAddressesArgs));
+      
+      // Returns in r0 a memory address with enough space to hold the number
+      // of bytes specified by the previous r0 value
+      // BL malloc
+      ArrayList<Arg> mallocArgs = new ArrayList<>();
+      mallocArgs.add(new Label("malloc"));
+      i.add(new AssemblyInstr(AssemblyInstrEnum.BL,
+          AssemblyInstrCond.NO_CODE, mallocArgs));
+      
+      
+      
+      break;
     case STRING:
       // Move the stack pointer down by 4 bytes (word)
       // SUB sp, sp, #4
@@ -176,7 +201,7 @@ public class NewAssignNode extends StatNode {
       loadStringArgs.add(new Register(RegEnum.R4));
       // TODO: replace -1 with delegated string return value
       loadStringArgs.add(new Const(-1, false));
-      i.add(new AssemblyInstr(AssemblyInstrEnum.MOV,
+      i.add(new AssemblyInstr(AssemblyInstrEnum.LDR,
           AssemblyInstrCond.NO_CODE, loadStringArgs));
 
       // STR r4, [sp]
@@ -198,7 +223,7 @@ public class NewAssignNode extends StatNode {
       loadIntArgs.add(new Register(RegEnum.R4));
       // TODO: replace -1 with delegated int return value
       loadIntArgs.add(new Const(-1, false));
-      i.add(new AssemblyInstr(AssemblyInstrEnum.MOV,
+      i.add(new AssemblyInstr(AssemblyInstrEnum.LDR,
           AssemblyInstrCond.NO_CODE, loadIntArgs));
 
       // STR r4, [sp]
