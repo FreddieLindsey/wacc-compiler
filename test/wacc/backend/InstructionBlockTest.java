@@ -10,6 +10,8 @@ public class InstructionBlockTest {
 
   private InstructionBlock i = new InstructionBlock();
   private InstructionBlock i_withlabel = new InstructionBlock(new Label("Bob"));
+  private Instruction i1 = new AssemblyInstr(AssemblyInstrEnum.B, AssemblyInstrCond.NO_CODE, new ArrayList<Arg>());
+  private Instruction i2 = new AssemblyInstr(AssemblyInstrEnum.B, AssemblyInstrCond.NO_CODE, new ArrayList<Arg>());
 
   @Test
   public void validToStringForEmptyInstructionBlock() {
@@ -22,15 +24,22 @@ public class InstructionBlockTest {
   }
 
   @Test
-  public void validToStringForLabelWithInstruction() throws Exception {
-    Instruction i1 = new AssemblyInstr(AssemblyInstrEnum.B, AssemblyInstrCond.NO_CODE, new ArrayList<Arg>());
-    Instruction i2 = new AssemblyInstr(AssemblyInstrEnum.B, AssemblyInstrCond.NO_CODE, new ArrayList<Arg>());
-
+  public void validToStringForLabelWithInstruction() {
     i_withlabel.add(i1);
     i_withlabel.add(i2);
 
     String expectedOutput = "Bob:\n\tB \n\tB \n";
 
     assertEquals(i_withlabel.toString(), expectedOutput);
+  }
+
+  @Test
+  public void validToStringForJustInstructions() {
+    i.add(i1);
+    i.add(i2);
+
+    String expectedOutput = "B \nB \n";
+
+    assertEquals(i.toString(), expectedOutput);
   }
 }
