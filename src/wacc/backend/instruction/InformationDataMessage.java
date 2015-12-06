@@ -1,4 +1,4 @@
-package wacc.backend;
+package wacc.backend.instruction;
 
 public class InformationDataMessage extends DataMessage {
 

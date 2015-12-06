@@ -10,8 +10,9 @@ import wacc.ast.type.AnyTypeNode;
 import wacc.ast.type.FuncTypeNode;
 import wacc.ast.type.PairTypeNode;
 import wacc.ast.type.TypeNode;
-import wacc.ast.type.TypeEnum;
 import wacc.backend.*;
+import wacc.backend.instruction.AssemblyInstr;
+import wacc.backend.instruction.Instruction;
 
 import java.util.ArrayList;
 

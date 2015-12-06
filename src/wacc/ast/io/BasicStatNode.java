@@ -7,9 +7,11 @@ import wacc.ast.type.PairTypeNode;
 import wacc.ast.type.TypeEnum;
 import wacc.ast.type.TypeNode;
 import wacc.backend.*;
+import wacc.backend.instruction.AssemblyInstr;
+import wacc.backend.instruction.Instruction;
+import wacc.backend.instruction.Label;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class BasicStatNode extends StatNode {
 

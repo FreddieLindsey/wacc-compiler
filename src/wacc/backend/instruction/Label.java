@@ -1,4 +1,8 @@
-package wacc.backend;
+package wacc.backend.instruction;
+
+import wacc.backend.Arg;
+import wacc.backend.ArgEnum;
+import wacc.backend.instruction.Instruction;
 
 public class Label extends Arg implements Instruction {
 

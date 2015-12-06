@@ -1,6 +1,8 @@
 package wacc.backend;
 
 import org.junit.Test;
+import wacc.backend.instruction.AssemblyInstr;
+import wacc.backend.instruction.Label;
 
 import java.util.ArrayList;
 

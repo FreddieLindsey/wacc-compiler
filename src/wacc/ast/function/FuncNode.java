@@ -6,8 +6,8 @@ import wacc.ast.IdentNode;
 import wacc.ast.io.StatNode;
 import wacc.ast.type.FuncTypeNode;
 import wacc.ast.type.TypeNode;
+import wacc.backend.instruction.Instruction;
 import wacc.symbolTable.SymbolTable;
-import wacc.backend.*;
 
 import java.util.ArrayList;
 

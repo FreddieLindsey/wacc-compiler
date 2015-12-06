@@ -1,6 +1,7 @@
 package wacc.backend;
 
 import org.junit.Test;
+import wacc.backend.instruction.InformationDataMessage;
 
 import static org.junit.Assert.*;
 

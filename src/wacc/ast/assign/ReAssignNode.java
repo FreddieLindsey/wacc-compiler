@@ -5,7 +5,7 @@ import wacc.ast.function.CallNode;
 import wacc.ast.io.StatNode;
 import wacc.ast.type.FuncTypeNode;
 import wacc.ast.type.TypeNode;
-import wacc.backend.*;
+import wacc.backend.instruction.Instruction;
 
 import java.util.ArrayList;
 

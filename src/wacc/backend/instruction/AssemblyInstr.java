@@ -1,9 +1,10 @@
-package wacc.backend;
+package wacc.backend.instruction;
+
+import wacc.backend.*;
 
 import java.util.ArrayList;
 
 public class AssemblyInstr implements Instruction {
-
 
   private AssemblyInstrEnum instrType;
   private AssemblyInstrCond cond;

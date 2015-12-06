@@ -1,7 +1,7 @@
 package wacc.ast.io;
 
 import wacc.ast.type.TypeNode;
-import wacc.backend.*;
+import wacc.backend.instruction.Instruction;
 
 import java.util.ArrayList;
 

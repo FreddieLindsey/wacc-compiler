@@ -1,4 +1,4 @@
-package wacc.backend;
+package wacc.backend.instruction;
 
 import java.util.ArrayList;
 import java.util.List;

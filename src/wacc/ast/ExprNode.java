@@ -1,7 +1,7 @@
 package wacc.ast;
 
 import wacc.ast.type.TypeNode;
-import wacc.backend.*;
+import wacc.backend.instruction.AssemblyInstr;
 
 import java.util.ArrayList;
 
