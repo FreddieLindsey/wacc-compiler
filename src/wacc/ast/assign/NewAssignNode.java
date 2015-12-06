@@ -6,9 +6,7 @@ import wacc.ast.function.CallNode;
 import wacc.ast.io.StatNode;
 import wacc.ast.pair.NewPairNode;
 import wacc.ast.type.*;
-import wacc.backend.instruction.AssemblyInstr;
-import wacc.backend.instruction.Instruction;
-import wacc.backend.instruction.instruction_parameters.*;
+import wacc.backend.instruction.*;
 
 import java.util.ArrayList;
 

@@ -1,9 +1,5 @@
 package wacc.backend.instruction;
 
-import wacc.backend.instruction.instruction_parameters.Arg;
-import wacc.backend.instruction.instruction_parameters.AssemblyInstrCond;
-import wacc.backend.instruction.instruction_parameters.AssemblyInstrEnum;
-
 import java.util.ArrayList;
 
 public class AssemblyInstr implements Instruction {

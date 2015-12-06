@@ -1,4 +1,4 @@
-package wacc.backend.instruction.instruction_parameters;
+package wacc.backend.instruction;
 
 public abstract class Arg {
 

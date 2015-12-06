@@ -1,4 +1,4 @@
-package wacc.backend.instruction.instruction_parameters;
+package wacc.backend.instruction;
 
 public class Register extends Arg {
 
