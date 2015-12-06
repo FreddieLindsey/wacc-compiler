@@ -5,7 +5,7 @@ import wacc.ast.ExprNode;
 import wacc.ast.type.TypeEnum;
 import wacc.ast.type.TypeNode;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
 
 public class BinOpNodeTest {
 

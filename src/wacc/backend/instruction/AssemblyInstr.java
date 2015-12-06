@@ -13,8 +13,8 @@ public class AssemblyInstr implements Instruction {
   private ArrayList<Arg> args;
 
 
-  public AssemblyInstr(AssemblyInstrEnum instrType, 
-                       AssemblyInstrCond cond, 
+  public AssemblyInstr(AssemblyInstrEnum instrType,
+                       AssemblyInstrCond cond,
                        ArrayList<Arg> args) {
     this.instrType = instrType;
     this.cond = cond;
@@ -40,7 +40,7 @@ public class AssemblyInstr implements Instruction {
     sb.append(instrType.name());
 
     if (instrType == AssemblyInstrEnum.POP
-     || instrType == AssemblyInstrEnum.PUSH) {
+      || instrType == AssemblyInstrEnum.PUSH) {
       sb.append(" {");
     } else {
       if (cond != AssemblyInstrCond.NO_CODE) {
@@ -51,7 +51,7 @@ public class AssemblyInstr implements Instruction {
     }
 
     for (int i = 0; i < args.size(); i++) {
-      if (i == args.size()-1) {
+      if (i == args.size() - 1) {
         sb.append(args.get(i).toString());
       } else {
         sb.append(args.get(i).toString() + ", ");
@@ -59,7 +59,7 @@ public class AssemblyInstr implements Instruction {
     }
 
     if (instrType == AssemblyInstrEnum.POP
-     || instrType == AssemblyInstrEnum.PUSH) {
+      || instrType == AssemblyInstrEnum.PUSH) {
       sb.append("}");
     }
 

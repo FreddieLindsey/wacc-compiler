@@ -24,5 +24,4 @@ public abstract class StatNode extends ASTNode {
   public abstract ArrayList<Instruction> generateCode();
 
 
-
 }

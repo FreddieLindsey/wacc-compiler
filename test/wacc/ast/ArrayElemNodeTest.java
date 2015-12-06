@@ -5,8 +5,10 @@ import wacc.ast.type.ArrayElemNode;
 import wacc.ast.type.BoolNode;
 import wacc.ast.type.IntNode;
 
-import static org.junit.Assert.*;
 import java.util.ArrayList;
+
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 public class ArrayElemNodeTest {
 

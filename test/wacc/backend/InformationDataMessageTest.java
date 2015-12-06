@@ -3,7 +3,7 @@ package wacc.backend;
 import org.junit.Test;
 import wacc.backend.instruction.InformationDataMessage;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 public class InformationDataMessageTest {
 

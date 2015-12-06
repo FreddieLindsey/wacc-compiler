@@ -5,7 +5,7 @@ import wacc.ast.ExprNode;
 import wacc.ast.type.BoolNode;
 import wacc.ast.type.StringNode;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
 
 public class IfStatNodeTest {
 
@@ -22,13 +22,13 @@ public class IfStatNodeTest {
     assertTrue(i.getExpr().equals(e1));
   }
 
-    @Test
+  @Test
   public void canGetTrueBranch() {
     i = new IfStatNode(e1, s1, s2);
     assertTrue(i.getTrueBranch().equals(s1));
   }
 
-    @Test
+  @Test
   public void canGetFalseBranch() {
     i = new IfStatNode(e1, s1, s2);
     assertTrue(i.getFalseBranch().equals(s2));
@@ -58,7 +58,6 @@ public class IfStatNodeTest {
     assertTrue(!s2.isSemanticallyValid());
     assertTrue(!i.isSemanticallyValid());
   }
-
 
 
 }

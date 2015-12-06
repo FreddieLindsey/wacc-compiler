@@ -7,14 +7,13 @@ import wacc.backend.instruction.instruction_parameters.*;
 
 import java.util.ArrayList;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
 
 public class AssemblyInstrTest {
 
   private AssemblyInstr instr;
 
   private ArrayList<Arg> args = new ArrayList<>();
-
 
   @Test
   public void assemInstrInit() {

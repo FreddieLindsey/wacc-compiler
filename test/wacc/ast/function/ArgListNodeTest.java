@@ -1,12 +1,10 @@
 package wacc.ast.function;
 
 import org.junit.Test;
-import wacc.ast.ASTNode;
 import wacc.ast.ExprNode;
-import wacc.ast.function.ArgListNode;
 import wacc.ast.type.IntNode;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
 
 public class ArgListNodeTest {
 

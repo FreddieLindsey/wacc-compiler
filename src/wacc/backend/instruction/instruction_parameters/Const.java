@@ -1,10 +1,7 @@
 package wacc.backend.instruction.instruction_parameters;
 
-import wacc.backend.instruction.instruction_parameters.Arg;
-import wacc.backend.instruction.instruction_parameters.ArgEnum;
-
 public class Const extends Arg {
-	
+
   private int value;
   private String str;
 
@@ -20,9 +17,9 @@ public class Const extends Arg {
   }
 
   public Const(String str, boolean isCommand) {
-  	this.type = ArgEnum.CONST;
+    this.type = ArgEnum.CONST;
     isInt = true;
-  	this.str = str;
+    this.str = str;
     this.isCommand = isCommand;
   }
 

@@ -3,7 +3,7 @@ package wacc.backend.static_methods;
 import org.junit.Test;
 import wacc.backend.instruction.InstructionBlock;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 public class CallableMethodsTest {
 

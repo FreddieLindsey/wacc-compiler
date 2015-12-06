@@ -1,7 +1,8 @@
 package wacc.ast.type;
 
 import org.junit.Test;
-import static org.junit.Assert.*;
+
+import static org.junit.Assert.assertTrue;
 
 public class CharNodeTest {
 
@@ -9,14 +10,14 @@ public class CharNodeTest {
 
   @Test
   public void charNodeInit() {
-      c = new CharNode('x');
-      assertTrue(c.getValue().equals('x'));
+    c = new CharNode('x');
+    assertTrue(c.getValue().equals('x'));
   }
 
   @Test
   public void charNodeValidityT() {
-      c = new CharNode('r');
-      assertTrue(c.isSemanticallyValid());
+    c = new CharNode('r');
+    assertTrue(c.isSemanticallyValid());
   }
 
   @Test

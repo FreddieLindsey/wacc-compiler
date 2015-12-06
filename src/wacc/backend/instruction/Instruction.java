@@ -1,3 +1,4 @@
 package wacc.backend.instruction;
 
-public interface Instruction {}
+public interface Instruction {
+}

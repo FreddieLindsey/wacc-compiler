@@ -3,7 +3,7 @@ package wacc.backend.instruction.instruction_parameters;
 
 public enum RegEnum {
 
-	R0,
+  R0,
   R1,
   R2,
   R3,

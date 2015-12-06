@@ -1,13 +1,15 @@
 package wacc.ast.function;
 
-import wacc.ast.type.FuncTypeNode;
-import wacc.ast.type.TypeNode;
-import wacc.ast.IdentNode;
-import wacc.ast.io.StatTypeEnum;
-import wacc.ast.io.BasicStatNode;
-import wacc.ast.type.TypeEnum;
 import org.junit.Test;
-import static org.junit.Assert.*;
+import wacc.ast.IdentNode;
+import wacc.ast.io.BasicStatNode;
+import wacc.ast.io.StatTypeEnum;
+import wacc.ast.type.FuncTypeNode;
+import wacc.ast.type.TypeEnum;
+import wacc.ast.type.TypeNode;
+
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 public class FuncNodeTest {
 

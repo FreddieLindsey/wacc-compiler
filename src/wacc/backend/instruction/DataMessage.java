@@ -1,7 +1,5 @@
 package wacc.backend.instruction;
 
-import wacc.backend.instruction.Instruction;
-
 public class DataMessage implements Instruction {
 
   private String name;

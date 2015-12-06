@@ -5,11 +5,7 @@ import wacc.ast.IdentNode;
 import wacc.ast.function.CallNode;
 import wacc.ast.io.StatNode;
 import wacc.ast.pair.NewPairNode;
-import wacc.ast.type.IntNode;
-import wacc.ast.type.AnyTypeNode;
-import wacc.ast.type.FuncTypeNode;
-import wacc.ast.type.PairTypeNode;
-import wacc.ast.type.TypeNode;
+import wacc.ast.type.*;
 import wacc.backend.instruction.AssemblyInstr;
 import wacc.backend.instruction.Instruction;
 import wacc.backend.instruction.instruction_parameters.*;
@@ -120,19 +116,19 @@ public class NewAssignNode extends StatNode {
     args.add(new Register(RegEnum.SP));
     args.add(new Const(4, true));
     a = new AssemblyInstr(AssemblyInstrEnum.SUB,
-                          AssemblyInstrCond.NO_CODE, args);
+      AssemblyInstrCond.NO_CODE, args);
     instrs.add(a);
 
     // Find code for all types
-    switch(rhs.type().getType()) {
+    switch (rhs.type().getType()) {
       case INT:
         // LDR r4, =19
-        long exitCode = ((IntNode)rhs).getValue();
+        long exitCode = ((IntNode) rhs).getValue();
         args = new ArrayList<Arg>();
         args.add(new Register(RegEnum.R4));
-        args.add(new Const((int)exitCode, false));
-        a = new AssemblyInstr(AssemblyInstrEnum.LDR, 
-                              AssemblyInstrCond.NO_CODE, args);
+        args.add(new Const((int) exitCode, false));
+        a = new AssemblyInstr(AssemblyInstrEnum.LDR,
+          AssemblyInstrCond.NO_CODE, args);
         instrs.add(a);
     }
 
@@ -140,8 +136,8 @@ public class NewAssignNode extends StatNode {
     args = new ArrayList<Arg>();
     args.add(new Register(RegEnum.R4));
     args.add(new Register(RegEnum.SP));
-    a = new AssemblyInstr(AssemblyInstrEnum.STR, 
-                          AssemblyInstrCond.NO_CODE, args);
+    a = new AssemblyInstr(AssemblyInstrEnum.STR,
+      AssemblyInstrCond.NO_CODE, args);
     instrs.add(a);
 
     return instrs;

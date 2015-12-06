@@ -1,11 +1,9 @@
 package wacc.ast.io;
 
 import org.junit.Test;
-import java.util.ArrayList;
-
 import wacc.ast.type.IntNode;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
 
 
 public class BasicStatNodeTest {

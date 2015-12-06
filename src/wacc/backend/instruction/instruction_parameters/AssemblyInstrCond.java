@@ -1,7 +1,7 @@
 package wacc.backend.instruction.instruction_parameters;
 
 public enum AssemblyInstrCond {
-	
+
   EQ, // Z set (equal)
   NE, // Z clear (not equal)
   HS, CS, // C set (unsigned higher or same)
@@ -20,8 +20,6 @@ public enum AssemblyInstrCond {
   NV, // reserved.
 
   NO_CODE // as code is optional we can also have no code!
-
-
 
 
 }
