@@ -132,8 +132,6 @@ public class BasicStatNode extends StatNode {
         break;
       case PRINTLN:
         break;
-      default:
-        break;
     }
 
 
