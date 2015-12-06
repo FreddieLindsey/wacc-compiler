@@ -119,7 +119,7 @@ public class BasicStatNode extends StatNode {
         args.add(new Register(RegEnum.R0));
         args.add(new Register(RegEnum.R4));
         i.add(new AssemblyInstr(AssemblyInstrEnum.MOV,
-          AssemblyInstrCond.NO_CODE, args))
+          AssemblyInstrCond.NO_CODE, args));
 
         args = new ArrayList<Arg>();
         args.add(new Label("exit"));
