@@ -166,7 +166,7 @@ public class NewAssignNode extends StatNode {
        *  STR r4, [sp]
        *  ADD sp, sp, #4
        */
-      
+
       // Move the stack pointer down by 4 bytes (word)
       // SUB sp, sp, #4
       i.add(decStackPointer(4));
@@ -178,7 +178,7 @@ public class NewAssignNode extends StatNode {
       loadPairAddressesArgs.add(new Const(8, false));
       i.add(new AssemblyInstr(AssemblyInstrEnum.LDR,
           AssemblyInstrCond.NO_CODE, loadPairAddressesArgs));
-      
+
       // Returns in r0 a memory address with enough space to hold the number
       // of bytes specified by the previous r0 value
       // BL malloc
@@ -186,9 +186,73 @@ public class NewAssignNode extends StatNode {
       mallocArgs.add(new Label("malloc"));
       i.add(new AssemblyInstr(AssemblyInstrEnum.BL,
           AssemblyInstrCond.NO_CODE, mallocArgs));
+
+      // Save address allocated to r0 in r4 to reuse r0 for another malloc
+      // MOV r4, r0
+      ArrayList<Arg> saveAddressArgs = new ArrayList<>();
+      saveAddressArgs.add(new Register(RegEnum.R4));
+      saveAddressArgs.add(new Register(RegEnum.R0));
+      i.add(new AssemblyInstr(AssemblyInstrEnum.MOV,
+          AssemblyInstrCond.NO_CODE, saveAddressArgs));
       
+      // Set r5 to the value of the first element in the new pair
+      // LDR r5, =x / MOV r5, #value / etc.
+      // TODO: This will be tricky with how we've done pair types.
+      // I'll come back to it later..
       
+      // Set r0 to the space in bytes required to hold the first element
+      // LDR r0, =size (e.g. byte = 1, word = 4)
+      // TODO: Also tricky, but less so. Again, will come back to this..
       
+      // Allocates memory for first element
+      // BL malloc
+      i.add(new AssemblyInstr(AssemblyInstrEnum.BL,
+          AssemblyInstrCond.NO_CODE, mallocArgs));
+      
+      // Store the value of the first element in the memory address allocated
+      // STR(B) r5, [r0]
+      // TODO: Again, a pain since knowledge of the element size is needed..
+      
+      // Store the address of the first element in the first word of the
+      // pair address (held in r4)
+      // STR r0, [r4]
+      ArrayList<Arg> firstElemStoreArgs = new ArrayList<>();
+      firstElemStoreArgs.add(new Register(RegEnum.R0));
+      firstElemStoreArgs.add(new MemoryAccess(new Register(RegEnum.R4)));
+      i.add(new AssemblyInstr(AssemblyInstrEnum.STR,
+          AssemblyInstrCond.NO_CODE, firstElemStoreArgs));
+      
+      // Set r5 to the value of the second element in the new pair
+      // LDR r5, =x / MOV r5, #value / etc.
+      // TODO: Still tricky..
+      
+      // Set r0 to the space in bytes required to hold the first element
+      // LDR r0, =size (e.g. byte = 1, word = 4)
+      // TODO: You guessed it..
+      
+      // Allocates memory for the second element
+      // BL malloc
+      i.add(new AssemblyInstr(AssemblyInstrEnum.BL,
+          AssemblyInstrCond.NO_CODE, mallocArgs));
+      
+      // Store the value of the second element in the memory address allocated
+      // STR(B) r5, [r0]
+      // TODO: Just as much of a pain as for the first element..
+      
+      // Store the address of the second element in the second word of the
+      // pair address (held in r4)
+      // STR r0, [r4, #4]
+      // TODO: Not sure if we support this sort of memory access instruction,
+      // will come back to this..
+      
+      // Stores the memory address of the pair on the stack
+      // STR r4, [sp]
+      i.add(wordStore);
+      
+      // TODO: this should happen when the variable goes out of scope
+      // Restore stack pointer up
+      // ADD sp, sp, #4
+      i.add(incStackPointer(4));
       break;
     case STRING:
       // Move the stack pointer down by 4 bytes (word)
