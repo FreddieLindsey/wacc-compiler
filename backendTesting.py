@@ -4,10 +4,18 @@ import os, sys
 import subprocess
 import fnmatch
 
+# CONSTANTS
+
+compiler = "wacc_examples/refCompile"
+root = "wacc_examples/valid"
+
 # FUNCTIONS
 
 def getReferenceOutput(cacheFile):
-    system_command = "wacc_examples/refCompile -a -d wacc_examples/valid"
+    system_command = "{0} -a -d {1}".format(compiler, root)
+    if not os.path.exists(compiler) or not os.path.exists(root):
+        print "The reference compiler or the root of your examples can not be found."
+        exit(1)
     process = subprocess.Popen(system_command.split(), stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     output = process.communicate()[0].split('\n')
     if len(output) == 1 and len(output[0]) == 0:
