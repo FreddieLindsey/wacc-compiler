@@ -1,5 +1,7 @@
 package wacc.ast.operator;
 
+import java.util.ArrayList;
+
 import wacc.ast.ExprNode;
 import wacc.ast.IdentNode;
 import wacc.ast.assign.AssignNode;
@@ -127,7 +129,7 @@ public class BinOpNode extends AssignNode {
     ArrayList<Register> liveRegs = new ArrayList<Register>();
     liveRegs.addAll(regs);
 
-    if (lhs.weight() > rhs.weight) {
+    if (lhs.weight() > rhs.weight()) {
       i.addAll(lhs.generateCode(liveRegs));
       regs.remove(0);
       i.addAll(rhs.generateCode(liveRegs));
@@ -171,7 +173,7 @@ public class BinOpNode extends AssignNode {
             AssemblyInstrCond.NO_CODE, args));
 
             args = new ArrayList<Arg>();
-            args.add(new Register(RegEnum.RO));
+            args.add(new Register(RegEnum.R0));
             args.add(new Register(RegEnum.R4));
             args.add(new BarrelShift(BarrelShiftEnum.ASR, new Const(31, true)));
             i.add(new AssemblyInstr(AssemblyInstrEnum.CMP,
@@ -193,7 +195,7 @@ public class BinOpNode extends AssignNode {
 
 
             args = new ArrayList<Arg>();
-            args.add(new Register(RegEnum.RO));
+            args.add(new Register(RegEnum.R0));
             args.add(new Register(RegEnum.R4));
             i.add(new AssemblyInstr(AssemblyInstrEnum.MOV,
             AssemblyInstrCond.NO_CODE, args));
@@ -231,7 +233,7 @@ public class BinOpNode extends AssignNode {
       //Apologies for slighty WET code
 
             args = new ArrayList<Arg>();
-            args.add(new Register(RegEnum.RO));
+            args.add(new Register(RegEnum.R0));
             args.add(new Register(RegEnum.R4));
             i.add(new AssemblyInstr(AssemblyInstrEnum.MOV,
             AssemblyInstrCond.NO_CODE, args));
@@ -309,13 +311,13 @@ public class BinOpNode extends AssignNode {
 
       args = new ArrayList<Arg>();
       args.add(new Register(RegEnum.R4));
-      args.add(new Const(1, true)));
+      args.add(new Const(1, true));
       i.add(new AssemblyInstr(AssemblyInstrEnum.MOV,
             AssemblyInstrCond.GT, args)); 
 
       args = new ArrayList<Arg>();
       args.add(new Register(RegEnum.R4));
-      args.add(new Const(0, true)));
+      args.add(new Const(0, true));
       i.add(new AssemblyInstr(AssemblyInstrEnum.MOV,
             AssemblyInstrCond.LE, args)); 
 
@@ -334,13 +336,13 @@ public class BinOpNode extends AssignNode {
 
       args = new ArrayList<Arg>();
       args.add(new Register(RegEnum.R4));
-      args.add(new Const(1, true)));
+      args.add(new Const(1, true));
       i.add(new AssemblyInstr(AssemblyInstrEnum.MOV,
             AssemblyInstrCond.GE, args)); 
 
       args = new ArrayList<Arg>();
       args.add(new Register(RegEnum.R4));
-      args.add(new Const(0, true)));
+      args.add(new Const(0, true));
       i.add(new AssemblyInstr(AssemblyInstrEnum.MOV,
             AssemblyInstrCond.LT, args)); 
 
@@ -354,7 +356,7 @@ public class BinOpNode extends AssignNode {
       case OR: break;
     }
 
-
+    return i;
   }
 
   @Override

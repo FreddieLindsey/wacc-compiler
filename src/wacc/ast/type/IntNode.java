@@ -1,6 +1,7 @@
 package wacc.ast.type;
 
 import wacc.Main;
+import java.util.ArrayList;
 import wacc.backend.instruction.*;
 
 public class IntNode extends LiteralNode<Long> {
@@ -28,9 +29,11 @@ public class IntNode extends LiteralNode<Long> {
     ArrayList<Arg> args;
     AssemblyInstr a;
 
+    Long l = value;
+
     args = new ArrayList<>();
     args.add(regs.get(0));
-    args.add(new Const(value, false));
+    args.add(new Const(l.intValue(), false));
     i.add(new AssemblyInstr(AssemblyInstrEnum.LDR,
       AssemblyInstrCond.NO_CODE, args));
 

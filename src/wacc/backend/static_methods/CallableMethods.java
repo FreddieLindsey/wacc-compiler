@@ -170,7 +170,7 @@ public class CallableMethods {
 
     args = new ArrayList<>();
     args.add(new Register(RegEnum.R0));
-    args.add(new Const(0, true);
+    args.add(new Const(0, true));
     i.add(new AssemblyInstr(AssemblyInstrEnum.CMP,
       AssemblyInstrCond.NO_CODE, args));
 
@@ -181,7 +181,7 @@ public class CallableMethods {
       AssemblyInstrCond.EQ, args));
 
     args = new ArrayList<>();
-    args.add(new Label("p_throw_runtime_error");
+    args.add(new Label("p_throw_runtime_error"));
     i.add(new AssemblyInstr(AssemblyInstrEnum.BL,
       AssemblyInstrCond.EQ, args));
 
@@ -208,7 +208,7 @@ public class CallableMethods {
       AssemblyInstrCond.NO_CODE, args));
 
     args = new ArrayList<>();
-    args.add(new Label("p_throw_runtime_error");
+    args.add(new Label("p_throw_runtime_error"));
     i.add(new AssemblyInstr(AssemblyInstrEnum.BL,
       AssemblyInstrCond.NO_CODE, args));
 
@@ -232,7 +232,7 @@ public class CallableMethods {
 
     args = new ArrayList<>();
     args.add(new Register(RegEnum.R0));
-    args.add(new Const(-1, true);
+    args.add(new Const(-1, true));
     i.add(new AssemblyInstr(AssemblyInstrEnum.MOV,
       AssemblyInstrCond.NO_CODE, args));
 

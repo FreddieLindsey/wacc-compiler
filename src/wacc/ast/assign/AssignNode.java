@@ -8,5 +8,4 @@ public abstract class AssignNode extends ExprNode {
 
   public abstract boolean validRight();
 
-
 }
