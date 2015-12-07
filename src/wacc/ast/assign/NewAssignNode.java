@@ -298,9 +298,11 @@ public class NewAssignNode extends StatNode {
       // STR r0, [r4, #4]
       ArrayList<Arg> secondAddressStoreArgs = new ArrayList<>();
       secondAddressStoreArgs.add(new Register(RegEnum.R0));
-      // TODO: uncomment when implemented in MemoryAccess
-      //secondAddressStoreArgs.add(new MemoryAccess(new Register(RegEnum.R4),
-      //    new Const(4, true)));
+      ArrayList<Arg> secondAddressStoreMemAccessArgs = new ArrayList<>();
+      secondAddressStoreMemAccessArgs.add(new Register(RegEnum.R4));
+      secondAddressStoreMemAccessArgs.add(new Const(4, true));
+      secondAddressStoreArgs.add(new MemoryAccess(
+          secondAddressStoreMemAccessArgs));
       i.add(new AssemblyInstr(AssemblyInstrEnum.STR,
           AssemblyInstrCond.NO_CODE, secondAddressStoreArgs));
       
