@@ -222,15 +222,15 @@ public class NewAssignNode extends StatNode {
       
       // Set r0 to the space in bytes required to hold the first element
       // LDR r0, =size (e.g. byte = 1, word = 4)
-      ArrayList<Arg> loadFstAddressesArgs = new ArrayList<>();
-      loadFstAddressesArgs.add(new Register(RegEnum.R0));
+      ArrayList<Arg> firstAddressLoadArgs = new ArrayList<>();
+      firstAddressLoadArgs.add(new Register(RegEnum.R0));
       if (isFstByte) {
-        loadFstAddressesArgs.add(new Const(1, false));
+        firstAddressLoadArgs.add(new Const(1, false));
       } else {
-        loadFstAddressesArgs.add(new Const(4, false));
+        firstAddressLoadArgs.add(new Const(4, false));
       }
       i.add(new AssemblyInstr(AssemblyInstrEnum.LDR,
-          AssemblyInstrCond.NO_CODE, loadFstAddressesArgs));
+          AssemblyInstrCond.NO_CODE, firstAddressLoadArgs));
       
       // Allocates memory for first element
       // BL malloc
@@ -239,16 +239,26 @@ public class NewAssignNode extends StatNode {
       
       // Store the value of the first element in the memory address allocated
       // STR(B) r5, [r0]
-      // TODO: A pain since knowledge of the element size is needed..
+      ArrayList<Arg> firstElemStoreArgs = new ArrayList<>();
+      firstElemStoreArgs.add(new Register(RegEnum.R5));
+      firstElemStoreArgs.add(new MemoryAccess(new Register(RegEnum.R0)));
+      if (isFstByte) {
+        i.add(new AssemblyInstr(AssemblyInstrEnum.STRB,
+            AssemblyInstrCond.NO_CODE, firstElemStoreArgs));
+      } else {
+        i.add(new AssemblyInstr(AssemblyInstrEnum.STR,
+            AssemblyInstrCond.NO_CODE, firstElemStoreArgs));
+
+      }
       
       // Store the address of the first element in the first word of the
       // pair address (held in r4)
       // STR r0, [r4]
-      ArrayList<Arg> firstElemStoreArgs = new ArrayList<>();
-      firstElemStoreArgs.add(new Register(RegEnum.R0));
-      firstElemStoreArgs.add(new MemoryAccess(new Register(RegEnum.R4)));
+      ArrayList<Arg> firstAddressStoreArgs = new ArrayList<>();
+      firstAddressStoreArgs.add(new Register(RegEnum.R0));
+      firstAddressStoreArgs.add(new MemoryAccess(new Register(RegEnum.R4)));
       i.add(new AssemblyInstr(AssemblyInstrEnum.STR,
-          AssemblyInstrCond.NO_CODE, firstElemStoreArgs));
+          AssemblyInstrCond.NO_CODE, firstAddressStoreArgs));
       
       // Set r5 to the value of the second element in the new pair
       // LDR r5, =x / MOV r5, #value / etc.
@@ -256,15 +266,15 @@ public class NewAssignNode extends StatNode {
       
       // Set r0 to the space in bytes required to hold the first element
       // LDR r0, =size (e.g. byte = 1, word = 4)
-      ArrayList<Arg> loadSndAddressesArgs = new ArrayList<>();
-      loadSndAddressesArgs.add(new Register(RegEnum.R0));
+      ArrayList<Arg> secondAddressLoadArgs = new ArrayList<>();
+      secondAddressLoadArgs.add(new Register(RegEnum.R0));
       if (isSndByte) {
-        loadSndAddressesArgs.add(new Const(1, false));
+        secondAddressLoadArgs.add(new Const(1, false));
       } else {
-        loadSndAddressesArgs.add(new Const(4, false));
+        secondAddressLoadArgs.add(new Const(4, false));
       }
       i.add(new AssemblyInstr(AssemblyInstrEnum.LDR,
-          AssemblyInstrCond.NO_CODE, loadSndAddressesArgs));
+          AssemblyInstrCond.NO_CODE, secondAddressLoadArgs));
       
       // Allocates memory for the second element
       // BL malloc
