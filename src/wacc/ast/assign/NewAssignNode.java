@@ -9,6 +9,7 @@ import wacc.ast.io.StatNode;
 import wacc.ast.pair.NewPairNode;
 import wacc.ast.type.AnyTypeNode;
 import wacc.ast.type.FuncTypeNode;
+import wacc.ast.type.IntNode;
 import wacc.ast.type.PairTypeNode;
 import wacc.ast.type.TypeEnum;
 import wacc.ast.type.TypeNode;
@@ -132,6 +133,10 @@ public class NewAssignNode extends StatNode {
      * amount needed initially then each variable increments it back gradually.
      * This could be considered as an optimisation for the extension.
      */
+    
+    // ArrayList containting only r4
+    ArrayList<Register> r4List = new ArrayList<>();
+    r4List.add(new Register(RegEnum.R4));
 
     // STR r4, [sp]
     // Used by multiple cases to store a word on the stack
@@ -283,12 +288,7 @@ public class NewAssignNode extends StatNode {
 
       // Load the register with the appropriate int value
       // LDR r4, =x
-      ArrayList<Arg> loadIntArgs = new ArrayList<>();
-      loadIntArgs.add(new Register(RegEnum.R4));
-      // TODO: replace -1 with delegated int return value
-      loadIntArgs.add(new Const(-1, false));
-      i.add(new AssemblyInstr(AssemblyInstrEnum.LDR,
-          AssemblyInstrCond.NO_CODE, loadIntArgs));
+      i.addAll(((IntNode) rhs).generateCode(r4List));
 
       // STR r4, [sp]
       i.add(wordStore);
@@ -321,15 +321,6 @@ public class NewAssignNode extends StatNode {
       i.add(incStackPointer(1));
       break;
     }
-
-    // TODO: is this stuff needed?
-    // evaluate rhs, leaves result in a register/finds memory addr
-    // instrs.addAll(rhs.generateCode());
-
-    // TODO: move register val to memory
-    // instrs.addAll()
-
-    // TODO: make ident point to memory addr
 
     return i;
   }
