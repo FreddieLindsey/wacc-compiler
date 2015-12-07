@@ -8,6 +8,8 @@ import wacc.ast.function.CallNode;
 import wacc.ast.io.StatNode;
 import wacc.ast.pair.NewPairNode;
 import wacc.ast.type.AnyTypeNode;
+import wacc.ast.type.BoolNode;
+import wacc.ast.type.CharNode;
 import wacc.ast.type.FuncTypeNode;
 import wacc.ast.type.IntNode;
 import wacc.ast.type.PairTypeNode;
@@ -288,6 +290,9 @@ public class NewAssignNode extends StatNode {
 
       // Load the register with the appropriate int value
       // LDR r4, =x
+      if (!(rhs instanceof IntNode)) {
+        System.err.println("Error 1 in NewAssignNode.");
+      }
       i.addAll(((IntNode) rhs).generateCode(r4List));
 
       // STR r4, [sp]
@@ -305,7 +310,13 @@ public class NewAssignNode extends StatNode {
       i.add(decStackPointer(1));
 
       // MOV r4, #value
-      i.add(loadImmediate());
+      if (rhs instanceof CharNode) {
+        i.addAll(((CharNode) rhs).generateCode(r4List));
+      } else if (rhs instanceof BoolNode) {
+        i.addAll(((BoolNode) rhs).generateCode(r4List));
+      } else {
+        System.err.println("Error 2 in NewAssignNode.");
+      }
 
       // Store the single byte with the value on the stack
       // STRB r4, [sp]
@@ -345,25 +356,6 @@ public class NewAssignNode extends StatNode {
     args.add(new Const(bytes, true));
     return new AssemblyInstr(AssemblyInstrEnum.ADD, AssemblyInstrCond.NO_CODE,
         args);
-  }
-
-  // Set the register up with the rhs value
-  // MOV r4, #value
-  private Instruction loadImmediate() {
-
-    assert t.getType() == TypeEnum.BOOL || t.getType() == TypeEnum.CHAR;
-
-    ArrayList<Arg> loadImmediateArgs = new ArrayList<>();
-    loadImmediateArgs.add(new Register(RegEnum.R4));
-    // TODO: replace -1 with delegated immediate value
-    if (t.getType() == TypeEnum.BOOL) {
-      loadImmediateArgs.add(new Const(-1, true));
-    } else if (t.getType() == TypeEnum.CHAR) {
-      loadImmediateArgs.add(new Const(-1, true));
-    }
-
-    return new AssemblyInstr(AssemblyInstrEnum.MOV, AssemblyInstrCond.NO_CODE,
-        loadImmediateArgs);
   }
 
 }
