@@ -166,21 +166,6 @@ public class NewAssignNode extends StatNode {
 
     switch (t.getType()) {
     case ARR:
-      /*
-       * SUB sp, sp, #4
-       * LDR r0, =12 // elem size * num elems + 4 (to hold int size)
-       * BL  malloc
-       * MOV r4, r0 // save allocated address
-       * LDR r5, =3 // load first element
-       * STR r5, [r4, #4] // store first element
-       * LDR r5, =4 // load next element
-       * STR r5, [r4, #8] // address + size
-       * LDR r5, =2 // number of elements
-       * STR r5, [r4] // puts number of elements in address
-       * STR r4, [sp] // saves the address onto the stack
-       * ADD sp, sp, #4
-       */
-      
       if (!(rhs instanceof ArrayLiteralNode)) {
         System.err.println("Error in Arr case in NewAssignNode");
       }
@@ -220,8 +205,18 @@ public class NewAssignNode extends StatNode {
       // MOV r4, r0
       i.add(saveAddress);
       
-      // LDR r5, x ; STR r5, [r4, #i * s]
-      // TODO: for loop to load and store elements
+      // Stores each array element in the corresponding memory position
+      // LDR r5, =x / MOV r5, #value ; STR r5, [r4, #(j + 1) * s]
+      for (int j = 0; j < n; j++) {
+        i.addAll(loadValue(arr.getExprs().get(j), new Register(RegEnum.R5)));
+        
+        ArrayList<Arg> arrayElemStoreArgs = new ArrayList<>();
+        arrayElemStoreArgs.add(new Register(RegEnum.R5));
+        ArrayList<Arg> arrayElemStoreMemAccessArgs = new ArrayList<>();
+        arrayElemStoreMemAccessArgs.add(new Register(RegEnum.R4));
+        arrayElemStoreMemAccessArgs.add(new Const((j + 1) * s, true));
+        arrayElemStoreArgs.add(new MemoryAccess(arrayElemStoreMemAccessArgs));
+      }
       
       // Loads the number of elements n
       // LDR r5, =n
@@ -474,6 +469,8 @@ public class NewAssignNode extends StatNode {
         args);
   }
   
+  // Calls generate code on the appropriate expr
+  // Returns a load or store instruction of the expr value to reg
   private InstructionBlock loadValue(ExprNode expr, Register reg) {
     ArrayList<Register> regList = new ArrayList<>();
     regList.add(reg);
