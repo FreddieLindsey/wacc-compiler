@@ -4,6 +4,7 @@ public class Const extends Arg {
 
   private int value;
   private String str;
+  private char c;
 
   private boolean isInt;
   private boolean isHash; // in ADD etc #NUM is used...
@@ -14,12 +15,22 @@ public class Const extends Arg {
     isInt = true;
     this.value = value;
     this.isHash = isHash;
+    this.isCommand = false;
   }
 
   public Const(String str, boolean isCommand) {
     this.type = ArgEnum.CONST;
     isInt = true;
+    isHash = false;
     this.str = str;
+    this.isCommand = isCommand;
+  }
+
+  public Const(char c) {
+    this.type = ArgEnum.CONST;
+    isInt = false;
+    isHash = true;
+    this.c = c;
     this.isCommand = isCommand;
   }
 
