@@ -248,7 +248,6 @@ public class NewAssignNode extends StatNode {
       } else {
         i.add(new AssemblyInstr(AssemblyInstrEnum.STR,
             AssemblyInstrCond.NO_CODE, firstElemStoreArgs));
-
       }
       
       // Store the address of the first element in the first word of the
@@ -283,7 +282,16 @@ public class NewAssignNode extends StatNode {
       
       // Store the value of the second element in the memory address allocated
       // STR(B) r5, [r0]
-      // TODO: Just as much of a pain as for the first element..
+      ArrayList<Arg> secondElemStoreArgs = new ArrayList<>();
+      secondElemStoreArgs.add(new Register(RegEnum.R5));
+      secondElemStoreArgs.add(new MemoryAccess(new Register(RegEnum.R0)));
+      if (isSndByte) {
+        i.add(new AssemblyInstr(AssemblyInstrEnum.STRB,
+            AssemblyInstrCond.NO_CODE, secondElemStoreArgs));
+      } else {
+        i.add(new AssemblyInstr(AssemblyInstrEnum.STR,
+            AssemblyInstrCond.NO_CODE, secondElemStoreArgs));
+      }
       
       // Store the address of the second element in the second word of the
       // pair address (held in r4)
