@@ -5,6 +5,7 @@ import wacc.ast.IdentNode;
 import wacc.ast.assign.AssignNode;
 import wacc.ast.type.TypeEnum;
 import wacc.ast.type.TypeNode;
+import wacc.backend.instruction.*;
 
 public class BinOpNode extends AssignNode {
 
@@ -115,4 +116,250 @@ public class BinOpNode extends AssignNode {
   public boolean validRight() {
     return true;
   }
+
+  @Override
+  public InstructionBlock generateCode(ArrayList<Register> regs) {
+    InstructionBlock i = new InstructionBlock();
+
+    ArrayList<Arg> args = new ArrayList<Arg>();
+    AssemblyInstr a;
+
+    ArrayList<Register> liveRegs = new ArrayList<Register>();
+    liveRegs.addAll(regs);
+
+    if (lhs.weight() > rhs.weight) {
+      i.addAll(lhs.generateCode(liveRegs));
+      regs.remove(0);
+      i.addAll(rhs.generateCode(liveRegs));
+    }
+
+    switch (op) {
+      case MUL: args.add(regs.get(0));
+                args.add(regs.get(1));
+                args.add(regs.get(0));
+                args.add(regs.get(1));
+                break;
+      case DIV: break;
+      case MOD: break;
+      case ADD: break;
+      case SUB: break;
+      case GT: break;
+      case GTE: break;
+      case LT: break;
+      case LTE: break;
+      case EQ: break;
+      case NEQ: break;
+      case AND: break;
+      case OR: break;
+      default: 
+        args.add(regs.get(0));
+        args.add(regs.get(0));
+        args.add(regs.get(1));
+    }
+
+    //default?
+    // args.add(regs.get(0));
+    // args.add(regs.get(0));
+    // args.add(regs.get(1));
+
+    switch (op) {
+      case MUL: 
+//   SMULL r4, r5, r4, r5
+//   CMP r5, r4, ASR #31
+//   BLNE p_throw_overflow_error
+            i.add(new AssemblyInstr(AssemblyInstrEnum.SMULL,
+            AssemblyInstrCond.NO_CODE, args));
+
+            args = new ArrayList<Arg>();
+            args.add(new Register(RegEnum.RO));
+            args.add(new Register(RegEnum.R4));
+            args.add(new BarrelShift(BarrelShiftEnum.ASR, new Const(31, true)));
+            i.add(new AssemblyInstr(AssemblyInstrEnum.CMP,
+            AssemblyInstrCond.NO_CODE, args));
+
+            args = new ArrayList<Arg>();
+            args.add(new Label("p_throw_overflow_error"));
+            i.add(new AssemblyInstr(AssemblyInstrEnum.BL,
+            AssemblyInstrCond.NE, args));
+
+            break;
+      case DIV: 
+
+//    MOV r0, r4
+//    MOV r1, r5
+//    BL p_check_divide_by_zero
+//    BL __aeabi_idiv
+//    MOV r4, r0
+
+
+            args = new ArrayList<Arg>();
+            args.add(new Register(RegEnum.RO));
+            args.add(new Register(RegEnum.R4));
+            i.add(new AssemblyInstr(AssemblyInstrEnum.MOV,
+            AssemblyInstrCond.NO_CODE, args));
+
+            args = new ArrayList<Arg>();
+            args.add(new Register(RegEnum.R1));
+            args.add(new Register(RegEnum.R5));
+            i.add(new AssemblyInstr(AssemblyInstrEnum.MOV,
+            AssemblyInstrCond.NO_CODE, args));
+
+            args = new ArrayList<Arg>();
+            args.add(new Label("p_check_divide_by_zero"));
+            i.add(new AssemblyInstr(AssemblyInstrEnum.BL,
+            AssemblyInstrCond.NO_CODE, args));
+
+            args = new ArrayList<Arg>();
+            args.add(new Label("__aeabi_idiv"));
+            i.add(new AssemblyInstr(AssemblyInstrEnum.BL,
+            AssemblyInstrCond.NO_CODE, args));
+
+            args = new ArrayList<Arg>();
+            args.add(new Register(RegEnum.R4));
+            args.add(new Register(RegEnum.R0));
+            i.add(new AssemblyInstr(AssemblyInstrEnum.MOV,
+            AssemblyInstrCond.NO_CODE, args));
+
+            break;
+      case MOD: 
+
+//    MOV r0, r4
+//    MOV r1, r5
+//    BL p_check_divide_by_zero
+//    BL __aeabi_idivmod
+//    MOV r4, r1
+      //Apologies for slighty WET code
+
+            args = new ArrayList<Arg>();
+            args.add(new Register(RegEnum.RO));
+            args.add(new Register(RegEnum.R4));
+            i.add(new AssemblyInstr(AssemblyInstrEnum.MOV,
+            AssemblyInstrCond.NO_CODE, args));
+
+            args = new ArrayList<Arg>();
+            args.add(new Register(RegEnum.R1));
+            args.add(new Register(RegEnum.R5));
+            i.add(new AssemblyInstr(AssemblyInstrEnum.MOV,
+            AssemblyInstrCond.NO_CODE, args));
+
+            args = new ArrayList<Arg>();
+            args.add(new Label("p_check_divide_by_zero"));
+            i.add(new AssemblyInstr(AssemblyInstrEnum.BL,
+            AssemblyInstrCond.NO_CODE, args));
+
+            args = new ArrayList<Arg>();
+            args.add(new Label("__aeabi_idivmod"));
+            i.add(new AssemblyInstr(AssemblyInstrEnum.BL,
+            AssemblyInstrCond.NO_CODE, args));
+
+            args = new ArrayList<Arg>();
+            args.add(new Register(RegEnum.R4));
+            args.add(new Register(RegEnum.R1));
+            i.add(new AssemblyInstr(AssemblyInstrEnum.MOV,
+            AssemblyInstrCond.NO_CODE, args));
+
+      break;
+      case ADD: 
+
+//   ADDS r4, r4, r5
+//   BLVS p_throw_overflow_error
+
+      args = new ArrayList<Arg>();
+      args.add(new Register(RegEnum.R4));
+      args.add(new Register(RegEnum.R4));
+      args.add(new Register(RegEnum.R5));
+      i.add(new AssemblyInstr(AssemblyInstrEnum.ADD,
+            AssemblyInstrCond.S, args)); 
+
+      args = new ArrayList<Arg>();
+      args.add(new Label("p_throw_overflow_error"));
+      i.add(new AssemblyInstr(AssemblyInstrEnum.BL,
+            AssemblyInstrCond.VS, args)); 
+
+      break;
+      case SUB: 
+
+//   SUBS r4, r4, r5
+//   BLVS p_throw_overflow_error
+
+      args = new ArrayList<Arg>();
+      args.add(new Register(RegEnum.R4));
+      args.add(new Register(RegEnum.R4));
+      args.add(new Register(RegEnum.R5));
+      i.add(new AssemblyInstr(AssemblyInstrEnum.ADD,
+            AssemblyInstrCond.S, args)); 
+
+      args = new ArrayList<Arg>();
+      args.add(new Label("p_throw_overflow_error"));
+      i.add(new AssemblyInstr(AssemblyInstrEnum.ADD,
+            AssemblyInstrCond.S, args)); 
+
+      break;
+      case GT: 
+
+//    CMP r4, r5
+//    MOVGT r4, #1
+//    MOVLE r4, #0
+
+      args = new ArrayList<Arg>();
+      args.add(new Register(RegEnum.R4));
+      args.add(new Register(RegEnum.R5));
+      i.add(new AssemblyInstr(AssemblyInstrEnum.CMP,
+            AssemblyInstrCond.S, args)); 
+
+      args = new ArrayList<Arg>();
+      args.add(new Register(RegEnum.R4));
+      args.add(new Const(1, true)));
+      i.add(new AssemblyInstr(AssemblyInstrEnum.MOV,
+            AssemblyInstrCond.GT, args)); 
+
+      args = new ArrayList<Arg>();
+      args.add(new Register(RegEnum.R4));
+      args.add(new Const(0, true)));
+      i.add(new AssemblyInstr(AssemblyInstrEnum.MOV,
+            AssemblyInstrCond.LE, args)); 
+
+      break;
+      case GTE: 
+
+//    CMP r4, r5
+//    MOVGE r4, #1
+//    MOVLT r4, #0
+
+      args = new ArrayList<Arg>();
+      args.add(new Register(RegEnum.R4));
+      args.add(new Register(RegEnum.R5));
+      i.add(new AssemblyInstr(AssemblyInstrEnum.CMP,
+            AssemblyInstrCond.S, args)); 
+
+      args = new ArrayList<Arg>();
+      args.add(new Register(RegEnum.R4));
+      args.add(new Const(1, true)));
+      i.add(new AssemblyInstr(AssemblyInstrEnum.MOV,
+            AssemblyInstrCond.GE, args)); 
+
+      args = new ArrayList<Arg>();
+      args.add(new Register(RegEnum.R4));
+      args.add(new Const(0, true)));
+      i.add(new AssemblyInstr(AssemblyInstrEnum.MOV,
+            AssemblyInstrCond.LT, args)); 
+
+      break;
+      case LT: break;
+      case LTE: break;
+      case EQ: break;
+      case NEQ: break;
+      case AND: i.add(new AssemblyInstr(AssemblyInstrEnum.AND,
+            AssemblyInstrCond.NO_CODE, args)); break;
+      case OR: break;
+    }
+
+
+  }
+
+  @Override
+  public int weight() {
+    return lhs.weight() + rhs.weight();
+  }
+
 }

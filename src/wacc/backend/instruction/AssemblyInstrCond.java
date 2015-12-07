@@ -19,6 +19,8 @@ public enum AssemblyInstrCond {
   AL, // always
   NV, // reserved.
 
+  S,  // for use in ADDS... might need to move this elsewhere (I think it's a flag)
+
   NO_CODE // as code is optional we can also have no code!
 
 
