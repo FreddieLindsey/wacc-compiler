@@ -296,8 +296,13 @@ public class NewAssignNode extends StatNode {
       // Store the address of the second element in the second word of the
       // pair address (held in r4)
       // STR r0, [r4, #4]
-      // TODO: Not sure if we support this sort of memory access instruction,
-      // will come back to this..
+      ArrayList<Arg> secondAddressStoreArgs = new ArrayList<>();
+      secondAddressStoreArgs.add(new Register(RegEnum.R0));
+      // TODO: uncomment when implemented in MemoryAccess
+      //secondAddressStoreArgs.add(new MemoryAccess(new Register(RegEnum.R4),
+      //    new Const(4, true)));
+      i.add(new AssemblyInstr(AssemblyInstrEnum.STR,
+          AssemblyInstrCond.NO_CODE, secondAddressStoreArgs));
       
       // Stores the memory address of the pair on the stack
       // STR r4, [sp]
