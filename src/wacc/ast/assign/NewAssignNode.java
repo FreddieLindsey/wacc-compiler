@@ -8,6 +8,7 @@ import wacc.ast.function.CallNode;
 import wacc.ast.io.StatNode;
 import wacc.ast.pair.NewPairNode;
 import wacc.ast.type.AnyTypeNode;
+import wacc.ast.type.ArrayLiteralNode;
 import wacc.ast.type.BoolNode;
 import wacc.ast.type.CharNode;
 import wacc.ast.type.FuncTypeNode;
@@ -180,6 +181,23 @@ public class NewAssignNode extends StatNode {
        * ADD sp, sp, #4
        */
       
+      if (!(rhs instanceof ArrayLiteralNode)) {
+        System.err.println("Error in Arr case in NewAssignNode");
+      }
+      ArrayLiteralNode arr = (ArrayLiteralNode) rhs;
+      // array of n elements
+      int n = arr.getExprs().size();
+      // each element of size s bytes
+      int s = 0;
+      if (n > 0) {
+        ExprNode e = arr.getExprs().get(0);
+        if (e instanceof CharNode || e instanceof BoolNode) {
+          s = 1;
+        } else {
+          s = 4;
+        }
+      }
+      
       // Move the stack pointer down by 4 bytes (word)
       // SUB sp, sp, #4
       i.add(decStackPointer(4));
@@ -187,7 +205,11 @@ public class NewAssignNode extends StatNode {
       // Set r0 to the space in bytes required to hold n elements of size s,
       // with an additional byte to hold the value s
       // LDR r0, =s * n + 4
-      // TODO
+      ArrayList<Arg> arrayMemorySizeArgs = new ArrayList<>();
+      arrayMemorySizeArgs.add(new Register(RegEnum.R0));
+      arrayMemorySizeArgs.add(new Const(s * n + 4, false));
+      i.add(new AssemblyInstr(AssemblyInstrEnum.LDR, AssemblyInstrCond.NO_CODE,
+          arrayMemorySizeArgs));
       
       // Returns in r0 a memory address with enough space to hold the number
       // of bytes specified by the previous r0 value
@@ -203,7 +225,11 @@ public class NewAssignNode extends StatNode {
       
       // Loads the number of elements n
       // LDR r5, =n
-      // TODO
+      ArrayList<Arg> arraySizeArgs = new ArrayList<>();
+      arraySizeArgs.add(new Register(RegEnum.R5));
+      arraySizeArgs.add(new Const(n, false));
+      i.add(new AssemblyInstr(AssemblyInstrEnum.LDR, AssemblyInstrCond.NO_CODE,
+          arraySizeArgs));
       
       // Stores n in the memory address of the array
       // STR r5, [r4]
