@@ -1,0 +1,28 @@
+#0	.text
+#1	
+#2	.global main
+#3	main:
+#4		PUSH {lr}
+#5		SUB sp, sp, #4
+#6		LDR r0, =7
+#7		BL malloc
+#8		MOV r4, r0
+#9		MOV r5, #'a'
+#10		STRB r5, [r4, #4]
+#11		MOV r5, #'b'
+#12		STRB r5, [r4, #5]
+#13		MOV r5, #'c'
+#14		STRB r5, [r4, #6]
+#15		LDR r5, =3
+#16		STR r5, [r4]
+#17		STR r4, [sp]
+#18		ADD sp, sp, #4
+#19		LDR r0, =0
+#20		POP {pc}
+#21		.ltorg
+#22
+
+begin
+  char[] c = ['a', 'b', 'c']
+  #int n = len c
+end
