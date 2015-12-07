@@ -13,7 +13,7 @@ import wacc.ast.type.CharNode;
 import wacc.ast.type.FuncTypeNode;
 import wacc.ast.type.IntNode;
 import wacc.ast.type.PairTypeNode;
-import wacc.ast.type.TypeEnum;
+import wacc.ast.type.StringNode;
 import wacc.ast.type.TypeNode;
 import wacc.backend.instruction.Arg;
 import wacc.backend.instruction.AssemblyInstr;
@@ -268,12 +268,7 @@ public class NewAssignNode extends StatNode {
 
       // Load the register with the string at the generated label
       // LDR r4, =label
-      ArrayList<Arg> loadStringArgs = new ArrayList<>();
-      loadStringArgs.add(new Register(RegEnum.R4));
-      // TODO: replace -1 with delegated string return value
-      loadStringArgs.add(new Const(-1, false));
-      i.add(new AssemblyInstr(AssemblyInstrEnum.LDR,
-          AssemblyInstrCond.NO_CODE, loadStringArgs));
+      loadValue(new Register(RegEnum.R4));
 
       // STR r4, [sp]
       i.add(wordStore);
@@ -290,10 +285,7 @@ public class NewAssignNode extends StatNode {
 
       // Load the register with the appropriate int value
       // LDR r4, =x
-      if (!(rhs instanceof IntNode)) {
-        System.err.println("Error 1 in NewAssignNode.");
-      }
-      i.addAll(((IntNode) rhs).generateCode(r4List));
+      loadValue(new Register(RegEnum.R4));
 
       // STR r4, [sp]
       i.add(wordStore);
@@ -310,13 +302,7 @@ public class NewAssignNode extends StatNode {
       i.add(decStackPointer(1));
 
       // MOV r4, #value
-      if (rhs instanceof CharNode) {
-        i.addAll(((CharNode) rhs).generateCode(r4List));
-      } else if (rhs instanceof BoolNode) {
-        i.addAll(((BoolNode) rhs).generateCode(r4List));
-      } else {
-        System.err.println("Error 2 in NewAssignNode.");
-      }
+      loadValue(new Register(RegEnum.R4));
 
       // Store the single byte with the value on the stack
       // STRB r4, [sp]
@@ -356,6 +342,25 @@ public class NewAssignNode extends StatNode {
     args.add(new Const(bytes, true));
     return new AssemblyInstr(AssemblyInstrEnum.ADD, AssemblyInstrCond.NO_CODE,
         args);
+  }
+  
+  private InstructionBlock loadValue(Register reg) {
+    ArrayList<Register> regList = new ArrayList<>();
+    regList.add(reg);
+    if (rhs instanceof IntNode) {
+      return ((IntNode) rhs).generateCode(regList);
+    } else if (rhs instanceof StringNode) {
+      // TODO: StringNode generateCode currently unimplemented
+      //return ((StringNode) rhs).generateCode(regList);
+      return null;
+    } else if (rhs instanceof CharNode) {
+      return ((CharNode) rhs).generateCode(regList);
+    } else if (rhs instanceof BoolNode) {
+      return ((BoolNode) rhs).generateCode(regList);
+    } else {
+      System.err.println("Error in loadValue in NewAssignNode.");
+      return null;
+    }
   }
 
 }
