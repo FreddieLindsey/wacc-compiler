@@ -34,6 +34,7 @@ public class IntNode extends LiteralNode<Long> {
     args = new ArrayList<>();
     args.add(regs.get(0));
     args.add(new Const(l.intValue(), false));
+
     i.add(new AssemblyInstr(AssemblyInstrEnum.LDR,
       AssemblyInstrCond.NO_CODE, args));
 

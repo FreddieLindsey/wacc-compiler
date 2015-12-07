@@ -129,30 +129,74 @@ public class BinOpNode extends AssignNode {
     ArrayList<Register> liveRegs = new ArrayList<Register>();
     liveRegs.addAll(regs);
 
+<<<<<<< 70611034c79e7f3d128f3d8311c454e087633f3d
     if (lhs.weight() > rhs.weight()) {
+=======
+    if (lhs.weight() > rhs.weight) {
+>>>>>>> so much stuff
       i.addAll(lhs.generateCode(liveRegs));
       regs.remove(0);
       i.addAll(rhs.generateCode(liveRegs));
     }
 
+<<<<<<< 70611034c79e7f3d128f3d8311c454e087633f3d
 
     // TODO : generalise registers 
+=======
+    switch (op) {
+      case MUL: args.add(regs.get(0));
+                args.add(regs.get(1));
+                args.add(regs.get(0));
+                args.add(regs.get(1));
+                break;
+      case DIV: break;
+      case MOD: break;
+      case ADD: break;
+      case SUB: break;
+      case GT: break;
+      case GTE: break;
+      case LT: break;
+      case LTE: break;
+      case EQ: break;
+      case NEQ: break;
+      case AND: break;
+      case OR: break;
+      default: 
+        args.add(regs.get(0));
+        args.add(regs.get(0));
+        args.add(regs.get(1));
+    }
+
+    //default?
+    // args.add(regs.get(0));
+    // args.add(regs.get(0));
+    // args.add(regs.get(1));
+
+>>>>>>> so much stuff
     switch (op) {
       case MUL: 
 //   SMULL r4, r5, r4, r5
 //   CMP r5, r4, ASR #31
 //   BLNE p_throw_overflow_error
+<<<<<<< 70611034c79e7f3d128f3d8311c454e087633f3d
 
             args.add(regs.get(0));
             args.add(regs.get(1));
             args.add(regs.get(0));
             args.add(regs.get(1));
+=======
+>>>>>>> so much stuff
             i.add(new AssemblyInstr(AssemblyInstrEnum.SMULL,
             AssemblyInstrCond.NO_CODE, args));
 
             args = new ArrayList<Arg>();
+<<<<<<< 70611034c79e7f3d128f3d8311c454e087633f3d
             args.add(regs.get(1));
             args.add(regs.get(0));
+=======
+            args.add(new Register(RegEnum.RO));
+            args.add(new Register(RegEnum.R4));
+>>>>>>> so much stuff
             args.add(new BarrelShift(BarrelShiftEnum.ASR, new Const(31, true)));
             i.add(new AssemblyInstr(AssemblyInstrEnum.CMP,
             AssemblyInstrCond.NO_CODE, args));
@@ -173,14 +217,23 @@ public class BinOpNode extends AssignNode {
 
 
             args = new ArrayList<Arg>();
+<<<<<<< 70611034c79e7f3d128f3d8311c454e087633f3d
             args.add(new Register(RegEnum.R0));
             args.add(regs.get(0));
+=======
+            args.add(new Register(RegEnum.RO));
+            args.add(new Register(RegEnum.R4));
+>>>>>>> so much stuff
             i.add(new AssemblyInstr(AssemblyInstrEnum.MOV,
             AssemblyInstrCond.NO_CODE, args));
 
             args = new ArrayList<Arg>();
             args.add(new Register(RegEnum.R1));
+<<<<<<< 70611034c79e7f3d128f3d8311c454e087633f3d
             args.add(regs.get(1));
+=======
+            args.add(new Register(RegEnum.R5));
+>>>>>>> so much stuff
             i.add(new AssemblyInstr(AssemblyInstrEnum.MOV,
             AssemblyInstrCond.NO_CODE, args));
 
@@ -195,7 +248,11 @@ public class BinOpNode extends AssignNode {
             AssemblyInstrCond.NO_CODE, args));
 
             args = new ArrayList<Arg>();
+<<<<<<< 70611034c79e7f3d128f3d8311c454e087633f3d
             args.add(regs.get(0));
+=======
+            args.add(new Register(RegEnum.R4));
+>>>>>>> so much stuff
             args.add(new Register(RegEnum.R0));
             i.add(new AssemblyInstr(AssemblyInstrEnum.MOV,
             AssemblyInstrCond.NO_CODE, args));
@@ -211,14 +268,23 @@ public class BinOpNode extends AssignNode {
       //Apologies for slighty WET code
 
             args = new ArrayList<Arg>();
+<<<<<<< 70611034c79e7f3d128f3d8311c454e087633f3d
             args.add(new Register(RegEnum.R0));
             args.add(regs.get(0));
+=======
+            args.add(new Register(RegEnum.RO));
+            args.add(new Register(RegEnum.R4));
+>>>>>>> so much stuff
             i.add(new AssemblyInstr(AssemblyInstrEnum.MOV,
             AssemblyInstrCond.NO_CODE, args));
 
             args = new ArrayList<Arg>();
             args.add(new Register(RegEnum.R1));
+<<<<<<< 70611034c79e7f3d128f3d8311c454e087633f3d
             args.add(regs.get(1));
+=======
+            args.add(new Register(RegEnum.R5));
+>>>>>>> so much stuff
             i.add(new AssemblyInstr(AssemblyInstrEnum.MOV,
             AssemblyInstrCond.NO_CODE, args));
 
@@ -233,7 +299,11 @@ public class BinOpNode extends AssignNode {
             AssemblyInstrCond.NO_CODE, args));
 
             args = new ArrayList<Arg>();
+<<<<<<< 70611034c79e7f3d128f3d8311c454e087633f3d
             args.add(regs.get(0));
+=======
+            args.add(new Register(RegEnum.R4));
+>>>>>>> so much stuff
             args.add(new Register(RegEnum.R1));
             i.add(new AssemblyInstr(AssemblyInstrEnum.MOV,
             AssemblyInstrCond.NO_CODE, args));
@@ -245,9 +315,15 @@ public class BinOpNode extends AssignNode {
 //   BLVS p_throw_overflow_error
 
       args = new ArrayList<Arg>();
+<<<<<<< 70611034c79e7f3d128f3d8311c454e087633f3d
       args.add(regs.get(0));
       args.add(regs.get(0));
       args.add(regs.get(1));
+=======
+      args.add(new Register(RegEnum.R4));
+      args.add(new Register(RegEnum.R4));
+      args.add(new Register(RegEnum.R5));
+>>>>>>> so much stuff
       i.add(new AssemblyInstr(AssemblyInstrEnum.ADD,
             AssemblyInstrCond.S, args)); 
 
@@ -263,16 +339,28 @@ public class BinOpNode extends AssignNode {
 //   BLVS p_throw_overflow_error
 
       args = new ArrayList<Arg>();
+<<<<<<< 70611034c79e7f3d128f3d8311c454e087633f3d
       args.add(regs.get(0));
       args.add(regs.get(0));
       args.add(regs.get(1));
       i.add(new AssemblyInstr(AssemblyInstrEnum.SUB,
+=======
+      args.add(new Register(RegEnum.R4));
+      args.add(new Register(RegEnum.R4));
+      args.add(new Register(RegEnum.R5));
+      i.add(new AssemblyInstr(AssemblyInstrEnum.ADD,
+>>>>>>> so much stuff
             AssemblyInstrCond.S, args)); 
 
       args = new ArrayList<Arg>();
       args.add(new Label("p_throw_overflow_error"));
+<<<<<<< 70611034c79e7f3d128f3d8311c454e087633f3d
       i.add(new AssemblyInstr(AssemblyInstrEnum.BL,
             AssemblyInstrCond.VS, args)); 
+=======
+      i.add(new AssemblyInstr(AssemblyInstrEnum.ADD,
+            AssemblyInstrCond.S, args)); 
+>>>>>>> so much stuff
 
       break;
       case GT: 
@@ -282,6 +370,7 @@ public class BinOpNode extends AssignNode {
 //    MOVLE r4, #0
 
       args = new ArrayList<Arg>();
+<<<<<<< 70611034c79e7f3d128f3d8311c454e087633f3d
       args.add(regs.get(0));
       args.add(regs.get(1));
       i.add(new AssemblyInstr(AssemblyInstrEnum.CMP,
@@ -290,12 +379,27 @@ public class BinOpNode extends AssignNode {
       args = new ArrayList<Arg>();
       args.add(regs.get(0));
       args.add(new Const(1, true));
+=======
+      args.add(new Register(RegEnum.R4));
+      args.add(new Register(RegEnum.R5));
+      i.add(new AssemblyInstr(AssemblyInstrEnum.CMP,
+            AssemblyInstrCond.S, args)); 
+
+      args = new ArrayList<Arg>();
+      args.add(new Register(RegEnum.R4));
+      args.add(new Const(1, true)));
+>>>>>>> so much stuff
       i.add(new AssemblyInstr(AssemblyInstrEnum.MOV,
             AssemblyInstrCond.GT, args)); 
 
       args = new ArrayList<Arg>();
+<<<<<<< 70611034c79e7f3d128f3d8311c454e087633f3d
       args.add(regs.get(0));
       args.add(new Const(0, true));
+=======
+      args.add(new Register(RegEnum.R4));
+      args.add(new Const(0, true)));
+>>>>>>> so much stuff
       i.add(new AssemblyInstr(AssemblyInstrEnum.MOV,
             AssemblyInstrCond.LE, args)); 
 
@@ -307,6 +411,7 @@ public class BinOpNode extends AssignNode {
 //    MOVLT r4, #0
 
       args = new ArrayList<Arg>();
+<<<<<<< 70611034c79e7f3d128f3d8311c454e087633f3d
       args.add(regs.get(0));
       args.add(regs.get(1));
       i.add(new AssemblyInstr(AssemblyInstrEnum.CMP,
@@ -315,10 +420,21 @@ public class BinOpNode extends AssignNode {
       args = new ArrayList<Arg>();
       args.add(regs.get(0));
       args.add(new Const(1, true));
+=======
+      args.add(new Register(RegEnum.R4));
+      args.add(new Register(RegEnum.R5));
+      i.add(new AssemblyInstr(AssemblyInstrEnum.CMP,
+            AssemblyInstrCond.S, args)); 
+
+      args = new ArrayList<Arg>();
+      args.add(new Register(RegEnum.R4));
+      args.add(new Const(1, true)));
+>>>>>>> so much stuff
       i.add(new AssemblyInstr(AssemblyInstrEnum.MOV,
             AssemblyInstrCond.GE, args)); 
 
       args = new ArrayList<Arg>();
+<<<<<<< 70611034c79e7f3d128f3d8311c454e087633f3d
       args.add(regs.get(0));
       args.add(new Const(0, true));
       i.add(new AssemblyInstr(AssemblyInstrEnum.MOV,
@@ -508,6 +624,24 @@ public class BinOpNode extends AssignNode {
     }
 
     return i;
+=======
+      args.add(new Register(RegEnum.R4));
+      args.add(new Const(0, true)));
+      i.add(new AssemblyInstr(AssemblyInstrEnum.MOV,
+            AssemblyInstrCond.LT, args)); 
+
+      break;
+      case LT: break;
+      case LTE: break;
+      case EQ: break;
+      case NEQ: break;
+      case AND: i.add(new AssemblyInstr(AssemblyInstrEnum.AND,
+            AssemblyInstrCond.NO_CODE, args)); break;
+      case OR: break;
+    }
+
+
+>>>>>>> so much stuff
   }
 
   @Override
