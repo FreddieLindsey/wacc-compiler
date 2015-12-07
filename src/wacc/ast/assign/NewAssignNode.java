@@ -173,6 +173,12 @@ public class NewAssignNode extends StatNode {
        *  STR r4, [sp]
        *  ADD sp, sp, #4
        */
+      
+      if (!(rhs instanceof NewPairNode)) {
+        System.err.println("Error in Pair case in NewAssignNode");
+      }
+      ExprNode fst = ((NewPairNode) rhs).getFst();
+      ExprNode snd = ((NewPairNode) rhs).getSnd();
 
       // Move the stack pointer down by 4 bytes (word)
       // SUB sp, sp, #4
@@ -204,12 +210,11 @@ public class NewAssignNode extends StatNode {
       
       // Set r5 to the value of the first element in the new pair
       // LDR r5, =x / MOV r5, #value / etc.
-      // TODO: This will be tricky with how we've done pair types.
-      // I'll come back to it later..
+      i.addAll(loadValue(fst, new Register(RegEnum.R5)));
       
       // Set r0 to the space in bytes required to hold the first element
       // LDR r0, =size (e.g. byte = 1, word = 4)
-      // TODO: Also tricky, but less so. Again, will come back to this..
+      // TODO: Tricky, will come back to this..
       
       // Allocates memory for first element
       // BL malloc
@@ -218,7 +223,7 @@ public class NewAssignNode extends StatNode {
       
       // Store the value of the first element in the memory address allocated
       // STR(B) r5, [r0]
-      // TODO: Again, a pain since knowledge of the element size is needed..
+      // TODO: A pain since knowledge of the element size is needed..
       
       // Store the address of the first element in the first word of the
       // pair address (held in r4)
@@ -231,7 +236,7 @@ public class NewAssignNode extends StatNode {
       
       // Set r5 to the value of the second element in the new pair
       // LDR r5, =x / MOV r5, #value / etc.
-      // TODO: Still tricky..
+      i.addAll(loadValue(snd, new Register(RegEnum.R5)));
       
       // Set r0 to the space in bytes required to hold the first element
       // LDR r0, =size (e.g. byte = 1, word = 4)
@@ -268,7 +273,7 @@ public class NewAssignNode extends StatNode {
 
       // Load the register with the string at the generated label
       // LDR r4, =label
-      loadValue(new Register(RegEnum.R4));
+      i.addAll(loadValue(rhs, new Register(RegEnum.R4)));
 
       // STR r4, [sp]
       i.add(wordStore);
@@ -285,7 +290,7 @@ public class NewAssignNode extends StatNode {
 
       // Load the register with the appropriate int value
       // LDR r4, =x
-      loadValue(new Register(RegEnum.R4));
+      i.addAll(loadValue(rhs, new Register(RegEnum.R4)));
 
       // STR r4, [sp]
       i.add(wordStore);
@@ -302,7 +307,7 @@ public class NewAssignNode extends StatNode {
       i.add(decStackPointer(1));
 
       // MOV r4, #value
-      loadValue(new Register(RegEnum.R4));
+      i.addAll(loadValue(rhs, new Register(RegEnum.R4)));
 
       // Store the single byte with the value on the stack
       // STRB r4, [sp]
@@ -344,19 +349,19 @@ public class NewAssignNode extends StatNode {
         args);
   }
   
-  private InstructionBlock loadValue(Register reg) {
+  private InstructionBlock loadValue(ExprNode expr, Register reg) {
     ArrayList<Register> regList = new ArrayList<>();
     regList.add(reg);
-    if (rhs instanceof IntNode) {
-      return ((IntNode) rhs).generateCode(regList);
-    } else if (rhs instanceof StringNode) {
+    if (expr instanceof IntNode) {
+      return ((IntNode) expr).generateCode(regList);
+    } else if (expr instanceof StringNode) {
       // TODO: StringNode generateCode currently unimplemented
-      //return ((StringNode) rhs).generateCode(regList);
+      // return ((StringNode) expr).generateCode(regList);
       return null;
-    } else if (rhs instanceof CharNode) {
-      return ((CharNode) rhs).generateCode(regList);
-    } else if (rhs instanceof BoolNode) {
-      return ((BoolNode) rhs).generateCode(regList);
+    } else if (expr instanceof CharNode) {
+      return ((CharNode) expr).generateCode(regList);
+    } else if (expr instanceof BoolNode) {
+      return ((BoolNode) expr).generateCode(regList);
     } else {
       System.err.println("Error in loadValue in NewAssignNode.");
       return null;
