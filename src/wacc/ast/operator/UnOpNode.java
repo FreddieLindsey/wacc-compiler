@@ -99,8 +99,8 @@ public class UnOpNode extends AssignNode {
 //    EOR r4, r4, #1
 
         args = new ArrayList<Arg>();
-        args.add(new Register(RegEnum.R4));
-        args.add(new Register(RegEnum.R4));
+        args.add(regs.get(0));
+        args.add(regs.get(0));
         args.add(new Const(1, true));
         i.add(new AssemblyInstr(AssemblyInstrEnum.EOR,
           AssemblyInstrCond.NO_CODE, args));
@@ -112,8 +112,8 @@ public class UnOpNode extends AssignNode {
 //    BLVS p_throw_overflow_error
 
         args = new ArrayList<Arg>();
-        args.add(new Register(RegEnum.R4));
-        args.add(new Register(RegEnum.R4));
+        args.add(regs.get(0));
+        args.add(regs.get(0));
         args.add(new Const(0, true)); // any idea why this negates r4?
         i.add(new AssemblyInstr(AssemblyInstrEnum.LDR,
           AssemblyInstrCond.NO_CODE, args));
@@ -130,7 +130,7 @@ public class UnOpNode extends AssignNode {
 //    STR r4, [sp]
 
         args = new ArrayList<Arg>();
-        args.add(new Register(RegEnum.R4));
+        args.add(regs.get(0));
         args2 = new ArrayList<Arg>();
         args2.add(new Register(RegEnum.SP));
         args2.add(new Const(4, true));
@@ -139,13 +139,13 @@ public class UnOpNode extends AssignNode {
           AssemblyInstrCond.NO_CODE, args));
 
         args = new ArrayList<Arg>();
-        args.add(new Register(RegEnum.R4));
-        args.add(new MemoryAccess(new Register(RegEnum.R4)));
+        args.add(regs.get(0));
+        args.add(new MemoryAccess(regs.get(0)));
         i.add(new AssemblyInstr(AssemblyInstrEnum.LDR,
           AssemblyInstrCond.NO_CODE, args));
 
         args = new ArrayList<Arg>();
-        args.add(new Register(RegEnum.R4));
+        args.add(regs.get(0));
         args.add(new MemoryAccess(new Register(RegEnum.SP)));
         i.add(new AssemblyInstr(AssemblyInstrEnum.STR,
           AssemblyInstrCond.NO_CODE, args));
