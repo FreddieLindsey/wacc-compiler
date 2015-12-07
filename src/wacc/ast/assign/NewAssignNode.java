@@ -136,14 +136,29 @@ public class NewAssignNode extends StatNode {
      * This could be considered as an optimisation for the extension.
      */
     
-    // STR r4, [sp]
     // Used by multiple cases to store a word on the stack
+    // STR r4, [sp]
     ArrayList<Arg> wordStoreArgs = new ArrayList<>();
     wordStoreArgs.add(new Register(RegEnum.R4));
     wordStoreArgs.add(new MemoryAccess(new Register(RegEnum.SP)));
     AssemblyInstr wordStore =
         new AssemblyInstr(AssemblyInstrEnum.STR, AssemblyInstrCond.NO_CODE,
             wordStoreArgs);
+    
+    // Used by multiple cases to allocate heap memory
+    // BL malloc
+    ArrayList<Arg> mallocArgs = new ArrayList<>();
+    mallocArgs.add(new Label("malloc"));
+    AssemblyInstr malloc = new AssemblyInstr(AssemblyInstrEnum.BL,
+        AssemblyInstrCond.NO_CODE, mallocArgs);
+    
+    // Used by multiple cases to save an address returned from malloc
+    // MOV r4, r0
+    ArrayList<Arg> saveAddressArgs = new ArrayList<>();
+    saveAddressArgs.add(new Register(RegEnum.R4));
+    saveAddressArgs.add(new Register(RegEnum.R0));
+    AssemblyInstr saveAddress = new AssemblyInstr(AssemblyInstrEnum.MOV,
+        AssemblyInstrCond.NO_CODE, saveAddressArgs);
 
     // TODO: string case requires creating a string label, are we
     // pre-processing for that?
@@ -162,8 +177,55 @@ public class NewAssignNode extends StatNode {
        * LDR r5, =2 // number of elements
        * STR r5, [r4] // puts number of elements in address
        * STR r4, [sp] // saves the address onto the stack
+       * ADD sp, sp, #4
        */
+      
+      // Move the stack pointer down by 4 bytes (word)
+      // SUB sp, sp, #4
+      i.add(decStackPointer(4));
+      
+      // Set r0 to the space in bytes required to hold n elements of size s,
+      // with an additional byte to hold the value s
+      // LDR r0, =s * n + 4
+      // TODO
+      
+      // Returns in r0 a memory address with enough space to hold the number
+      // of bytes specified by the previous r0 value
+      // BL malloc
+      i.add(malloc);
+      
+      // Save address allocated to r0 in r4 to reuse r0 for another malloc
+      // MOV r4, r0
+      i.add(saveAddress);
+      
+      // LDR r5, x ; STR r5, [r4, #i * s]
+      // TODO: for loop to load and store elements
+      
+      // Loads the number of elements n
+      // LDR r5, =n
+      // TODO
+      
+      // Stores n in the memory address of the array
+      // STR r5, [r4]
+      ArrayList<Arg> sizeAddressStoreArgs = new ArrayList<>();
+      sizeAddressStoreArgs.add(new Register(RegEnum.R5));
+      sizeAddressStoreArgs.add(new MemoryAccess(new Register(RegEnum.R4)));
+      i.add(new AssemblyInstr(AssemblyInstrEnum.STR,
+          AssemblyInstrCond.NO_CODE, sizeAddressStoreArgs));
+      
+      // Saves the address of the array on the stack
+      // STR r4, [sp]
+      i.add(wordStore);
+      
+      // TODO: this should happen when the variable goes out of scope
+      // Restore stack pointer up
+      // ADD sp, sp, #4
+      i.add(incStackPointer(4));
+      break;
+      
     case PAIR:
+      // TODO: Nested pairs
+      
       // Gives an ExprNode for each pair element
       if (!(rhs instanceof NewPairNode)) {
         System.err.println("Error in Pair case in NewAssignNode");
@@ -197,18 +259,11 @@ public class NewAssignNode extends StatNode {
       // Returns in r0 a memory address with enough space to hold the number
       // of bytes specified by the previous r0 value
       // BL malloc
-      ArrayList<Arg> mallocArgs = new ArrayList<>();
-      mallocArgs.add(new Label("malloc"));
-      i.add(new AssemblyInstr(AssemblyInstrEnum.BL,
-          AssemblyInstrCond.NO_CODE, mallocArgs));
+      i.add(malloc);
 
       // Save address allocated to r0 in r4 to reuse r0 for another malloc
       // MOV r4, r0
-      ArrayList<Arg> saveAddressArgs = new ArrayList<>();
-      saveAddressArgs.add(new Register(RegEnum.R4));
-      saveAddressArgs.add(new Register(RegEnum.R0));
-      i.add(new AssemblyInstr(AssemblyInstrEnum.MOV,
-          AssemblyInstrCond.NO_CODE, saveAddressArgs));
+      i.add(saveAddress);
       
       // Set r5 to the value of the first element in the new pair
       // LDR r5, =x / MOV r5, #value / etc.
@@ -228,8 +283,7 @@ public class NewAssignNode extends StatNode {
       
       // Allocates memory for first element
       // BL malloc
-      i.add(new AssemblyInstr(AssemblyInstrEnum.BL,
-          AssemblyInstrCond.NO_CODE, mallocArgs));
+      i.add(malloc);
       
       // Store the value of the first element in the memory address allocated
       // STR(B) r5, [r0]
@@ -271,8 +325,7 @@ public class NewAssignNode extends StatNode {
       
       // Allocates memory for the second element
       // BL malloc
-      i.add(new AssemblyInstr(AssemblyInstrEnum.BL,
-          AssemblyInstrCond.NO_CODE, mallocArgs));
+      i.add(malloc);
       
       // Store the value of the second element in the memory address allocated
       // STR(B) r5, [r0]
@@ -309,6 +362,7 @@ public class NewAssignNode extends StatNode {
       // ADD sp, sp, #4
       i.add(incStackPointer(4));
       break;
+      
     case STRING:
       // Move the stack pointer down by 4 bytes (word)
       // SUB sp, sp, #4
@@ -326,6 +380,7 @@ public class NewAssignNode extends StatNode {
       // ADD sp, sp, #4
       i.add(incStackPointer(4));
       break;
+      
     case INT:
       // Move the stack pointer down by 4 bytes (word)
       // SUB sp, sp, #4
@@ -343,6 +398,7 @@ public class NewAssignNode extends StatNode {
       // ADD sp, sp, #4
       i.add(incStackPointer(4));
       break;
+      
     case BOOL: // bool and char cases the same, both 1 byte
     case CHAR:
       // Move the stack pointer down by 1 byte
