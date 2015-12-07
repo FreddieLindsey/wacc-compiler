@@ -149,27 +149,21 @@ public class NewAssignNode extends StatNode {
     // pre-processing for that?
 
     switch (t.getType()) {
-    case PAIR:
+    case ARR:
       /*
-       *  Code from ref compiler:
-       *  SUB sp, sp, #4
-       *  LDR r0, =8 // size required in memory (word for each address)
-       *  BL malloc  // convert r0 to a memory address with corresponding size
-       *  MOV r4, r0 // save allocated address to r4
-       *  LDR r5, =x / MOV r5, #value / etc.
-       *  LDR r0, =size (e.g. byte = 1, word = 4)
-       *  BL malloc
-       *  STR(B) r5, [r0] // store value in r5 in new memory address
-       *  STR r0, [r4]    // store address of r5 in initially allocated addr
-       *  LDR r5, =x / MOV r5, #value / etc.
-       *  LDR r0, =size (e.g. byte = 1, word = 4)
-       *  BL malloc
-       *  STR(B) r5, [r0]
-       *  STR r0, [r4, #4] // store next address 1 word along
-       *  STR r4, [sp]
-       *  ADD sp, sp, #4
+       * SUB sp, sp, #4
+       * LDR r0, =12 // elem size * num elems + 4 (to hold int size)
+       * BL  malloc
+       * MOV r4, r0 // save allocated address
+       * LDR r5, =3 // load first element
+       * STR r5, [r4, #4] // store first element
+       * LDR r5, =4 // load next element
+       * STR r5, [r4, #8] // address + size
+       * LDR r5, =2 // number of elements
+       * STR r5, [r4] // puts number of elements in address
+       * STR r4, [sp] // saves the address onto the stack
        */
-      
+    case PAIR:
       // Gives an ExprNode for each pair element
       if (!(rhs instanceof NewPairNode)) {
         System.err.println("Error in Pair case in NewAssignNode");
