@@ -136,10 +136,6 @@ public class NewAssignNode extends StatNode {
      * This could be considered as an optimisation for the extension.
      */
     
-    // ArrayList containting only r4
-    ArrayList<Register> r4List = new ArrayList<>();
-    r4List.add(new Register(RegEnum.R4));
-
     // STR r4, [sp]
     // Used by multiple cases to store a word on the stack
     ArrayList<Arg> wordStoreArgs = new ArrayList<>();
@@ -174,11 +170,23 @@ public class NewAssignNode extends StatNode {
        *  ADD sp, sp, #4
        */
       
+      // Gives an ExprNode for each pair element
       if (!(rhs instanceof NewPairNode)) {
         System.err.println("Error in Pair case in NewAssignNode");
       }
       ExprNode fst = ((NewPairNode) rhs).getFst();
       ExprNode snd = ((NewPairNode) rhs).getSnd();
+      
+      // Booleans determining whether fst and snd are byte sized,
+      // i.e. can be stored using STRB
+      boolean isFstByte = false;
+      boolean isSndByte = false;
+      if (fst instanceof CharNode || fst instanceof BoolNode) {
+        isFstByte = true;
+      }
+      if (snd instanceof CharNode || snd instanceof BoolNode) {
+        isSndByte = true;
+      }
 
       // Move the stack pointer down by 4 bytes (word)
       // SUB sp, sp, #4
@@ -214,7 +222,15 @@ public class NewAssignNode extends StatNode {
       
       // Set r0 to the space in bytes required to hold the first element
       // LDR r0, =size (e.g. byte = 1, word = 4)
-      // TODO: Tricky, will come back to this..
+      ArrayList<Arg> loadFstAddressesArgs = new ArrayList<>();
+      loadFstAddressesArgs.add(new Register(RegEnum.R0));
+      if (isFstByte) {
+        loadFstAddressesArgs.add(new Const(1, false));
+      } else {
+        loadFstAddressesArgs.add(new Const(4, false));
+      }
+      i.add(new AssemblyInstr(AssemblyInstrEnum.LDR,
+          AssemblyInstrCond.NO_CODE, loadFstAddressesArgs));
       
       // Allocates memory for first element
       // BL malloc
@@ -240,7 +256,15 @@ public class NewAssignNode extends StatNode {
       
       // Set r0 to the space in bytes required to hold the first element
       // LDR r0, =size (e.g. byte = 1, word = 4)
-      // TODO: You guessed it..
+      ArrayList<Arg> loadSndAddressesArgs = new ArrayList<>();
+      loadSndAddressesArgs.add(new Register(RegEnum.R0));
+      if (isSndByte) {
+        loadSndAddressesArgs.add(new Const(1, false));
+      } else {
+        loadSndAddressesArgs.add(new Const(4, false));
+      }
+      i.add(new AssemblyInstr(AssemblyInstrEnum.LDR,
+          AssemblyInstrCond.NO_CODE, loadSndAddressesArgs));
       
       // Allocates memory for the second element
       // BL malloc
