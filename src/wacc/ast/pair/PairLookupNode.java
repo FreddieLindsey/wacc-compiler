@@ -16,7 +16,7 @@ public class PairLookupNode extends AssignNode {
 
   @Override
   public TypeNode type() {
-    TypeNode t = symbolTable.lookUp(ident);
+    TypeNode t = symbolTable.lookUpType(ident);
     if (t == null || !(t instanceof PairTypeNode)) return null;
     PairTypeNode t_ = (PairTypeNode) t;
     return (fst) ?
@@ -25,7 +25,7 @@ public class PairLookupNode extends AssignNode {
 
   @Override
   public boolean isSemanticallyValid() {
-    semanticallyValid = symbolTable.lookUp(ident) != null;
+    semanticallyValid = symbolTable.lookUpType(ident) != null;
     return semanticallyValid;
   }
 

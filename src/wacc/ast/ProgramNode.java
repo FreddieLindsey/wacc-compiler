@@ -27,7 +27,7 @@ public class ProgramNode extends ASTNode {
 
     // Check the functions have different names
     for (FuncNode f : funcs) {
-      if (symbolTable.lookUp(f.getIdent().getIdent()) != null) return false;
+      if (symbolTable.lookUpType(f.getIdent().getIdent()) != null) return false;
       symbolTable.add(f.getIdent().getIdent(), f.getType());
     }
 

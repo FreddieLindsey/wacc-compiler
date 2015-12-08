@@ -20,13 +20,13 @@ public class SymbolTableTest {
   @Test
   public void canLookUpSymbolInTable() throws Exception {
     st.add("x", bob);
-    assertTrue(st.lookUp("x").equals(bob));
+    assertTrue(st.lookUpType("x").equals(bob));
   }
 
   @Test
   public void canLookUpInNestedTable() throws Exception {
     st.add("y", bob);
     stNested.setParent(st);
-    assertTrue(stNested.lookUp("y").equals(bob));
+    assertTrue(stNested.lookUpType("y").equals(bob));
   }
 }

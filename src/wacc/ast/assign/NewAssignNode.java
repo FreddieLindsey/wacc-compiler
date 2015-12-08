@@ -42,14 +42,14 @@ public class NewAssignNode extends StatNode {
   public boolean isSemanticallyValid() {
     // Check that the identifier being created doesn't already exist in this
     // scope
-    if (parent.getSymbolTable().lookUpHere(i.getIdent()) != null)
+    if (parent.getSymbolTable().lookUpHereType(i.getIdent()) != null)
       return false;
 
     // Get the type of the rhs
     TypeNode returnType;
     if (rhs instanceof CallNode) {
       returnType =
-          ((FuncTypeNode) symbolTable.lookUp(((CallNode) rhs).getIdent()
+          ((FuncTypeNode) symbolTable.lookUpType(((CallNode) rhs).getIdent()
               .getIdent())).getReturnType();
     } else if (rhs instanceof NewPairNode) {
       ExprNode fst = ((NewPairNode) rhs).getFst();
@@ -58,7 +58,7 @@ public class NewAssignNode extends StatNode {
 
       // Get type of first element
       if (fst instanceof IdentNode) {
-        TypeNode t = symbolTable.lookUp(((IdentNode) fst).getIdent());
+        TypeNode t = symbolTable.lookUpType(((IdentNode) fst).getIdent());
         if (t instanceof PairTypeNode) {
           fstType = new PairTypeNode(new AnyTypeNode(), new AnyTypeNode());
         } else {
@@ -70,7 +70,7 @@ public class NewAssignNode extends StatNode {
 
       // Get type of second element
       if (snd instanceof IdentNode) {
-        TypeNode t = symbolTable.lookUp(((IdentNode) snd).getIdent());
+        TypeNode t = symbolTable.lookUpType(((IdentNode) snd).getIdent());
         if (t instanceof PairTypeNode) {
           sndType = new PairTypeNode();
         } else {

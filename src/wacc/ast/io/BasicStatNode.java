@@ -12,8 +12,6 @@ import wacc.backend.instruction.*;
 
 import java.util.ArrayList;
 
-import static wacc.ast.operator.UnaryOperator.*;
-
 public class BasicStatNode extends StatNode {
 
   private ExprNode expr;
@@ -73,7 +71,7 @@ public class BasicStatNode extends StatNode {
   public TypeNode returnType() {
     if (st == StatTypeEnum.RETURN) {
       if (expr instanceof IdentNode) {
-        return symbolTable.lookUp(((IdentNode) expr).getIdent());
+        return symbolTable.lookUpType(((IdentNode) expr).getIdent());
       } else {
         return expr.type();
       }

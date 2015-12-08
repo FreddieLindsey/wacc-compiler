@@ -20,7 +20,7 @@ public class ParamListNode extends ASTNode {
     SymbolTable s = new SymbolTable();
     for (ParamNode p : ps) {
       if (!p.isSemanticallyValid()
-        || s.lookUp(p.getIdent().getIdent()) != null) {
+        || s.lookUpType(p.getIdent().getIdent()) != null) {
         return false;
       }
       s.add(p.getIdent().getIdent(), p.getType());
