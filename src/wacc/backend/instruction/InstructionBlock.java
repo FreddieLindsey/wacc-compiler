@@ -63,6 +63,10 @@ public class InstructionBlock implements Instruction {
     instructions.add(i);
   }
 
+  public void addAll(InstructionBlock i) {
+    instructions.addAll(i.getInstructions());
+  }
+
   public int size() {
     int j = 0;
     for (Instruction i : instructions) {

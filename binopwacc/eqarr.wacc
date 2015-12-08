@@ -1,0 +1,56 @@
+#0	.text
+#1	
+#2	.global main
+#3	main:
+#4		PUSH {lr}
+#5		SUB sp, sp, #9
+#6		LDR r0, =24
+#7		BL malloc
+#8		MOV r4, r0
+#9		LDR r5, =1
+#10		STR r5, [r4, #4]
+#11		LDR r5, =2
+#12		STR r5, [r4, #8]
+#13		LDR r5, =3
+#14		STR r5, [r4, #12]
+#15		LDR r5, =4
+#16		STR r5, [r4, #16]
+#17		LDR r5, =5
+#18		STR r5, [r4, #20]
+#19		LDR r5, =5
+#20		STR r5, [r4]
+#21		STR r4, [sp, #5]
+#22		LDR r0, =24
+#23		BL malloc
+#24		MOV r4, r0
+#25		LDR r5, =1
+#26		STR r5, [r4, #4]
+#27		LDR r5, =2
+#28		STR r5, [r4, #8]
+#29		LDR r5, =3
+#30		STR r5, [r4, #12]
+#31		LDR r5, =4
+#32		STR r5, [r4, #16]
+#33		LDR r5, =5
+#34		STR r5, [r4, #20]
+#35		LDR r5, =5
+#36		STR r5, [r4]
+#37		STR r4, [sp, #1]
+#38		LDR r4, [sp, #5]
+#39		LDR r5, [sp, #1]
+#40		CMP r4, r5
+#41		MOVEQ r4, #1
+#42		MOVNE r4, #0
+#43		STRB r4, [sp]
+#44		ADD sp, sp, #9
+#45		LDR r0, =0
+#46		POP {pc}
+#47		.ltorg
+#48
+
+
+begin
+  int[] a1 = [1,2,3,4,5] ;
+  int[] a2 = [1,2,3,4,5] ;
+  bool b = a1 == a2
+end
