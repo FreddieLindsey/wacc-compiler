@@ -6,6 +6,7 @@ import wacc.ast.assign.AssignNode;
 import wacc.ast.type.FuncTypeNode;
 import wacc.ast.type.TypeNode;
 import wacc.backend.instruction.AssemblyInstr;
+import wacc.backend.instruction.InstructionBlock;
 
 import java.util.ArrayList;
 
@@ -80,8 +81,8 @@ public class CallNode extends AssignNode {
     return true;
   }
 
-  public ArrayList<AssemblyInstr> generateCode() {
-    ArrayList<AssemblyInstr> instrs = new ArrayList<AssemblyInstr>();
+  public InstructionBlock generateCode() {
+    InstructionBlock i = new InstructionBlock();
 
 //     According to wiki, this is the ARM calling convention:
 //     In the prologue, push r4 to r11 to the stack, and push the return address in r14, to the stack. (This can be done with a single STM instruction).
@@ -91,7 +92,7 @@ public class CallNode extends AssignNode {
 //     put the result in r0
 //     In the epilogue, pull r4 to r11 from the stack, and pull the return address to the program counter r15. (This can be done with a single LDM instruction).
 
-    return instrs;
+    return i;
   }
 
 }

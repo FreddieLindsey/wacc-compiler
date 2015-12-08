@@ -101,6 +101,7 @@ public class UnOpNode extends AssignNode {
         args = new ArrayList<Arg>();
         args.add(regs.get(0));
         args.add(regs.get(0));
+
         args.add(new Const(1, true));
         i.add(new AssemblyInstr(AssemblyInstrEnum.EOR,
           AssemblyInstrCond.NO_CODE, args));
@@ -118,6 +119,7 @@ public class UnOpNode extends AssignNode {
         i.add(new AssemblyInstr(AssemblyInstrEnum.RSB,
           AssemblyInstrCond.S, args));
 
+
         args = new ArrayList<Arg>();
         args.add(new Label("p_throw_overflow_error"));
         i.add(new AssemblyInstr(AssemblyInstrEnum.BL,
@@ -131,6 +133,7 @@ public class UnOpNode extends AssignNode {
 
         args = new ArrayList<Arg>();
         args.add(regs.get(0));
+
         args2 = new ArrayList<Arg>();
         args2.add(new Register(RegEnum.SP));
         args2.add(new Const(4, true));
@@ -141,11 +144,13 @@ public class UnOpNode extends AssignNode {
         args = new ArrayList<Arg>();
         args.add(regs.get(0));
         args.add(new MemoryAccess(regs.get(0)));
+
         i.add(new AssemblyInstr(AssemblyInstrEnum.LDR,
           AssemblyInstrCond.NO_CODE, args));
 
         args = new ArrayList<Arg>();
         args.add(regs.get(0));
+
         args.add(new MemoryAccess(new Register(RegEnum.SP)));
         i.add(new AssemblyInstr(AssemblyInstrEnum.STR,
           AssemblyInstrCond.NO_CODE, args));
