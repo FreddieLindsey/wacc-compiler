@@ -8,11 +8,13 @@ import wacc.backend.static_methods.*;
 
 import java.util.ArrayList;
 import java.lang.reflect.Method;
+import java.util.List;
 
 public class ProgramNode extends ASTNode {
 
-  private ArrayList<FuncNode> funcs;
+  private List<FuncNode> funcs;
   private StatNode stat;
+  public static List<CallableMethod> static_methods_called = new ArrayList<>();
 
   public ProgramNode() {
     super();
@@ -48,7 +50,7 @@ public class ProgramNode extends ASTNode {
     f.setParent(this);
   }
 
-  public ArrayList<FuncNode> getFuncs() {
+  public List<FuncNode> getFuncs() {
     return funcs;
   }
 
