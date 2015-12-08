@@ -67,14 +67,14 @@ public class WhileStatNode extends StatNode {
 
     i.addAll(stat.generateCode());
 
-    i.add(new Label("L1:"));
+    i.add(new Label("L0:"));
 
     i.addAll(expr.generateCode(regs));
 
     args = new ArrayList<>();
-    args.add(new Label("L0:"));
+    args.add(new Label("L1"));
     i.add(new AssemblyInstr(AssemblyInstrEnum.B,
-      AssemblyInstrCond.NO_CODE, args));
+      AssemblyInstrCond.EQ, args));
 
 
     return i;
