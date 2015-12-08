@@ -4,15 +4,10 @@ import wacc.ast.function.FuncNode;
 import wacc.ast.io.StatNode;
 import wacc.backend.instruction.*;
 import wacc.backend.static_methods.CallableMethod;
-import wacc.backend.static_methods.CallableMethods;
-import wacc.backend.static_methods.MethodResolver;
 import wacc.symbolTable.SymbolTable;
 
-import java.lang.reflect.Method;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 public class ProgramNode extends ASTNode {
 
@@ -74,8 +69,6 @@ public class ProgramNode extends ASTNode {
   public InstructionBlock generateCode() {
     InstructionBlock i = new InstructionBlock();
 
-    MethodResolver resolver = MethodResolver.resolver();
-
     i.add(new DataMessage(".text")); // temporary
     i.add(new InformationDataMessage(".global", "main")); // set entry point
 
@@ -104,39 +97,10 @@ public class ProgramNode extends ASTNode {
 
     i.add(main);
 
-    ArrayList<InstructionBlock> callables = generateCallableMethods();
-    for (InstructionBlock block : callables) {
-      i.add(block);
+    for (CallableMethod m : static_methods_called) {
+      i.add(m.generateCode());
     }
 
     return i;
   }
-
-  private ArrayList<InstructionBlock> generateCallableMethods() {
-    ArrayList<String> labels = MethodResolver.resolver().getLabels();
-    ArrayList<String> added = new ArrayList<>();
-    Method methods[] = CallableMethods.class.getMethods();
-    ArrayList<InstructionBlock> code = new ArrayList<>();
-
-    for (Method method : methods) {
-      String mName = method.getName();
-
-      if (added.contains(mName)) {
-        continue;
-      }
-
-      if (labels.contains(mName)) {
-        try {
-          InstructionBlock block = (InstructionBlock) method.invoke("msg_1"); // NEEDS FIXING
-          code.add(block);
-        } catch (Exception ex) {
-          System.err.println("Clever code is not so clever");
-          System.err.println(ex.getMessage());
-        }
-      }
-    }
-
-    return code;
-  }
-
 }

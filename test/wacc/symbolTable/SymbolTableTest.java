@@ -3,8 +3,6 @@ package wacc.symbolTable;
 import org.junit.Test;
 import wacc.ast.type.TypeEnum;
 import wacc.ast.type.TypeNode;
-import wacc.backend.static_methods.CallableMethod;
-import wacc.backend.static_methods.CallableMethods;
 
 import static org.junit.Assert.assertTrue;
 

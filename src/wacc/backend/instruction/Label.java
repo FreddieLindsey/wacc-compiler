@@ -1,7 +1,5 @@
 package wacc.backend.instruction;
 
-import wacc.backend.static_methods.MethodResolver;
-
 public class Label extends Arg implements Instruction {
 
   private String label;
