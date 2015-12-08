@@ -7,7 +7,7 @@ import java.util.Map;
 
 public class SymbolTable {
 
-  private Map<String, TypeNode> dictionary;
+  private Map<String, DataContainer> dictionary;
   private SymbolTable parent;
 
   public SymbolTable() {
@@ -15,21 +15,21 @@ public class SymbolTable {
   }
 
   public void add(String s, TypeNode t) {
-    dictionary.put(s, t);
+    dictionary.put(s, new DataContainer(t));
   }
 
   // Looks up s in the current SymbolTable, returns null if not found
-  public TypeNode lookUpHere(String s) {
-    return dictionary.get(s);
+  public TypeNode lookUpHereType(String s) {
+    return dictionary.get(s).getTypeNode();
   }
 
   // Looks up s in the current and enclosing SymbolTables,
   // returns null if not found
-  public TypeNode lookUp(String s) {
+  public TypeNode lookUpType(String s) {
     SymbolTable current = this;
     TypeNode result;
     while (current != null) {
-      result = current.lookUpHere(s);
+      result = current.lookUpHereType(s);
       if (result != null) {
         return result;
       }

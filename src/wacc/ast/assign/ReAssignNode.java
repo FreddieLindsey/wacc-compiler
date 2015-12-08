@@ -38,7 +38,7 @@ public class ReAssignNode extends StatNode {
 
     // Check that the lhs has already been declared in scope
     if (lhs instanceof IdentNode &&
-      symbolTable.lookUp(((IdentNode) lhs).getIdent()) == null) return false;
+      symbolTable.lookUpType(((IdentNode) lhs).getIdent()) == null) return false;
 
     // Check the type of what we are assigning
     assignType = lhs.type();
@@ -46,7 +46,7 @@ public class ReAssignNode extends StatNode {
     // Check the type of what we are returning
     if (rhs instanceof CallNode) {
       returnType = (
-        (FuncTypeNode) symbolTable.lookUp(
+        (FuncTypeNode) symbolTable.lookUpType(
           ((CallNode) rhs).getIdent().getIdent())
       ).getReturnType();
     } else {

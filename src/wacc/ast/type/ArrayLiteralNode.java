@@ -31,7 +31,7 @@ public class ArrayLiteralNode extends LiteralNode<ExprNode> {
 
     ExprNode firstElement = exprs.get(0);
     if (firstElement.type() == null && firstElement instanceof IdentNode) {
-      thisType.setArrayType(symbolTable.lookUp(((IdentNode) firstElement).getIdent()));
+      thisType.setArrayType(symbolTable.lookUpType(((IdentNode) firstElement).getIdent()));
     } else {
       thisType.setArrayType(firstElement.type().copy());
     }

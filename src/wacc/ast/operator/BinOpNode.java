@@ -65,12 +65,12 @@ public class BinOpNode extends AssignNode {
 
     // Check lhs
     lhs_type = (lhs instanceof IdentNode) ?
-      symbolTable.lookUp(((IdentNode) lhs).getIdent()) :
+      symbolTable.lookUpType(((IdentNode) lhs).getIdent()) :
       lhs.type();
 
     // Check rhs
     rhs_type = (rhs instanceof IdentNode) ?
-      symbolTable.lookUp(((IdentNode) rhs).getIdent()) :
+      symbolTable.lookUpType(((IdentNode) rhs).getIdent()) :
       rhs.type();
 
     if (!lhs_type.equals(rhs_type)) return false;

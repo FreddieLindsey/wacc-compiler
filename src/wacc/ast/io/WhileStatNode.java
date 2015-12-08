@@ -32,7 +32,7 @@ public class WhileStatNode extends StatNode {
   @Override
   public boolean isSemanticallyValid() {
     if (expr instanceof IdentNode &&
-      symbolTable.lookUp(((IdentNode) expr).getIdent()) == null) return false;
+      symbolTable.lookUpType(((IdentNode) expr).getIdent()) == null) return false;
 
     semanticallyValid = stat.isSemanticallyValid()
       && expr.isSemanticallyValid()

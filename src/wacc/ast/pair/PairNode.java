@@ -30,10 +30,10 @@ public class PairNode<F extends ExprNode, S extends ExprNode> extends AssignNode
   @Override
   public TypeNode type() {
     TypeNode t1 = (fst instanceof IdentNode) ?
-      symbolTable.lookUp(((IdentNode) fst).getIdent()) :
+      symbolTable.lookUpType(((IdentNode) fst).getIdent()) :
       fst.type();
     TypeNode t2 = (snd instanceof IdentNode) ?
-      symbolTable.lookUp(((IdentNode) snd).getIdent()) :
+      symbolTable.lookUpType(((IdentNode) snd).getIdent()) :
       snd.type();
     return new PairTypeNode(t1, t2);
   }

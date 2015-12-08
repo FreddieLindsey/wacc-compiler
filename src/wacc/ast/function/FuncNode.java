@@ -53,7 +53,7 @@ public class FuncNode extends ASTNode {
   public boolean isSemanticallyValid() {
     SymbolTable s = new SymbolTable();
     for (ParamNode p : ps.getParams()) {
-      if (s.lookUp(p.getIdent().getIdent()) != null) {
+      if (s.lookUpType(p.getIdent().getIdent()) != null) {
         return false;
       }
       s.add(p.getIdent().getIdent(), p.getType());

@@ -5,7 +5,6 @@ import wacc.ast.IdentNode;
 import wacc.ast.assign.AssignNode;
 import wacc.ast.type.FuncTypeNode;
 import wacc.ast.type.TypeNode;
-import wacc.backend.instruction.AssemblyInstr;
 import wacc.backend.instruction.InstructionBlock;
 
 import java.util.ArrayList;
@@ -44,7 +43,7 @@ public class CallNode extends AssignNode {
     if (!ident.isSemanticallyValid()) return false;
 
     // Check to see if the function has been defined
-    TypeNode funcType = symbolTable.lookUp(ident.getIdent());
+    TypeNode funcType = symbolTable.lookUpType(ident.getIdent());
     if (funcType == null) return false;
 
     // Check to ensure it's a function
