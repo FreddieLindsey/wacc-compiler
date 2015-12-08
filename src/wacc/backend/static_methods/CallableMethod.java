@@ -15,25 +15,26 @@ public enum CallableMethod {
   P_THROW_RUNTIME_ERROR,
   P_FREE_PAIR;
 
-  public InstructionBlock generateCode(String s) {
+  public InstructionBlock generateCode() {
     switch(this) {
       case P_PRINT_STRING:
-        return p_print_ln(s);
+        return p_print_ln();
       case P_PRINT_LN:
-        return p_print_ln(s);
+        return p_print_ln();
       case P_PRINT_INT:
-        return p_print_int(s);
+        return p_print_int();
       case P_READ_INT:
-        return p_read_int(s);
+        return p_read_int();
       case P_FREE_PAIR:
-        return p_free_pair(s);
+        return p_free_pair();
       case P_DIVIDE_BY_ZERO:
-        return p_check_divide_by_zero(s);
+        return p_check_divide_by_zero();
       case P_THROW_OVERFLOW_ERROR:
-        return p_throw_overflow_error(s);
+        return p_throw_overflow_error();
       case P_THROW_RUNTIME_ERROR:
-        return p_throw_runtime_error(s);
+        return p_throw_runtime_error();
     }
+    return null;
   }
 
 }

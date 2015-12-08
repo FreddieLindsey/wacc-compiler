@@ -18,7 +18,8 @@ public class ProgramNode extends ASTNode {
 
   private List<FuncNode> funcs;
   private StatNode stat;
-  public static Set<CallableMethod> static_methods_called = new HashSet<>();
+  public static List<StringDataMessage> messages = new ArrayList<>();
+  public static List<CallableMethod> static_methods_called = new ArrayList<>();
 
   public ProgramNode() {
     super();
