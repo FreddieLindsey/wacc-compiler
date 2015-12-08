@@ -100,6 +100,31 @@ public class BasicStatNode extends StatNode {
       case READ:
       case FREE:
       case RETURN:
+
+        // -----------------
+        // LDR r4, =0
+        // MOV r0, r4
+        // POP {pc}
+        // -----------------
+
+        args = new ArrayList<>();
+        args.add(new Register(RegEnum.R4));
+        args.add(new Const(0, false)); // replace with eval of expr
+        i.add(new AssemblyInstr(AssemblyInstrEnum.LDR,
+          AssemblyInstrCond.NO_CODE, args));
+
+        args = new ArrayList<>();
+        args.add(new Register(RegEnum.R0));
+        args.add(new Register(RegEnum.R4));
+        i.add(new AssemblyInstr(AssemblyInstrEnum.MOV,
+          AssemblyInstrCond.NO_CODE, args));
+
+        args = new ArrayList<>();
+        args.add(new Register(RegEnum.PC));
+        i.add(new AssemblyInstr(AssemblyInstrEnum.POP, AssemblyInstrCond.NO_CODE, args));
+
+        break;
+
       case EXIT:
         // --------------
         // LDR r4, =7
