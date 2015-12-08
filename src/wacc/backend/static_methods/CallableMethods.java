@@ -193,7 +193,7 @@ public class CallableMethods {
     return i;
   }
 
-  public static InstructionBlock p_throw_overflow_error() {
+  public static InstructionBlock p_throw_overflow_error(String s) {
 //     #25 p_throw_overflow_error:
 // #26   LDR r0, =msg_0
 // #27   BL p_throw_runtime_error
@@ -203,7 +203,7 @@ public class CallableMethods {
 
     args = new ArrayList<>();
     args.add(new Register(RegEnum.R0));
-    args.add(new Label("msg_0"));
+    args.add(new Label(s));
     i.add(new AssemblyInstr(AssemblyInstrEnum.LDR,
       AssemblyInstrCond.NO_CODE, args));
 
@@ -216,7 +216,7 @@ public class CallableMethods {
 
   }
 
-  public static InstructionBlock p_throw_runtime_error() {
+  public static InstructionBlock p_throw_runtime_error(String s) {
 // #27 p_throw_runtime_error:
 // #28   BL p_print_string
 // #29   MOV r0, #-1
