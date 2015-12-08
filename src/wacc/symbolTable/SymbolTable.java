@@ -1,10 +1,7 @@
 package wacc.symbolTable;
 
-import com.sun.jndi.cosnaming.IiopUrl;
 import wacc.ast.type.TypeNode;
-import wacc.symbolTable.DataContainer.*;
 
-import javax.xml.crypto.Data;
 import java.util.HashMap;
 import java.util.Map;
 
