@@ -7,11 +7,13 @@ import java.util.Map;
 
 public class SymbolTable {
 
+  private static int scopelevel;
   private Map<String, DataContainer> dictionary;
   private SymbolTable parent;
 
   public SymbolTable() {
     dictionary = new HashMap<>();
+    scopelevel = 0;
   }
 
   public void add(String s, TypeNode t) {
@@ -63,6 +65,14 @@ public class SymbolTable {
 
   public DataContainer getDataContainer(String s) {
     return dictionary.get(s);
+  }
+
+  public int getScopelevel() {
+    return scopelevel;
+  }
+
+  public void incrementScopeLevel(int level) {
+    scopelevel += level;
   }
 
   public void setParent(SymbolTable parent) {
