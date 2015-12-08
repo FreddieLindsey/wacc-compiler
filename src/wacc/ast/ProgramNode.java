@@ -6,15 +6,14 @@ import wacc.backend.instruction.*;
 import wacc.backend.static_methods.CallableMethod;
 import wacc.symbolTable.SymbolTable;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class ProgramNode extends ASTNode {
 
   private List<FuncNode> funcs;
   private StatNode stat;
   public static List<StringDataMessage> messages = new ArrayList<>();
-  public static List<CallableMethod> static_methods_called = new ArrayList<>();
+  public static Set<CallableMethod> static_methods_called = new HashSet<>();
 
   public ProgramNode() {
     super();
@@ -68,6 +67,19 @@ public class ProgramNode extends ASTNode {
 
   public InstructionBlock generateCode() {
     InstructionBlock i = new InstructionBlock();
+    InstructionBlock stat_code = stat.generateCode();
+
+    if (messages.size() > 0 || static_methods_called.size() > 0) {
+      i.add(new DataMessage(".data"));
+
+      for (StringDataMessage m : messages) {
+        i.add(m);
+      }
+
+      for (CallableMethod m : new TreeSet<>(static_methods_called)) {
+        i.add(m.message());
+      }
+    }
 
     i.add(new DataMessage(".text")); // temporary
     i.add(new InformationDataMessage(".global", "main")); // set entry point
@@ -76,13 +88,23 @@ public class ProgramNode extends ASTNode {
       i.add(f.generateCode());
     }
 
+    i.add(generateMain(stat_code));
+
+    for (CallableMethod m : new TreeSet<>(static_methods_called)) {
+      i.add(m.generateCode());
+    }
+
+    return i;
+  }
+
+  private InstructionBlock generateMain(InstructionBlock stat) {
     InstructionBlock main = new InstructionBlock("main");
 
     ArrayList<Arg> pushArgs = new ArrayList<>();
     pushArgs.add(new Register(RegEnum.LR));
     main.add(new AssemblyInstr(AssemblyInstrEnum.PUSH, AssemblyInstrCond.NO_CODE, pushArgs));
 
-    main.add(stat.generateCode());
+    main.add(stat);
 
     ArrayList<Arg> loadArgs = new ArrayList<>();
     loadArgs.add(new Register(RegEnum.R0));
@@ -95,12 +117,6 @@ public class ProgramNode extends ASTNode {
 
     main.add(new DataMessage(".ltorg"));
 
-    i.add(main);
-
-    for (CallableMethod m : static_methods_called) {
-      i.add(m.generateCode());
-    }
-
-    return i;
+    return main;
   }
 }
