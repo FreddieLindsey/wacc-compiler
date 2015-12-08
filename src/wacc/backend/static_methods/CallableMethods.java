@@ -106,6 +106,69 @@ public class CallableMethods {
     return i;
   }
 
+  public static InstructionBlock p_print_int(String s) {
+
+//  p_print_int:
+//    PUSH {lr}
+//    MOV r1, r0
+//    LDR r0, =s (<- .word 3 .ascii "%d\0")
+//    ADD r0, r0, #4
+//    BL printf
+//    MOV r0, #0
+//    BL fflush
+//    POP {pc}
+
+    InstructionBlock i = new InstructionBlock("p_print_int");
+    ArrayList<Arg> args;
+
+    args = new ArrayList<>();
+    args.add(new Register(RegEnum.LR));
+    i.add(new AssemblyInstr(AssemblyInstrEnum.PUSH,
+      AssemblyInstrCond.NO_CODE, args));
+
+    args = new ArrayList<>();
+    args.add(new Register(RegEnum.R1));
+    args.add(new Register(RegEnum.R0));
+    i.add(new AssemblyInstr(AssemblyInstrEnum.MOV,
+      AssemblyInstrCond.NO_CODE, args));
+
+    args = new ArrayList<>();
+    args.add(new Register(RegEnum.R0));
+    args.add(new Const(s, false));
+    i.add(new AssemblyInstr(AssemblyInstrEnum.LDR,
+      AssemblyInstrCond.NO_CODE, args));
+
+    args = new ArrayList<>();
+    args.add(new Register(RegEnum.R0));
+    args.add(new Register(RegEnum.R0));
+    args.add(new Const(4, true));
+    i.add(new AssemblyInstr(AssemblyInstrEnum.ADD,
+      AssemblyInstrCond.NO_CODE, args));
+
+    args = new ArrayList<>();
+    args.add(new Label("printf"));
+    i.add(new AssemblyInstr(AssemblyInstrEnum.BL,
+      AssemblyInstrCond.NO_CODE, args));
+
+    args = new ArrayList<>();
+    args.add(new Register(RegEnum.R0));
+    args.add(new Const(0, true));
+    i.add(new AssemblyInstr(AssemblyInstrEnum.MOV,
+      AssemblyInstrCond.NO_CODE, args));
+
+    args = new ArrayList<>();
+    args.add(new Label("fflush"));
+    i.add(new AssemblyInstr(AssemblyInstrEnum.BL,
+      AssemblyInstrCond.NO_CODE, args));
+
+    args = new ArrayList<>();
+    args.add(new Register(RegEnum.PC));
+    i.add(new AssemblyInstr(AssemblyInstrEnum.POP,
+      AssemblyInstrCond.NO_CODE, args));
+
+    return i;
+  }
+
   public static InstructionBlock p_print_ln(String s) {
     InstructionBlock i = new InstructionBlock("p_print_ln");
     ArrayList<Arg> args;
