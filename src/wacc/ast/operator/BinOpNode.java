@@ -377,30 +377,31 @@ public class BinOpNode extends AssignNode {
       break;
       case EQ: 
 
-      if (lhs.type().equals(new TypeNode(TypeEnum.ARR))) {
+      if (lhs.type().equals(new TypeNode(TypeEnum.ARR))
+       || lhs.type().equals(new TypeNode(TypeEnum.PAIR))) {
 //      LDR r4, [sp, #5]
 //      LDR r5, [sp, #1]
 
-      ArrayList<Arg> args2;
+        ArrayList<Arg> args2;
 
-      args = new ArrayList<Arg>();
-      args.add(regs.get(0));
-      args2 = new ArrayList<Arg>();
-      args2.add(new Register(RegEnum.SP));
-      args2.add(new Const(5, true)); // needs generalising?
-      args.add(new MemoryAccess(args2));
-      i.add(new AssemblyInstr(AssemblyInstrEnum.LDR,
-            AssemblyInstrCond.NO_CODE, args));    
+        args = new ArrayList<Arg>();
+        args.add(regs.get(0));
+        args2 = new ArrayList<Arg>();
+        args2.add(new Register(RegEnum.SP));
+        args2.add(new Const(5, true)); // needs generalising?
+        args.add(new MemoryAccess(args2));
+        i.add(new AssemblyInstr(AssemblyInstrEnum.LDR,
+              AssemblyInstrCond.NO_CODE, args));    
 
 
-      args = new ArrayList<Arg>();
-      args.add(regs.get(1));
-      args2 = new ArrayList<Arg>();
-      args2.add(new Register(RegEnum.SP));
-      args2.add(new Const(1, true)); // needs generalising?
-      args.add(new MemoryAccess(args2));
-      i.add(new AssemblyInstr(AssemblyInstrEnum.LDR,
-            AssemblyInstrCond.NO_CODE, args));
+        args = new ArrayList<Arg>();
+        args.add(regs.get(1));
+        args2 = new ArrayList<Arg>();
+        args2.add(new Register(RegEnum.SP));
+        args2.add(new Const(1, true)); // needs generalising?
+        args.add(new MemoryAccess(args2));
+        i.add(new AssemblyInstr(AssemblyInstrEnum.LDR,
+              AssemblyInstrCond.NO_CODE, args));
         
 
       }
@@ -432,7 +433,8 @@ public class BinOpNode extends AssignNode {
       break;
       case NEQ: 
 
-      if (lhs.type().equals(new TypeNode(TypeEnum.ARR))) {
+      if (lhs.type().equals(new TypeNode(TypeEnum.ARR))
+       || lhs.type().equals(new TypeNode(TypeEnum.PAIR))) {
 //      LDR r4, [sp, #5]
 //      LDR r5, [sp, #1]
 
