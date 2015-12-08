@@ -10,6 +10,7 @@ compiler = "wacc_examples/refCompile"
 root = "wacc_examples/valid"
 ignores = ['Loop', 'loop', 'manyVariables']
 
+
 # FUNCTIONS
 
 def getReferenceOutput(cacheFile):
@@ -54,6 +55,7 @@ def compile(file_in):
     process.communicate()
     return file_out
 
+
 def makeFileDirectory(file_path):
     file_dirs = file_path.split('/')
     i = 0
@@ -71,22 +73,34 @@ def getDataFromOutput(output):
         if "calling the reference compiler on" in output[i]:
             filename = output[i][34:]  # Gets the text after the above
 
+            if len(output) == i + 1:
+                return []
+
             # Get expected output
-            while 'Output:' not in output[i-1]: i += 1
+            while 'Output:' not in output[i - 1]:
+                i += 1
+                if len(output) == i + 1:
+                    return []
             output_exec = []
             while '# ' in output[i]:
                 output_exec.append(output[i][2:])
                 i += 1
+                if len(output) == i + 1:
+                    return []
 
             # Get expected assembly
             separator = '==========================================================='
-            while (separator not in output[i]):
+            while separator not in output[i]:
                 i += 1
+                if len(output) == i + 1:
+                    return []
             assembly = []
             i += 1
             while (separator not in output[i]):
                 assembly.append('\t'.join(output[i].split('\t')[1:]))
                 i += 1
+                if len(output) == i + 1:
+                    return []
             data.append((filename.replace('wacc', 's'), '\n'.join(assembly), '\n'.join(output_exec)))
         i += 1
     return data
@@ -105,6 +119,7 @@ def compareFiles(file_1, file_2):
         with open(file_2, 'r') as f2:
             return f1.read() == f2.read()
 
+
 def runFile(file_in, file_out):
     system_command = "arm-linux-gnueabi-gcc -o {1} -mcpu=arm1176jzf-s -mtune=arm1176jzf-s {0}".format(file_in, file_out)
     process = subprocess.Popen(system_command.split(), stdout=subprocess.PIPE, stderr=subprocess.PIPE)
@@ -121,12 +136,14 @@ def runFile(file_in, file_out):
         f.write(output[0])
     return file_out
 
+
 def show_error(file_1_orig, file1, file2):
     print '====================================='
     print '{0} has a compile error:\n'.format(file_1_orig.split('/')[-1])
     system_command = "diff {0} {1}".format(file1, file2)
     process = subprocess.Popen(system_command.split(), stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     print process.communicate()[0]
+
 
 def show_output_error(file_1_orig, file1, file2):
     print '====================================='
@@ -138,6 +155,7 @@ def show_output_error(file_1_orig, file1, file2):
     os.remove(outputfile2)
     process = subprocess.Popen(system_command.split(), stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     print process.communicate()[0]
+
 
 def validateOutput(file1, file2):
     system_command = "which arm-linux-gnueabi-gcc"
@@ -164,6 +182,7 @@ def validateOutput(file1, file2):
     except IOError:
         valid = valid
     return valid
+
 
 def verify_file(root, filename):
     compile_file = os.path.join(root, filename)
