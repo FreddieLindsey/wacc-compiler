@@ -229,9 +229,9 @@ public class BasicStatNode extends StatNode {
 
         if (st == StatTypeEnum.PRINTLN) {
           args = new ArrayList<>();
-        args.add(new Label("p_print_ln"));
-        i.add(new AssemblyInstr(AssemblyInstrEnum.BL,
-          AssemblyInstrCond.NO_CODE, args));
+          args.add(new Label("p_print_ln"));
+          i.add(new AssemblyInstr(AssemblyInstrEnum.BL,
+            AssemblyInstrCond.NO_CODE, args));
         }
 
         break;
