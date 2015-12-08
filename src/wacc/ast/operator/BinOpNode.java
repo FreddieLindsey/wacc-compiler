@@ -119,7 +119,7 @@ public class BinOpNode extends AssignNode {
     return true;
   }
 
-  @Override
+  //@Override
   public InstructionBlock generateCode(ArrayList<Register> regs) {
     InstructionBlock i = new InstructionBlock();
 
@@ -135,8 +135,6 @@ public class BinOpNode extends AssignNode {
       i.addAll(rhs.generateCode(liveRegs));
     }
 
-
-    // TODO : generalise registers 
     switch (op) {
       case MUL: 
 //   SMULL r4, r5, r4, r5
@@ -147,12 +145,14 @@ public class BinOpNode extends AssignNode {
             args.add(regs.get(1));
             args.add(regs.get(0));
             args.add(regs.get(1));
+
             i.add(new AssemblyInstr(AssemblyInstrEnum.SMULL,
             AssemblyInstrCond.NO_CODE, args));
 
             args = new ArrayList<Arg>();
             args.add(regs.get(1));
             args.add(regs.get(0));
+
             args.add(new BarrelShift(BarrelShiftEnum.ASR, new Const(31, true)));
             i.add(new AssemblyInstr(AssemblyInstrEnum.CMP,
             AssemblyInstrCond.NO_CODE, args));
@@ -175,12 +175,14 @@ public class BinOpNode extends AssignNode {
             args = new ArrayList<Arg>();
             args.add(new Register(RegEnum.R0));
             args.add(regs.get(0));
+
             i.add(new AssemblyInstr(AssemblyInstrEnum.MOV,
             AssemblyInstrCond.NO_CODE, args));
 
             args = new ArrayList<Arg>();
             args.add(new Register(RegEnum.R1));
             args.add(regs.get(1));
+
             i.add(new AssemblyInstr(AssemblyInstrEnum.MOV,
             AssemblyInstrCond.NO_CODE, args));
 
@@ -196,6 +198,7 @@ public class BinOpNode extends AssignNode {
 
             args = new ArrayList<Arg>();
             args.add(regs.get(0));
+
             args.add(new Register(RegEnum.R0));
             i.add(new AssemblyInstr(AssemblyInstrEnum.MOV,
             AssemblyInstrCond.NO_CODE, args));
@@ -213,12 +216,14 @@ public class BinOpNode extends AssignNode {
             args = new ArrayList<Arg>();
             args.add(new Register(RegEnum.R0));
             args.add(regs.get(0));
+
             i.add(new AssemblyInstr(AssemblyInstrEnum.MOV,
             AssemblyInstrCond.NO_CODE, args));
 
             args = new ArrayList<Arg>();
             args.add(new Register(RegEnum.R1));
             args.add(regs.get(1));
+
             i.add(new AssemblyInstr(AssemblyInstrEnum.MOV,
             AssemblyInstrCond.NO_CODE, args));
 
@@ -234,6 +239,7 @@ public class BinOpNode extends AssignNode {
 
             args = new ArrayList<Arg>();
             args.add(regs.get(0));
+
             args.add(new Register(RegEnum.R1));
             i.add(new AssemblyInstr(AssemblyInstrEnum.MOV,
             AssemblyInstrCond.NO_CODE, args));
@@ -248,6 +254,7 @@ public class BinOpNode extends AssignNode {
       args.add(regs.get(0));
       args.add(regs.get(0));
       args.add(regs.get(1));
+
       i.add(new AssemblyInstr(AssemblyInstrEnum.ADD,
             AssemblyInstrCond.S, args)); 
 
@@ -267,12 +274,14 @@ public class BinOpNode extends AssignNode {
       args.add(regs.get(0));
       args.add(regs.get(1));
       i.add(new AssemblyInstr(AssemblyInstrEnum.SUB,
+
             AssemblyInstrCond.S, args)); 
 
       args = new ArrayList<Arg>();
       args.add(new Label("p_throw_overflow_error"));
       i.add(new AssemblyInstr(AssemblyInstrEnum.BL,
             AssemblyInstrCond.VS, args)); 
+
 
       break;
       case GT: 
@@ -290,12 +299,14 @@ public class BinOpNode extends AssignNode {
       args = new ArrayList<Arg>();
       args.add(regs.get(0));
       args.add(new Const(1, true));
+
       i.add(new AssemblyInstr(AssemblyInstrEnum.MOV,
             AssemblyInstrCond.GT, args)); 
 
       args = new ArrayList<Arg>();
       args.add(regs.get(0));
       args.add(new Const(0, true));
+
       i.add(new AssemblyInstr(AssemblyInstrEnum.MOV,
             AssemblyInstrCond.LE, args)); 
 
@@ -315,6 +326,7 @@ public class BinOpNode extends AssignNode {
       args = new ArrayList<Arg>();
       args.add(regs.get(0));
       args.add(new Const(1, true));
+
       i.add(new AssemblyInstr(AssemblyInstrEnum.MOV,
             AssemblyInstrCond.GE, args)); 
 
@@ -508,6 +520,7 @@ public class BinOpNode extends AssignNode {
     }
 
     return i;
+
   }
 
   @Override

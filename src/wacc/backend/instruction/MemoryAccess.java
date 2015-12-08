@@ -2,7 +2,6 @@ package wacc.backend.instruction;
 
 import java.util.ArrayList;
 
-
 public class MemoryAccess extends Arg {
 
   private ArrayList<Arg> args;

@@ -97,9 +97,79 @@ public class BasicStatNode extends StatNode {
     switch (st) {
       case SKIP:
         break;
-      case READ:
       case FREE:
+        // 29    LDR r4, [sp]
+        // 30    MOV r0, r4
+        // 31    BL p_free_pair
+
+        args = new ArrayList<>();
+        args.add(new Register(RegEnum.R4));
+        args.add(new MemoryAccess(new Register(RegEnum.SP)));
+        i.add(new AssemblyInstr(AssemblyInstrEnum.LDR,
+          AssemblyInstrCond.NO_CODE, args));
+
+        args = new ArrayList<>();
+        args.add(new Register(RegEnum.R0));
+        args.add(new Register(RegEnum.R4));
+        i.add(new AssemblyInstr(AssemblyInstrEnum.MOV,
+          AssemblyInstrCond.NO_CODE, args));
+
+        args = new ArrayList<>();
+        args.add(new Label("b_free_pair"));
+        i.add(new AssemblyInstr(AssemblyInstrEnum.BL,
+          AssemblyInstrCond.NO_CODE, args));
+
+        break;
+      case READ:
+
+//   ADD r4, sp, #0
+//   MOV r0, r4
+//   BL p_read_int
+
+        args = new ArrayList<>();
+        args.add(new Register(RegEnum.R4));
+        args.add(new Register(RegEnum.SP));
+        args.add(new Const(0, true));
+        i.add(new AssemblyInstr(AssemblyInstrEnum.ADD,
+          AssemblyInstrCond.NO_CODE, args));
+
+        args = new ArrayList<>();
+        args.add(new Register(RegEnum.R0));
+        args.add(new Register(RegEnum.R4));
+        i.add(new AssemblyInstr(AssemblyInstrEnum.MOV,
+          AssemblyInstrCond.NO_CODE, args));
+
+        args = new ArrayList<>();
+        args.add(new Label("p_read_int"));
+        i.add(new AssemblyInstr(AssemblyInstrEnum.BL,
+          AssemblyInstrCond.NO_CODE, args));
+
       case RETURN:
+
+        // -----------------
+        // LDR r4, =0
+        // MOV r0, r4
+        // POP {pc}
+        // -----------------
+
+        args = new ArrayList<>();
+        args.add(new Register(RegEnum.R4));
+        args.add(new Const(0, false)); // replace with eval of expr
+        i.add(new AssemblyInstr(AssemblyInstrEnum.LDR,
+          AssemblyInstrCond.NO_CODE, args));
+
+        args = new ArrayList<>();
+        args.add(new Register(RegEnum.R0));
+        args.add(new Register(RegEnum.R4));
+        i.add(new AssemblyInstr(AssemblyInstrEnum.MOV,
+          AssemblyInstrCond.NO_CODE, args));
+
+        args = new ArrayList<>();
+        args.add(new Register(RegEnum.PC));
+        i.add(new AssemblyInstr(AssemblyInstrEnum.POP, AssemblyInstrCond.NO_CODE, args));
+
+        break;
+
       case EXIT:
         // --------------
         // LDR r4, =7
@@ -158,8 +228,35 @@ public class BasicStatNode extends StatNode {
         break;
 
       case PRINT:
-        break;
       case PRINTLN:
+        // LDR r4, =msg_0
+        // MOV r0, r4
+        // BL p_print_string
+
+        args = new ArrayList<>();
+        args.add(new Register(RegEnum.R4));
+        args.add(new Label("msg_0"));
+        i.add(new AssemblyInstr(AssemblyInstrEnum.LDR,
+          AssemblyInstrCond.NO_CODE, args));
+
+        args = new ArrayList<>();
+        args.add(new Register(RegEnum.R0));
+        args.add(new Register(RegEnum.R4));
+        i.add(new AssemblyInstr(AssemblyInstrEnum.MOV,
+          AssemblyInstrCond.NO_CODE, args));
+
+        args = new ArrayList<>();
+        args.add(new Label("p_print_string"));
+        i.add(new AssemblyInstr(AssemblyInstrEnum.BL,
+          AssemblyInstrCond.NO_CODE, args));
+
+        if (st == StatTypeEnum.PRINTLN) {
+          args = new ArrayList<>();
+          args.add(new Label("p_print_ln"));
+          i.add(new AssemblyInstr(AssemblyInstrEnum.BL,
+            AssemblyInstrCond.NO_CODE, args));
+        }
+
         break;
     }
 
