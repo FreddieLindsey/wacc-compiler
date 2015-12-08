@@ -121,6 +121,29 @@ public class BasicStatNode extends StatNode {
 
         break;
       case READ:
+
+//   ADD r4, sp, #0
+//   MOV r0, r4
+//   BL p_read_int
+
+        args = new ArrayList<>();
+        args.add(new Register(RegEnum.R4));
+        args.add(new Register(RegEnum.SP));
+        args.add(new Const(0, true));
+        i.add(new AssemblyInstr(AssemblyInstrEnum.ADD,
+          AssemblyInstrCond.NO_CODE, args));
+
+        args = new ArrayList<>();
+        args.add(new Register(RegEnum.R0));
+        args.add(new Register(RegEnum.R4));
+        i.add(new AssemblyInstr(AssemblyInstrEnum.MOV,
+          AssemblyInstrCond.NO_CODE, args));
+
+        args = new ArrayList<>();
+        args.add(new Label("p_read_int"));
+        i.add(new AssemblyInstr(AssemblyInstrEnum.BL,
+          AssemblyInstrCond.NO_CODE, args));
+
       case RETURN:
 
         // -----------------
