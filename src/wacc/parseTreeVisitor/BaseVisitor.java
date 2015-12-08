@@ -19,6 +19,7 @@ import wacc.ast.pair.NewPairNode;
 import wacc.ast.pair.PairLiteralNode;
 import wacc.ast.pair.PairLookupNode;
 import wacc.ast.type.*;
+import wacc.backend.instruction.StringDataMessage;
 
 public class BaseVisitor<ASTNode> extends BasicParserBaseVisitor<ASTNode> {
   @Override
@@ -237,8 +238,14 @@ public class BaseVisitor<ASTNode> extends BasicParserBaseVisitor<ASTNode> {
       || (s.charAt(0) == '\'' && s.charAt(s.length() - 1) == '\'')) {
       char[] result = new char[s.length() - 2];
       s.getChars(1, s.length() - 1, result, 0);
+      ProgramNode.messages.add(new StringDataMessage(
+        ProgramNode.messages.size(), s
+      ));
       return (ASTNode) new StringNode(new String(result));
     } else {
+      ProgramNode.messages.add(new StringDataMessage(
+        ProgramNode.messages.size(), s
+      ));
       return (ASTNode) new StringNode(s);
     }
 

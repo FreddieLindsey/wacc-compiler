@@ -1,6 +1,8 @@
 package wacc.ast.assign;
 
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 import wacc.ast.ExprNode;
 import wacc.ast.IdentNode;
@@ -149,82 +151,144 @@ public class NewAssignNode extends StatNode {
 
     switch (t.getType()) {
     case ARR:
+      int n = 0, s = 0;
+      boolean array_literal = true;
       if (!(rhs instanceof ArrayLiteralNode)) {
-        System.err.println("Error in Arr case in NewAssignNode");
-      }
-      ArrayLiteralNode arr = (ArrayLiteralNode) rhs;
-      // array of n elements
-      int n = arr.getExprs().size();
-      // each element of size s bytes
-      int s = 0;
-      if (n > 0) {
-        ExprNode e = arr.getExprs().get(0);
-        if (e instanceof CharNode || e instanceof BoolNode) {
-          s = 1;
-        } else {
-          s = 4;
-        }
-      }
-      
-      // Move the stack pointer down by 4 bytes (word)
-      // SUB sp, sp, #4
-      i.add(decStackPointer(4));
-      
-      // Set r0 to the space in bytes required to hold n elements of size s,
-      // with an additional byte to hold the value s
-      // LDR r0, =s * n + 4
-      ArrayList<Arg> arrayMemorySizeArgs = new ArrayList<>();
-      arrayMemorySizeArgs.add(new Register(RegEnum.R0));
-      arrayMemorySizeArgs.add(new Const(s * n + 4, false));
-      i.add(new AssemblyInstr(AssemblyInstrEnum.LDR, AssemblyInstrCond.NO_CODE,
+        StringNode arr = (StringNode) rhs;
+        List<CharNode> string_arr = arr.getStringValue();
+        n = string_arr.size();
+        s = 1;
+
+        // Move the stack pointer down by 4 bytes (word)
+        // SUB sp, sp, #4
+        i.add(decStackPointer(4));
+
+        // Set r0 to the space in bytes required to hold n elements of size s,
+        // with an additional byte to hold the value s
+        // LDR r0, =s * n + 4
+        ArrayList<Arg> arrayMemorySizeArgs = new ArrayList<>();
+        arrayMemorySizeArgs.add(new Register(RegEnum.R0));
+        arrayMemorySizeArgs.add(new Const(s * n + 4, false));
+        i.add(new AssemblyInstr(AssemblyInstrEnum.LDR, AssemblyInstrCond.NO_CODE,
           arrayMemorySizeArgs));
-      
-      // Returns in r0 a memory address with enough space to hold the number
-      // of bytes specified by the previous r0 value
-      // BL malloc
-      i.add(malloc);
-      
-      // Save address allocated to r0 in r4 to reuse r0 for another malloc
-      // MOV r4, r0
-      i.add(saveAddress);
-      
-      // Stores each array element in the corresponding memory position
-      // LDR r5, =x / MOV r5, #value ; STR r5, [r4, #(j + 1) * s]
-      for (int j = 0; j < n; j++) {
-        i.addAll(loadValue(arr.getExprs().get(j), new Register(RegEnum.R5)));
-        
-        ArrayList<Arg> arrayElemStoreArgs = new ArrayList<>();
-        arrayElemStoreArgs.add(new Register(RegEnum.R5));
-        ArrayList<Arg> arrayElemStoreMemAccessArgs = new ArrayList<>();
-        arrayElemStoreMemAccessArgs.add(new Register(RegEnum.R4));
-        arrayElemStoreMemAccessArgs.add(new Const((j + 1) * s, true));
-        arrayElemStoreArgs.add(new MemoryAccess(arrayElemStoreMemAccessArgs));
-      }
-      
-      // Loads the number of elements n
-      // LDR r5, =n
-      ArrayList<Arg> arraySizeArgs = new ArrayList<>();
-      arraySizeArgs.add(new Register(RegEnum.R5));
-      arraySizeArgs.add(new Const(n, false));
-      i.add(new AssemblyInstr(AssemblyInstrEnum.LDR, AssemblyInstrCond.NO_CODE,
+
+        // Returns in r0 a memory address with enough space to hold the number
+        // of bytes specified by the previous r0 value
+        // BL malloc
+        i.add(malloc);
+
+        // Save address allocated to r0 in r4 to reuse r0 for another malloc
+        // MOV r4, r0
+        i.add(saveAddress);
+
+        // Stores each array element in the corresponding memory position
+        // LDR r5, =x / MOV r5, #value ; STR r5, [r4, #(j + 1) * s]
+        for (int j = 0; j < n; j++) {
+          i.addAll(loadValue(string_arr.get(j), new Register(RegEnum.R5)));
+
+          ArrayList<Arg> arrayElemStoreArgs = new ArrayList<>();
+          arrayElemStoreArgs.add(new Register(RegEnum.R5));
+          ArrayList<Arg> arrayElemStoreMemAccessArgs = new ArrayList<>();
+          arrayElemStoreMemAccessArgs.add(new Register(RegEnum.R4));
+          arrayElemStoreMemAccessArgs.add(new Const((j + 1) * s, true));
+          arrayElemStoreArgs.add(new MemoryAccess(arrayElemStoreMemAccessArgs));
+        }
+
+        // Loads the number of elements n
+        // LDR r5, =n
+        ArrayList<Arg> arraySizeArgs = new ArrayList<>();
+        arraySizeArgs.add(new Register(RegEnum.R5));
+        arraySizeArgs.add(new Const(n, false));
+        i.add(new AssemblyInstr(AssemblyInstrEnum.LDR, AssemblyInstrCond.NO_CODE,
           arraySizeArgs));
-      
-      // Stores n in the memory address of the array
-      // STR r5, [r4]
-      ArrayList<Arg> sizeAddressStoreArgs = new ArrayList<>();
-      sizeAddressStoreArgs.add(new Register(RegEnum.R5));
-      sizeAddressStoreArgs.add(new MemoryAccess(new Register(RegEnum.R4)));
-      i.add(new AssemblyInstr(AssemblyInstrEnum.STR,
+
+        // Stores n in the memory address of the array
+        // STR r5, [r4]
+        ArrayList<Arg> sizeAddressStoreArgs = new ArrayList<>();
+        sizeAddressStoreArgs.add(new Register(RegEnum.R5));
+        sizeAddressStoreArgs.add(new MemoryAccess(new Register(RegEnum.R4)));
+        i.add(new AssemblyInstr(AssemblyInstrEnum.STR,
           AssemblyInstrCond.NO_CODE, sizeAddressStoreArgs));
-      
-      // Saves the address of the array on the stack
-      // STR r4, [sp]
-      i.add(wordStore);
-      
-      // TODO: this should happen when the variable goes out of scope
-      // Restore stack pointer up
-      // ADD sp, sp, #4
-      i.add(incStackPointer(4));
+
+        // Saves the address of the array on the stack
+        // STR r4, [sp]
+        i.add(wordStore);
+
+        // TODO: this should happen when the variable goes out of scope
+        // Restore stack pointer up
+        // ADD sp, sp, #4
+        i.add(incStackPointer(4));
+
+      } else {
+        ArrayLiteralNode arr = (ArrayLiteralNode) rhs;
+        n = arr.getExprs().size();
+        if (n > 0) {
+          ExprNode e = arr.getExprs().get(0);
+          // Determine size of each element
+          s = (e instanceof CharNode || e instanceof BoolNode) ? 1 : 4;
+        }
+
+        // Move the stack pointer down by 4 bytes (word)
+        // SUB sp, sp, #4
+        i.add(decStackPointer(4));
+
+        // Set r0 to the space in bytes required to hold n elements of size s,
+        // with an additional byte to hold the value s
+        // LDR r0, =s * n + 4
+        ArrayList<Arg> arrayMemorySizeArgs = new ArrayList<>();
+        arrayMemorySizeArgs.add(new Register(RegEnum.R0));
+        arrayMemorySizeArgs.add(new Const(s * n + 4, false));
+        i.add(new AssemblyInstr(AssemblyInstrEnum.LDR, AssemblyInstrCond.NO_CODE,
+          arrayMemorySizeArgs));
+
+        // Returns in r0 a memory address with enough space to hold the number
+        // of bytes specified by the previous r0 value
+        // BL malloc
+        i.add(malloc);
+
+        // Save address allocated to r0 in r4 to reuse r0 for another malloc
+        // MOV r4, r0
+        i.add(saveAddress);
+
+        // Stores each array element in the corresponding memory position
+        // LDR r5, =x / MOV r5, #value ; STR r5, [r4, #(j + 1) * s]
+        for (int j = 0; j < n; j++) {
+          i.addAll(loadValue(arr.getExprs().get(j), new Register(RegEnum.R5)));
+
+          ArrayList<Arg> arrayElemStoreArgs = new ArrayList<>();
+          arrayElemStoreArgs.add(new Register(RegEnum.R5));
+          ArrayList<Arg> arrayElemStoreMemAccessArgs = new ArrayList<>();
+          arrayElemStoreMemAccessArgs.add(new Register(RegEnum.R4));
+          arrayElemStoreMemAccessArgs.add(new Const((j + 1) * s, true));
+          arrayElemStoreArgs.add(new MemoryAccess(arrayElemStoreMemAccessArgs));
+        }
+
+        // Loads the number of elements n
+        // LDR r5, =n
+        ArrayList<Arg> arraySizeArgs = new ArrayList<>();
+        arraySizeArgs.add(new Register(RegEnum.R5));
+        arraySizeArgs.add(new Const(n, false));
+        i.add(new AssemblyInstr(AssemblyInstrEnum.LDR, AssemblyInstrCond.NO_CODE,
+          arraySizeArgs));
+
+        // Stores n in the memory address of the array
+        // STR r5, [r4]
+        ArrayList<Arg> sizeAddressStoreArgs = new ArrayList<>();
+        sizeAddressStoreArgs.add(new Register(RegEnum.R5));
+        sizeAddressStoreArgs.add(new MemoryAccess(new Register(RegEnum.R4)));
+        i.add(new AssemblyInstr(AssemblyInstrEnum.STR,
+          AssemblyInstrCond.NO_CODE, sizeAddressStoreArgs));
+
+        // Saves the address of the array on the stack
+        // STR r4, [sp]
+        i.add(wordStore);
+
+        // TODO: this should happen when the variable goes out of scope
+        // Restore stack pointer up
+        // ADD sp, sp, #4
+        i.add(incStackPointer(4));
+      }
+
       break;
       
     case PAIR:
