@@ -1,3 +1,0 @@
-begin
-  char c = chr (ord 'a')
-end

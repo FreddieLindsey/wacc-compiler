@@ -1,3 +1,0 @@
-begin
-  bool b = true || true
-end
