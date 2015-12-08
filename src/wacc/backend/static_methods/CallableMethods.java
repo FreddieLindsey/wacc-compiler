@@ -151,4 +151,97 @@ public class CallableMethods {
 
     return i;
   }
+
+  public static InstructionBlock p_check_divide_by_zero(String s){
+//     p_check_divide_by_zero:
+// 28    PUSH {lr}
+// 29    CMP r1, #0
+// 30    LDREQ r0, =msg_0
+// 31    BLEQ p_throw_runtime_error
+// 32    POP {pc}
+
+    InstructionBlock i = new InstructionBlock("p_check_divide_by_zero");
+    ArrayList<Arg> args;
+
+    args = new ArrayList<>();
+    args.add(new Register(RegEnum.LR));
+    i.add(new AssemblyInstr(AssemblyInstrEnum.PUSH,
+      AssemblyInstrCond.NO_CODE, args));
+
+    args = new ArrayList<>();
+    args.add(new Register(RegEnum.R0));
+    args.add(new Const(0, true));
+    i.add(new AssemblyInstr(AssemblyInstrEnum.CMP,
+      AssemblyInstrCond.NO_CODE, args));
+
+    args = new ArrayList<>();
+    args.add(new Register(RegEnum.R0));
+    args.add(new Label(s));
+    i.add(new AssemblyInstr(AssemblyInstrEnum.LDR,
+      AssemblyInstrCond.EQ, args));
+
+    args = new ArrayList<>();
+    args.add(new Label("p_throw_runtime_error"));
+    i.add(new AssemblyInstr(AssemblyInstrEnum.BL,
+      AssemblyInstrCond.EQ, args));
+
+    args = new ArrayList<>();
+    args.add(new Register(RegEnum.PC));
+    i.add(new AssemblyInstr(AssemblyInstrEnum.POP,
+      AssemblyInstrCond.NO_CODE, args));
+
+    return i;
+  }
+
+  public static InstructionBlock p_throw_overflow_error() {
+//     #25 p_throw_overflow_error:
+// #26   LDR r0, =msg_0
+// #27   BL p_throw_runtime_error
+
+    InstructionBlock i = new InstructionBlock("p_check_divide_by_zero");
+    ArrayList<Arg> args;
+
+    args = new ArrayList<>();
+    args.add(new Register(RegEnum.R0));
+    args.add(new Label("msg_0"));
+    i.add(new AssemblyInstr(AssemblyInstrEnum.LDR,
+      AssemblyInstrCond.NO_CODE, args));
+
+    args = new ArrayList<>();
+    args.add(new Label("p_throw_runtime_error"));
+    i.add(new AssemblyInstr(AssemblyInstrEnum.BL,
+      AssemblyInstrCond.NO_CODE, args));
+
+    return i;
+
+  }
+
+  public static InstructionBlock p_throw_runtime_error() {
+// #27 p_throw_runtime_error:
+// #28   BL p_print_string
+// #29   MOV r0, #-1
+// #30   BL exit
+
+    InstructionBlock i = new InstructionBlock("p_throw_runtime_error");
+    ArrayList<Arg> args;
+
+    args = new ArrayList<>();
+    args.add(new Label("p_print_string"));
+    i.add(new AssemblyInstr(AssemblyInstrEnum.BL,
+      AssemblyInstrCond.NO_CODE, args));
+
+    args = new ArrayList<>();
+    args.add(new Register(RegEnum.R0));
+    args.add(new Const(-1, true));
+    i.add(new AssemblyInstr(AssemblyInstrEnum.MOV,
+      AssemblyInstrCond.NO_CODE, args));
+
+    args = new ArrayList<>();
+    args.add(new Label("exit"));
+    i.add(new AssemblyInstr(AssemblyInstrEnum.BL,
+      AssemblyInstrCond.NO_CODE, args));
+
+    return i;
+
+  }
 }

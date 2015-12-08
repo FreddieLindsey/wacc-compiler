@@ -22,7 +22,7 @@ public class BarrelShift extends Arg {
 
   @Override
   public String toString() {
-    return shift.name() + "#" + shiftee.toString();
+    return shift.name() + shiftee.toString();
   }
 
 

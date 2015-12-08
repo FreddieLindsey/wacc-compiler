@@ -1,0 +1,46 @@
+0	.data
+#1	
+#2	msg_0:
+#3		.word 82
+#4		.ascii	"OverflowError: the result is too small/large to store in a 4-byte signed-integer.\n"
+#5	msg_1:
+#6		.word 5
+#7		.ascii	"%.*s\0"
+#8	
+#9	.text
+#10	
+#11	.global main
+#12	main:
+#13		PUSH {lr}
+#14		SUB sp, sp, #4
+#15		LDR r4, =1
+#16		LDR r5, =2
+#17		ADDS r4, r4, r5
+#18		BLVS p_throw_overflow_error
+#19		STR r4, [sp]
+#20		ADD sp, sp, #4
+#21		LDR r0, =0
+#22		POP {pc}
+#23		.ltorg
+#24	p_throw_overflow_error:
+#25		LDR r0, =msg_0
+#26		BL p_throw_runtime_error
+#27	p_throw_runtime_error:
+#28		BL p_print_string
+#29		MOV r0, #-1
+#30		BL exit
+#31	p_print_string:
+#32		PUSH {lr}
+#33		LDR r1, [r0]
+#34		ADD r2, r0, #4
+#35		LDR r0, =msg_1
+#36		ADD r0, r0, #4
+#37		BL printf
+#38		MOV r0, #0
+#39		BL fflush
+#40		POP {pc}
+#41
+
+begin
+  int i = 1 + 2
+end
