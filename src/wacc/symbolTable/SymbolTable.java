@@ -4,6 +4,7 @@ import com.sun.jndi.cosnaming.IiopUrl;
 import wacc.ast.type.TypeNode;
 import wacc.symbolTable.DataContainer.*;
 
+import javax.xml.crypto.Data;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -33,25 +34,24 @@ public class SymbolTable {
   // Looks up s in the current and enclosing SymbolTables,
   // returns null if not found
   public TypeNode lookUpType(String s) {
-    SymbolTable current = this;
-    TypeNode result;
-    while (current != null) {
-      result = current.lookUpHereType(s);
-      if (result != null) {
-        return result;
-      }
-      current = current.parent;
-    }
-    return null;
+    DataContainer d = lookUpDataFor(s);
+    return (d != null) ? d.getTypeNode() : null;
   }
 
   // Looks up s in the current and enclosing SymbolTables,
   // returns null if not found
   public AddressReference lookUpAddressReference(String s) {
+    DataContainer d = lookUpDataFor(s);
+    return (d != null) ? d.getAddressReference() : null;
+  }
+
+  // Looks up s in the current and enclosing SymbolTables,
+  // returns null if not found
+  public DataContainer lookUpDataFor(String s) {
     SymbolTable current = this;
-    AddressReference result;
+    DataContainer result;
     while (current != null) {
-      result = current.lookUpHereAddressReference(s);
+      result = current.getDataContainer(s);
       if (result != null) {
         return result;
       }
