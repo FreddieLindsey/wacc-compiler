@@ -205,6 +205,7 @@ public class BasicStatNode extends StatNode {
         break;
 
       case PRINT:
+      case PRINTLN:
         // LDR r4, =msg_0
         // MOV r0, r4
         // BL p_print_string
@@ -226,8 +227,13 @@ public class BasicStatNode extends StatNode {
         i.add(new AssemblyInstr(AssemblyInstrEnum.BL,
           AssemblyInstrCond.NO_CODE, args));
 
-        break;
-      case PRINTLN:
+        if (st == StatTypeEnum.PRINTLN) {
+          args = new ArrayList<>();
+        args.add(new Label("p_print_ln"));
+        i.add(new AssemblyInstr(AssemblyInstrEnum.BL,
+          AssemblyInstrCond.NO_CODE, args));
+        }
+
         break;
     }
 
