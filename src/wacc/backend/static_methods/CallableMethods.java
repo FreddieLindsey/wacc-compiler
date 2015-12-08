@@ -66,6 +66,7 @@ public class CallableMethods {
   }
 
   public static InstructionBlock p_read_int(String s) {
+
     InstructionBlock i = new InstructionBlock("p_read_int");
     ArrayList<Arg> args;
 
@@ -170,6 +171,7 @@ public class CallableMethods {
   }
 
   public static InstructionBlock p_print_ln(String s) {
+
     InstructionBlock i = new InstructionBlock("p_print_ln");
     ArrayList<Arg> args;
 
@@ -215,13 +217,14 @@ public class CallableMethods {
     return i;
   }
 
-  public static InstructionBlock p_check_divide_by_zero(String s){
+  public static InstructionBlock p_check_divide_by_zero(String s) {
 //     p_check_divide_by_zero:
 // 28    PUSH {lr}
 // 29    CMP r1, #0
 // 30    LDREQ r0, =msg_0
 // 31    BLEQ p_throw_runtime_error
 // 32    POP {pc}
+
 
     InstructionBlock i = new InstructionBlock("p_check_divide_by_zero");
     ArrayList<Arg> args;
@@ -264,6 +267,7 @@ public class CallableMethods {
 // #26   LDR r0, =msg_0
 // #27   BL p_throw_runtime_error
 
+
     InstructionBlock i = new InstructionBlock("p_check_divide_by_zero");
     ArrayList<Arg> args;
 
@@ -290,6 +294,7 @@ public class CallableMethods {
 // #28   BL p_print_string
 // #29   MOV r0, #-1
 // #30   BL exit
+
 
     InstructionBlock i = new InstructionBlock("p_throw_runtime_error");
     ArrayList<Arg> args;
@@ -330,7 +335,8 @@ public class CallableMethods {
     // 48    BL free
     // 49    POP {pc}
 
-    InstructionBlock i = new InstructionBlock("p_print_string");
+
+    InstructionBlock i = new InstructionBlock("p_free_pair");
     ArrayList<Arg> args;
 
     args = new ArrayList<>();

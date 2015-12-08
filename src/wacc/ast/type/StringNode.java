@@ -1,6 +1,7 @@
 package wacc.ast.type;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class StringNode extends LiteralNode<String> {
 
@@ -24,5 +25,9 @@ public class StringNode extends LiteralNode<String> {
   @Override
   public TypeNode type() {
     return type;
+  }
+
+  public List<CharNode> getStringValue() {
+    return string;
   }
 }
