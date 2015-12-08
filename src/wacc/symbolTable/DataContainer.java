@@ -11,11 +11,6 @@ public class DataContainer {
     this.t = t;
   }
 
-  public DataContainer(TypeNode t, AddressReference a) {
-    this(t);
-    this.a = a;
-  }
-
   public void setAddressReference(AddressReference a) {
     this.a = a;
   }
@@ -26,14 +21,5 @@ public class DataContainer {
 
   public AddressReference getAddressReference() {
     return a;
-  }
-
-  public class AddressReference {
-
-    private int a;
-
-    public AddressReference(int a) {
-      this.a = a;
-    }
   }
 }

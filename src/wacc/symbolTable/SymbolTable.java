@@ -60,6 +60,10 @@ public class SymbolTable {
     return null;
   }
 
+  public void setAddressReference(String s, int a) {
+    getDataContainer(s).setAddressReference(new AddressReference(a));
+  }
+
   public DataContainer getDataContainer(String s) {
     return dictionary.get(s);
   }
