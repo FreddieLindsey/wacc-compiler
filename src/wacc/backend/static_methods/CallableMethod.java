@@ -1,7 +1,6 @@
 package wacc.backend.static_methods;
 
 import wacc.ast.ProgramNode;
-import wacc.backend.instruction.Instruction;
 import wacc.backend.instruction.InstructionBlock;
 import wacc.backend.instruction.StringDataMessage;
 

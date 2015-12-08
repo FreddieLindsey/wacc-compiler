@@ -20,6 +20,7 @@ import wacc.ast.pair.PairLiteralNode;
 import wacc.ast.pair.PairLookupNode;
 import wacc.ast.type.*;
 import wacc.backend.instruction.StringDataMessage;
+import wacc.backend.static_methods.CallableMethod;
 
 public class BaseVisitor<ASTNode> extends BasicParserBaseVisitor<ASTNode> {
   @Override
@@ -261,10 +262,12 @@ public class BaseVisitor<ASTNode> extends BasicParserBaseVisitor<ASTNode> {
   @Override
   public ASTNode visitStat(@NotNull BasicParser.StatContext ctx) {
     if (ctx.READ() != null) {
+      ProgramNode.static_methods_called.add(CallableMethod.P_READ_INT);
       BasicStatNode b = new BasicStatNode(StatTypeEnum.READ);
       b.addExpr((ExprNode) visitAssignlhs(ctx.assignlhs()));
       return (ASTNode) b;
     } else if (ctx.FREE() != null) {
+      ProgramNode.static_methods_called.add(CallableMethod.P_FREE_PAIR);
       BasicStatNode b = new BasicStatNode(StatTypeEnum.FREE);
       b.addExpr((ExprNode) visitExpr(ctx.expr()));
       return (ASTNode) b;
@@ -293,10 +296,15 @@ public class BaseVisitor<ASTNode> extends BasicParserBaseVisitor<ASTNode> {
       b.addExpr((ExprNode) visitExpr(ctx.expr()));
       return (ASTNode) b;
     } else if (ctx.PRINT() != null) {
+      ProgramNode.static_methods_called.add(CallableMethod.P_PRINT_STRING);
+      ProgramNode.static_methods_called.add(CallableMethod.P_PRINT_INT);
       BasicStatNode b = new BasicStatNode(StatTypeEnum.PRINT);
       b.addExpr((ExprNode) visitExpr(ctx.expr()));
       return (ASTNode) b;
     } else if (ctx.PRINTLN() != null) {
+      ProgramNode.static_methods_called.add(CallableMethod.P_PRINT_STRING);
+      ProgramNode.static_methods_called.add(CallableMethod.P_PRINT_INT);
+      ProgramNode.static_methods_called.add(CallableMethod.P_PRINT_LN);
       BasicStatNode b = new BasicStatNode(StatTypeEnum.PRINTLN);
       b.addExpr((ExprNode) visitExpr(ctx.expr()));
       return (ASTNode) b;
