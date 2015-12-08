@@ -14,5 +14,6 @@
 
 
 begin
-  char c = chr 5
+  char c = chr 97 ;
+  int n = ord c
 end
