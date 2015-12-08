@@ -51,9 +51,9 @@ public class CallableMethodsTest {
       "\tBL fflush\n" +
       "\tPOP {pc}\n";
 
-    InstructionBlock p_print_string_ln = CallableMethods.p_print_string_ln("msg_2");
+    InstructionBlock p_print_ln = CallableMethods.p_print_ln("msg_2");
 
-    assertEquals(expectedOutput, p_print_string_ln.toString());
+    assertEquals(expectedOutput, p_print_ln.toString());
   }
 
 }

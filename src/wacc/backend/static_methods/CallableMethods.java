@@ -106,7 +106,7 @@ public class CallableMethods {
     return i;
   }
 
-  public static InstructionBlock p_print_string_ln(String s) {
+  public static InstructionBlock p_print_ln(String s) {
     InstructionBlock i = new InstructionBlock("p_print_ln");
     ArrayList<Arg> args;
 
