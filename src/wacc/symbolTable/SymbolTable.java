@@ -22,12 +22,14 @@ public class SymbolTable {
 
   // Looks up s in the current SymbolTable, returns null if not found
   public TypeNode lookUpHereType(String s) {
-    return getDataContainer(s).getTypeNode();
+    DataContainer d = getDataContainer(s);
+    return (d != null) ? d.getTypeNode() : null;
   }
 
   // Looks up s in the current SymbolTable, returns null if not found
   public AddressReference lookUpHereAddressReference(String s) {
-    return getDataContainer(s).getAddressReference();
+    DataContainer d = getDataContainer(s);
+    return (d != null) ? d.getAddressReference() : null;
   }
 
   // Looks up s in the current and enclosing SymbolTables,
