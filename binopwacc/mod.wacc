@@ -1,3 +1,0 @@
-begin
-  int i = 4 % 2
-end

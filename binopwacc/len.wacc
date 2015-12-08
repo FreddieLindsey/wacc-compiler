@@ -1,4 +1,0 @@
-begin
-  char[] c = ['a', 'b', 'c'];
-  int n = len c
-end
