@@ -42,6 +42,10 @@ public class Const extends Arg {
     return str;
   }
 
+  public char getChar() {
+    return c;
+  }
+
   @Override
   public String toString() {
 

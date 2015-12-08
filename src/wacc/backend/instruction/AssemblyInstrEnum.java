@@ -50,6 +50,7 @@ public enum AssemblyInstrEnum {
   MVN, // NOT operand2
   LDR, // Load into register
   STR, // Store to memory
+  STRB, // Store byte to memory
 
   //STACK
 
