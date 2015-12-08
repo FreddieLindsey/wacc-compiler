@@ -432,6 +432,34 @@ public class BinOpNode extends AssignNode {
       break;
       case NEQ: 
 
+      if (lhs.type().equals(new TypeNode(TypeEnum.ARR))) {
+//      LDR r4, [sp, #5]
+//      LDR r5, [sp, #1]
+
+        ArrayList<Arg> args2;
+
+        args = new ArrayList<Arg>();
+        args.add(regs.get(0));
+        args2 = new ArrayList<Arg>();
+        args2.add(new Register(RegEnum.SP));
+        args2.add(new Const(5, true)); // needs generalising?
+        args.add(new MemoryAccess(args2));
+        i.add(new AssemblyInstr(AssemblyInstrEnum.LDR,
+              AssemblyInstrCond.NO_CODE, args));    
+
+
+        args = new ArrayList<Arg>();
+        args.add(regs.get(1));
+        args2 = new ArrayList<Arg>();
+        args2.add(new Register(RegEnum.SP));
+        args2.add(new Const(1, true)); // needs generalising?
+        args.add(new MemoryAccess(args2));
+        i.add(new AssemblyInstr(AssemblyInstrEnum.LDR,
+              AssemblyInstrCond.NO_CODE, args));
+          
+
+      }
+
 //    CMP r4, r5
 //    MOVNE r4, #1
 //    MOVEQ r4, #0
