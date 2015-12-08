@@ -6,8 +6,10 @@ import java.util.ArrayList;
 
 public class CallableMethods {
 
+  static int called = 0;
+
   public static InstructionBlock p_print_string(String s) {
-    InstructionBlock i = new InstructionBlock("p_print_string");
+    InstructionBlock i = new InstructionBlock("p_print_string_" + called);
     ArrayList<Arg> args;
 
     args = new ArrayList<>();
@@ -66,7 +68,7 @@ public class CallableMethods {
   }
 
   public static InstructionBlock p_read_int(String s) {
-    InstructionBlock i = new InstructionBlock("p_read_int");
+    InstructionBlock i = new InstructionBlock("p_read_int_" + called);
     ArrayList<Arg> args;
 
     args = new ArrayList<>();
@@ -118,7 +120,7 @@ public class CallableMethods {
 //    BL fflush
 //    POP {pc}
 
-    InstructionBlock i = new InstructionBlock("p_print_int");
+    InstructionBlock i = new InstructionBlock("p_print_int_" + called);
     ArrayList<Arg> args;
 
     args = new ArrayList<>();
@@ -170,7 +172,7 @@ public class CallableMethods {
   }
 
   public static InstructionBlock p_print_ln(String s) {
-    InstructionBlock i = new InstructionBlock("p_print_ln");
+    InstructionBlock i = new InstructionBlock("p_print_ln_" + called);
     ArrayList<Arg> args;
 
     args = new ArrayList<>();
@@ -223,7 +225,7 @@ public class CallableMethods {
 // 31    BLEQ p_throw_runtime_error
 // 32    POP {pc}
 
-    InstructionBlock i = new InstructionBlock("p_check_divide_by_zero");
+    InstructionBlock i = new InstructionBlock("p_check_divide_by_zero_" + called);
     ArrayList<Arg> args;
 
     args = new ArrayList<>();
@@ -264,7 +266,7 @@ public class CallableMethods {
 // #26   LDR r0, =msg_0
 // #27   BL p_throw_runtime_error
 
-    InstructionBlock i = new InstructionBlock("p_check_divide_by_zero");
+    InstructionBlock i = new InstructionBlock("p_check_divide_by_zero_" + called);
     ArrayList<Arg> args;
 
     args = new ArrayList<>();
@@ -291,7 +293,7 @@ public class CallableMethods {
 // #29   MOV r0, #-1
 // #30   BL exit
 
-    InstructionBlock i = new InstructionBlock("p_throw_runtime_error");
+    InstructionBlock i = new InstructionBlock("p_throw_runtime_error_" + called);
     ArrayList<Arg> args;
 
     args = new ArrayList<>();
@@ -330,7 +332,7 @@ public class CallableMethods {
     // 48    BL free
     // 49    POP {pc}
 
-    InstructionBlock i = new InstructionBlock("p_print_string");
+    InstructionBlock i = new InstructionBlock("p_print_string_" + called);
     ArrayList<Arg> args;
 
     args = new ArrayList<>();
