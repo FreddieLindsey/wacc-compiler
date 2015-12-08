@@ -266,7 +266,7 @@ public class BinOpNode extends AssignNode {
       args.add(regs.get(0));
       args.add(regs.get(0));
       args.add(regs.get(1));
-      i.add(new AssemblyInstr(AssemblyInstrEnum.ADD,
+      i.add(new AssemblyInstr(AssemblyInstrEnum.SUB,
             AssemblyInstrCond.S, args)); 
 
       args = new ArrayList<Arg>();
@@ -380,10 +380,6 @@ public class BinOpNode extends AssignNode {
       if (lhs.type().equals(new TypeNode(TypeEnum.ARR))) {
 //      LDR r4, [sp, #5]
 //      LDR r5, [sp, #1]
-//      CMP r4, r5
-//      MOVEQ r4, #1
-//      MOVNE r4, #0
-//      STRB r4, [sp] not sure if this line should be included?
 
       ArrayList<Arg> args2;
 
@@ -405,12 +401,7 @@ public class BinOpNode extends AssignNode {
       args.add(new MemoryAccess(args2));
       i.add(new AssemblyInstr(AssemblyInstrEnum.LDR,
             AssemblyInstrCond.NO_CODE, args));
-
-      args = new ArrayList<Arg>();
-      args.add(regs.get(0));
-      args.add(regs.get(1));
-      i.add(new AssemblyInstr(AssemblyInstrEnum.CMP,
-            AssemblyInstrCond.NO_CODE, args));         
+        
 
       }
 
