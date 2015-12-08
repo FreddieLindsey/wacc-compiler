@@ -7,26 +7,9 @@ import wacc.ast.IdentNode;
 import wacc.ast.function.CallNode;
 import wacc.ast.io.StatNode;
 import wacc.ast.pair.NewPairNode;
-import wacc.ast.type.AnyTypeNode;
-import wacc.ast.type.ArrayLiteralNode;
-import wacc.ast.type.BoolNode;
-import wacc.ast.type.CharNode;
-import wacc.ast.type.FuncTypeNode;
-import wacc.ast.type.IntNode;
-import wacc.ast.type.PairTypeNode;
-import wacc.ast.type.StringNode;
-import wacc.ast.type.TypeNode;
-import wacc.backend.instruction.Arg;
-import wacc.backend.instruction.AssemblyInstr;
-import wacc.backend.instruction.AssemblyInstrCond;
-import wacc.backend.instruction.AssemblyInstrEnum;
-import wacc.backend.instruction.Const;
-import wacc.backend.instruction.Instruction;
-import wacc.backend.instruction.InstructionBlock;
-import wacc.backend.instruction.Label;
-import wacc.backend.instruction.MemoryAccess;
-import wacc.backend.instruction.RegEnum;
-import wacc.backend.instruction.Register;
+import wacc.ast.type.*;
+import wacc.ast.operator.*;
+import wacc.backend.instruction.*;
 
 public class NewAssignNode extends StatNode {
 
@@ -484,6 +467,10 @@ public class NewAssignNode extends StatNode {
       return ((CharNode) expr).generateCode(regList);
     } else if (expr instanceof BoolNode) {
       return ((BoolNode) expr).generateCode(regList);
+    } else if (expr instanceof UnOpNode) {
+      return ((UnOpNode) expr).generateCode(regList);
+    } else if (expr instanceof BinOpNode) {
+      return ((BinOpNode) expr).generateCode(regList);
     } else {
       System.err.println("Error in loadValue in NewAssignNode.");
       return null;

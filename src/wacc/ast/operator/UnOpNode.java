@@ -115,8 +115,8 @@ public class UnOpNode extends AssignNode {
         args.add(regs.get(0));
         args.add(regs.get(0));
         args.add(new Const(0, true)); // any idea why this negates r4?
-        i.add(new AssemblyInstr(AssemblyInstrEnum.LDR,
-          AssemblyInstrCond.NO_CODE, args));
+        i.add(new AssemblyInstr(AssemblyInstrEnum.RSB,
+          AssemblyInstrCond.S, args));
 
         args = new ArrayList<Arg>();
         args.add(new Label("p_throw_overflow_error"));
