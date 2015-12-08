@@ -244,4 +244,98 @@ public class CallableMethods {
     return i;
 
   }
+
+  public static InstructionBlock p_free_pair(String s) {
+    // 37    PUSH {lr}
+    // 38    CMP r0, #0
+    // 39    LDREQ r0, =msg_0
+    // 40    BEQ p_throw_runtime_error
+    // 41    PUSH {r0}
+    // 42    LDR r0, [r0]
+    // 43    BL free
+    // 44    LDR r0, [sp]
+    // 45    LDR r0, [r0, #4]
+    // 46    BL free
+    // 47    POP {r0}
+    // 48    BL free
+    // 49    POP {pc}
+
+    InstructionBlock i = new InstructionBlock("p_print_string");
+    ArrayList<Arg> args;
+
+    args = new ArrayList<>();
+    args.add(new Register(RegEnum.LR));
+    i.add(new AssemblyInstr(AssemblyInstrEnum.PUSH,
+      AssemblyInstrCond.NO_CODE, args));
+
+    args = new ArrayList<>();
+    args.add(new Register(RegEnum.R0));
+    args.add(new Const(0, true));
+    i.add(new AssemblyInstr(AssemblyInstrEnum.CMP,
+      AssemblyInstrCond.NO_CODE, args));
+
+    args = new ArrayList<>();
+    args.add(new Register(RegEnum.R0));
+    args.add(new Label("msg_0"));
+    i.add(new AssemblyInstr(AssemblyInstrEnum.LDR,
+      AssemblyInstrCond.EQ, args));
+
+    args = new ArrayList<>();
+    args.add(new Label("p_throw_runtime_error"));
+    i.add(new AssemblyInstr(AssemblyInstrEnum.B,
+      AssemblyInstrCond.EQ, args));
+
+    args = new ArrayList<>();
+    args.add(new Register(RegEnum.R0));
+    i.add(new AssemblyInstr(AssemblyInstrEnum.PUSH,
+      AssemblyInstrCond.NO_CODE, args));
+
+    args = new ArrayList<>();
+    args.add(new Register(RegEnum.R0));
+    args.add(new MemoryAccess(new Register(RegEnum.R0)));
+    i.add(new AssemblyInstr(AssemblyInstrEnum.LDR,
+      AssemblyInstrCond.NO_CODE, args));
+
+    args = new ArrayList<>();
+    args.add(new Label("free"));
+    i.add(new AssemblyInstr(AssemblyInstrEnum.BL,
+      AssemblyInstrCond.NO_CODE, args));
+
+    args = new ArrayList<>();
+    args.add(new Register(RegEnum.R0));
+    args.add(new MemoryAccess(new Register(RegEnum.SP)));
+    i.add(new AssemblyInstr(AssemblyInstrEnum.LDR,
+      AssemblyInstrCond.NO_CODE, args));
+
+    args = new ArrayList<>();
+    args.add(new Register(RegEnum.R0));
+    ArrayList<Arg> args2 = new ArrayList<>();
+    args2.add(new Register(RegEnum.R0));
+    args2.add(new Const(4, true));
+    args.add(new MemoryAccess(args2));
+    i.add(new AssemblyInstr(AssemblyInstrEnum.LDR,
+      AssemblyInstrCond.NO_CODE, args));
+
+    args = new ArrayList<>();
+    args.add(new Label("free"));
+    i.add(new AssemblyInstr(AssemblyInstrEnum.BL,
+      AssemblyInstrCond.NO_CODE, args));
+
+    args = new ArrayList<>();
+    args.add(new Register(RegEnum.R0));
+    i.add(new AssemblyInstr(AssemblyInstrEnum.POP,
+      AssemblyInstrCond.NO_CODE, args));
+
+    args = new ArrayList<>();
+    args.add(new Label("free"));
+    i.add(new AssemblyInstr(AssemblyInstrEnum.BL,
+      AssemblyInstrCond.NO_CODE, args));
+
+    args = new ArrayList<>();
+    args.add(new Register(RegEnum.PC));
+    i.add(new AssemblyInstr(AssemblyInstrEnum.POP,
+      AssemblyInstrCond.NO_CODE, args));
+
+    return i;
+  }
 }

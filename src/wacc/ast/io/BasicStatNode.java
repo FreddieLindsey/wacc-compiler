@@ -97,8 +97,30 @@ public class BasicStatNode extends StatNode {
     switch (st) {
       case SKIP:
         break;
-      case READ:
       case FREE:
+        // 29    LDR r4, [sp]
+        // 30    MOV r0, r4
+        // 31    BL p_free_pair
+
+        args = new ArrayList<>();
+        args.add(new Register(RegEnum.R4));
+        args.add(new MemoryAccess(new Register(RegEnum.SP)));
+        i.add(new AssemblyInstr(AssemblyInstrEnum.LDR,
+          AssemblyInstrCond.NO_CODE, args));
+
+        args = new ArrayList<>();
+        args.add(new Register(RegEnum.R0));
+        args.add(new Register(RegEnum.R4));
+        i.add(new AssemblyInstr(AssemblyInstrEnum.MOV,
+          AssemblyInstrCond.NO_CODE, args));
+
+        args = new ArrayList<>();
+        args.add(new Label("b_free_pair"));
+        i.add(new AssemblyInstr(AssemblyInstrEnum.BL,
+          AssemblyInstrCond.NO_CODE, args));
+
+        break;
+      case READ:
       case RETURN:
       case EXIT:
         // --------------
