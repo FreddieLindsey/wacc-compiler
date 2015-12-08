@@ -4,8 +4,10 @@ import wacc.ast.function.FuncNode;
 import wacc.ast.io.StatNode;
 import wacc.backend.instruction.*;
 import wacc.symbolTable.SymbolTable;
+import wacc.backend.static_methods.*;
 
 import java.util.ArrayList;
+import java.lang.reflect.Method;
 
 public class ProgramNode extends ASTNode {
 
@@ -65,6 +67,8 @@ public class ProgramNode extends ASTNode {
   public InstructionBlock generateCode() {
     InstructionBlock i = new InstructionBlock();
 
+    MethodResolver resolver = MethodResolver.resolver();
+
     i.add(new DataMessage(".text")); // temporary
     i.add(new InformationDataMessage(".global", "main")); // set entry point
 
@@ -93,6 +97,39 @@ public class ProgramNode extends ASTNode {
 
     i.add(main);
 
+    ArrayList<InstructionBlock> callables = generateCallableMethods();
+    for (InstructionBlock block : callables) {
+      i.add(block);
+    }
+
     return i;
   }
+
+  private ArrayList<InstructionBlock> generateCallableMethods() {
+    ArrayList<String> labels = MethodResolver.resolver().getLabels();
+    ArrayList<String> added = new ArrayList<>();
+    Method methods[] = CallableMethods.class.getMethods();
+    ArrayList<InstructionBlock> code = new ArrayList<>();
+
+    for (Method method : methods) {
+      String mName = method.getName();
+
+      if (added.contains(mName)) {
+        continue;
+      }
+
+      if (labels.contains(mName)) {
+        try {
+          InstructionBlock block = (InstructionBlock)method.invoke("msg_1"); // NEEDS FIXING
+          code.add(block);
+        } catch (Exception ex) {
+          System.err.println("Clever code is not so clever");
+          System.err.println(ex.getMessage());
+        }
+      }
+    }
+
+    return code;
+  }
+  
 }
