@@ -3,18 +3,22 @@ package wacc.ast;
 import wacc.ast.function.FuncNode;
 import wacc.ast.io.StatNode;
 import wacc.backend.instruction.*;
+import wacc.backend.static_methods.CallableMethod;
+import wacc.backend.static_methods.CallableMethods;
+import wacc.backend.static_methods.MethodResolver;
 import wacc.symbolTable.SymbolTable;
-import wacc.backend.static_methods.*;
 
-import java.util.ArrayList;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class ProgramNode extends ASTNode {
 
   private List<FuncNode> funcs;
   private StatNode stat;
-  public static List<CallableMethod> static_methods_called = new ArrayList<>();
+  public static Set<CallableMethod> static_methods_called = new HashSet<>();
 
   public ProgramNode() {
     super();
@@ -122,7 +126,7 @@ public class ProgramNode extends ASTNode {
 
       if (labels.contains(mName)) {
         try {
-          InstructionBlock block = (InstructionBlock)method.invoke("msg_1"); // NEEDS FIXING
+          InstructionBlock block = (InstructionBlock) method.invoke("msg_1"); // NEEDS FIXING
           code.add(block);
         } catch (Exception ex) {
           System.err.println("Clever code is not so clever");
@@ -133,5 +137,5 @@ public class ProgramNode extends ASTNode {
 
     return code;
   }
-  
+
 }
