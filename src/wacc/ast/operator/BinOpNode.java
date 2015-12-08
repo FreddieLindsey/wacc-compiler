@@ -119,7 +119,7 @@ public class BinOpNode extends AssignNode {
     return true;
   }
 
-  @Override
+  //@Override
   public InstructionBlock generateCode(ArrayList<Register> regs) {
     InstructionBlock i = new InstructionBlock();
 

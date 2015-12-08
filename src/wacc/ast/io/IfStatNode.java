@@ -60,9 +60,16 @@ public class IfStatNode extends StatNode {
     InstructionBlock i = new InstructionBlock();
     ArrayList<Arg> args;
 
+    ArrayList<Register> regs = new ArrayList();
+    regs.add(new Register(RegEnum.R4));
+    regs.add(new Register(RegEnum.R5));
+    regs.add(new Register(RegEnum.R6));
+    regs.add(new Register(RegEnum.R7));
+    //messy as hell I know
+
     // Should evaluate the expression and leave result in r4
     // true -> #1 and false -> #0
-    i.add(expr.generateCode());
+    i.add(expr.generateCode(regs));
 
     // CMP r4, #0
     // Checks if expr evaluates to false
