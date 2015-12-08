@@ -28,7 +28,7 @@ public class BoolNode extends LiteralNode<Boolean> {
     args = new ArrayList<>();
     args.add(regs.get(0));
     args.add(new Const(value ? 1 : 0, true));
-    i.add(new AssemblyInstr(AssemblyInstrEnum.LDR,
+    i.add(new AssemblyInstr(AssemblyInstrEnum.MOV,
       AssemblyInstrCond.NO_CODE, args));
 
     return i;
