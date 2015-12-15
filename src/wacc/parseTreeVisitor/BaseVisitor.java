@@ -308,11 +308,17 @@ public class BaseVisitor<ASTNode> extends BasicParserBaseVisitor<ASTNode> {
       BasicStatNode b = new BasicStatNode(StatTypeEnum.PRINTLN);
       b.addExpr((ExprNode) visitExpr(ctx.expr()));
       return (ASTNode) b;
-    } else if (ctx.IF() != null) {
+    } else if (ctx.IF() != null && visitStat(ctx.stat(1)) != null) {
+      //if with else
       return (ASTNode) new IfStatNode(
         (ExprNode) visitExpr(ctx.expr()),
         (StatNode) visitStat(ctx.stat(0)),
         (StatNode) visitStat(ctx.stat(1)));
+    } else if (ctx.IF() != null && visitStat(ctx.stat(1)) == null) {
+      //if without else
+      return (ASTNode) new IfStatNode(
+        (ExprNode) visitExpr(ctx.expr()),
+        (StatNode) visitStat(ctx.stat(0)));
     } else if (ctx.WHILE() != null) {
       return (ASTNode) new WhileStatNode(
         (ExprNode) visitExpr(ctx.expr()),
