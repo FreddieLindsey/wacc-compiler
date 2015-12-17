@@ -36,33 +36,42 @@ public class Main {
       i = System.in;
     }
 
-    BasicParser parser = parseInput(i);
+    String output = "";
+    try {
+       output = compile(i);
+    } catch (ExitRequestException e) {
+      System.out.println(e.toString());
+      System.exit(e.getExitCode());
+    }
+
+    // Save to file
+    FileWriter writer = new FileWriter(outputName.toString());
+    writer.write(output);
+    writer.close();
+  }
+
+  public static String compile(InputStream i) throws IOException, ExitRequestException {
+    BasicParser p = parseInput(i);
     i.close();
 
     engageMessageLock();
-    ParseTree parseTree = parser.program();
+    ParseTree parseTree = p.program();
     String output = baos.toString();
     releaseMessageLock();
 
     if (!output.equals("")) {
-      System.out.print("There were syntax errors in the supplied stream of input"
-        + "\n------------------------------\n");
-      printErrors(output);
-      System.exit(100);
+      throw new ExitRequestException(SYNTAX_EXIT, output);
     }
 
     ProgramNode prog = analyseFile(parseTree);
-    if (prog == null) System.exit(SYNTAX_EXIT);
+    if (prog == null) throw new ExitRequestException(SYNTAX_EXIT, "");
     boolean valid = prog.isSemanticallyValid();
-    if (!valid) System.exit(SEMANTIC_EXIT);
+    if (!valid) throw new ExitRequestException(SEMANTIC_EXIT, "");
 
     // Compile
     InstructionBlock programCode = prog.generateCode();
 
-    // Save to file
-    FileWriter writer = new FileWriter(outputName.toString());
-    writer.write(programCode.toString());
-    writer.close();
+    return programCode.toString();
   }
 
   public static BasicParser parseInput(InputStream i) throws IOException {
@@ -89,15 +98,6 @@ public class Main {
     System.setOut(default_);
   }
 
-  private static void printErrors(String out) {
-    String[] errors = out.split("\n");
-    int error_count = 1;
-    for (String error : errors) {
-      System.out.println("Error " + error_count + ":\t" + error);
-      error_count++;
-    }
-  }
-
   private static StringBuilder generateOutputName(String input) {
     StringBuilder outputName = new StringBuilder(input);
     int end = 0;
@@ -107,9 +107,5 @@ public class Main {
     outputName.setLength(end);
     outputName.append(".s");
     return new StringBuilder(outputName.substring(outputName.lastIndexOf("/") + 1));
-  }
-
-  public static String compile(String text) {
-    return "Code compiled";
   }
 }

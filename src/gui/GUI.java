@@ -1,14 +1,16 @@
 package gui;
 
+import wacc.ExitRequestException;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.IOException;
+import java.io.*;
 
 public class GUI {
 
-  private static final int WINDOW_WIDTH = 600;
+  private static final int WINDOW_WIDTH = 1000;
   private static final int WINDOW_HEIGHT = 600;
 
   public static void main(String[] args) {
@@ -18,12 +20,12 @@ public class GUI {
 
     JPanel windowItems = new JPanel();
 
-
     final Dimension fieldSize = new Dimension(WINDOW_WIDTH / 2 - 40, WINDOW_HEIGHT - 80);
-    final JTextField input = new JTextField("Please type your WACC here");
+
+    final JTextArea input = new JTextArea("Please type your WACC here");
     input.setPreferredSize(fieldSize);
 
-    final JTextField output = new JTextField("Output will appear here");
+    final JTextArea output = new JTextArea("Output will appear here");
     output.setPreferredSize(fieldSize);
 
     JButton compile = new JButton("Compile");
@@ -49,8 +51,14 @@ public class GUI {
     window.setVisible(true);
   }
 
-  private static void compileButton(JTextField input, JTextField output) throws IOException {
-    output.setText(wacc.Main.compile(input.getText()));
+  private static void compileButton(JTextArea input, JTextArea output) throws IOException {
+    byte[] bytes = input.getText().getBytes();
+    InputStream i = new ByteArrayInputStream(bytes);
+    try {
+      output.setText(wacc.Main.compile(i));
+    } catch (ExitRequestException|IOException e) {
+      output.setText(e.toString());
+    }
   }
 
 }
