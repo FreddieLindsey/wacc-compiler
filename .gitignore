@@ -3,6 +3,7 @@
 #ignore temp files
 *~
 output.txt
+.texpadtmp/
 
 #ignore pdf files (just keep source files)
 *.pdf
