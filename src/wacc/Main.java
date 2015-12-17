@@ -108,4 +108,8 @@ public class Main {
     outputName.append(".s");
     return new StringBuilder(outputName.substring(outputName.lastIndexOf("/") + 1));
   }
+
+  public static String compile(String text) {
+    return "Code compiled";
+  }
 }
