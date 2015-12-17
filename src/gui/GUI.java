@@ -22,11 +22,14 @@ public class GUI {
 
     final Dimension fieldSize = new Dimension(WINDOW_WIDTH / 2 - 40, WINDOW_HEIGHT - 80);
 
-    final JTextArea input = new JTextArea("Please type your WACC here");
-    input.setPreferredSize(fieldSize);
+    final JScrollPane scrollInput = new JScrollPane();
+    final JTextArea input = new GUITextArea("Please type your WACC here", fieldSize);
+    scrollInput.add(input);
 
-    final JTextArea output = new JTextArea("Output will appear here");
-    output.setPreferredSize(fieldSize);
+    final JScrollPane scrollOutput = new JScrollPane();
+    final JTextArea output = new GUITextArea("Output will appear here", fieldSize);
+    output.setEditable(false);
+    scrollOutput.add(output);
 
     JButton compile = new JButton("Compile");
     compile.setPreferredSize(new Dimension(WINDOW_WIDTH - 20, 20));
