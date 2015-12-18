@@ -53,6 +53,7 @@ public class GUI {
     window.getContentPane().add(windowItems);
 
     window.setVisible(true);
+    window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
   }
 
   private static void compileButton(JTextArea input, JTextArea output) throws IOException {
