@@ -1,7 +1,8 @@
 package wacc.ast;
 
 import wacc.ast.type.TypeNode;
-import wacc.backend.instruction.*;
+import wacc.backend.instruction.InstructionBlock;
+import wacc.backend.instruction.Register;
 
 import java.util.ArrayList;
 
@@ -18,8 +19,8 @@ public abstract class ExprNode extends ASTNode {
   }
 
   public int weight() {
-  	//useful for calculating which side to eval first in BinOp
-  	return 1;
+    //useful for calculating which side to eval first in BinOp
+    return 1;
   }
 
 }

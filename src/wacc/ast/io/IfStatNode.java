@@ -93,6 +93,6 @@ public class IfStatNode extends StatNode {
 
 
     return i;
-    }
-
   }
+
+}

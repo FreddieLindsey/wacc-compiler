@@ -188,7 +188,7 @@ public class BasicStatNode extends StatNode {
           if (expr instanceof UnOpNode) {
             UnOpNode expr_ = (UnOpNode) expr;
             UnaryOperator unop = expr_.getOperator();
-            switch(unop) {
+            switch (unop) {
               case NEG:
                 ExprNode expr__ = expr_.getExpr();
                 if (expr__ instanceof IntNode) {

@@ -1,14 +1,13 @@
 package wacc.ast.operator;
 
-import java.util.ArrayList;
-
 import wacc.ast.ExprNode;
 import wacc.ast.assign.AssignNode;
 import wacc.ast.type.ArrayTypeNode;
 import wacc.ast.type.TypeEnum;
 import wacc.ast.type.TypeNode;
-
 import wacc.backend.instruction.*;
+
+import java.util.ArrayList;
 
 public class UnOpNode extends AssignNode {
 
@@ -61,11 +60,6 @@ public class UnOpNode extends AssignNode {
     return semanticallyValid;
   }
 
-  public void setExpr(ExprNode expr) {
-    this.expr = expr;
-    expr.setParent(this);
-  }
-
   @Override
   public boolean validLeft() {
     return false;
@@ -84,7 +78,11 @@ public class UnOpNode extends AssignNode {
     return expr;
   }
 
-  
+  public void setExpr(ExprNode expr) {
+    this.expr = expr;
+    expr.setParent(this);
+  }
+
   public InstructionBlock generateCode(ArrayList<Register> regs) {
     InstructionBlock i = new InstructionBlock();
 
@@ -94,7 +92,7 @@ public class UnOpNode extends AssignNode {
 
     i.addAll(expr.generateCode(regs)); //leaves result of expr in r4
 
-    switch(op) {
+    switch (op) {
       case NOT:
 //    EOR r4, r4, #1
 
