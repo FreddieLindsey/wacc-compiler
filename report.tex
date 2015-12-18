@@ -143,7 +143,7 @@ After looking at the parse tree produced by ANTLR we noticed there were a number
 
 %An evaluation of your extensions to your WACC compiler. Youshould describe all of the language extensions, optimisations or other aspects that you have added to your compiler, including how these features can be accessed or viewed. You should also briefly discuss what future extensions you would like to add to your WACC compiler if you had more time.
 
-%subtitle: If without an else
+\subsection*{If without an else}
 Our first extension consists of a change to the standard $ IF $ statement included in the WACC language. As per the spec, the standard $ IF $ statement must have an $ else $ branch. However in practice, this might not always be needed. Although we can just have a $ Skip $ statement in the else branch to simulate not having one, this creates less readable code and removing the need for an else branch increases readability of code.
 
 %subtitle: Side effecting assigns (+=, -=, etc)
@@ -152,8 +152,10 @@ Our first extension consists of a change to the standard $ IF $ statement includ
 
 %subtitle: Constant string concatenation
 
-%------------------------------------------------
+\subsection*{A GUI for the compiler}
 
-\section*{Personal Reflections}
+Finally, we found that when we were learning the $ WACC $ language, something very important was to use the language to understand how it worked. There is no easier way to do this than compile the language into assembly code. It is at this point that the compiler is able to determine syntax errors, or semantic errors and report these back to the user.
+
+%------------------------------------------------
 
 \end{document}
