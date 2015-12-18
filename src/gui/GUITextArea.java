@@ -5,9 +5,8 @@ import java.awt.*;
 
 public class GUITextArea extends JTextArea {
 
-  public GUITextArea(String text, Dimension fieldSize) {
+  public GUITextArea(String text) {
     super(text);
-    this.setPreferredSize(fieldSize);
     this.setTabSize(2);
     this.setLineWrap(true);
   }
