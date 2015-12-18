@@ -6,7 +6,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.*;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 
 public class GUI {
 
@@ -15,21 +17,19 @@ public class GUI {
 
   public static void main(String[] args) {
     JFrame window = new JFrame("WACC Compiler");
+    window.setBounds(10, 10, 40, 40);
     window.setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
     window.setLocationRelativeTo(null);
 
     JPanel windowItems = new JPanel();
 
     final Dimension fieldSize = new Dimension(WINDOW_WIDTH / 2 - 40, WINDOW_HEIGHT - 80);
+    final JTextArea input = new GUITextArea("Please type your WACC here");
+    final GUIScrollPane scrollInput = new GUIScrollPane(input, fieldSize);
 
-    final JScrollPane scrollInput = new JScrollPane();
-    final JTextArea input = new GUITextArea("Please type your WACC here", fieldSize);
-    scrollInput.add(input);
-
-    final JScrollPane scrollOutput = new JScrollPane();
-    final JTextArea output = new GUITextArea("Output will appear here", fieldSize);
+    final JTextArea output = new GUITextArea("Output will appear here");
     output.setEditable(false);
-    scrollOutput.add(output);
+    final GUIScrollPane scrollOutput = new GUIScrollPane(output, fieldSize);
 
     JButton compile = new JButton("Compile");
     compile.setPreferredSize(new Dimension(WINDOW_WIDTH - 20, 20));
@@ -41,13 +41,14 @@ public class GUI {
           compileButton(input, output);
         } catch (IOException e_) {
           output.setText(e_.toString());
+          output.setCaretPosition(0);
         }
       }
     });
 
     windowItems.add(compile);
-    windowItems.add(input);
-    windowItems.add(output);
+    windowItems.add(scrollInput);
+    windowItems.add(scrollOutput);
 
     window.getContentPane().add(windowItems);
 
@@ -59,9 +60,10 @@ public class GUI {
     InputStream i = new ByteArrayInputStream(bytes);
     try {
       output.setText(wacc.Main.compile(i));
-    } catch (ExitRequestException|IOException e) {
+    } catch (ExitRequestException | IOException e) {
       output.setText(e.toString());
     }
+    output.setCaretPosition(0);
   }
 
 }
