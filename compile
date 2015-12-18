@@ -1,17 +1,30 @@
 #!/usr/bin/ruby
 # Ruby front-end for your compiler.
-if ARGV.length == 1
-    system("java -cp bin:lib/antlr-4.4-complete.jar wacc.Main #{ARGV[0]}")
-elsif ARGV.length == 2
-    system("java -cp bin:lib/antlr-4.4-complete.jar wacc.Main #{ARGV[0]} #{ARGV[1]}")
-end
-    if ($?.exitstatus != 0)
-      if ($?.exitstatus == 100)
-        print "There was a syntax error...\n"
-      end
-      if ($?.exitstatus == 200)
-        print "There was a semantic error...\n"
-      end
-      print "\nTried compiling #{ARGV[0]}\n\n"
-      exit $?.exitstatus
+
+args = ARGV
+gui = false
+args.each do |arg|
+    if arg == '-gui'
+        gui = true
+        break
     end
+end
+
+if gui
+    system("java -cp bin:lib/antlr-4.4-complete.jar gui.GUI")
+elsif args.length == 1
+    system("java -cp bin:lib/antlr-4.4-complete.jar wacc.Main #{args[0]}")
+elsif args.length == 2
+    system("java -cp bin:lib/antlr-4.4-complete.jar wacc.Main #{args[0]} #{args[1]}")
+end
+
+if ($?.exitstatus != 0)
+  if ($?.exitstatus == 100)
+    print "There was a syntax error...\n"
+  end
+  if ($?.exitstatus == 200)
+    print "There was a semantic error...\n"
+  end
+  print "\nTried compiling #{args[0]}\n\n"
+  exit $?.exitstatus
+end
