@@ -13,6 +13,8 @@ public class IfStatNode extends StatNode {
   private StatNode thenStat;
   private StatNode elseStat;
 
+  private boolean hasElse;
+
   public IfStatNode(ExprNode expr, StatNode thenStat, StatNode elseStat) {
     super();
     this.expr = expr;
@@ -21,6 +23,16 @@ public class IfStatNode extends StatNode {
     expr.setParent(this);
     thenStat.setParent(this);
     elseStat.setParent(this);
+    hasElse = true;
+  }
+
+  public IfStatNode(ExprNode expr, StatNode thenStat) {
+    // for when we dont have an else statement
+    this.expr = expr;
+    this.thenStat = thenStat;
+    expr.setParent(this);
+    thenStat.setParent(this);
+    hasElse = false;
   }
 
   public ExprNode getExpr() {
@@ -37,22 +49,36 @@ public class IfStatNode extends StatNode {
 
   @Override
   public boolean isSemanticallyValid() {
+
     semanticallyValid = expr.isSemanticallyValid()
-      && thenStat.isSemanticallyValid() && elseStat.isSemanticallyValid()
-      && expr.type().getType().equals(TypeEnum.BOOL);
+                    && thenStat.isSemanticallyValid()
+                    && expr.type().getType().equals(TypeEnum.BOOL);
+
+    if (hasElse) {
+      semanticallyValid &= elseStat.isSemanticallyValid();
+    }
+
     return semanticallyValid;
   }
 
   @Override
   public TypeNode returnType() {
-    TypeNode true_ = thenStat.returnType();
-    TypeNode false_ = elseStat.returnType();
-    return (true_ != null) ? true_ : false_;
+    if (hasElse) {
+      TypeNode true_ = thenStat.returnType();
+      TypeNode false_ = elseStat.returnType();
+      return (true_ != null) ? true_ : false_;
+    } else {
+      return thenStat.returnType();
+    }
   }
 
   @Override
   public boolean returns() {
-    return thenStat.returns() && elseStat.returns();
+    if (hasElse) {
+      return thenStat.returns() && elseStat.returns();
+    } else {
+      return thenStat.returns();
+    }
   }
 
   @Override
@@ -89,9 +115,11 @@ public class IfStatNode extends StatNode {
 
     i.add(thenStat.generateCode());
     i.add(new Label("else")); // TODO: placeholder string
-    i.add(elseStat.generateCode());
 
-
+    if (hasElse){
+      i.add(elseStat.generateCode());
+    }
+    
     return i;
   }
 

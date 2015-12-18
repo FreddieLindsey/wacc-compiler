@@ -23,6 +23,7 @@ stat    : SKIP
 		| PRINT expr
 		| PRINTLN expr
 		| IF expr THEN stat ELSE stat FI
+		| IF expr THEN stat FI
 		| WHILE expr DO stat DONE
 		| BEGIN stat END
 		| stat SEMI stat ;
