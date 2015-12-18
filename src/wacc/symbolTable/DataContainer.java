@@ -11,15 +11,15 @@ public class DataContainer {
     this.t = t;
   }
 
-  public void setAddressReference(AddressReference a) {
-    this.a = a;
-  }
-
   public TypeNode getTypeNode() {
     return t;
   }
 
   public AddressReference getAddressReference() {
     return a;
+  }
+
+  public void setAddressReference(AddressReference a) {
+    this.a = a;
   }
 }

@@ -10,10 +10,10 @@ import java.util.*;
 
 public class ProgramNode extends ASTNode {
 
-  private List<FuncNode> funcs;
-  private StatNode stat;
   public static List<StringDataMessage> messages = new ArrayList<>();
   public static Set<CallableMethod> static_methods_called = new HashSet<>();
+  private List<FuncNode> funcs;
+  private StatNode stat;
 
   public ProgramNode() {
     super();

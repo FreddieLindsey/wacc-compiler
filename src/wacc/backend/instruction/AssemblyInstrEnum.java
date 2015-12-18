@@ -23,7 +23,7 @@ public enum AssemblyInstrEnum {
   MLA, // Rd, Rm, Rs,Rn // Rd = (Rm * Rs) + Rn
 
   SMULL, // signed long multiply and multiply accumulate (32-bit by 32-bit, 64-bit accumulate or result).
-         // Op{cond}{S} RdLo, RdHi, Rm, Rs where RdLo, RdHi hold 64 bit result
+  // Op{cond}{S} RdLo, RdHi, Rm, Rs where RdLo, RdHi hold 64 bit result
 
 
   // COMPARISON

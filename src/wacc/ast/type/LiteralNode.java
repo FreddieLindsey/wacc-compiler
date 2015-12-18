@@ -19,7 +19,7 @@ public abstract class LiteralNode<T> extends AssignNode {
   public boolean validRight() {
     return true;
   }
-  
+
   // TODO: abstract method for returning immediate assembly values?
-  
+
 }

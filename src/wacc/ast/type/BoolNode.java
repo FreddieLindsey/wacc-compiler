@@ -1,8 +1,8 @@
 package wacc.ast.type;
 
-import java.util.ArrayList;
-
 import wacc.backend.instruction.*;
+
+import java.util.ArrayList;
 
 public class BoolNode extends LiteralNode<Boolean> {
 

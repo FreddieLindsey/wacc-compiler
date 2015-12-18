@@ -1,13 +1,13 @@
 package wacc.ast.operator;
 
-import java.util.ArrayList;
-
 import wacc.ast.ExprNode;
 import wacc.ast.IdentNode;
 import wacc.ast.assign.AssignNode;
 import wacc.ast.type.TypeEnum;
 import wacc.ast.type.TypeNode;
 import wacc.backend.instruction.*;
+
+import java.util.ArrayList;
 
 public class BinOpNode extends AssignNode {
 
@@ -136,34 +136,34 @@ public class BinOpNode extends AssignNode {
     }
 
     switch (op) {
-      case MUL: 
+      case MUL:
 //   SMULL r4, r5, r4, r5
 //   CMP r5, r4, ASR #31
 //   BLNE p_throw_overflow_error
 
-            args.add(regs.get(0));
-            args.add(regs.get(1));
-            args.add(regs.get(0));
-            args.add(regs.get(1));
+        args.add(regs.get(0));
+        args.add(regs.get(1));
+        args.add(regs.get(0));
+        args.add(regs.get(1));
 
-            i.add(new AssemblyInstr(AssemblyInstrEnum.SMULL,
-            AssemblyInstrCond.NO_CODE, args));
+        i.add(new AssemblyInstr(AssemblyInstrEnum.SMULL,
+          AssemblyInstrCond.NO_CODE, args));
 
-            args = new ArrayList<Arg>();
-            args.add(regs.get(1));
-            args.add(regs.get(0));
+        args = new ArrayList<Arg>();
+        args.add(regs.get(1));
+        args.add(regs.get(0));
 
-            args.add(new BarrelShift(BarrelShiftEnum.ASR, new Const(31, true)));
-            i.add(new AssemblyInstr(AssemblyInstrEnum.CMP,
-            AssemblyInstrCond.NO_CODE, args));
+        args.add(new BarrelShift(BarrelShiftEnum.ASR, new Const(31, true)));
+        i.add(new AssemblyInstr(AssemblyInstrEnum.CMP,
+          AssemblyInstrCond.NO_CODE, args));
 
-            args = new ArrayList<Arg>();
-            args.add(new Label("p_throw_overflow_error"));
-            i.add(new AssemblyInstr(AssemblyInstrEnum.BL,
-            AssemblyInstrCond.NE, args));
+        args = new ArrayList<Arg>();
+        args.add(new Label("p_throw_overflow_error"));
+        i.add(new AssemblyInstr(AssemblyInstrEnum.BL,
+          AssemblyInstrCond.NE, args));
 
-            break;
-      case DIV: 
+        break;
+      case DIV:
 
 //    MOV r0, r4
 //    MOV r1, r5
@@ -172,351 +172,352 @@ public class BinOpNode extends AssignNode {
 //    MOV r4, r0
 
 
-            args = new ArrayList<Arg>();
-            args.add(new Register(RegEnum.R0));
-            args.add(regs.get(0));
+        args = new ArrayList<Arg>();
+        args.add(new Register(RegEnum.R0));
+        args.add(regs.get(0));
 
-            i.add(new AssemblyInstr(AssemblyInstrEnum.MOV,
-            AssemblyInstrCond.NO_CODE, args));
+        i.add(new AssemblyInstr(AssemblyInstrEnum.MOV,
+          AssemblyInstrCond.NO_CODE, args));
 
-            args = new ArrayList<Arg>();
-            args.add(new Register(RegEnum.R1));
-            args.add(regs.get(1));
+        args = new ArrayList<Arg>();
+        args.add(new Register(RegEnum.R1));
+        args.add(regs.get(1));
 
-            i.add(new AssemblyInstr(AssemblyInstrEnum.MOV,
-            AssemblyInstrCond.NO_CODE, args));
+        i.add(new AssemblyInstr(AssemblyInstrEnum.MOV,
+          AssemblyInstrCond.NO_CODE, args));
 
-            args = new ArrayList<Arg>();
-            args.add(new Label("p_check_divide_by_zero"));
-            i.add(new AssemblyInstr(AssemblyInstrEnum.BL,
-            AssemblyInstrCond.NO_CODE, args));
+        args = new ArrayList<Arg>();
+        args.add(new Label("p_check_divide_by_zero"));
+        i.add(new AssemblyInstr(AssemblyInstrEnum.BL,
+          AssemblyInstrCond.NO_CODE, args));
 
-            args = new ArrayList<Arg>();
-            args.add(new Label("__aeabi_idiv"));
-            i.add(new AssemblyInstr(AssemblyInstrEnum.BL,
-            AssemblyInstrCond.NO_CODE, args));
+        args = new ArrayList<Arg>();
+        args.add(new Label("__aeabi_idiv"));
+        i.add(new AssemblyInstr(AssemblyInstrEnum.BL,
+          AssemblyInstrCond.NO_CODE, args));
 
-            args = new ArrayList<Arg>();
-            args.add(regs.get(0));
+        args = new ArrayList<Arg>();
+        args.add(regs.get(0));
 
-            args.add(new Register(RegEnum.R0));
-            i.add(new AssemblyInstr(AssemblyInstrEnum.MOV,
-            AssemblyInstrCond.NO_CODE, args));
+        args.add(new Register(RegEnum.R0));
+        i.add(new AssemblyInstr(AssemblyInstrEnum.MOV,
+          AssemblyInstrCond.NO_CODE, args));
 
-            break;
-      case MOD: 
+        break;
+      case MOD:
 
 //    MOV r0, r4
 //    MOV r1, r5
 //    BL p_check_divide_by_zero
 //    BL __aeabi_idivmod
 //    MOV r4, r1
-      //Apologies for slighty WET code
+        //Apologies for slighty WET code
 
-            args = new ArrayList<Arg>();
-            args.add(new Register(RegEnum.R0));
-            args.add(regs.get(0));
+        args = new ArrayList<Arg>();
+        args.add(new Register(RegEnum.R0));
+        args.add(regs.get(0));
 
-            i.add(new AssemblyInstr(AssemblyInstrEnum.MOV,
-            AssemblyInstrCond.NO_CODE, args));
+        i.add(new AssemblyInstr(AssemblyInstrEnum.MOV,
+          AssemblyInstrCond.NO_CODE, args));
 
-            args = new ArrayList<Arg>();
-            args.add(new Register(RegEnum.R1));
-            args.add(regs.get(1));
+        args = new ArrayList<Arg>();
+        args.add(new Register(RegEnum.R1));
+        args.add(regs.get(1));
 
-            i.add(new AssemblyInstr(AssemblyInstrEnum.MOV,
-            AssemblyInstrCond.NO_CODE, args));
+        i.add(new AssemblyInstr(AssemblyInstrEnum.MOV,
+          AssemblyInstrCond.NO_CODE, args));
 
-            args = new ArrayList<Arg>();
-            args.add(new Label("p_check_divide_by_zero"));
-            i.add(new AssemblyInstr(AssemblyInstrEnum.BL,
-            AssemblyInstrCond.NO_CODE, args));
+        args = new ArrayList<Arg>();
+        args.add(new Label("p_check_divide_by_zero"));
+        i.add(new AssemblyInstr(AssemblyInstrEnum.BL,
+          AssemblyInstrCond.NO_CODE, args));
 
-            args = new ArrayList<Arg>();
-            args.add(new Label("__aeabi_idivmod"));
-            i.add(new AssemblyInstr(AssemblyInstrEnum.BL,
-            AssemblyInstrCond.NO_CODE, args));
+        args = new ArrayList<Arg>();
+        args.add(new Label("__aeabi_idivmod"));
+        i.add(new AssemblyInstr(AssemblyInstrEnum.BL,
+          AssemblyInstrCond.NO_CODE, args));
 
-            args = new ArrayList<Arg>();
-            args.add(regs.get(0));
+        args = new ArrayList<Arg>();
+        args.add(regs.get(0));
 
-            args.add(new Register(RegEnum.R1));
-            i.add(new AssemblyInstr(AssemblyInstrEnum.MOV,
-            AssemblyInstrCond.NO_CODE, args));
+        args.add(new Register(RegEnum.R1));
+        i.add(new AssemblyInstr(AssemblyInstrEnum.MOV,
+          AssemblyInstrCond.NO_CODE, args));
 
-      break;
-      case ADD: 
+        break;
+      case ADD:
 
 //   ADDS r4, r4, r5
 //   BLVS p_throw_overflow_error
 
-      args = new ArrayList<Arg>();
-      args.add(regs.get(0));
-      args.add(regs.get(0));
-      args.add(regs.get(1));
+        args = new ArrayList<Arg>();
+        args.add(regs.get(0));
+        args.add(regs.get(0));
+        args.add(regs.get(1));
 
-      i.add(new AssemblyInstr(AssemblyInstrEnum.ADD,
-            AssemblyInstrCond.S, args)); 
+        i.add(new AssemblyInstr(AssemblyInstrEnum.ADD,
+          AssemblyInstrCond.S, args));
 
-      args = new ArrayList<Arg>();
-      args.add(new Label("p_throw_overflow_error"));
-      i.add(new AssemblyInstr(AssemblyInstrEnum.BL,
-            AssemblyInstrCond.VS, args)); 
+        args = new ArrayList<Arg>();
+        args.add(new Label("p_throw_overflow_error"));
+        i.add(new AssemblyInstr(AssemblyInstrEnum.BL,
+          AssemblyInstrCond.VS, args));
 
-      break;
-      case SUB: 
+        break;
+      case SUB:
 
 //   SUBS r4, r4, r5
 //   BLVS p_throw_overflow_error
 
-      args = new ArrayList<Arg>();
-      args.add(regs.get(0));
-      args.add(regs.get(0));
-      args.add(regs.get(1));
-      i.add(new AssemblyInstr(AssemblyInstrEnum.SUB,
+        args = new ArrayList<Arg>();
+        args.add(regs.get(0));
+        args.add(regs.get(0));
+        args.add(regs.get(1));
+        i.add(new AssemblyInstr(AssemblyInstrEnum.SUB,
 
-            AssemblyInstrCond.S, args)); 
+          AssemblyInstrCond.S, args));
 
-      args = new ArrayList<Arg>();
-      args.add(new Label("p_throw_overflow_error"));
-      i.add(new AssemblyInstr(AssemblyInstrEnum.BL,
-            AssemblyInstrCond.VS, args)); 
+        args = new ArrayList<Arg>();
+        args.add(new Label("p_throw_overflow_error"));
+        i.add(new AssemblyInstr(AssemblyInstrEnum.BL,
+          AssemblyInstrCond.VS, args));
 
 
-      break;
-      case GT: 
+        break;
+      case GT:
 
 //    CMP r4, r5
 //    MOVGT r4, #1
 //    MOVLE r4, #0
 
-      args = new ArrayList<Arg>();
-      args.add(regs.get(0));
-      args.add(regs.get(1));
-      i.add(new AssemblyInstr(AssemblyInstrEnum.CMP,
-            AssemblyInstrCond.NO_CODE, args)); 
+        args = new ArrayList<Arg>();
+        args.add(regs.get(0));
+        args.add(regs.get(1));
+        i.add(new AssemblyInstr(AssemblyInstrEnum.CMP,
+          AssemblyInstrCond.NO_CODE, args));
 
-      args = new ArrayList<Arg>();
-      args.add(regs.get(0));
-      args.add(new Const(1, true));
+        args = new ArrayList<Arg>();
+        args.add(regs.get(0));
+        args.add(new Const(1, true));
 
-      i.add(new AssemblyInstr(AssemblyInstrEnum.MOV,
-            AssemblyInstrCond.GT, args)); 
+        i.add(new AssemblyInstr(AssemblyInstrEnum.MOV,
+          AssemblyInstrCond.GT, args));
 
-      args = new ArrayList<Arg>();
-      args.add(regs.get(0));
-      args.add(new Const(0, true));
+        args = new ArrayList<Arg>();
+        args.add(regs.get(0));
+        args.add(new Const(0, true));
 
-      i.add(new AssemblyInstr(AssemblyInstrEnum.MOV,
-            AssemblyInstrCond.LE, args)); 
+        i.add(new AssemblyInstr(AssemblyInstrEnum.MOV,
+          AssemblyInstrCond.LE, args));
 
-      break;
-      case GTE: 
+        break;
+      case GTE:
 
 //    CMP r4, r5
 //    MOVGE r4, #1
 //    MOVLT r4, #0
 
-      args = new ArrayList<Arg>();
-      args.add(regs.get(0));
-      args.add(regs.get(1));
-      i.add(new AssemblyInstr(AssemblyInstrEnum.CMP,
-            AssemblyInstrCond.NO_CODE, args)); 
+        args = new ArrayList<Arg>();
+        args.add(regs.get(0));
+        args.add(regs.get(1));
+        i.add(new AssemblyInstr(AssemblyInstrEnum.CMP,
+          AssemblyInstrCond.NO_CODE, args));
 
-      args = new ArrayList<Arg>();
-      args.add(regs.get(0));
-      args.add(new Const(1, true));
+        args = new ArrayList<Arg>();
+        args.add(regs.get(0));
+        args.add(new Const(1, true));
 
-      i.add(new AssemblyInstr(AssemblyInstrEnum.MOV,
-            AssemblyInstrCond.GE, args)); 
+        i.add(new AssemblyInstr(AssemblyInstrEnum.MOV,
+          AssemblyInstrCond.GE, args));
 
-      args = new ArrayList<Arg>();
-      args.add(regs.get(0));
-      args.add(new Const(0, true));
-      i.add(new AssemblyInstr(AssemblyInstrEnum.MOV,
-            AssemblyInstrCond.LT, args)); 
+        args = new ArrayList<Arg>();
+        args.add(regs.get(0));
+        args.add(new Const(0, true));
+        i.add(new AssemblyInstr(AssemblyInstrEnum.MOV,
+          AssemblyInstrCond.LT, args));
 
-      break;
-      case LT: 
+        break;
+      case LT:
 
 //    CMP r4, r5
 //    MOVLT r4, #1
 //    MOVGE r4, #0
 
-      args = new ArrayList<Arg>();
-      args.add(regs.get(0));
-      args.add(regs.get(1));
-      i.add(new AssemblyInstr(AssemblyInstrEnum.CMP,
-            AssemblyInstrCond.NO_CODE, args)); 
+        args = new ArrayList<Arg>();
+        args.add(regs.get(0));
+        args.add(regs.get(1));
+        i.add(new AssemblyInstr(AssemblyInstrEnum.CMP,
+          AssemblyInstrCond.NO_CODE, args));
 
-      args = new ArrayList<Arg>();
-      args.add(regs.get(0));
-      args.add(new Const(1, true));
-      i.add(new AssemblyInstr(AssemblyInstrEnum.MOV,
-            AssemblyInstrCond.LT, args)); 
+        args = new ArrayList<Arg>();
+        args.add(regs.get(0));
+        args.add(new Const(1, true));
+        i.add(new AssemblyInstr(AssemblyInstrEnum.MOV,
+          AssemblyInstrCond.LT, args));
 
-      args = new ArrayList<Arg>();
-      args.add(regs.get(0));
-      args.add(new Const(0, true));
-      i.add(new AssemblyInstr(AssemblyInstrEnum.MOV,
-            AssemblyInstrCond.GE, args)); 
+        args = new ArrayList<Arg>();
+        args.add(regs.get(0));
+        args.add(new Const(0, true));
+        i.add(new AssemblyInstr(AssemblyInstrEnum.MOV,
+          AssemblyInstrCond.GE, args));
 
-      break;
-      case LTE: 
+        break;
+      case LTE:
 
 //    CMP r4, r5
 //    MOVLE r4, #1
 //    MOVGT r4, #0
 
-      args = new ArrayList<Arg>();
-      args.add(regs.get(0));
-      args.add(regs.get(1));
-      i.add(new AssemblyInstr(AssemblyInstrEnum.CMP,
-            AssemblyInstrCond.NO_CODE, args)); 
-
-      args = new ArrayList<Arg>();
-      args.add(regs.get(0));
-      args.add(new Const(1, true));
-      i.add(new AssemblyInstr(AssemblyInstrEnum.MOV,
-            AssemblyInstrCond.LE, args)); 
-
-      args = new ArrayList<Arg>();
-      args.add(regs.get(0));
-      args.add(new Const(0, true));
-      i.add(new AssemblyInstr(AssemblyInstrEnum.MOV,
-            AssemblyInstrCond.GT, args)); 
-
-      break;
-      case EQ: 
-
-      if (lhs.type().equals(new TypeNode(TypeEnum.ARR))
-       || lhs.type().equals(new TypeNode(TypeEnum.PAIR))) {
-//      LDR r4, [sp, #5]
-//      LDR r5, [sp, #1]
-
-        ArrayList<Arg> args2;
+        args = new ArrayList<Arg>();
+        args.add(regs.get(0));
+        args.add(regs.get(1));
+        i.add(new AssemblyInstr(AssemblyInstrEnum.CMP,
+          AssemblyInstrCond.NO_CODE, args));
 
         args = new ArrayList<Arg>();
         args.add(regs.get(0));
-        args2 = new ArrayList<Arg>();
-        args2.add(new Register(RegEnum.SP));
-        args2.add(new Const(5, true)); // needs generalising?
-        args.add(new MemoryAccess(args2));
-        i.add(new AssemblyInstr(AssemblyInstrEnum.LDR,
-              AssemblyInstrCond.NO_CODE, args));    
-
+        args.add(new Const(1, true));
+        i.add(new AssemblyInstr(AssemblyInstrEnum.MOV,
+          AssemblyInstrCond.LE, args));
 
         args = new ArrayList<Arg>();
-        args.add(regs.get(1));
-        args2 = new ArrayList<Arg>();
-        args2.add(new Register(RegEnum.SP));
-        args2.add(new Const(1, true)); // needs generalising?
-        args.add(new MemoryAccess(args2));
-        i.add(new AssemblyInstr(AssemblyInstrEnum.LDR,
-              AssemblyInstrCond.NO_CODE, args));
-        
+        args.add(regs.get(0));
+        args.add(new Const(0, true));
+        i.add(new AssemblyInstr(AssemblyInstrEnum.MOV,
+          AssemblyInstrCond.GT, args));
 
-      }
+        break;
+      case EQ:
+
+        if (lhs.type().equals(new TypeNode(TypeEnum.ARR))
+          || lhs.type().equals(new TypeNode(TypeEnum.PAIR))) {
+//      LDR r4, [sp, #5]
+//      LDR r5, [sp, #1]
+
+          ArrayList<Arg> args2;
+
+          args = new ArrayList<Arg>();
+          args.add(regs.get(0));
+          args2 = new ArrayList<Arg>();
+          args2.add(new Register(RegEnum.SP));
+          args2.add(new Const(5, true)); // needs generalising?
+          args.add(new MemoryAccess(args2));
+          i.add(new AssemblyInstr(AssemblyInstrEnum.LDR,
+            AssemblyInstrCond.NO_CODE, args));
+
+
+          args = new ArrayList<Arg>();
+          args.add(regs.get(1));
+          args2 = new ArrayList<Arg>();
+          args2.add(new Register(RegEnum.SP));
+          args2.add(new Const(1, true)); // needs generalising?
+          args.add(new MemoryAccess(args2));
+          i.add(new AssemblyInstr(AssemblyInstrEnum.LDR,
+            AssemblyInstrCond.NO_CODE, args));
+
+
+        }
 
 //   CMP r4, r5
 //   MOVEQ r4, #1
 //   MOVNE r4, #0
 
-      args = new ArrayList<Arg>();
-      args.add(regs.get(0));
-      args.add(regs.get(1));
-      i.add(new AssemblyInstr(AssemblyInstrEnum.CMP,
-            AssemblyInstrCond.NO_CODE, args)); 
+        args = new ArrayList<Arg>();
+        args.add(regs.get(0));
+        args.add(regs.get(1));
+        i.add(new AssemblyInstr(AssemblyInstrEnum.CMP,
+          AssemblyInstrCond.NO_CODE, args));
 
-
-      args = new ArrayList<Arg>();
-      args.add(regs.get(0));
-      args.add(new Const(1, true));
-      i.add(new AssemblyInstr(AssemblyInstrEnum.MOV,
-            AssemblyInstrCond.EQ, args)); 
-
-      args = new ArrayList<Arg>();
-      args.add(regs.get(0));
-      args.add(new Const(0, true));
-      i.add(new AssemblyInstr(AssemblyInstrEnum.MOV,
-            AssemblyInstrCond.NE, args)); 
-
-
-      break;
-      case NEQ: 
-
-      if (lhs.type().equals(new TypeNode(TypeEnum.ARR))
-       || lhs.type().equals(new TypeNode(TypeEnum.PAIR))) {
-//      LDR r4, [sp, #5]
-//      LDR r5, [sp, #1]
-
-        ArrayList<Arg> args2;
 
         args = new ArrayList<Arg>();
         args.add(regs.get(0));
-        args2 = new ArrayList<Arg>();
-        args2.add(new Register(RegEnum.SP));
-        args2.add(new Const(5, true)); // needs generalising?
-        args.add(new MemoryAccess(args2));
-        i.add(new AssemblyInstr(AssemblyInstrEnum.LDR,
-              AssemblyInstrCond.NO_CODE, args));    
-
+        args.add(new Const(1, true));
+        i.add(new AssemblyInstr(AssemblyInstrEnum.MOV,
+          AssemblyInstrCond.EQ, args));
 
         args = new ArrayList<Arg>();
-        args.add(regs.get(1));
-        args2 = new ArrayList<Arg>();
-        args2.add(new Register(RegEnum.SP));
-        args2.add(new Const(1, true)); // needs generalising?
-        args.add(new MemoryAccess(args2));
-        i.add(new AssemblyInstr(AssemblyInstrEnum.LDR,
-              AssemblyInstrCond.NO_CODE, args));
-          
+        args.add(regs.get(0));
+        args.add(new Const(0, true));
+        i.add(new AssemblyInstr(AssemblyInstrEnum.MOV,
+          AssemblyInstrCond.NE, args));
 
-      }
+
+        break;
+      case NEQ:
+
+        if (lhs.type().equals(new TypeNode(TypeEnum.ARR))
+          || lhs.type().equals(new TypeNode(TypeEnum.PAIR))) {
+//      LDR r4, [sp, #5]
+//      LDR r5, [sp, #1]
+
+          ArrayList<Arg> args2;
+
+          args = new ArrayList<Arg>();
+          args.add(regs.get(0));
+          args2 = new ArrayList<Arg>();
+          args2.add(new Register(RegEnum.SP));
+          args2.add(new Const(5, true)); // needs generalising?
+          args.add(new MemoryAccess(args2));
+          i.add(new AssemblyInstr(AssemblyInstrEnum.LDR,
+            AssemblyInstrCond.NO_CODE, args));
+
+
+          args = new ArrayList<Arg>();
+          args.add(regs.get(1));
+          args2 = new ArrayList<Arg>();
+          args2.add(new Register(RegEnum.SP));
+          args2.add(new Const(1, true)); // needs generalising?
+          args.add(new MemoryAccess(args2));
+          i.add(new AssemblyInstr(AssemblyInstrEnum.LDR,
+            AssemblyInstrCond.NO_CODE, args));
+
+
+        }
 
 //    CMP r4, r5
 //    MOVNE r4, #1
 //    MOVEQ r4, #0
 
-      args = new ArrayList<Arg>();
-      args.add(regs.get(0));
-      args.add(regs.get(1));
-      i.add(new AssemblyInstr(AssemblyInstrEnum.CMP,
-            AssemblyInstrCond.NO_CODE, args)); 
+        args = new ArrayList<Arg>();
+        args.add(regs.get(0));
+        args.add(regs.get(1));
+        i.add(new AssemblyInstr(AssemblyInstrEnum.CMP,
+          AssemblyInstrCond.NO_CODE, args));
 
-      args = new ArrayList<Arg>();
-      args.add(regs.get(0));
-      args.add(new Const(1, true));
-      i.add(new AssemblyInstr(AssemblyInstrEnum.MOV,
-            AssemblyInstrCond.NE, args)); 
+        args = new ArrayList<Arg>();
+        args.add(regs.get(0));
+        args.add(new Const(1, true));
+        i.add(new AssemblyInstr(AssemblyInstrEnum.MOV,
+          AssemblyInstrCond.NE, args));
 
-      args = new ArrayList<Arg>();
-      args.add(regs.get(0));
-      args.add(new Const(0, true));
-      i.add(new AssemblyInstr(AssemblyInstrEnum.MOV,
-            AssemblyInstrCond.EQ, args)); 
+        args = new ArrayList<Arg>();
+        args.add(regs.get(0));
+        args.add(new Const(0, true));
+        i.add(new AssemblyInstr(AssemblyInstrEnum.MOV,
+          AssemblyInstrCond.EQ, args));
 
-      break;
-      case AND:       
+        break;
+      case AND:
 //    AND r4, r4, r5
 
-      args = new ArrayList<Arg>();
-      args.add(regs.get(0));
-      args.add(regs.get(0));
-      args.add(regs.get(1));
-      i.add(new AssemblyInstr(AssemblyInstrEnum.AND,
-            AssemblyInstrCond.NO_CODE, args));  break;
-      case OR: 
+        args = new ArrayList<Arg>();
+        args.add(regs.get(0));
+        args.add(regs.get(0));
+        args.add(regs.get(1));
+        i.add(new AssemblyInstr(AssemblyInstrEnum.AND,
+          AssemblyInstrCond.NO_CODE, args));
+        break;
+      case OR:
 //    ORR r4, r4, r5
 
-      args = new ArrayList<Arg>();
-      args.add(regs.get(0));
-      args.add(regs.get(0));
-      args.add(regs.get(1));
-      i.add(new AssemblyInstr(AssemblyInstrEnum.ORR,
-            AssemblyInstrCond.NO_CODE, args)); 
+        args = new ArrayList<Arg>();
+        args.add(regs.get(0));
+        args.add(regs.get(0));
+        args.add(regs.get(1));
+        i.add(new AssemblyInstr(AssemblyInstrEnum.ORR,
+          AssemblyInstrCond.NO_CODE, args));
 
-      break;
+        break;
     }
 
     return i;

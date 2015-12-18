@@ -18,7 +18,7 @@ public enum CallableMethod {
   P_FREE_PAIR;
 
   public InstructionBlock generateCode() {
-    switch(this) {
+    switch (this) {
       case P_PRINT_STRING:
         return p_print_string(getMessageLabel());
       case P_PRINT_LN:
@@ -40,7 +40,7 @@ public enum CallableMethod {
   }
 
   public StringDataMessage message() {
-    switch(this) {
+    switch (this) {
       case P_PRINT_STRING:
         return new StringDataMessage(ProgramNode.messages.size() + this.ordinal(),
           "%.*s\0");
@@ -68,7 +68,7 @@ public enum CallableMethod {
     }
     return null;
   }
-  
+
   private String getMessageLabel() {
     return "msg_" + String.valueOf(ProgramNode.messages.size() + this.ordinal());
   }
