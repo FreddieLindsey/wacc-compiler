@@ -131,7 +131,15 @@ Our first extension consists of a change to the standard $ IF $ statement includ
 
 \subsection*{A GUI for the compiler}
 
-Finally, we found that when we were learning the $ WACC $ language, something very important was to use the language to understand how it worked. There is no easier way to do this than compile the language into assembly code. It is at this point that the compiler is able to determine syntax errors, or semantic errors and report these back to the user.
+Finally, we found that when we were learning the $ WACC $ language, something very important was to use the language to understand how it worked. There is no easier way to do this than compile the language into assembly code. It is at this point that the compiler is able to determine syntax errors, or semantic errors and report these back to the user. \\
+
+To use the GUI interface to the compiler that we built, the user runs the following command: \\
+
+\begin{math}
+\texttt{./compile -gui}
+\end{math} \\
+
+A window will load that allows the user to enter code that follows the WACC language specification. When ready, the user can click the compile button and see the output, should it be available, or errors that prevented output, should it not be available.
 
 %------------------------------------------------
 
